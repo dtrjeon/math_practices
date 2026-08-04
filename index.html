@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전주영 학습 기록판</title>
+<style>
+  :root{
+    --paper:#f6f4ee;
+    --ink:#20242b;
+    --rule:#d9d3c4;
+    --accent:#1f6f5c;
+    --accent-soft:#e3efe9;
+    --num:#8a8474;
+    --sheet:#fffdf8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  header{
+    max-width:900px;
+    margin:0 auto;
+    padding:48px 20px 20px;
+    border-bottom:2px solid var(--ink);
+  }
+  .kicker{
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--num);
+    margin-bottom:8px;
+    font-weight:700;
+  }
+  h1{
+    font-size:30px;
+    margin:0 0 8px;
+    font-weight:800;
+  }
+  .sub{
+    font-size:14px;
+    color:#555;
+  }
+
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:32px 20px 80px;
+  }
+
+  .unit-label{
+    font-size:12px;
+    font-weight:800;
+    color:var(--num);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin:32px 0 12px;
+  }
+  .unit-label:first-child{ margin-top:0; }
+
+  .card{
+    background:var(--sheet);
+    border:1px solid var(--rule);
+    border-radius:14px;
+    padding:22px 24px;
+    margin-bottom:14px;
+    box-shadow:0 2px 8px rgba(32,36,43,0.04);
+  }
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .card-title{
+    font-size:17px;
+    font-weight:800;
+  }
+  .card-meta{
+    font-size:12.5px;
+    color:var(--num);
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:4px;
+  }
+  .status-pill{
+    font-size:11px;
+    font-weight:700;
+    padding:2px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .status-ok{ background:var(--accent-soft); color:var(--accent); }
+  .status-todo{ background:#f2ecd8; color:#8a6d1f; }
+
+  .card-actions{
+    display:flex;
+    gap:8px;
+    margin-top:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:700;
+    text-decoration:none;
+    display:inline-block;
+    padding:9px 18px;
+    border-radius:999px;
+    border:1.5px solid var(--rule);
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:#fff;
+    border-color:var(--ink);
+  }
+  .btn-primary:hover{ opacity:0.9; }
+  .btn-secondary{
+    background:#fff;
+    color:var(--ink);
+  }
+  .btn-secondary:hover{ border-color:var(--num); }
+  .btn-disabled{
+    background:#efece2;
+    color:#b3ab97;
+    border-color:transparent;
+    cursor:default;
+    pointer-events:none;
+  }
+
+  .last-run{
+    font-size:12px;
+    color:var(--accent);
+    font-weight:700;
+    margin-top:6px;
+  }
+  .last-run.none{ color:var(--num); font-weight:400; }
+
+  .board-section{
+    margin-top:8px;
+  }
+  .board-card{
+    background:var(--sheet);
+    border:1px solid var(--rule);
+    border-radius:14px;
+    padding:20px 22px;
+    box-shadow:0 2px 8px rgba(32,36,43,0.04);
+  }
+  .board-status{
+    font-size:13px;
+    color:var(--num);
+  }
+  .board-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+  }
+  .board-table th{
+    text-align:left;
+    font-size:11px;
+    font-weight:700;
+    color:var(--num);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    padding:6px 8px;
+    border-bottom:2px solid var(--ink);
+  }
+  .board-table td{
+    padding:9px 8px;
+    border-bottom:1px solid var(--rule);
+    vertical-align:top;
+  }
+  .board-table tr:last-child td{ border-bottom:none; }
+  .board-worksheet{ font-weight:700; }
+  .board-score{ font-variant-numeric:tabular-nums; }
+  .board-score.full{ color:var(--accent); font-weight:700; }
+  .board-wrong{ color:var(--num); font-size:12.5px; }
+
+  .publisher-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+    margin-top:10px;
+  }
+  .publisher-table th{
+    text-align:left;
+    font-size:11px;
+    font-weight:700;
+    color:var(--num);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    padding:6px 8px;
+    border-bottom:2px solid var(--ink);
+  }
+  .publisher-table td{
+    padding:9px 8px;
+    border-bottom:1px solid var(--rule);
+  }
+  .publisher-table tr:last-child td{ border-bottom:none; }
+  .publisher-table td.blank{ color:var(--num); font-style:italic; }
+  .roadmap-link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .roadmap-link p{
+    margin:4px 0 0;
+    font-size:13px;
+    color:#555;
+  }
+
+  footer{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 20px 50px;
+    font-size:12px;
+    color:var(--num);
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">전주영 · 고등 수학 학습 기록판</div>
+  <h1>문제지 모음</h1>
+  <div class="sub">단원별로 학생 풀이 / 검토용 문제지를 모아뒀어요</div>
+</header>
+
+<main>
+
+  <div class="unit-label">학교별 교재 출판사</div>
+  <div class="card">
+    <table class="publisher-table">
+      <thead>
+        <tr><th>학교</th><th>과목</th><th>출판사</th><th>저자</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>신봉고</td><td>공통수학1·2</td><td>천재교과서</td><td>전인태</td></tr>
+        <tr><td>홍천고</td><td>공통수학1·2</td><td>동아출판</td><td>고호경</td></tr>
+        <tr><td>수지고</td><td>-</td><td class="blank">확인 중</td><td class="blank">확인 중</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="unit-label">진학 로드맵</div>
+  <div class="card">
+    <div class="roadmap-link">
+      <div>
+        <div class="card-title">화학공학과 진학 수학 로드맵</div>
+        <p>목표 대학·학교별 교재 비교·시험범위 정리 자료</p>
+      </div>
+      <a class="btn btn-secondary" href="roadmap.html">로드맵 보기</a>
+    </div>
+  </div>
+
+  <div class="unit-label">학습 기록판</div>
+  <div class="board-section">
+    <div class="board-card">
+      <div class="board-status" id="boardStatus">기록 불러오는 중...</div>
+      <table class="board-table" id="boardTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>문제지</th>
+            <th>점수</th>
+            <th>걸린시간</th>
+            <th>오답 번호</th>
+          </tr>
+        </thead>
+        <tbody id="boardBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="unit-label">2.1 복소수</div>
+  <div class="card">
+    <div class="card-top">
+      <div>
+        <div class="card-title">복소수 (5.6)</div>
+        <div class="card-meta"><span>전체 30문제 · 7페이지</span><span>29/30 정답</span></div>
+        <div class="last-run none" id="lastRun-complex-5.6">최근 풀이 기록 없음</div>
+      </div>
+      <span class="status-pill status-ok">채점 완료</span>
+    </div>
+    <div class="card-actions">
+      <a class="btn btn-primary" href="worksheets/complex-5-6-practice.html">학생 풀이 시작</a>
+      <a class="btn btn-secondary" href="worksheets/complex-5-6-review.html">검토용 보기</a>
+    </div>
+  </div>
+
+  <div class="unit-label">1.1~1.3 다항식의 연산 · 항등식과 나머지정리 · 인수분해</div>
+  <div class="card">
+    <div class="card-top">
+      <div>
+        <div class="card-title">다항식 인수분해 기본 (4.30) 복습</div>
+        <div class="card-meta"><span>전체 50문제 · 9페이지</span><span>50/50 정답</span></div>
+        <div class="last-run none" id="lastRun-polynomial-4.30">최근 풀이 기록 없음</div>
+      </div>
+      <span class="status-pill status-ok">채점 완료</span>
+    </div>
+    <div class="card-actions">
+      <a class="btn btn-primary" href="worksheets/polynomial-4-30-practice.html">학생 풀이 시작</a>
+      <a class="btn btn-secondary" href="worksheets/polynomial-4-30-review.html">검토용 보기</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  새 문제지는 채팅에서 사진을 올리면 채점 후 이 목록에 추가돼요
+</footer>
+
+<script>
+  // Apps Script 배포 후 나온 웹 앱 URL로 교체하세요 (worksheets 파일들과 동일한 URL)
+  const SHEET_WEBHOOK_URL = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+  // worksheetId → 문제지 이름 / 카드 그룹
+  const WORKSHEET_META = {
+    'complex-5.6-student':   { label:'복소수 (5.6) · 학생풀이', group:'complex-5.6' },
+    'complex-5.6-review':    { label:'복소수 (5.6) · 검토용',   group:'complex-5.6' },
+    'polynomial-4.30-student':{ label:'다항식 (4.30) · 학생풀이', group:'polynomial-4.30' },
+    'polynomial-4.30-review': { label:'다항식 (4.30) · 검토용',   group:'polynomial-4.30' }
+  };
+
+  function fmtDate(iso){
+    const d = new Date(iso);
+    if(isNaN(d.getTime())) return iso;
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const dd = String(d.getDate()).padStart(2,'0');
+    const hh = String(d.getHours()).padStart(2,'0');
+    const mi = String(d.getMinutes()).padStart(2,'0');
+    return `${d.getFullYear()}.${mm}.${dd} ${hh}:${mi}`;
+  }
+
+  function isFullScore(scoreStr){
+    const m = String(scoreStr).match(/(\d+)\s*\/\s*(\d+)/);
+    if(!m) return false;
+    return m[1] === m[2];
+  }
+
+  async function loadBoard(){
+    const statusEl = document.getElementById('boardStatus');
+    const table = document.getElementById('boardTable');
+    const body = document.getElementById('boardBody');
+
+    if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0){
+      statusEl.textContent = '⚠️ 기록 저장 서버가 아직 연결되지 않았어요 (관리자 설정 필요)';
+      return;
+    }
+
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL + '?action=list');
+      const records = await res.json();
+      if(!records || records.length === 0){
+        statusEl.textContent = '아직 풀이 기록이 없어요. 문제지를 풀고 종료하면 여기 쌓여요.';
+        return;
+      }
+      records.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+      statusEl.style.display = 'none';
+      table.style.display = 'table';
+      body.innerHTML = records.map(r => {
+        const meta = WORKSHEET_META[r.worksheetId] || { label: r.worksheetId, group:null };
+        const full = isFullScore(r.score);
+        return `<tr>
+          <td>${fmtDate(r.date)}</td>
+          <td class="board-worksheet">${meta.label}</td>
+          <td class="board-score${full?' full':''}">${r.score}</td>
+          <td>${r.timeTaken || '-'}</td>
+          <td class="board-wrong">${r.wrongNums ? r.wrongNums : '없음'}</td>
+        </tr>`;
+      }).join('');
+
+      // 카드별 "최근 풀이" 갱신
+      const latestByGroup = {};
+      records.forEach(r => {
+        const meta = WORKSHEET_META[r.worksheetId];
+        if(!meta || !meta.group) return;
+        if(!latestByGroup[meta.group] || new Date(r.date) > new Date(latestByGroup[meta.group].date)){
+          latestByGroup[meta.group] = r;
+        }
+      });
+      Object.keys(latestByGroup).forEach(group => {
+        const el = document.getElementById('lastRun-' + group);
+        if(!el) return;
+        const r = latestByGroup[group];
+        el.textContent = `최근 풀이: ${fmtDate(r.date)} · ${r.score}`;
+        el.classList.remove('none');
+      });
+
+    } catch(err){
+      statusEl.textContent = '기록을 불러오지 못했어요 — 인터넷 연결이나 서버 설정을 확인해주세요.';
+    }
+  }
+
+  loadBoard();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MATH-PFD · 화학공학과 진학 수학 공정흐름도</title>
+
+<!-- 홈 화면 추가 (PWA) -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1f2a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MATH-PFD">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b1f2a;
+    --bg-deep: #081920;
+    --panel: #123042;
+    --panel-2: #16394d;
+    --line: #235066;
+    --teal: #4fd1c5;
+    --teal-dim: rgba(79,209,197,0.35);
+    --copper: #dd9457;
+    --copper-dim: rgba(221,148,87,0.35);
+    --text: #e9f1f4;
+    --muted: #82a4b2;
+    --muted-2: #5c8291;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(79,209,197,0.055) 32px),
+      repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(79,209,197,0.055) 32px),
+      radial-gradient(ellipse at 20% -10%, #133a4d 0%, var(--bg) 45%),
+      var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    padding: env(safe-area-inset-top, 0) 0 calc(80px + env(safe-area-inset-bottom, 0));
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+  html{ height: -webkit-fill-available; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  a{ color: var(--teal); }
+  :focus-visible{ outline: 2px solid var(--teal); outline-offset: 3px; }
+
+  .sheet{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 28px max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left));
+  }
+
+  /* ---- Title block (engineering drawing stamp) ---- */
+  .titleblock{
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--panel), var(--bg-deep));
+    border-radius: 6px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .titleblock::before{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(120deg, transparent 40%, rgba(79,209,197,0.06) 50%, transparent 60%);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--teal);
+    text-transform: uppercase;
+  }
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: clamp(24px, 6vw, 32px);
+    line-height: 1.25;
+    margin: 8px 0 6px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .subtitle{
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.6;
+    max-width: 56ch;
+    margin: 0 0 16px;
+  }
+  .dwg-meta{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted-2);
+    border-top: 1px dashed var(--line);
+    padding-top: 12px;
+  }
+  .dwg-meta span b{ color: var(--teal); font-weight: 500; }
+
+  /* ---- Legend ---- */
+  .legend{
+    display:flex; flex-wrap: wrap; gap: 14px 22px;
+    margin: 18px 4px 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .legend .item{ display:flex; align-items:center; gap:7px; }
+  .legend .swatch{ width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+
+  /* ---- Pipeline ---- */
+  .pipeline{
+    position: relative;
+    margin-top: 20px;
+    padding-left: 34px;
+  }
+  .pipeline::before{ /* main pipe */
+    content:"";
+    position:absolute;
+    left: 14px; top: 8px; bottom: 8px;
+    width: 4px;
+    background: repeating-linear-gradient(180deg, var(--copper), var(--copper) 10px, var(--teal) 10px, var(--teal) 20px);
+    border-radius: 3px;
+    opacity: 0.75;
+  }
+
+  .stage{
+    position: relative;
+    margin-bottom: 34px;
+  }
+  .stage:last-child{ margin-bottom: 0; }
+
+  .node{
+    position:absolute;
+    left: -34px; top: 4px;
+    width: 32px; height: 32px;
+  }
+  .node svg{ width:100%; height:100%; display:block; }
+  .node .track{ stroke: var(--line); }
+  .node .fill{ stroke: var(--teal); stroke-linecap: round; }
+  .node .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10px; fill: var(--teal); font-weight: 600;
+  }
+
+  .vessel{
+    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px 18px;
+    position: relative;
+  }
+  .vessel::before{ /* pressure gauge notch top-left */
+    content:"";
+    position:absolute;
+    top:-1px; left: 18px;
+    width: 22px; height: 6px;
+    background: var(--bg);
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
+    border-radius: 0 0 6px 6px;
+  }
+
+  .stage-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--copper);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .stage-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 3px 0 12px;
+    display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
+  }
+  .stage-title .en{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--muted-2);
+  }
+
+  .course-list{
+    list-style:none; margin:0; padding:0;
+    display:grid; gap: 8px;
+  }
+  .course-list li{
+    display:flex; gap:10px; align-items:flex-start;
+    font-size: 14px; line-height: 1.55; color: var(--text);
+  }
+  .course-list li::before{
+    content:"";
+    width:7px; height:7px;
+    margin-top: 7px;
+    background: var(--teal);
+    border-radius: 1px;
+    transform: rotate(45deg);
+    flex-shrink:0;
+  }
+  .course-list li b{ color: var(--teal); font-weight:600; }
+  .course-list li .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--muted-2);
+    background: rgba(79,209,197,0.08);
+    border: 1px solid var(--teal-dim);
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  /* ---- Valve callout ---- */
+  .valve{
+    position: relative;
+    margin: -14px 0 34px 0;
+    padding: 12px 16px 12px 42px;
+    background: rgba(221,148,87,0.08);
+    border: 1px dashed var(--copper-dim);
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .valve .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--copper);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display:block;
+    margin-bottom: 4px;
+  }
+  .valve::before{
+    content:"⚠";
+    position:absolute;
+    left: 14px; top: 12px;
+    color: var(--copper);
+    font-size: 15px;
+  }
+
+  /* ---- Spec sheet (SKKU admission appendix) ---- */
+  .appendix{
+    margin-top: 36px;
+  }
+  .appendix-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .appendix-head h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 17px; font-weight:600; margin:0;
+  }
+  .appendix-head .en{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--muted-2);
+  }
+  .specsheet{
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  }
+  .spec-row{
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+  .spec-row:last-child{ border-bottom: none; }
+  .spec-key{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--teal);
+    background: rgba(79,209,197,0.06);
+    padding: 12px 10px;
+    border-right: 1px dashed var(--line);
+    letter-spacing: 0.03em;
+  }
+  .spec-val{
+    padding: 12px 14px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .spec-val .h{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--copper);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+  }
+  .spec-val ul{ margin: 4px 0 0; padding-left: 16px; }
+  .spec-val li{ margin-bottom: 4px; }
+  @media (max-width: 480px){
+    .spec-row{ grid-template-columns: 76px 1fr; }
+    .spec-key{ font-size: 10px; padding: 12px 8px; }
+  }
+
+  /* ---- Tabs (수시 vs 정시 selector) ---- */
+  .tabgroup{ margin-top: 36px; }
+  .tab-input{
+    position: absolute;
+    width: 1px; height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .tab-nav{
+    display: flex;
+    gap: 6px;
+    background: var(--bg-deep);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 14px;
+  }
+  .tab-label{
+    flex: 1;
+    text-align: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 10px 12px;
+    border-radius: 7px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: color .15s ease, background .15s ease;
+  }
+  .tab-label .dot{
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--muted-2);
+    flex-shrink: 0;
+  }
+  #tab-susi:checked ~ .tab-nav label[for="tab-susi"],
+  #tab-jeongsi:checked ~ .tab-nav label[for="tab-jeongsi"]{
+    color: var(--bg-deep);
+    background: var(--teal);
+  }
+  #tab-susi:checked ~ .tab-nav label[for="tab-susi"] .dot,
+  #tab-jeongsi:checked ~ .tab-nav label[for="tab-jeongsi"] .dot{
+    background: var(--bg-deep);
+  }
+  #tab-susi:focus-visible ~ .tab-nav label[for="tab-susi"],
+  #tab-jeongsi:focus-visible ~ .tab-nav label[for="tab-jeongsi"]{
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+  }
+  .tab-panel{ display: none; }
+  #tab-susi:checked ~ .tab-panels #panel-susi{ display: block; }
+  #tab-jeongsi:checked ~ .tab-panels #panel-jeongsi{ display: block; }
+
+  .tab-panel .specsheet{ margin-bottom: 0; }
+  .compare-foot{
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: rgba(79,209,197,0.06);
+    border: 1px solid var(--teal-dim);
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .compare-foot .h{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+
+  /* ---- Appendix E: textbook comparison tables ---- */
+  .school-compare{ margin-top: 36px; }
+  .school-set{ margin-bottom: 22px; }
+  .school-set:last-child{ margin-bottom: 0; }
+  .school-head{
+    display:flex; align-items:center; gap: 9px;
+    margin-bottom: 10px;
+  }
+  .school-head .dot{
+    width: 9px; height: 9px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .school-set.sb .dot{ background: var(--teal); }
+  .school-set.hc .dot{ background: var(--copper); }
+  .school-head h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 15px; font-weight: 600; margin: 0;
+  }
+  table.matbook{
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--panel);
+  }
+  table.matbook thead th{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+  }
+  .school-set.sb table.matbook thead th{ background: rgba(79,209,197,0.08); color: var(--teal); }
+  .school-set.hc table.matbook thead th{ background: rgba(221,148,87,0.08); color: var(--copper); }
+  table.matbook tbody td{
+    padding: 9px 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text);
+    border-bottom: 1px solid var(--line);
+  }
+  table.matbook tbody tr:last-child td{ border-bottom: none; }
+  table.matbook td.grade{
+    font-family:'IBM Plex Mono', monospace;
+    color: var(--muted-2);
+    width: 30px;
+  }
+  table.matbook td.pub{ color: var(--muted); font-size: 12px; }
+  table.matbook td.na{ color: var(--muted-2); font-style: italic; }
+  .badge-sel{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    background: rgba(221,148,87,0.12);
+    color: var(--copper);
+    border: 1px solid var(--copper-dim);
+    margin-left: 5px;
+  }
+  .school-note{
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  @media (max-width: 480px){
+    table.matbook{ font-size: 12px; }
+    table.matbook td, table.matbook th{ padding: 7px 6px; }
+  }
+
+  /* ---- Collapsible appendix ---- */
+  details.appendix{ }
+  details.appendix > summary{
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  details.appendix > summary::-webkit-details-marker{ display: none; }
+  details.appendix > summary::after{
+    content: "▸ 펼치기";
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--teal);
+    border: 1px solid var(--teal-dim);
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  details.appendix[open] > summary::after{ content: "▾ 접기"; }
+  details.appendix > summary h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 17px; font-weight:600; margin:0;
+  }
+
+  /* ---- Footer ---- */
+  .footer-note{
+    margin-top: 30px;
+    padding: 16px 18px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .footer-note b{ color: var(--muted); }
+  .stamp{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--teal);
+    border: 1px solid var(--teal-dim);
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="titleblock">
+    <span class="eyebrow">Process Flow Diagram</span>
+    <h1>화학공학과 진학 수학 공정흐름도</h1>
+    <p class="subtitle">고1부터 전공 진입까지, 화학공학 전공 적응을 목표로 설계한 수학 이수 경로입니다. 원료(고교 기초)가 반응·정제 공정을 거쳐 전공이라는 최종 산출물로 이어지는 흐름으로 구성했습니다.</p>
+    <div class="dwg-meta">
+      <span>DWG NO. <b>CHE-MATH-01</b></span>
+      <span>SCALE <b>NTS</b></span>
+      <span>UNIT PROCESS <b>5 STAGE</b></span>
+      <span>REV <b>2026-08</b></span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="swatch" style="background:var(--teal)"></span>필수 이수 과목</div>
+    <div class="item"><span class="swatch" style="background:var(--copper)"></span>권장·심화 과목</div>
+    <div class="item"><span class="swatch" style="background:var(--panel-2); border:1px solid var(--copper-dim)"></span>주의 · 대학별 확인 필요</div>
+  </div>
+
+  <div class="pipeline">
+
+    <!-- STAGE 01 -->
+    <div class="stage">
+      <div class="node">
+        <svg viewBox="0 0 32 32">
+          <circle class="track" cx="16" cy="16" r="13" fill="none" stroke-width="3"/>
+          <circle class="fill" cx="16" cy="16" r="13" fill="none" stroke-width="3"
+            stroke-dasharray="16.3 81.7" transform="rotate(-90 16 16)"/>
+          <text class="num" x="16" y="20" text-anchor="middle">01</text>
+        </svg>
+      </div>
+      <div class="vessel">
+        <span class="stage-tag">Stage 01 · 고1</span>
+        <div class="stage-title">원료 투입<span class="en">FEED INTAKE</span></div>
+        <ul class="course-list">
+          <li><b>공통수학1·2</b> 완전 정착 — 함수, 방정식과 부등식, 도형의 방정식<span class="tag">필수</span></li>
+          <li>화학Ⅰ · 물리Ⅰ 기초 병행 이수<span class="tag">권장</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STAGE 02 -->
+    <div class="stage">
+      <div class="node">
+        <svg viewBox="0 0 32 32">
+          <circle class="track" cx="16" cy="16" r="13" fill="none" stroke-width="3"/>
+          <circle class="fill" cx="16" cy="16" r="13" fill="none" stroke-width="3"
+            stroke-dasharray="32.7 65.3" transform="rotate(-90 16 16)"/>
+          <text class="num" x="16" y="20" text-anchor="middle">02</text>
+        </svg>
+      </div>
+      <div class="vessel">
+        <span class="stage-tag">Stage 02 · 고2</span>
+        <div class="stage-title">1차 반응조<span class="en">PRIMARY REACTOR</span></div>
+        <ul class="course-list">
+          <li><b>대수</b> 이수<span class="tag">필수</span></li>
+          <li><b>미적분Ⅰ</b> — 함수의 극한·미분·적분 기본기<span class="tag">필수</span></li>
+          <li>확률과 통계 병행 시작<span class="tag">권장</span></li>
+          <li>화학Ⅱ 선택 이수<span class="tag">권장</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STAGE 03 -->
+    <div class="stage">
+      <div class="node">
+        <svg viewBox="0 0 32 32">
+          <circle class="track" cx="16" cy="16" r="13" fill="none" stroke-width="3"/>
+          <circle class="fill" cx="16" cy="16" r="13" fill="none" stroke-width="3"
+            stroke-dasharray="49 49" transform="rotate(-90 16 16)"/>
+          <text class="num" x="16" y="20" text-anchor="middle">03</text>
+        </svg>
+      </div>
+      <div class="vessel">
+        <span class="stage-tag">Stage 03 · 고3</span>
+        <div class="stage-title">정제 공정<span class="en">REFINING UNIT</span></div>
+        <ul class="course-list">
+          <li><b>미적분Ⅱ</b> 심화 — 수열의 극한, 다양한 함수의 미분·적분<span class="tag">필수</span></li>
+          <li>기하 선택 이수 — 공간벡터, 이차곡선<span class="tag">권장</span></li>
+          <li>세특: 미적분 기반 화학 반응 모델링·공정 탐구 활동<span class="tag">권장</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="valve">
+      <span class="label">Pressure Relief Valve · 입시 변수</span>
+      다수 대학이 정시 이공계열 수학 선택과목 제한을 완화하는 추세이나(예: 확통 응시자도 화공 지원 가능한 대학 다수), <b>전공 적응력</b>을 고려하면 미적분 이수는 여전히 강하게 권장됩니다. 목표 대학의 최신 모집요강은 3학년 초 반드시 재확인하세요.
+    </div>
+
+    <!-- STAGE 04 -->
+    <div class="stage">
+      <div class="node">
+        <svg viewBox="0 0 32 32">
+          <circle class="track" cx="16" cy="16" r="13" fill="none" stroke-width="3"/>
+          <circle class="fill" cx="16" cy="16" r="13" fill="none" stroke-width="3"
+            stroke-dasharray="65.3 32.7" transform="rotate(-90 16 16)"/>
+          <text class="num" x="16" y="20" text-anchor="middle">04</text>
+        </svg>
+      </div>
+      <div class="vessel">
+        <span class="stage-tag">Stage 04 · 대학 1~2학년</span>
+        <div class="stage-title">분리 공정<span class="en">SEPARATION TRAIN</span></div>
+        <ul class="course-list">
+          <li><b>미적분학Ⅰ·Ⅱ</b> — 다변수 미적분 포함<span class="tag">필수</span></li>
+          <li><b>선형대수학</b><span class="tag">필수</span></li>
+          <li>상미분방정식(ODE)<span class="tag">필수</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STAGE 05 -->
+    <div class="stage">
+      <div class="node">
+        <svg viewBox="0 0 32 32">
+          <circle class="track" cx="16" cy="16" r="13" fill="none" stroke-width="3"/>
+          <circle class="fill" cx="16" cy="16" r="13" fill="none" stroke-width="3"
+            stroke-dasharray="81.7 16.3" transform="rotate(-90 16 16)"/>
+          <text class="num" x="16" y="20" text-anchor="middle">05</text>
+        </svg>
+      </div>
+      <div class="vessel">
+        <span class="stage-tag">Stage 05 · 전공 심화</span>
+        <div class="stage-title">제품 출하<span class="en">PRODUCT OUTPUT</span></div>
+        <ul class="course-list">
+          <li><b>공업수학Ⅰ·Ⅱ</b> — 편미분방정식, 라플라스 변환, 푸리에 급수<span class="tag">필수</span></li>
+          <li>수치해석 — Matlab·Aspen 공정 시뮬레이션 연계<span class="tag">권장</span></li>
+          <li>화공양론·열역학·유체역학·반응공학에 전 과정 적용<span class="tag">연계</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="appendix">
+    <div class="appendix-head">
+      <h2>부속서 · 성균관대 입시제도 스펙시트</h2>
+      <span class="en">APPENDIX A — SKKU ADMISSION SPEC (2027)</span>
+    </div>
+    <div class="specsheet">
+      <div class="spec-row">
+        <div class="spec-key">정시<br>성적 반영</div>
+        <div class="spec-val">
+          국어·수학 영역은 <b>표준점수</b>, 영어는 등급 기반 자체 변환표준점수, 탐구는 백분위 기반 자체 변환표준점수 활용
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">정시<br>과목 제한</div>
+        <div class="spec-val">
+          화학공학부 등 공과대학은 수학 선택과목(미적분/기하/확통)에 별도 제한을 두지 않음
+          <ul>
+            <li>단, 글로벌융합학부·자유전공계열·자연과학계열·반도체시스템공학과·약학과·의예과는 과학탐구 선택자에게 가산점(최대 5%) 부여 — 화공 계열도 유사 정책 가능성, 학과별 확인 필요</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">수시<br>수능최저</div>
+        <div class="spec-val">
+          자연계열 수시는 수능최저가 없거나, 있더라도 <b>사탐·과탐을 함께 인정</b>하는 경우가 많아 미적분·기하 지정 대학으로 분류되지 않음
+          <ul>
+            <li>학생부종합전형 일부 유형: 국어·수학·영어·탐구 4개 영역 중 3개 등급합 6등급 이내</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">종합 판단</div>
+        <div class="spec-val">
+          <span class="h">Note</span>
+          제도상 확률과통계로도 지원 가능하지만, 화공 전공 1~2학년 미적분학·공업수학 적응을 고려하면 미적분(가능하면 기하 포함) 이수가 여전히 권장됨
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabgroup">
+    <div class="appendix-head">
+      <h2>부속서 B · 수시 vs 정시 비교</h2>
+      <span class="en">APPENDIX B — TRACK SELECTOR</span>
+    </div>
+
+    <input type="radio" name="admtab" id="tab-susi" class="tab-input" checked>
+    <input type="radio" name="admtab" id="tab-jeongsi" class="tab-input">
+
+    <div class="tab-nav">
+      <label for="tab-susi" class="tab-label"><span class="dot"></span>수시모집</label>
+      <label for="tab-jeongsi" class="tab-label"><span class="dot"></span>정시(수능 성적 절대)</label>
+    </div>
+
+    <div class="tab-panels">
+
+      <div class="tab-panel" id="panel-susi">
+        <div class="specsheet">
+          <div class="spec-row">
+            <div class="spec-key">평가 축</div>
+            <div class="spec-val">학생부(내신) · 비교과활동 · 면접 · 자기소개서 중심 평가</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">전형 유형</div>
+            <div class="spec-val">
+              <ul>
+                <li>학생부교과 — 내신 성적 중심</li>
+                <li>학생부종합 — 내신 + 활동 + 면접 종합평가</li>
+                <li>논술, 실기 등</li>
+              </ul>
+            </div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">수능 역할</div>
+            <div class="spec-val">최저학력기준으로만 사용되는 경우가 많음 (예: 국수영탐 중 3개 영역 합 6등급 이내) — 수능 점수 자체가 당락을 가르지 않음</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">지원 시기</div>
+            <div class="spec-val">9월 ~ 12월</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">지원 횟수</div>
+            <div class="spec-val">최대 6개 대학</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">주의</div>
+            <div class="spec-val">수시 합격 시 등록 여부와 무관하게 정시 지원 불가</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="panel-jeongsi">
+        <div class="specsheet">
+          <div class="spec-row">
+            <div class="spec-key">평가 축</div>
+            <div class="spec-val"><b>수능 성적이 절대적</b> — 표준점수·백분위·등급을 대학별 반영 비율에 따라 환산</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">군 구분</div>
+            <div class="spec-val">가/나/다군으로 구분, 군별 1개씩 지원</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">수능 역할</div>
+            <div class="spec-val">당락을 결정하는 핵심 요소</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">지원 시기</div>
+            <div class="spec-val">수능 이후, 12월 ~ 익년 1월</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">지원 횟수</div>
+            <div class="spec-val">최대 3개 대학 (군별 1개씩)</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-key">부가 요소</div>
+            <div class="spec-val">일부 대학은 면접·실기를 추가하지만 비중은 작음</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="compare-foot">
+      <span class="h">화학공학과 지원 전략</span>
+      내신 관리가 강점이면 수시(특히 학생부종합)가, 수능형이면 정시가 유리합니다. 앞선 로드맵의 미적분·기하 이수는 두 전형 모두에서 중요합니다 — 수시는 세특(과목 탐구활동) 소재로, 정시는 수능 대비로 직결되기 때문입니다.
+    </div>
+  </div>
+
+  <details class="appendix">
+    <summary>
+      <h2>부속서 C · 재수생 전형 전략</h2>
+      <span class="en">APPENDIX C — RETAKE STUDENT STRATEGY</span>
+    </summary>
+    <div class="specsheet">
+      <div class="spec-row">
+        <div class="spec-key">기본 전략</div>
+        <div class="spec-val"><b>정시 중심</b> — 내신은 고정되어 있고 비교과 활동 추가가 어려운 재수생 구조상, 수능 성적 향상이 목적인 재수의 취지와도 부합</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">수시 보조 카드</div>
+        <div class="spec-val">
+          논술위주전형(수리형) — 화학공학부 등 공학계열은 수리형으로만 선발
+          <ul>
+            <li>내신 반영 비중 낮음, 수학·과학 실력 중심 → 정시 학습과 방향 일치</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">2027 변화</div>
+        <div class="spec-val">
+          <ul>
+            <li>재수생까지 수시 지원 자격 확대</li>
+            <li>전공적합성 평가 폐지</li>
+            <li>전형 간 중복지원 허용</li>
+            <li>수능최저학력기준 강화 (3개 영역 합 6~7등급 이내) — 합격선 하락 가능성, 최저 충족 여부 확인 필수</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">주의</div>
+        <div class="spec-val">학교장 추천이 필요한 전형(추천인재 등)은 통상 재학생 중심으로 운영 — 본인 학교의 재수생 추천 가능 여부 별도 확인 필요</div>
+      </div>
+    </div>
+  </details>
+
+  <div class="appendix">
+    <div class="appendix-head">
+      <h2>부속서 D · 예비 고1 전략 (2028 통합형 수능)</h2>
+      <span class="en">APPENDIX D — INCOMING FRESHMAN (2028 REFORM)</span>
+    </div>
+    <div class="specsheet">
+      <div class="spec-row">
+        <div class="spec-key">적용 대상</div>
+        <div class="spec-val">2025년 고1부터 시작된 통합형 수능 체제 — 예비 고1(2027년 입학)도 동일하게 적용받음</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">수능 수학<br>범위 변경</div>
+        <div class="spec-val">
+          <b>대수·미적분Ⅰ·확률과 통계</b>로 고정된 통합형 시험 — 선택과목 폐지
+          <ul>
+            <li>미적분Ⅱ·기하는 수능 출제 범위에서 완전히 제외 (심화수학 미도입)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">내신 변화</div>
+        <div class="spec-val">기존 9등급 상대평가 → <b>5등급 상대평가</b>로 전환</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">유의사항</div>
+        <div class="spec-val">
+          수능 범위 제외 ≠ 학습 불필요
+          <ul>
+            <li>미적분Ⅱ·기하는 학교 선택과목으로 계속 개설 — 공학계열 지망생은 내신·세특 관점에서 이수 권장</li>
+            <li>대학별 논술(수리논술) 시험범위에는 미적분Ⅱ·기하 포함 여부가 대학마다 갈림 — 성균관대를 포함한 다수 대학은 아직 시험범위 미공개, 대학별 전형 시행계획 확정 발표 시 재확인 필요</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">학년별<br>전략</div>
+        <div class="spec-val">
+          <ul>
+            <li>고1 — 공통수학1·2 완전 정착</li>
+            <li>고2 — 대수·미적분Ⅰ·확률과 통계 (수능 실제 범위, 최우선 순위)</li>
+            <li>고3 — 미적분Ⅱ·기하 선택 이수 (내신·세특 강화 + 목표 대학 논술 대비용, 공학계열은 사실상 필수에 가까움)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="school-compare">
+    <div class="appendix-head">
+      <h2>부속서 E · 학교별 수학 교재 목록</h2>
+      <span class="en">APPENDIX E — TEXTBOOKS (신봉고 · 홍천고)</span>
+    </div>
+
+    <div class="school-set sb">
+      <div class="school-head"><span class="dot"></span><h3>신봉고등학교</h3></div>
+      <table class="matbook">
+        <thead><tr><th>학년</th><th>과목명</th><th>출판사</th><th>저자</th></tr></thead>
+        <tbody>
+          <tr><td class="grade">1</td><td>공통수학1</td><td class="pub">㈜천재교과서</td><td class="pub">전인태</td></tr>
+          <tr><td class="grade">1</td><td>공통수학2</td><td class="pub">㈜천재교과서</td><td class="pub">전인태</td></tr>
+          <tr><td class="grade">2</td><td>대수</td><td class="pub">동아출판㈜</td><td class="pub">고호경</td></tr>
+          <tr><td class="grade">2</td><td>미적분Ⅰ</td><td class="pub">동아출판㈜</td><td class="pub">고호경</td></tr>
+          <tr><td class="grade">2</td><td>인공지능수학<span class="badge-sel">선택</span></td><td class="pub">씨마스</td><td class="pub">윤상운 외 6명</td></tr>
+          <tr><td class="grade">2</td><td>기하<span class="badge-sel">선택</span></td><td class="pub">㈜천재교과서</td><td class="pub">전인태 외 7명</td></tr>
+          <tr><td class="grade">3</td><td>경제수학<span class="badge-sel">선택</span></td><td class="pub">(주)씨마스</td><td class="pub">김연호 외 5명</td></tr>
+          <tr><td class="grade">3</td><td>미적분<span class="badge-sel">선택</span></td><td class="pub">㈜천재교과서</td><td class="pub">류희찬</td></tr>
+          <tr><td class="grade">3</td><td>기하<span class="badge-sel">선택</span></td><td class="pub">㈜천재교과서</td><td class="pub">류희찬</td></tr>
+          <tr><td class="grade">3</td><td>수학과제탐구<span class="badge-sel">선택</span></td><td class="na">—</td><td class="na">교과서 없음</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-set hc">
+      <div class="school-head"><span class="dot"></span><h3>홍천고등학교</h3></div>
+      <table class="matbook">
+        <thead><tr><th>학년</th><th>과목명</th><th>출판사</th><th>저자</th></tr></thead>
+        <tbody>
+          <tr><td class="grade">1</td><td>공통수학1</td><td class="pub">동아출판㈜</td><td class="pub">고호경</td></tr>
+          <tr><td class="grade">1</td><td>공통수학2</td><td class="pub">동아출판㈜</td><td class="pub">고호경</td></tr>
+          <tr><td class="grade">2</td><td>대수</td><td class="pub">㈜미래엔</td><td class="pub">황선욱</td></tr>
+          <tr><td class="grade">2</td><td>미적분Ⅰ</td><td class="pub">㈜미래엔</td><td class="pub">황선욱</td></tr>
+          <tr><td class="grade">2</td><td>확률과통계</td><td class="pub">㈜미래엔</td><td class="pub">황선욱</td></tr>
+          <tr><td class="grade">3</td><td>기하</td><td class="pub">㈜미래엔</td><td class="pub">황선욱</td></tr>
+          <tr><td class="grade">3</td><td>미적분</td><td class="pub">㈜미래엔</td><td class="pub">황선욱</td></tr>
+          <tr><td class="grade">3</td><td>심화 수학Ⅰ</td><td class="pub">전라북도교육청</td><td class="pub">김완일 외 3인</td></tr>
+          <tr><td class="grade">3</td><td>수학적 사고와 통계</td><td class="pub">(주)중앙교육</td><td class="pub">성덕현 외 11인</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-note">
+      두 학교 모두 1학년은 동아출판(고호경) 계열 공통수학을 채택. 2~3학년부터 신봉고는 천재교과서·동아출판, 홍천고는 미래엔(황선욱) 계열로 갈라짐.
+    </div>
+  </div>
+
+  <div class="school-compare">
+    <div class="appendix-head">
+      <h2>부속서 F · 신봉고 수학 시험범위 (26년 1학기)</h2>
+      <span class="en">APPENDIX F — EXAM SCOPE (SHINBONG, MATH)</span>
+    </div>
+
+    <div class="school-set sb">
+      <div class="school-head"><span class="dot"></span><h3>1학년</h3></div>
+      <table class="matbook">
+        <thead><tr><th>과목</th><th>중간고사</th><th>기말고사</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>공통수학1</td>
+            <td>교과서 p.9~p.75, p.96~p.97(1,2,5,8,12,13), 학습지 자료번호 1~16번</td>
+            <td>교과서 P.76~P.141, 해당범위 학습지</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-set sb">
+      <div class="school-head"><span class="dot"></span><h3>2학년</h3></div>
+      <table class="matbook">
+        <thead><tr><th>과목</th><th>중간고사</th><th>기말고사</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>대수</td>
+            <td>교과서 처음~100쪽, 학습지 1~32쪽</td>
+            <td>교과서 p.102~p.173, 학습지(33~62번)</td>
+          </tr>
+          <tr><td>미적분Ⅰ</td><td></td><td></td></tr>
+          <tr>
+            <td>인공지능수학<span class="badge-sel">선택</span></td>
+            <td></td>
+            <td>교과서 10~199쪽, 해당범위 학습지</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-set hc">
+      <div class="school-head"><span class="dot"></span><h3>3학년</h3></div>
+      <table class="matbook">
+        <thead><tr><th>과목</th><th>중간고사</th><th>기말고사</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>미적분</td>
+            <td>Ⅰ.수열의 극한 ~ Ⅲ-1.함수의 몫의 미분법(교과서 p.10~p.102), 학습지 1~19번</td>
+            <td>Ⅲ-2.합성함수의 미분법 ~ Ⅳ-5.여러가지 적분법(넓이와 부피)(교과서 p.103~p.188), 학습지 20~34번</td>
+          </tr>
+          <tr>
+            <td>기하</td>
+            <td>Ⅰ.이차곡선 ~ Ⅱ-4.평면벡터의 성분(교과서 p.10~p.88), 학습지 전체</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-note">
+      2학년 미적분Ⅰ은 자료상 시험범위 확인이 안 되어 빈 칸으로 남겨두었습니다. 3학년 기하 기말고사, 인공지능수학 중간고사도 동일한 이유로 비어 있습니다.
+    </div>
+  </div>
+
+  <div class="school-compare">
+    <div class="appendix-head">
+      <h2>부속서 G · 용인홍천고 수학 시험범위 (26년 1학기)</h2>
+      <span class="en">APPENDIX G — EXAM SCOPE (YONGIN-HONGCHEON, MATH)</span>
+    </div>
+
+    <div class="school-set hc">
+      <div class="school-head"><span class="dot"></span><h3>1학년</h3></div>
+      <table class="matbook">
+        <thead><tr><th>과목</th><th>중간고사</th><th>기말고사</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>공통수학1</td>
+            <td>처음 ~ 이차함수의 최대·최소(교과서 처음~p.75), 시험범위 해당 학습지 전체</td>
+            <td>Ⅳ.여러 가지 방정식과 부등식 ~ Ⅵ.행렬(교과서 76~141쪽), 시험범위 해당 학습지 전체(1~10쪽)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-set hc">
+      <div class="school-head"><span class="dot"></span><h3>2학년</h3></div>
+      <table class="matbook">
+        <thead><tr><th>과목</th><th>중간고사</th><th>기말고사</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>대수</td>
+            <td>Ⅰ.지수함수와 로그함수 ~ Ⅱ-1.삼각함수(교과서 p.10~p.97), 시험범위 해당 학습지 전체</td>
+            <td>Ⅱ-2.사인법칙과 코사인법칙 ~ Ⅲ.수열(p.100~p.169), 시험범위 해당 학습지 전체</td>
+          </tr>
+          <tr>
+            <td>확률과 통계</td>
+            <td>Ⅰ.경우의 수 ~ Ⅱ-1.확률(교과서 p.10~p.55), 시험범위 해당 학습지 전체</td>
+            <td>Ⅱ-2.조건부확률 ~ Ⅲ-2-02.모평균의 추정(p.56~p.119, p.126~p.132), 시험범위 해당 학습지 전체</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-set hc">
+      <div class="school-head"><span class="dot"></span><h3>3학년</h3></div>
+      <table class="matbook">
+        <thead><tr><th>과목</th><th>중간고사</th><th>기말고사</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>미적분</td>
+            <td>Ⅰ.수열의 극한 ~ Ⅱ-2.여러가지 미분법(교과서 p.10~p.104), 시험범위 해당 학습지 전체</td>
+            <td>도함수의 활용 ~ 적분법(교과서 105p~185p), 시험범위 해당 학습지 전체, 3·5·6월 모의고사(선택과목 미적분)</td>
+          </tr>
+          <tr>
+            <td>심화 수학Ⅰ</td>
+            <td></td>
+            <td>시험범위 해당 학습지 전체</td>
+          </tr>
+          <tr>
+            <td>수학적 사고와 통계</td>
+            <td></td>
+            <td>시험범위 해당 학습지 전체</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-note">
+      2026학년도 1학기 1차(중간)·2차(기말) 정기시험 범위를 모두 반영했습니다. 심화 수학Ⅰ·수학적 사고와 통계는 중간고사 범위 공지가 없어 기말고사만 채워져 있습니다. 학교 가정통신문 출처는 용인홍천고등학교입니다.
+    </div>
+  </div>
+
+  <div class="school-compare">
+    <div class="appendix-head">
+      <h2>부속서 H · 공통수학1·2 목차 비교</h2>
+      <span class="en">APPENDIX H — TABLE OF CONTENTS (천재 · 동아)</span>
+    </div>
+
+    <div class="eyebrow" style="margin:4px 0 10px;">공통수학1</div>
+
+    <div class="school-set sb">
+      <div class="school-head"><span class="dot"></span><h3>천재교과서 · 전인태 <span class="badge-sel">신봉고</span></h3></div>
+      <table class="matbook">
+        <thead><tr><th>대단원</th><th>소단원</th></tr></thead>
+        <tbody>
+          <tr><td class="grade">Ⅰ</td><td>다항식 — 1.다항식의 연산 2.나머지정리와 인수분해</td></tr>
+          <tr><td class="grade">Ⅱ</td><td>방정식과 부등식 — 1.복소수와 이차방정식 2.이차방정식과 이차함수 3.여러 가지 방정식과 부등식</td></tr>
+          <tr><td class="grade">Ⅲ</td><td>경우의 수 — 1.경우의 수</td></tr>
+          <tr><td class="grade">Ⅳ</td><td>행렬 — 1.행렬과 그 연산</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-set hc">
+      <div class="school-head"><span class="dot"></span><h3>동아출판 · 고호경 <span class="badge-sel">홍천고</span></h3></div>
+      <table class="matbook">
+        <thead><tr><th>대단원</th><th>소단원</th></tr></thead>
+        <tbody>
+          <tr><td class="grade">Ⅰ</td><td>다항식</td></tr>
+          <tr><td class="grade">Ⅱ</td><td>복소수와 이차방정식</td></tr>
+          <tr><td class="grade">Ⅲ</td><td>이차방정식과 이차함수</td></tr>
+          <tr><td class="grade">Ⅳ</td><td>여러가지 방정식과 부등식</td></tr>
+          <tr><td class="grade">Ⅴ</td><td>경우의 수</td></tr>
+          <tr><td class="grade">Ⅵ</td><td>행렬<span class="badge-sel">추정</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-note">
+      두 교과서 모두 2022 개정 교육과정 상 동일 내용(다항식·이차방정식·이차함수·여러가지방정식부등식·경우의수·행렬)을 다루지만, 천재는 4개 대단원으로 묶고 동아는 6개 대단원으로 세분화합니다. 특히 천재의 "Ⅱ.방정식과 부등식" 한 대단원이 동아에서는 Ⅱ·Ⅲ·Ⅳ 세 대단원으로 나뉩니다. 동아 Ⅵ단원(행렬)은 시험범위 표기("Ⅵ.행렬")를 근거로 한 추정입니다.
+    </div>
+
+    <div class="eyebrow" style="margin:26px 0 10px;">공통수학2</div>
+
+    <div class="school-set sb">
+      <div class="school-head"><span class="dot"></span><h3>천재교과서 · 전인태 <span class="badge-sel">신봉고</span></h3></div>
+      <table class="matbook">
+        <thead><tr><th>대단원</th><th>소단원</th></tr></thead>
+        <tbody>
+          <tr><td class="grade">Ⅰ</td><td>도형의 방정식 — 1.평면좌표와 직선의 방정식 2.원의 방정식 3.도형의 이동</td></tr>
+          <tr><td class="grade">Ⅱ</td><td>집합과 명제 — 1.집합 2.명제</td></tr>
+          <tr><td class="grade">Ⅲ</td><td>함수와 그래프 — 1.함수 2.유리함수와 무리함수</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-set hc">
+      <div class="school-head"><span class="dot"></span><h3>동아출판 · 고호경 <span class="badge-sel">홍천고</span></h3></div>
+      <table class="matbook">
+        <thead><tr><th>대단원</th><th>소단원</th></tr></thead>
+        <tbody>
+          <tr><td class="grade">Ⅰ</td><td>도형의 방정식<span class="badge-sel">추정</span></td></tr>
+          <tr><td class="grade">Ⅱ</td><td>집합과 명제<span class="badge-sel">추정</span></td></tr>
+          <tr><td class="grade">Ⅲ</td><td>함수와 그래프<span class="badge-sel">추정</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="school-note">
+      공통수학2는 2022 개정 교육과정상 도형의 방정식·집합과 명제·함수와 그래프 3개 대단원으로 구성되는 것이 표준이며, 이는 모든 출판사 공통입니다. 동아(고호경) 쪽은 정확한 소단원 구성을 확인할 자료를 찾지 못해 대단원명만 추정으로 표기했습니다 — 공통수학1처럼 동아가 더 세분화했을 가능성이 있으니, 학교 시험범위 안내문이 나오면 검증이 필요합니다.
+    </div>
+  </div>
+
+  <div class="appendix">
+    <div class="appendix-head">
+      <h2>부속서 I · 수지구 고교 선택 비교 (신봉·홍천·풍덕)</h2>
+      <span class="en">APPENDIX I — HIGH SCHOOL COMPARISON (SUJI-GU)</span>
+    </div>
+    <div class="specsheet">
+      <div class="spec-row">
+        <div class="spec-key">진학등급<br>이란</div>
+        <div class="spec-val">학교별 4년제 대학 진학 실적을 종합해 산출한 지표 — <b>숫자가 낮을수록 좋은 학교</b>(1등급이 최상). 내신 등급제(1~9등급)와 같은 체계를 빌려온 것으로, "그 학교가 어디로 얼마나 잘 보냈는가"를 뜻하며 "내신 따기 쉬운가"와는 별개 지표</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">홍천고<br><span class="en" style="color:var(--muted-2)">2.2등급</span></div>
+        <div class="spec-val">
+          최상위권 쏠림, 정시 강세 학교
+          <ul>
+            <li>1학년 학생수(2026년): 392명</li>
+            <li>중학교 때 특목고·자사고 준비생 다수 진학, 면학 분위기 우수</li>
+            <li>내신 난이도 최상급 — 상위권 대부분 정시파이터로 전환</li>
+            <li>수시(내신) 적합도: 상대적으로 불리</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">신봉고<br><span class="en" style="color:var(--muted-2)">2.5등급</span></div>
+        <div class="spec-val">
+          정시·수시 혼재, 내신도 만만치 않음
+          <ul>
+            <li>1학년 학생수(2026년): 374명</li>
+            <li>2016년 평준화 이후 인근 인기 학교 추첨 유입으로 내신 경쟁 심화</li>
+            <li>국어·수학 모두 시험 난이도 높은 편</li>
+            <li>수시(내신) 적합도: 홍천고보다는 낫지만 쉽지 않음</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">풍덕고<br><span class="en" style="color:var(--muted-2)">2.6등급</span></div>
+        <div class="spec-val">
+          대형 학교, 재수생 비율 높음
+          <ul>
+            <li>1학년 학생수(2026년): 435명</li>
+            <li>전교생 1300명 이상, 학년당 12~14개 학급 — 용인시 최대 규모</li>
+            <li>재수생 비율 약 절반 — 재학생 정시 실적은 상대적으로 약함</li>
+            <li>학생 수가 많아 내신 등급 산출(1·2등급 인원)에는 유리할 수 있음</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">종합 판단</div>
+        <div class="spec-val">
+          <span class="h">Note</span>
+          수시(학생부) 중심으로 성균관대 화공을 노린다면 신봉고가 이론상 더 유리 — 홍천고는 내신 최상위 등급 확보가 구조적으로 어려움. 반대로 자녀가 정시형·수학과학 강점형이라면 홍천고의 높은 학업 분위기가 도움이 될 수 있음.
+        </div>
+      </div>
+    </div>
+    <div class="school-note">
+      가족 상황: 아빠는 홍천고 선호(동문은 아니며, 근거리가 이유). 자녀(중3)는 신봉고 쪽을 희망 중. 위 비교상 수시 전략에는 자녀의 선택이 데이터적으로 더 부합함.
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <b>참고.</b> 대학별 수능 선택과목 요건과 수시 세부 기준은 매년 바뀔 수 있으므로, 지원 학년도 공식 모집요강 발표 시점(통상 3학년 초)에 반드시 재확인하시기 바랍니다.
+    <div class="stamp">CHEMICAL ENGINEERING · MATH TRACK</div>
+  </div>
+
+</div>
+
+</body>
+</html>
