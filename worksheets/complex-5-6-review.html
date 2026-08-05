@@ -283,6 +283,8 @@
   .quiz-btn.start{ background:var(--accent); color:#fff; }
   .quiz-btn.stop{ background:var(--wrong); color:#fff; }
   .quiz-btn:disabled{ background:#d9d3c4; color:#8a8474; cursor:not-allowed; }
+  .quiz-btn.scroll-mode{ background:#efece2; color:#20242b; border:1.5px solid #d9d3c4; }
+  .quiz-btn.scroll-mode.active{ background:#b23a2e; color:#fff; border-color:#b23a2e; }
   .quiz-timer{
     font-variant-numeric:tabular-nums;
     font-size:18px;
@@ -499,7 +501,7 @@
     background-color:#fff;
     border:1.5px solid var(--rule);
     border-radius:8px;
-    touch-action:pan-y;
+    touch-action:none;
     cursor:crosshair;
   }
   @media (min-width:700px){
@@ -636,6 +638,7 @@
   <button class="quiz-btn start" id="startBtn" onclick="startQuiz()">▶ 시작</button>
   <button class="quiz-btn stop" id="endBtn" onclick="endQuiz()" disabled>■ 종료</button>
   <div class="quiz-timer" id="quizTimer">00:00</div>
+  <button class="quiz-btn scroll-mode" id="scrollModeBtn" onclick="toggleScrollMode()">✏️ 필기 모드</button>
 </div>
 
 <div class="result-modal" id="resultModal">
@@ -1716,10 +1719,23 @@
   // ===== 퀴즈 세션 상태 =====
   const TOTAL_PROBLEMS = 30;
   let quizState = { running:false, startTime:0, timerInt:null, answers:{} };
+  let scrollModeOn = false;
+
+  function toggleScrollMode(){
+    scrollModeOn = !scrollModeOn;
+    const btn = document.getElementById('scrollModeBtn');
+    if(btn){
+      btn.textContent = scrollModeOn ? '✋ 스크롤 모드' : '✏️ 필기 모드';
+      btn.classList.toggle('active', scrollModeOn);
+    }
+    document.querySelectorAll('.write-canvas').forEach(c => {
+      c.style.touchAction = scrollModeOn ? 'pan-y' : 'none';
+    });
+  }
 
   // ===== 구글 시트 저장 설정 =====
   // Apps Script 배포 후 나온 웹 앱 URL을 여기에 붙여넣으세요.
-  const SHEET_WEBHOOK_URL = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzUef9uyH28s4l2iObFCyg131Ft2_aDdxLj_ab5vdA5wFBQKdVKMfOwh2u5EwsbWwus/exec';
   const STUDENT_NAME = '전주영';
   const WORKSHEET_ID = 'complex-5.6';
 
@@ -2054,7 +2070,7 @@
       }
     }
     canvas.addEventListener('pointerdown', e => {
-      if(e.pointerType === 'touch') return; // 손가락 터치는 스크롤로 남겨두고 그리지 않음
+      if(scrollModeOn) return; // 스크롤 모드일 때는 그리지 않음
       drawing = true;
       canvas.setPointerCapture(e.pointerId);
       const p = pos(e); lastX = p.x; lastY = p.y;
