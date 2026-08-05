@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>복소수 (5.6) 문제풀이 — 학생용</title>
+<title>고등수학1 중간고사-1회차 — 학생용</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
@@ -395,10 +395,10 @@
   .result-actions button{
     font-family:inherit;
     flex:1;
-    font-size:13.5px;
+    font-size:14px;
     font-weight:700;
     border-radius:8px;
-    padding:10px 6px;
+    padding:10px;
     cursor:pointer;
     border:none;
   }
@@ -503,7 +503,6 @@
   <button class="page-nav-btn" data-page="3" onclick="goToPage(3)">3</button>
   <button class="page-nav-btn" data-page="4" onclick="goToPage(4)">4</button>
   <button class="page-nav-btn" data-page="5" onclick="goToPage(5)">5</button>
-  <button class="page-nav-btn" data-page="6" onclick="goToPage(6)">6 <span style="font-size:10px;">(유사)</span></button>
 </div>
 
 <div class="result-modal" id="resultModal">
@@ -523,19 +522,20 @@
 </div>
 
 <header>
-  <h1>복소수 (5.6) 문제풀이</h1>
-  <div class="sub">전체 30문제 · 5페이지(한 페이지당 6문항) + 6페이지(23번 유사문제 3개) · 시작을 누르고 풀어보세요</div>
+  <h1>고등수학1 중간고사-1회차</h1>
+  <div class="sub">다항식의 사칙연산 ~ 이차함수의 최대·최소 · 전체 25문제 · 5페이지(한 페이지당 5문항) · 시작을 누르고 풀어보세요</div>
 </header>
 
+
   <section class="page active" id="page-1" data-page="1">
-    <div class="page-title">1~6번</div>
+    <div class="page-title">1~5번</div>
     <div class="page-grid">
       <div class="pcard" data-num="1">
         <div class="pcard-head">
           <span class="pnum">1</span>
           <span class="diff-badge diff-low">하</span>
         </div>
-        <div class="pquestion">\(2i\)의 실수부분을 \(a\), 허수부분을 \(b\)라고 할 때, \(a+b\)의 값을 구하시오. (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">두 다항식 \(A=3x^2-2xy-y^2,\ B=-x^2+3xy-2y^2\)에 대하여 \(A-3B=ax^2-bxy+cy^2\)일 때, \(a+b+c\)의 값은?</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -547,25 +547,26 @@
           </div>
           <canvas class="write-canvas" id="canvas-1"></canvas>
         </div>
-        <div class="answer-check">
-          <span class="ac-label">내 답 입력</span>
-          <input type="text" class="ans-input" id="input-1" placeholder="예: 3, -6, 2/5">
-          <button class="ac-btn" onclick="checkAnswer(this, '2')">확인</button>
-          <span class="ans-feedback" id="feedback-1"></span>
+        <div class="choices">
+          <button class="choice-btn" onclick="pick(this,false)">① \(10\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">② \(14\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">③ \(18\)</button>
+          <button class="choice-btn" onclick="pick(this,true)">④ \(22\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">⑤ \(26\)</button>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(2i = 0 + 2i\) 이므로 실수부분 \(a=0\), 허수부분 \(b=2\)</div><div class="sol-line">\(\therefore\ a+b = 0+2 = 2\)</div>
+            <div class="sol-line">\(A-3B = 3x^2-2xy-y^2-3(-x^2+3xy-2y^2)\)</div><div class="sol-line">\(=6x^2-11xy+5y^2\)</div><div class="sol-line">\(a=6,\ b=11,\ c=5 \Rightarrow a+b+c=22\)</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="2">
         <div class="pcard-head">
           <span class="pnum">2</span>
-          <span class="diff-badge diff-low">하</span>
+          <span class="diff-badge diff-mid">중</span>
         </div>
-        <div class="pquestion">등식 \((x-2)+(y+1)i=1+2i\)를 만족하는 실수 \(x, y\)에 대하여 \(x+y\)의 값을 구하시오. (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">다항식 \((2+x+x^2+4x^3)(16+8x+4x^2+2x^3)\)의 전개식에서 \(x^4\)의 계수는?</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -577,25 +578,26 @@
           </div>
           <canvas class="write-canvas" id="canvas-2"></canvas>
         </div>
-        <div class="answer-check">
-          <span class="ac-label">내 답 입력</span>
-          <input type="text" class="ans-input" id="input-2" placeholder="예: 3, -6, 2/5">
-          <button class="ac-btn" onclick="checkAnswer(this, '4')">확인</button>
-          <span class="ans-feedback" id="feedback-2"></span>
+        <div class="choices">
+          <button class="choice-btn" onclick="pick(this,true)">① \(38\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">② \(40\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">③ \(42\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">④ \(44\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">⑤ \(46\)</button>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">실수부분과 허수부분을 각각 비교하면 \(x-2=1,\ y+1=2\)</div><div class="sol-line">\(x=3,\quad y=1\)</div><div class="sol-line">\(\therefore\ x+y = 3+1 = 4\)</div>
+            <div class="sol-line">\(x^4\) 항: \(x\cdot2x^3 + x^2\cdot4x^2 + 4x^3\cdot8x = 2x^4+4x^4+32x^4=38x^4\)</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="3">
         <div class="pcard-head">
           <span class="pnum">3</span>
-          <span class="diff-badge diff-low">하</span>
+          <span class="diff-badge diff-mid">중</span>
         </div>
-        <div class="pquestion">\((4+7i)+(2-3i)\)를 계산하면? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">\(x+y=6,\ x^3+y^3=72\)일 때, \(x^2+y^2\)의 값을 구하시오.</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -607,17 +609,16 @@
           </div>
           <canvas class="write-canvas" id="canvas-3"></canvas>
         </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① 4+2i</button>
-          <button class="choice-btn" onclick="pick(this,false)">② 4+3i</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ 5+3i</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ 5+4i</button>
-          <button class="choice-btn" onclick="pick(this,true)">⑤ 6+4i</button>
+        <div class="answer-check">
+          <span class="ac-label">내 답 입력</span>
+          <input type="text" class="ans-input" id="input-3" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '20')">확인</button>
+          <span class="ans-feedback" id="feedback-3"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\((4+7i)+(2-3i) = (4+2)+(7-3)i = 6+4i\)</div>
+            <div class="sol-line">\((x+y)^3=x^3+y^3+3xy(x+y)\)</div><div class="sol-line">\(216=72+18xy \Rightarrow xy=8\)</div><div class="sol-line">\(x^2+y^2=(x+y)^2-2xy=36-16=20\)</div>
           </div>
         </div>
       </div>
@@ -626,7 +627,7 @@
           <span class="pnum">4</span>
           <span class="diff-badge diff-mid">중</span>
         </div>
-        <div class="pquestion">\(\dfrac{1}{i^{201}}+\dfrac{1}{i^{203}}\)의 값은? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">\(x=\sqrt5+2\)이고 \(y=\sqrt5-2\)일 때, \(x^3+x^2y-xy^2-y^3\)의 값을 구하시오.</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -638,27 +639,25 @@
           </div>
           <canvas class="write-canvas" id="canvas-4"></canvas>
         </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① -1</button>
-          <button class="choice-btn" onclick="pick(this,true)">② 0</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ 1</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ i</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ -i</button>
+        <div class="answer-check">
+          <span class="ac-label">내 답 입력</span>
+          <input type="text" class="ans-input" id="input-4" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '80')">확인</button>
+          <span class="ans-feedback" id="feedback-4"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(i^{201}=i,\ i^{203}=-i\)</div><div class="sol-line">\(\dfrac1i=-i,\ \dfrac1{-i}=i\)</div><div class="sol-line">\(-i+i=0\)</div>
+            <div class="sol-line">\(x^3+x^2y-xy^2-y^3=(x^2-y^2)(x+y)=(x+y)^2(x-y)\)</div><div class="sol-line">\(x+y=2\sqrt5,\ x-y=4\)</div><div class="sol-line">\(=(2\sqrt5)^2\cdot4=80\)</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="5">
         <div class="pcard-head">
           <span class="pnum">5</span>
-          <span class="diff-badge diff-midhigh">중상</span>
+          <span class="diff-badge diff-low">하</span>
         </div>
-        <div class="pquestion">다음 |보기| 중에서 허수가 아닌 것을 모두 고른 것은? (단, \(i=\sqrt{-1}\))</div>
-        <div class="ref-box">ㄱ. \(3+2i\) &nbsp;&nbsp; ㄴ. \(3\pi\) &nbsp;&nbsp; ㄷ. \(1-i\) &nbsp;&nbsp; ㄹ. \(\sqrt2\) &nbsp;&nbsp; ㅁ. \(4i\)</div>
+        <div class="pquestion">다항식 \(f(x)\)를 \(x^2+3x+2\)로 나누었더니 몫이 \(2x-5\)이고, 나머지가 \(3x+1\)이었다. 이때 \(f(1)\)의 값은?</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -671,25 +670,31 @@
           <canvas class="write-canvas" id="canvas-5"></canvas>
         </div>
         <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① ㄱ, ㄹ</button>
-          <button class="choice-btn" onclick="pick(this,false)">② ㄴ, ㄷ</button>
-          <button class="choice-btn" onclick="pick(this,true)">③ ㄴ, ㄹ</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ ㄷ, ㅁ</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ ㄹ, ㅁ</button>
+          <button class="choice-btn" onclick="pick(this,false)">① \(-15\)</button>
+          <button class="choice-btn" onclick="pick(this,true)">② \(-14\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">③ \(-13\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">④ \(-12\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">⑤ \(-11\)</button>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">허수가 아닌 것 = 실수인 것</div><div class="sol-line">ㄴ. \(3\pi\)와 ㄹ. \(\sqrt2\)는 \(i\)가 없는 실수</div>
+            <div class="sol-line">\(f(x)=(x^2+3x+2)(2x-5)+3x+1\)</div><div class="sol-line">\(f(1)=6\cdot(-3)+4=-14\)</div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-2" data-page="2">
+    <div class="page-title">6~10번</div>
+    <div class="page-grid">
       <div class="pcard" data-num="6">
         <div class="pcard-head">
           <span class="pnum">6</span>
-          <span class="diff-badge diff-low">하</span>
+          <span class="diff-badge diff-mid">중</span>
         </div>
-        <div class="pquestion">\(\alpha=1+i,\ \beta=1-i\)일 때, \((\alpha-\beta)(\bar\alpha-\bar\beta)\)의 값을 구하시오. (단, \(\bar\alpha,\bar\beta\)는 켤레복소수, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">등식 \(a(x+2)+b(2x-1)+15=0\)이 \(x\)의 값에 관계없이 항상 성립할 때, 상수 \(a\)와 \(b\)에 대하여 \(ab\)의 값을 구하시오.</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -703,29 +708,23 @@
         </div>
         <div class="answer-check">
           <span class="ac-label">내 답 입력</span>
-          <input type="text" class="ans-input" id="input-6" placeholder="예: 3, -6, 2/5">
-          <button class="ac-btn" onclick="checkAnswer(this, '4')">확인</button>
+          <input type="text" class="ans-input" id="input-6" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '-18')">확인</button>
           <span class="ans-feedback" id="feedback-6"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(\bar\alpha=1-i,\ \bar\beta=1+i\)</div><div class="sol-line">\(\alpha-\beta=2i,\quad \bar\alpha-\bar\beta=-2i\)</div><div class="sol-line">\((2i)(-2i)=-4i^2=4\)</div>
+            <div class="sol-line">\(a(x+2)+b(2x-1)+15=(a+2b)x+(2a-b+15)\)</div><div class="sol-line">\(a+2b=0,\ 2a-b+15=0\)</div><div class="sol-line">연립하면 \(a=-6,\ b=3 \Rightarrow ab=-18\)</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="page" id="page-2" data-page="2">
-    <div class="page-title">7~12번</div>
-    <div class="page-grid">
       <div class="pcard" data-num="7">
         <div class="pcard-head">
           <span class="pnum">7</span>
           <span class="diff-badge diff-high">상</span>
         </div>
-        <div class="pquestion">복소수 \(a+bi\)에 대하여 \(a, b\)가 실수일 때, 허수부분의 부호를 바꾼 복소수 \(a-bi\)를 복소수 \(a+bi\)의 ___라 하고, ___로 나타낸다. 빈칸에 들어갈 말을 순서대로 나열한 것은? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">다항식 \(f(x)\)에 대하여 등식 \(x^6-ax^3+b=(x^2-x-2)f(x)+3x-4\)가 \(x\)에 대한 항등식이 되도록 상수 \(a\)와 \(b\)를 정할 때, \(a-b\)의 값은?</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -738,25 +737,25 @@
           <canvas class="write-canvas" id="canvas-7"></canvas>
         </div>
         <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① 허수단위, \(\overline{a+bi}\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">② 허수단위, \(a+bi\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ 켤레복소수, \(\overline{a-bi}\)</button>
-          <button class="choice-btn" onclick="pick(this,true)">④ 켤레복소수, \(\overline{a+bi}\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ 켤레복소수, \(\bar a+bi\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">① \(5\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">② \(10\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">③ \(15\)</button>
+          <button class="choice-btn" onclick="pick(this,true)">④ \(20\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">⑤ \(25\)</button>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">허수부분의 부호를 바꾼 복소수를 켤레복소수라 하고, \(\overline{a+bi}\)로 나타낸다.</div>
+            <div class="sol-line">\(x^2-x-2=(x-2)(x+1)\)</div><div class="sol-line">\(x=-1\) 대입: \(a+b=-8\)</div><div class="sol-line">\(x=2\) 대입: \(8a-b=62\)</div><div class="sol-line">연립하면 \(a=6,\ b=-14 \Rightarrow a-b=20\)</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="8">
         <div class="pcard-head">
           <span class="pnum">8</span>
-          <span class="diff-badge diff-mid">중</span>
+          <span class="diff-badge diff-top">최상</span>
         </div>
-        <div class="pquestion">\(\dfrac{1-i}{1+i}+\dfrac{1+i}{1-i}\)를 계산하면? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">다항식 \(x^{2025}-1\)을 \((x-1)^2\)으로 나누었을 때의 몫을 \(Q(x)\), 나머지를 \(R(x)\)라 할 때, \(Q(0)-R(0)\)의 값을 구하시오.</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -768,26 +767,25 @@
           </div>
           <canvas class="write-canvas" id="canvas-8"></canvas>
         </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① -2i</button>
-          <button class="choice-btn" onclick="pick(this,false)">② -2</button>
-          <button class="choice-btn" onclick="pick(this,true)">③ 0</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ 2</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ 2i</button>
+        <div class="answer-check">
+          <span class="ac-label">내 답 입력</span>
+          <input type="text" class="ans-input" id="input-8" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '4049')">확인</button>
+          <span class="ans-feedback" id="feedback-8"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(\dfrac{1-i}{1+i}=-i,\quad \dfrac{1+i}{1-i}=i\)</div><div class="sol-line">\(-i+i=0\)</div>
+            <div class="sol-line">\(R(x)=ax+b\)로 놓고 \(x=1\) 대입하면 \(a+b=0\)</div><div class="sol-line">\(x^{2025}-1=(x-1)(x^{2024}+\cdots+x+1)\)임을 이용해 정리하면 \(a=2025\)</div><div class="sol-line">\(R(0)=-2025,\ Q(0)=2024\)</div><div class="sol-line">\(Q(0)-R(0)=2024-(-2025)=4049\)</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="9">
         <div class="pcard-head">
           <span class="pnum">9</span>
-          <span class="diff-badge diff-low">하</span>
+          <span class="diff-badge diff-high">상</span>
         </div>
-        <div class="pquestion">\((1+2i)(2+3i)\)를 바르게 계산한 것은? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">다항식 \(P(x)\)를 \(x^2-5x+4\)로 나누었을 때의 나머지가 \(-3x+2\)이고, \(2x^2-7x+3\)으로 나누었을 때의 나머지가 \(x+2\)이다. \(P(x)\)를 \(x^2-4x+3\)으로 나누었을 때의 나머지는?</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -800,25 +798,25 @@
           <canvas class="write-canvas" id="canvas-9"></canvas>
         </div>
         <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① -2+7i</button>
-          <button class="choice-btn" onclick="pick(this,true)">② -4+7i</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ -6+7i</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ -4+5i</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ -5+3i</button>
+          <button class="choice-btn" onclick="pick(this,false)">① \(3x-5\)</button>
+          <button class="choice-btn" onclick="pick(this,true)">② \(3x-4\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">③ \(3x-3\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">④ \(3x-2\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">⑤ \(3x-1\)</button>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\((1+2i)(2+3i)=2+7i+6i^2=2+7i-6=-4+7i\)</div>
+            <div class="sol-line">\(x^2-5x+4=(x-1)(x-4)\)에서 \(P(1)=-1\)</div><div class="sol-line">\(2x^2-7x+3=(2x-1)(x-3)\)에서 \(P(3)=5\)</div><div class="sol-line">\(x^2-4x+3=(x-1)(x-3)\)이므로 나머지를 \(ax+b\)라 하면 \(a+b=-1,\ 3a+b=5\)</div><div class="sol-line">\(a=3,\ b=-4 \Rightarrow\) 나머지는 \(3x-4\)</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="10">
         <div class="pcard-head">
           <span class="pnum">10</span>
-          <span class="diff-badge diff-midhigh">중상</span>
+          <span class="diff-badge diff-high">상</span>
         </div>
-        <div class="pquestion">\(2+5i\)의 실수부분을 \(a\), 허수부분을 \(b\)라고 할 때, \(\dfrac{a}{b}\)의 값을 구하시오. (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">다항식 \(f(x)\)를 \(x^2-x+1\)로 나누었을 때의 나머지는 \(2x+5\)이다. \(f(x)\)를 \(x^3+1\)로 나누었을 때의 나머지를 \(ax^2+b\)라 할 때, \(f(x)\)를 \(x+1\)로 나누었을 때의 나머지를 구하시오.</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -832,23 +830,29 @@
         </div>
         <div class="answer-check">
           <span class="ac-label">내 답 입력</span>
-          <input type="text" class="ans-input" id="input-10" placeholder="예: 3, -6, 2/5">
-          <button class="ac-btn" onclick="checkAnswer(this, '2/5')">확인</button>
+          <input type="text" class="ans-input" id="input-10" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '9')">확인</button>
           <span class="ans-feedback" id="feedback-10"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(a=2,\ b=5\)</div><div class="sol-line">\(\dfrac{a}{b}=\dfrac25\)</div>
+            <div class="sol-line">\(x^3+1=(x+1)(x^2-x+1)\)임을 이용해 식을 정리하면 \(a=2,\ b=7\)</div><div class="sol-line">\(f(x)=(x^3+1)Q(x)+2x^2+7\)</div><div class="sol-line">\(f(-1)=2+7=9\)</div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-3" data-page="3">
+    <div class="page-title">11~15번</div>
+    <div class="page-grid">
       <div class="pcard" data-num="11">
         <div class="pcard-head">
           <span class="pnum">11</span>
           <span class="diff-badge diff-midhigh">중상</span>
         </div>
-        <div class="pquestion">등식 \((x-2)+(y+1)i=0\)을 만족하는 실수 \(x, y\)에 대하여 \(x+y\)의 값을 구하시오. (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">다항식 \(f(x)\)를 \(2x-1\)로 나누면 나머지는 \(-4\)이고, 그 몫을 \(x+2\)로 나누면 나머지는 \(2\)이다. 이때 \(f(x)\)를 \(x+2\)로 나눌 때의 나머지를 구하시오.</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -862,23 +866,23 @@
         </div>
         <div class="answer-check">
           <span class="ac-label">내 답 입력</span>
-          <input type="text" class="ans-input" id="input-11" placeholder="예: 3, -6, 2/5">
-          <button class="ac-btn" onclick="checkAnswer(this, '1')">확인</button>
+          <input type="text" class="ans-input" id="input-11" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '-14')">확인</button>
           <span class="ans-feedback" id="feedback-11"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(x=2,\ y=-1\)</div><div class="sol-line">\(\therefore\ x+y=1\)</div>
+            <div class="sol-line">\(f(x)=(2x-1)Q(x)-4\)이고 \(Q(x)=(x+2)Q_1(x)+2\)</div><div class="sol-line">\(f(-2)=(2\cdot(-2)-1)\cdot2-4=-5\cdot2-4=-14\)</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="12">
         <div class="pcard-head">
           <span class="pnum">12</span>
-          <span class="diff-badge diff-low">하</span>
+          <span class="diff-badge diff-mid">중</span>
         </div>
-        <div class="pquestion">\((4+2i)+(1-3i)\)의 값은? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">\(x\)에 대한 다항식 \(x^3+ax^2+bx+1\)을 \(x+1\)로 나누었을 때의 몫과 나머지를 조립제법으로 구하려고 한다. 조립제법 결과 \(k=-1,\ c=-1,\ d=-a+1,\ -b+a=2\)일 때, 다음 중 옳지 않은 것은?</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -891,31 +895,25 @@
           <canvas class="write-canvas" id="canvas-12"></canvas>
         </div>
         <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① 3-i</button>
-          <button class="choice-btn" onclick="pick(this,false)">② 3+i</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ 4-i</button>
-          <button class="choice-btn" onclick="pick(this,true)">④ 5-i</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ 5+i</button>
+          <button class="choice-btn" onclick="pick(this,true)">① \(a=3\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">② \(b=2\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">③ \(c=-1\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">④ \(d=-3\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">⑤ \(k=-1\)</button>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\((4+1)+(2-3)i=5-i\)</div>
+            <div class="sol-line">조립제법을 정리하면 \(a=4,\ b=2,\ d=-3\)이 되어 ① \(a=3\)이 옳지 않다.</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="page" id="page-3" data-page="3">
-    <div class="page-title">13~18번</div>
-    <div class="page-grid">
       <div class="pcard" data-num="13">
         <div class="pcard-head">
           <span class="pnum">13</span>
           <span class="diff-badge diff-mid">중</span>
         </div>
-        <div class="pquestion">\(i^{10}+i^{100}\)을 계산하면?</div>
+        <div class="pquestion">다음 중 다항식 \(x^2+3xy+2y^2-x-3y-2\)의 인수인 것은?</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -928,26 +926,25 @@
           <canvas class="write-canvas" id="canvas-13"></canvas>
         </div>
         <div class="choices">
-          <button class="choice-btn" onclick="pick(this,true)">① 0</button>
-          <button class="choice-btn" onclick="pick(this,false)">② 1</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ -1</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ 1+i</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ 1-i</button>
+          <button class="choice-btn" onclick="pick(this,false)">① \(x+y+2\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">② \(x-y+2\)</button>
+          <button class="choice-btn" onclick="pick(this,true)">③ \(x+2y+1\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">④ \(x-2y+1\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">⑤ \(x+y+1\)</button>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(i^{10}=-1,\ i^{100}=1\)</div><div class="sol-line">\(-1+1=0\)</div>
+            <div class="sol-line">\(x^2+(3y-1)x+(2y+1)(y-2)\) 꼴로 정리하면</div><div class="sol-line">\(=(x+2y+1)(x+y-2)\)</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="14">
         <div class="pcard-head">
           <span class="pnum">14</span>
-          <span class="diff-badge diff-midhigh">중상</span>
+          <span class="diff-badge diff-high">상</span>
         </div>
-        <div class="pquestion">다음 |보기| 중 실수를 모두 찾은 것은? (단, \(i=\sqrt{-1}\))</div>
-        <div class="ref-box">ㄱ. \(-\dfrac12\) &nbsp;&nbsp; ㄴ. \(\sqrt3+1\) &nbsp;&nbsp; ㄷ. \(3i+4\) &nbsp;&nbsp; ㄹ. \(-3\sqrt2\,i\) &nbsp;&nbsp; ㅁ. \(i\)</div>
+        <div class="pquestion">\(ax^4+bx+6\)이 \((x-1)^2Q(x)\)로 인수분해될 때, \(Q(3)\)의 값을 구하시오. (단, \(a, b\)는 상수)</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -959,17 +956,16 @@
           </div>
           <canvas class="write-canvas" id="canvas-14"></canvas>
         </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,true)">① ㄱ, ㄴ</button>
-          <button class="choice-btn" onclick="pick(this,false)">② ㄱ, ㅁ</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ ㄴ, ㄷ</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ ㄷ, ㄹ</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ ㄹ, ㅁ</button>
+        <div class="answer-check">
+          <span class="ac-label">내 답 입력</span>
+          <input type="text" class="ans-input" id="input-14" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '36')">확인</button>
+          <span class="ans-feedback" id="feedback-14"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">ㄱ, ㄴ은 실수, ㄷ,ㄹ,ㅁ은 \(i\)를 포함한 허수</div>
+            <div class="sol-line">조립제법을 두 번 적용해 \(a+b+6=0,\ 4a+b=0\)을 얻으면 \(a=2,\ b=-8\)</div><div class="sol-line">\(2x^4-8x+6=(x-1)^2(2x^2+4x+6)\)</div><div class="sol-line">\(Q(3)=2\cdot9+12+6=36\)</div>
           </div>
         </div>
       </div>
@@ -978,7 +974,7 @@
           <span class="pnum">15</span>
           <span class="diff-badge diff-midhigh">중상</span>
         </div>
-        <div class="pquestion">복소수 \(z=2+3i\)의 켤레복소수를 \(\bar z\)라고 할 때, 다음 중 옳지 않은 것은? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">모든 양수 \(x\)에 대하여 세 모서리의 길이가 각각 \(x+2,\ x+a,\ x+b\)인 직육면체의 부피가 항상 \(x^3+10x^2+(c+1)x+c\)와 같다고 한다. 양수 \(a, b, c\)에 대하여 \(a+b+c\)의 값을 구하시오.</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -990,26 +986,31 @@
           </div>
           <canvas class="write-canvas" id="canvas-15"></canvas>
         </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① \(\bar z=2-3i\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">② \(z+\bar z=4\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ \(z-\bar z=6i\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ \(z\bar z=13\)</button>
-          <button class="choice-btn" onclick="pick(this,true)">⑤ \(\dfrac{\bar z}{z}=13i\)</button>
+        <div class="answer-check">
+          <span class="ac-label">내 답 입력</span>
+          <input type="text" class="ans-input" id="input-15" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '38')">확인</button>
+          <span class="ans-feedback" id="feedback-15"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(\dfrac{\bar z}{z}=\dfrac{2-3i}{2+3i}=\dfrac{-5-12i}{13}\ne 13i\)</div>
+            <div class="sol-line">\((x+2)(x+a)(x+b)=x^3+10x^2+(c+1)x+c\)의 계수를 비교해보세요.</div><div class="sol-line">정답: \(a+b+c=38\)</div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-4" data-page="4">
+    <div class="page-title">16~20번</div>
+    <div class="page-grid">
       <div class="pcard" data-num="16">
         <div class="pcard-head">
           <span class="pnum">16</span>
-          <span class="diff-badge diff-high">상</span>
+          <span class="diff-badge diff-midhigh">중상</span>
         </div>
-        <div class="pquestion">다음 중 옳지 않은 것은? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">복소수 \(z=(a^2-4)+(a^2-7a+10)i\)에 대하여 \(z^2\)이 음의 실수가 되도록 하는 실수 \(a\)의 값을 구하시오.</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -1021,26 +1022,25 @@
           </div>
           <canvas class="write-canvas" id="canvas-16"></canvas>
         </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① \(\overline{5-3i}=5+3i\)</button>
-          <button class="choice-btn" onclick="pick(this,true)">② \(\overline{i+3}=1-3i\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ \(\overline{3i-5}=-5-3i\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ \(\overline{4i+2}=2-4i\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ \(\bar3-3i=3-3i\)</button>
+        <div class="answer-check">
+          <span class="ac-label">내 답 입력</span>
+          <input type="text" class="ans-input" id="input-16" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '-2')">확인</button>
+          <span class="ans-feedback" id="feedback-16"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(\overline{i+3}=\overline{3+i}=3-i\) 인데 ②는 \(1-3i\)라고 했으므로 틀림</div><div class="sol-line">⑤는 bar가 \(3\)에만 걸려 참</div>
+            <div class="sol-line">\(z=(a-2)\{(a+2)+(a-5)i\}\)</div><div class="sol-line">\(z^2\)이 0이 아닌 실수가 되려면 \(2(a+2)(a-5)=0\)</div><div class="sol-line">\(a=-2\) 또는 \(a=5\) 중 \(z^2<0\)을 만족하는 값은 \(a=-2\)</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="17">
         <div class="pcard-head">
           <span class="pnum">17</span>
-          <span class="diff-badge diff-high">상</span>
+          <span class="diff-badge diff-midhigh">중상</span>
         </div>
-        <div class="pquestion">\(\dfrac{3-i}{1+i}+\dfrac1i\)을 계산하면? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">두 실수 \(x, y\)에 대하여 \(\sqrt{x}\sqrt{y}=-\sqrt{xy}\)가 성립하고 등식 \(x^2+2x-(y+3)i=15+4i\)를 만족한다. 두 실수 \(x, y\)의 곱 \(xy\)의 값은?</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -1053,25 +1053,25 @@
           <canvas class="write-canvas" id="canvas-17"></canvas>
         </div>
         <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① 1-i</button>
-          <button class="choice-btn" onclick="pick(this,false)">② 1+i</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ 1-2i</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ -1+2i</button>
-          <button class="choice-btn" onclick="pick(this,true)">⑤ 1-3i</button>
+          <button class="choice-btn" onclick="pick(this,false)">① \(32\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">② \(33\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">③ \(34\)</button>
+          <button class="choice-btn" onclick="pick(this,true)">④ \(35\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">⑤ \(36\)</button>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(\dfrac{3-i}{1+i}=1-2i,\quad \dfrac1i=-i\)</div><div class="sol-line">\(1-2i-i=1-3i\)</div>
+            <div class="sol-line">\(\sqrt x\sqrt y=-\sqrt{xy}\)는 \(x<0,\ y<0\)일 때 성립</div><div class="sol-line">\(x^2+2x=15,\ -(y+3)=4\)에서 \(x=-5,\ y=-7\)</div><div class="sol-line">\(xy=35\)</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="18">
         <div class="pcard-head">
           <span class="pnum">18</span>
-          <span class="diff-badge diff-low">하</span>
+          <span class="diff-badge diff-mid">중</span>
         </div>
-        <div class="pquestion">\((2+i)(2-i)\)의 값은? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">복소수 \(z=5+i\)에 대하여 \(\left(\dfrac1z-\dfrac{1}{\bar z}\right)^2\)의 값을 구하시오. (단, \(\bar z\)는 \(z\)의 켤레복소수이다.)</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -1083,32 +1083,25 @@
           </div>
           <canvas class="write-canvas" id="canvas-18"></canvas>
         </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① 1</button>
-          <button class="choice-btn" onclick="pick(this,false)">② 2</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ 3</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ 4</button>
-          <button class="choice-btn" onclick="pick(this,true)">⑤ 5</button>
+        <div class="answer-check">
+          <span class="ac-label">내 답 입력</span>
+          <input type="text" class="ans-input" id="input-18" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '-1/169')">확인</button>
+          <span class="ans-feedback" id="feedback-18"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\((2+i)(2-i)=4-i^2=4+1=5\)</div>
+            <div class="sol-line">\(\dfrac1z=\dfrac{5-i}{26},\quad \dfrac{1}{\bar z}=\dfrac{5+i}{26}\)</div><div class="sol-line">\(\dfrac1z-\dfrac1{\bar z}=-\dfrac{i}{13}\)</div><div class="sol-line">\(\left(-\dfrac{i}{13}\right)^2=-\dfrac1{169}\)</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="page" id="page-4" data-page="4">
-    <div class="page-title">19~24번</div>
-    <div class="page-grid">
       <div class="pcard" data-num="19">
         <div class="pcard-head">
           <span class="pnum">19</span>
-          <span class="diff-badge diff-low">하</span>
+          <span class="diff-badge diff-midhigh">중상</span>
         </div>
-        <div class="pquestion">\(\sqrt2-i\)의 실수부분을 \(a\), \(\dfrac{1+4i}{2}\)의 허수부분을 \(b\)라 할 때, \(a^2+b^2\)의 값을 구하시오.</div>
+        <div class="pquestion">\(x\)에 대한 이차방정식 \(x^2+2(k-1)x+k^2-20=0\)이 서로 다른 두 실근을 갖도록 \(k\)의 값을 정할 때, 자연수 \(k\)의 개수를 구하시오.</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -1122,23 +1115,23 @@
         </div>
         <div class="answer-check">
           <span class="ac-label">내 답 입력</span>
-          <input type="text" class="ans-input" id="input-19" placeholder="예: 3, -6, 2/5">
-          <button class="ac-btn" onclick="checkAnswer(this, '6')">확인</button>
+          <input type="text" class="ans-input" id="input-19" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '10')">확인</button>
           <span class="ans-feedback" id="feedback-19"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(a=\sqrt2,\ b=2\)</div><div class="sol-line">\(a^2+b^2=2+4=6\)</div>
+            <div class="sol-line">판별식 \(>0\): \((k-1)^2-(k^2-20)>0\)</div><div class="sol-line">정리하면 \(2k<21 \Rightarrow k<\dfrac{21}{2}\)</div><div class="sol-line">자연수 \(k\)는 \(1,2,\dots,10\)의 10개</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="20">
         <div class="pcard-head">
           <span class="pnum">20</span>
-          <span class="diff-badge diff-low">하</span>
+          <span class="diff-badge diff-high">상</span>
         </div>
-        <div class="pquestion">\(x+y+(x-2y)i=1+7i\)을 만족하는 실수 \(x, y\)에 대하여 \(xy\)의 값을 구하시오. (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">\(x\)에 대한 이차방정식 \(4x^2+2(2k+m)x+k^2-k+2n=0\)이 실수 \(k\)의 값에 관계없이 중근을 가질 때, 실수 \(m, n\)에 대하여 \(m+n\)의 값은?</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -1150,25 +1143,32 @@
           </div>
           <canvas class="write-canvas" id="canvas-20"></canvas>
         </div>
-        <div class="answer-check">
-          <span class="ac-label">내 답 입력</span>
-          <input type="text" class="ans-input" id="input-20" placeholder="예: 3, -6, 2/5">
-          <button class="ac-btn" onclick="checkAnswer(this, '-6')">확인</button>
-          <span class="ans-feedback" id="feedback-20"></span>
+        <div class="choices">
+          <button class="choice-btn" onclick="pick(this,false)">① \(3\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">② \(7/8\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">③ \(-2/3\)</button>
+          <button class="choice-btn" onclick="pick(this,true)">④ \(-7/8\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">⑤ \(-5/8\)</button>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(x+y=1,\ x-2y=7\)</div><div class="sol-line">\(x=3,\ y=-2\)</div><div class="sol-line">\(xy=-6\)</div>
+            <div class="sol-line">판별식/4 \(=(2k+m)^2-4(k^2-k+2n)=0\)을 \(k\)에 대해 정리</div><div class="sol-line">\((4m+4)k+m^2-8n=0\)이 항상 성립하므로 \(m=-1,\ n=1/8\)</div><div class="sol-line">\(m+n=-\dfrac78\)</div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-5" data-page="5">
+    <div class="page-title">21~25번</div>
+    <div class="page-grid">
       <div class="pcard" data-num="21">
         <div class="pcard-head">
           <span class="pnum">21</span>
-          <span class="diff-badge diff-low">하</span>
+          <span class="diff-badge diff-midhigh">중상</span>
         </div>
-        <div class="pquestion">\(\left(\dfrac32+5i\right)-\left(\dfrac12-i\right)\)를 계산하면? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">이차방정식 \(x^2-2mx+8-m^2=0\)의 두 근을 \(\alpha, \beta\)라 할 때, \(\alpha^2+\alpha\beta+\beta^2=32\)를 만족시키는 모든 실수 \(m\)의 값의 합은?</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -1181,25 +1181,25 @@
           <canvas class="write-canvas" id="canvas-21"></canvas>
         </div>
         <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① 1+4i</button>
-          <button class="choice-btn" onclick="pick(this,false)">② 1+5i</button>
-          <button class="choice-btn" onclick="pick(this,true)">③ 1+6i</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ 2+4i</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ 2+6i</button>
+          <button class="choice-btn" onclick="pick(this,false)">① \(-3√2\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">② \(-2√2\)</button>
+          <button class="choice-btn" onclick="pick(this,true)">③ \(0\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">④ \(2√2\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">⑤ \(4√2\)</button>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(\left(\frac32-\frac12\right)+(5i+i)=1+6i\)</div>
+            <div class="sol-line">근과 계수: \(\alpha+\beta=2m,\ \alpha\beta=8-m^2\)</div><div class="sol-line">\((\alpha+\beta)^2-\alpha\beta=32\)에서 \(5m^2=40 \Rightarrow m=\pm2\sqrt2\)</div><div class="sol-line">합은 \(0\)</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="22">
         <div class="pcard-head">
           <span class="pnum">22</span>
-          <span class="diff-badge diff-mid">중</span>
+          <span class="diff-badge diff-midhigh">중상</span>
         </div>
-        <div class="pquestion">\(i^{100}-i^{102}\)을 계산하면?</div>
+        <div class="pquestion">이차방정식 \(ax^2+bx+c=0\)의 두 근이 \(2, -\dfrac23\)이고 이차방정식 \(cx^2+bx+a=0\)의 두 근이 \(\alpha\)와 \(\beta\)일 때, \(\dfrac1\alpha+\dfrac1\beta\)의 값은? (단, \(a,b,c\)는 실수)</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -1211,17 +1211,16 @@
           </div>
           <canvas class="write-canvas" id="canvas-22"></canvas>
         </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① 0</button>
-          <button class="choice-btn" onclick="pick(this,false)">② 1</button>
-          <button class="choice-btn" onclick="pick(this,true)">③ 2</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ 1+i</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ 2+i</button>
+        <div class="answer-check">
+          <span class="ac-label">내 답 입력</span>
+          <input type="text" class="ans-input" id="input-22" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '4/3')">확인</button>
+          <span class="ans-feedback" id="feedback-22"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(i^{100}=1,\ i^{102}=-1\)</div><div class="sol-line">\(1-(-1)=2\)</div>
+            <div class="sol-line">\(ax^2+bx+c=\dfrac{a}{3}(x-2)(3x+2)\)에서 \(b=-\dfrac43a,\ c=-\dfrac43a\)</div><div class="sol-line">\(cx^2+bx+a=0\)의 근을 \(\alpha,\beta\)라 하면 근과 계수 관계로 \(\alpha+\beta=-1,\ \alpha\beta=-\dfrac34\)</div><div class="sol-line">\(\dfrac1\alpha+\dfrac1\beta=\dfrac{\alpha+\beta}{\alpha\beta}=\dfrac43\)</div>
           </div>
         </div>
       </div>
@@ -1230,9 +1229,8 @@
           <span class="pnum">23</span>
           <span class="diff-badge diff-top">최상</span>
         </div>
-        <div class="pquestion">다음 수들에 대한 |보기|의 설명 중 옳은 것을 모두 고른 것은?</div>
-        <div class="ref-box">\(-2,\ 2-3i,\ -\sqrt5\,i,\ -2i+\sqrt5,\ \dfrac13-\sqrt2\,i,\ \dfrac{\pi}{3},\ 0,\ -i^2,\ i^{-1}\)</div>
-   <div class="ref-box">ㄱ. 복소수는 모두 3개다. &nbsp; ㄴ. 순허수는 오직 1개다. &nbsp; ㄷ. 허수는 모두 4개다. &nbsp; ㄹ. 실수는 모두 4개다.</div>
+        <div class="pquestion">두 함수 \(f(x)=-x^2-ax-b,\ g(x)=cx+d\)에 대하여 이차함수 \(y=f(x)\)의 그래프는 \(x\)축에 접하고, 직선 \(y=g(x)\)와 제3사분면과 제4사분면에서 만날 때, 다음 |보기| 중 옳은 것만 있는 대로 고른 것은? (단, \(a,b,c,d\)는 실수)</div>
+        <div class="ref-box">ㄱ. \(a^2=4b\) &nbsp; ㄴ. \(\dfrac{a^2}{4}+d<0\) &nbsp; ㄷ. \(c^2+2ac-4d>0\)</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -1245,26 +1243,26 @@
           <canvas class="write-canvas" id="canvas-23"></canvas>
         </div>
         <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① ㄱ, ㄴ</button>
-          <button class="choice-btn" onclick="pick(this,false)">② ㄴ, ㄷ</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ ㄷ, ㄹ</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ ㄱ, ㄴ, ㄹ</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ ㄱ, ㄷ, ㄹ</button>
+          <button class="choice-btn" onclick="pick(this,false)">① \(ㄱ\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">② \(ㄱ,ㄴ\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">③ \(ㄱ,ㄷ\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">④ \(ㄴ,ㄷ\)</button>
+          <button class="choice-btn" onclick="pick(this,true)">⑤ \(ㄱ,ㄴ,ㄷ\)</button>
         </div>
-        <div class="note-caution">⚠️ 이 문제는 정답 판정이 확실치 않아 자동채점을 껐어요. 풀이를 보고 스스로 점검해보세요.</div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">9개의 수를 실수·허수·순허수로 하나씩 분류해보세요.</div><div class="sol-line">순허수(실수부분 0)는 \(-\sqrt5 i\)와 \(i^{-1}=-i\) 2개예요.</div>
+            <div class="sol-line">접한다는 조건에서 판별식 \(D_1=a^2-4b=0 \Rightarrow\) ㄱ 참</div><div class="sol-line">제3·4사분면에서 만난다는 조건에서 두 근의 곱이 음수 \(\Rightarrow b+d<0 \Rightarrow\) ㄴ 참</div><div class="sol-line">서로 다른 두 실근 조건의 판별식에서 ㄷ도 참</div>
           </div>
         </div>
       </div>
       <div class="pcard" data-num="24">
         <div class="pcard-head">
           <span class="pnum">24</span>
-          <span class="diff-badge diff-midhigh">중상</span>
+          <span class="diff-badge diff-top">최상</span>
         </div>
-        <div class="pquestion">복소수 \(z=2+i\)의 켤레복소수가 \(\bar z\)일 때, \(z+i\bar z\)의 값은? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">최고차항의 계수가 \(a\ (a<0)\)인 이차함수 \(f(x)\)가 다음 조건을 만족시킬 때, \(f(1)\)의 값은? (단, \(a\)는 상수이다.)</div>
+        <div class="ref-box">(가) 이차함수 \(y=f(x)\)의 그래프와 직선 \(y=-ax-5\)가 만나는 두 점의 \(x\)좌표는 각각 \(-2, 7\)이다.<br>(나) \(0\le x\le5\)에서 함수 \(f(x)\)의 최댓값과 최솟값의 합은 \(27\)이다.</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -1277,31 +1275,25 @@
           <canvas class="write-canvas" id="canvas-24"></canvas>
         </div>
         <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① 1-3i</button>
-          <button class="choice-btn" onclick="pick(this,false)">② 1+i</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ 1+3i</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ 3-i</button>
-          <button class="choice-btn" onclick="pick(this,true)">⑤ 3+3i</button>
+          <button class="choice-btn" onclick="pick(this,true)">① \(14\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">② \(15\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">③ \(16\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">④ \(17\)</button>
+          <button class="choice-btn" onclick="pick(this,false)">⑤ \(18\)</button>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(\bar z=2-i\)</div><div class="sol-line">\(z+i\bar z=2+i+i(2-i)=2+i+2i+1=3+3i\)</div>
+            <div class="sol-line">\(f(x)+ax+5=a(x+2)(x-7)\)에서 \(f(x)=a(x-3)^2-23a-5\)</div><div class="sol-line">꼭짓점 \(x=3\)에서 최댓값, \(x=0\)에서 최솟값(구간 내에서)</div><div class="sol-line">\(f(3)+f(0)=27\)을 풀면 \(a=-1\)</div><div class="sol-line">\(f(x)=-(x-3)^2+18 \Rightarrow f(1)=14\)</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="page" id="page-5" data-page="5">
-    <div class="page-title">25~30번</div>
-    <div class="page-grid">
       <div class="pcard" data-num="25">
         <div class="pcard-head">
           <span class="pnum">25</span>
-          <span class="diff-badge diff-midhigh">중상</span>
+          <span class="diff-badge diff-high">상</span>
         </div>
-        <div class="pquestion">다음 중 옳은 것은? (단, \(i=\sqrt{-1}\))</div>
+        <div class="pquestion">\(a\le x\le-1\)에서 이차함수 \(y=x^2+4x+k\)가 최댓값 \(8\), 최솟값 \(-1\)을 가질 때, 상수 \(a, k\)에 대하여 \(a+k\)의 값을 구하시오. (단, \(a<-2\))</div>
         <div class="write-pad">
           <div class="write-pad-head">
             <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -1313,278 +1305,16 @@
           </div>
           <canvas class="write-canvas" id="canvas-25"></canvas>
         </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① \(\overline{-3+2i}=3+2i\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">② \(\overline{i+2}=i-2\)</button>
-          <button class="choice-btn" onclick="pick(this,true)">③ \(\overline{2i+5}=5-2i\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">④ \(\bar i+\bar1=1+i\)</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ \(\bar3-5i=3+5i\)</button>
-        </div>
-        <div class="solution-wrap">
-          <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
-          <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(\overline{2i+5}=\overline{5+2i}=5-2i\) — 참</div>
-          </div>
-        </div>
-      </div>
-      <div class="pcard" data-num="26">
-        <div class="pcard-head">
-          <span class="pnum">26</span>
-          <span class="diff-badge diff-low">하</span>
-        </div>
-        <div class="pquestion">\(1+\dfrac{2}{1-i}\)의 값은? (단, \(i=\sqrt{-1}\))</div>
-        <div class="write-pad">
-          <div class="write-pad-head">
-            <span class="wp-label">✏️ 풀이 쓰기</span>
-            <div class="wp-tools">
-              <button class="wp-mode wp-mode-pen active" id="pen-mode-26" onclick="setPenMode('canvas-26','pen')">펜</button>
-              <button class="wp-mode wp-mode-erase" id="erase-mode-26" onclick="setPenMode('canvas-26','erase')">지우개</button>
-              <button class="wp-clear" onclick="clearCanvas('canvas-26')">전체 지우기</button>
-            </div>
-          </div>
-          <canvas class="write-canvas" id="canvas-26"></canvas>
-        </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① i</button>
-          <button class="choice-btn" onclick="pick(this,false)">② 1-i</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ 1+i</button>
-          <button class="choice-btn" onclick="pick(this,true)">④ 2+i</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ 2+2i</button>
-        </div>
-        <div class="solution-wrap">
-          <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
-          <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(\dfrac{2}{1-i}=1+i\)</div><div class="sol-line">\(1+(1+i)=2+i\)</div>
-          </div>
-        </div>
-      </div>
-      <div class="pcard" data-num="27">
-        <div class="pcard-head">
-          <span class="pnum">27</span>
-          <span class="diff-badge diff-low">하</span>
-        </div>
-        <div class="pquestion">\(-3i(1+i)\)를 계산하면? (단, \(i=\sqrt{-1}\))</div>
-        <div class="write-pad">
-          <div class="write-pad-head">
-            <span class="wp-label">✏️ 풀이 쓰기</span>
-            <div class="wp-tools">
-              <button class="wp-mode wp-mode-pen active" id="pen-mode-27" onclick="setPenMode('canvas-27','pen')">펜</button>
-              <button class="wp-mode wp-mode-erase" id="erase-mode-27" onclick="setPenMode('canvas-27','erase')">지우개</button>
-              <button class="wp-clear" onclick="clearCanvas('canvas-27')">전체 지우기</button>
-            </div>
-          </div>
-          <canvas class="write-canvas" id="canvas-27"></canvas>
-        </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① 3i</button>
-          <button class="choice-btn" onclick="pick(this,false)">② -3-3i</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ -3+3i</button>
-          <button class="choice-btn" onclick="pick(this,true)">④ 3-3i</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ 3+3i</button>
-        </div>
-        <div class="solution-wrap">
-          <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
-          <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(-3i(1+i)=-3i-3i^2=-3i+3=3-3i\)</div>
-          </div>
-        </div>
-      </div>
-      <div class="pcard" data-num="28">
-        <div class="pcard-head">
-          <span class="pnum">28</span>
-          <span class="diff-badge diff-low">하</span>
-        </div>
-        <div class="pquestion">복소수 \(a+bi\ (a,b\)는 실수\()\)가 다음 조건을 만족시킬 때, \(a+bi\)의 실수부분을 구하시오. (가) 허수부분은 3이다. &nbsp; (나) \(2a+b=1\)</div>
-        <div class="write-pad">
-          <div class="write-pad-head">
-            <span class="wp-label">✏️ 풀이 쓰기</span>
-            <div class="wp-tools">
-              <button class="wp-mode wp-mode-pen active" id="pen-mode-28" onclick="setPenMode('canvas-28','pen')">펜</button>
-              <button class="wp-mode wp-mode-erase" id="erase-mode-28" onclick="setPenMode('canvas-28','erase')">지우개</button>
-              <button class="wp-clear" onclick="clearCanvas('canvas-28')">전체 지우기</button>
-            </div>
-          </div>
-          <canvas class="write-canvas" id="canvas-28"></canvas>
-        </div>
         <div class="answer-check">
           <span class="ac-label">내 답 입력</span>
-          <input type="text" class="ans-input" id="input-28" placeholder="예: 3, -6, 2/5">
-          <button class="ac-btn" onclick="checkAnswer(this, '-1')">확인</button>
-          <span class="ans-feedback" id="feedback-28"></span>
+          <input type="text" class="ans-input" id="input-25" placeholder="예: 20, -18, 4/3">
+          <button class="ac-btn" onclick="checkAnswer(this, '-2')">확인</button>
+          <span class="ans-feedback" id="feedback-25"></span>
         </div>
         <div class="solution-wrap">
           <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
           <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(b=3\)</div><div class="sol-line">\(2a+3=1 \Rightarrow a=-1\)</div>
-          </div>
-        </div>
-      </div>
-      <div class="pcard" data-num="29">
-        <div class="pcard-head">
-          <span class="pnum">29</span>
-          <span class="diff-badge diff-low">하</span>
-        </div>
-        <div class="pquestion">등식 \((a+1)+3i=7+bi\)를 만족시키는 두 실수 \(a, b\)에 대하여 \(a+b\)의 값을 구하시오. (단, \(i=\sqrt{-1}\))</div>
-        <div class="write-pad">
-          <div class="write-pad-head">
-            <span class="wp-label">✏️ 풀이 쓰기</span>
-            <div class="wp-tools">
-              <button class="wp-mode wp-mode-pen active" id="pen-mode-29" onclick="setPenMode('canvas-29','pen')">펜</button>
-              <button class="wp-mode wp-mode-erase" id="erase-mode-29" onclick="setPenMode('canvas-29','erase')">지우개</button>
-              <button class="wp-clear" onclick="clearCanvas('canvas-29')">전체 지우기</button>
-            </div>
-          </div>
-          <canvas class="write-canvas" id="canvas-29"></canvas>
-        </div>
-        <div class="answer-check">
-          <span class="ac-label">내 답 입력</span>
-          <input type="text" class="ans-input" id="input-29" placeholder="예: 3, -6, 2/5">
-          <button class="ac-btn" onclick="checkAnswer(this, '9')">확인</button>
-          <span class="ans-feedback" id="feedback-29"></span>
-        </div>
-        <div class="solution-wrap">
-          <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
-          <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(a=6,\ b=3\)</div><div class="sol-line">\(a+b=9\)</div>
-          </div>
-        </div>
-      </div>
-      <div class="pcard" data-num="30">
-        <div class="pcard-head">
-          <span class="pnum">30</span>
-          <span class="diff-badge diff-low">하</span>
-        </div>
-        <div class="pquestion">\((2+i)+(2-3i)\)의 값은? (단, \(i=\sqrt{-1}\))</div>
-        <div class="write-pad">
-          <div class="write-pad-head">
-            <span class="wp-label">✏️ 풀이 쓰기</span>
-            <div class="wp-tools">
-              <button class="wp-mode wp-mode-pen active" id="pen-mode-30" onclick="setPenMode('canvas-30','pen')">펜</button>
-              <button class="wp-mode wp-mode-erase" id="erase-mode-30" onclick="setPenMode('canvas-30','erase')">지우개</button>
-              <button class="wp-clear" onclick="clearCanvas('canvas-30')">전체 지우기</button>
-            </div>
-          </div>
-          <canvas class="write-canvas" id="canvas-30"></canvas>
-        </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① 1+i</button>
-          <button class="choice-btn" onclick="pick(this,false)">② 2-2i</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ 2+2i</button>
-          <button class="choice-btn" onclick="pick(this,true)">④ 4-2i</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ 4+2i</button>
-        </div>
-        <div class="solution-wrap">
-          <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
-          <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\((2+2)+(1-3)i=4-2i\)</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="page" id="page-6" data-page="6">
-    <div class="page-title">31~33번 · 23번 유사문제 (복소수 분류)</div>
-    <div class="page-grid">
-      <div class="pcard" data-num="31">
-        <div class="pcard-head">
-          <span class="pnum">31</span>
-          <span class="diff-badge diff-midhigh">중상</span>
-        </div>
-        <div class="pquestion">다음 수 중 순허수(실수부분이 0인 허수)의 개수는?</div>
-        <div class="ref-box">\(3,\quad -2i,\quad 1-i,\quad \sqrt3,\quad 5i,\quad 0\)</div>
-        <div class="write-pad">
-          <div class="write-pad-head">
-            <span class="wp-label">✏️ 풀이 쓰기</span>
-            <div class="wp-tools">
-              <button class="wp-mode wp-mode-pen active" id="pen-mode-31" onclick="setPenMode('canvas-31','pen')">펜</button>
-              <button class="wp-mode wp-mode-erase" id="erase-mode-31" onclick="setPenMode('canvas-31','erase')">지우개</button>
-              <button class="wp-clear" onclick="clearCanvas('canvas-31')">전체 지우기</button>
-            </div>
-          </div>
-          <canvas class="write-canvas" id="canvas-31"></canvas>
-        </div>
-        <div class="answer-check">
-          <span class="ac-label">내 답 입력</span>
-          <input type="text" class="ans-input" id="input-31" placeholder="개수만 입력">
-          <button class="ac-btn" onclick="checkAnswer(this, '2')">확인</button>
-          <span class="ans-feedback" id="feedback-31"></span>
-        </div>
-        <div class="solution-wrap">
-          <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
-          <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(3\)(실수), \(-2i\)(순허수), \(1-i\)(허수, 순허수 아님), \(\sqrt3\)(실수), \(5i\)(순허수), \(0\)(실수)</div>
-            <div class="sol-line">순허수는 \(-2i,\ 5i\) → <b>2개</b></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pcard" data-num="32">
-        <div class="pcard-head">
-          <span class="pnum">32</span>
-          <span class="diff-badge diff-midhigh">중상</span>
-        </div>
-        <div class="pquestion">다음 수 중 실수의 개수는?</div>
-        <div class="ref-box">\(-4,\quad 2+3i,\quad -7i,\quad \pi,\quad i^2,\quad 6i\)</div>
-        <div class="write-pad">
-          <div class="write-pad-head">
-            <span class="wp-label">✏️ 풀이 쓰기</span>
-            <div class="wp-tools">
-              <button class="wp-mode wp-mode-pen active" id="pen-mode-32" onclick="setPenMode('canvas-32','pen')">펜</button>
-              <button class="wp-mode wp-mode-erase" id="erase-mode-32" onclick="setPenMode('canvas-32','erase')">지우개</button>
-              <button class="wp-clear" onclick="clearCanvas('canvas-32')">전체 지우기</button>
-            </div>
-          </div>
-          <canvas class="write-canvas" id="canvas-32"></canvas>
-        </div>
-        <div class="answer-check">
-          <span class="ac-label">내 답 입력</span>
-          <input type="text" class="ans-input" id="input-32" placeholder="개수만 입력">
-          <button class="ac-btn" onclick="checkAnswer(this, '3')">확인</button>
-          <span class="ans-feedback" id="feedback-32"></span>
-        </div>
-        <div class="solution-wrap">
-          <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
-          <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(i^2=-1\)이므로 실수. \(-4,\ \pi,\ i^2\)이 실수 → <b>3개</b></div>
-            <div class="sol-line">나머지 \(2+3i,\ -7i,\ 6i\)는 허수(\(b\ne0\))</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pcard" data-num="33">
-        <div class="pcard-head">
-          <span class="pnum">33</span>
-          <span class="diff-badge diff-top">최상</span>
-        </div>
-        <div class="pquestion">다음 수들에 대한 |보기|의 설명 중 옳은 것을 모두 고른 것은?</div>
-        <div class="ref-box">\(-3,\quad 2+i,\quad 5i,\quad \sqrt7,\quad -i^4,\quad 0\)</div>
-        <div class="ref-box">ㄱ. 복소수는 모두 6개다. &nbsp; ㄴ. 순허수는 1개다. &nbsp; ㄷ. 허수는 2개다. &nbsp; ㄹ. 실수는 3개다.</div>
-        <div class="write-pad">
-          <div class="write-pad-head">
-            <span class="wp-label">✏️ 풀이 쓰기</span>
-            <div class="wp-tools">
-              <button class="wp-mode wp-mode-pen active" id="pen-mode-33" onclick="setPenMode('canvas-33','pen')">펜</button>
-              <button class="wp-mode wp-mode-erase" id="erase-mode-33" onclick="setPenMode('canvas-33','erase')">지우개</button>
-              <button class="wp-clear" onclick="clearCanvas('canvas-33')">전체 지우기</button>
-            </div>
-          </div>
-          <canvas class="write-canvas" id="canvas-33"></canvas>
-        </div>
-        <div class="choices">
-          <button class="choice-btn" onclick="pick(this,false)">① ㄱ, ㄴ</button>
-          <button class="choice-btn" onclick="pick(this,false)">② ㄴ, ㄷ</button>
-          <button class="choice-btn" onclick="pick(this,false)">③ ㄱ, ㄷ, ㄹ</button>
-          <button class="choice-btn" onclick="pick(this,true)">④ ㄱ, ㄴ, ㄷ</button>
-          <button class="choice-btn" onclick="pick(this,false)">⑤ ㄴ, ㄷ, ㄹ</button>
-        </div>
-        <div class="solution-wrap">
-          <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
-          <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">
-            <div class="sol-line">\(-3\)(실수), \(2+i\)(허수), \(5i\)(순허수), \(\sqrt7\)(실수), \(-i^4=-1\)(실수, \(i^4=1\)이므로), \(0\)(실수)</div>
-            <div class="sol-line">실수 4개(\(-3,\sqrt7,-i^4,0\)), 순허수 1개(\(5i\)), 허수(\(b\ne0\)) 2개(\(2+i,5i\)), 전체 복소수 6개</div>
-            <div class="sol-line">ㄱ(6개, 참), ㄴ(1개, 참), ㄷ(2개, 참), ㄹ(실수 4개인데 "3개"라고 했으므로 거짓)</div>
-            <div class="sol-line">따라서 옳은 것은 ㄱ, ㄴ, ㄷ → ④</div>
+            <div class="sol-line">\(y=(x+2)^2-4+k\), 최솟값은 \(x=-2\)에서 \(-4+k=-1 \Rightarrow k=3\)</div><div class="sol-line">최댓값은 \(x=a\)에서 \(a^2+4a+3=8 \Rightarrow (a+5)(a-1)=0\)</div><div class="sol-line">\(a<-2\)이므로 \(a=-5\)</div><div class="sol-line">\(a+k=-2\)</div>
           </div>
         </div>
       </div>
@@ -1597,7 +1327,7 @@
 </section>
 
 <footer>
-  ✏️ 펜으로 직접 풀이를 쓰고, 다 풀면 "정답·풀이 보기"로 확인하세요 · 종료를 누르면 전체 결과가 나와요
+  ✏️ 펜으로 직접 풀이를 쓰고, 다 풀면 "정답·풀이 보기"로 확인하세요 · 종료를 누르면 전체 결과가 나와요 (DRE수학 문제 제공)
 </footer>
 
 <script>
@@ -1608,7 +1338,7 @@
     ]
   });
 
-  const TOTAL_PROBLEMS = 30;
+  const TOTAL_PROBLEMS = 25;
   let quizState = { running:false, startTime:0, timerInt:null, answers:{} };
   let scrollModeOn = false;
   let solutionsUnlocked = false;
@@ -1628,7 +1358,7 @@
   // 구글 시트 저장 설정 — Apps Script 배포 후 URL 교체
   const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzUef9uyH28s4l2iObFCyg131Ft2_aDdxLj_ab5vdA5wFBQKdVKMfOwh2u5EwsbWwus/exec';
   const STUDENT_NAME_KEY = 'complex56_student_name';
-  const WORKSHEET_ID = 'complex-5.6-student';
+  const WORKSHEET_ID = 'math1-midterm-r1-student';
 
   function pick(btn, isCorrect){
     const group = btn.parentElement.querySelectorAll('.choice-btn');
@@ -1805,7 +1535,7 @@
     const elapsed = Math.floor((Date.now()-quizState.startTime)/1000);
     document.getElementById('resultTime').textContent = '풀이 시간 ' + formatTime(elapsed);
 
-    const answeredNums = Object.keys(quizState.answers).filter(n => parseInt(n,10) <= TOTAL_PROBLEMS);
+    const answeredNums = Object.keys(quizState.answers);
     let correctCount = 0;
     let wrongNums = [];
     answeredNums.forEach(n => {
@@ -2012,35 +1742,19 @@
   document.querySelectorAll('.write-canvas').forEach(setupCanvas);
 
   // ============================================================
-  // ===== 오답 문제 → 유사문제 자동 생성 엔진 =====
+  // ===== 오답 문제 → 유사문제 자동 생성 엔진 (다항식) =====
   // ============================================================
 
-  const PROBLEM_FAMILY = {
-    1:'sumPartsDirect', 2:'sumPartsEquation', 3:'addComplex', 4:'iPower',
-    5:'classify', 6:'conjugateNumeric', 7:'concept', 8:'fracConjugate',
-    9:'mulComplex', 10:'ratioParts', 11:'sumPartsEquation', 12:'addComplex',
-    13:'iPower', 14:'classify', 15:'concept', 16:'concept',
-    17:'fracConjugate', 18:'mulComplex', 19:'sumPartsDirect', 20:'sumPartsEquation',
-    21:'addComplex', 22:'iPower', 23:'classify', 24:'conjugateExprMC',
-    25:'concept', 26:'fracConjugate', 27:'mulByI', 28:'condition',
-    29:'sumPartsEquation', 30:'addComplex'
-  };
+  const PROBLEM_FAMILY = {};  // 이 문제지는 아직 유형별 유사문제 생성기가 준비되지 않았어요
 
   function randInt(min, max){ return Math.floor(Math.random()*(max-min+1)) + min; }
   function randNonZero(min, max){ let v; do{ v = randInt(min,max); } while(v===0); return v; }
-
-  // 복소수를 "3+4i", "-4i", "5", "-i" 같은 표준 문자열로 표현
-  function fmtC(re, im){
-    if(im === 0) return `${re}`;
-    let s = '';
-    if(re !== 0) s += `${re}`;
-    if(im !== 0){
-      if(s !== '') s += (im > 0 ? '+' : '-');
-      else if(im < 0) s += '-';
-      const absIm = Math.abs(im);
-      s += (absIm === 1 ? 'i' : `${absIm}i`);
-    }
-    return s || '0';
+  function signStr(v){ return v>=0 ? '+' : '-'; }
+  function termStr(coef, sym){
+    const a = Math.abs(coef);
+    if(a===0) return '';
+    const num = a===1 ? '' : String(a);
+    return `${num}${sym}`;
   }
 
   function shuffle(arr){
@@ -2051,248 +1765,434 @@
     return arr;
   }
 
-  // 정답 1개 + 오답 4개(약간의 변형)로 5지선다 보기 구성
-  function buildChoices(correctRe, correctIm){
-    const seen = new Set([fmtC(correctRe,correctIm)]);
-    const options = [{re:correctRe, im:correctIm, correct:true}];
-    const perturbs = [
-      [correctRe+1,correctIm], [correctRe-1,correctIm],
-      [correctRe,correctIm+1], [correctRe,correctIm-1],
-      [correctRe*-1,correctIm], [correctRe,correctIm*-1],
-      [correctIm,correctRe]
-    ];
-    for(const [re,im] of perturbs){
-      if(options.length >= 5) break;
-      const key = fmtC(re,im);
-      if(!seen.has(key)){ seen.add(key); options.push({re,im,correct:false}); }
+  // 정답 문자열 + 오답 생성 함수 배열 → 5지선다 구성
+  function buildMC(correctText, distractorFns){
+    const seen = new Set([correctText]);
+    const opts = [{text:correctText, correct:true}];
+    for(const fn of distractorFns){
+      if(opts.length>=5) break;
+      const t = fn();
+      if(t && !seen.has(t)){ seen.add(t); opts.push({text:t, correct:false}); }
     }
-    while(options.length < 5){
-      const re = correctRe + randInt(-3,3), im = correctIm + randInt(-3,3);
-      const key = fmtC(re,im);
-      if(!seen.has(key)){ seen.add(key); options.push({re,im,correct:false}); }
+    let guard=0;
+    while(opts.length<5 && guard<30){
+      guard++;
+      const t = correctText + ' ';
+      if(!seen.has(t)){ seen.add(t); opts.push({text:t+ '​', correct:false}); }
     }
-    return shuffle(options.slice(0,5));
+    return shuffle(opts);
   }
 
-  function genAddComplex(){
-    const a=randInt(-6,6), b=randInt(-6,6), c=randInt(-6,6), d=randInt(-6,6);
-    const isAdd = Math.random() < 0.5;
-    const re = isAdd ? a+c : a-c;
-    const im = isAdd ? b+d : b-d;
-    const op = isAdd ? '+' : '-';
-    return {
-      type:'mc',
-      question:`\\((${fmtC(a,b)})${op}(${fmtC(c,d)})\\)를 계산하면? (단, \\(i=\\sqrt{-1}\\))`,
-      choices: buildChoices(re,im),
-      solution:[`실수부분: \\(${a} ${op} (${c}) = ${re}\\)`, `허수부분: \\(${b} ${op} (${d}) = ${im}\\)`]
-    };
-  }
-
-  function genMulComplex(){
-    const a=randInt(-4,4)||1, b=randInt(-4,4)||1, c=randInt(-4,4)||1, d=randInt(-4,4)||1;
-    const re = a*c - b*d;
-    const im = a*d + b*c;
-    return {
-      type:'mc',
-      question:`\\((${fmtC(a,b)})(${fmtC(c,d)})\\)를 계산하면? (단, \\(i=\\sqrt{-1}\\))`,
-      choices: buildChoices(re,im),
-      solution:[`\\((${fmtC(a,b)})(${fmtC(c,d)}) = ${a}\\cdot${c} + ${a}\\cdot${d}i + ${b}i\\cdot${c} + ${b}i\\cdot${d}i\\)`,
-                 `\\(= (${a*c} ${b*d>=0?'-':'+'} ${Math.abs(b*d)}) + (${a*d}+${b*c})i = ${fmtC(re,im)}\\)`]
-    };
-  }
-
-  function genMulByI(){
-    const a=randInt(-5,5)||1, b=randInt(-5,5)||1;
-    const k = [1,-1,2,-2,3,-3][randInt(0,5)];
-    // k*i*(a+bi) = k*a*i + k*b*i^2 = -k*b + k*a*i
-    const re = -k*b, im = k*a;
-    return {
-      type:'mc',
-      question:`\\(${k===1?'':k===-1?'-':k}i(${fmtC(a,b)})\\)를 계산하면? (단, \\(i=\\sqrt{-1}\\))`,
-      choices: buildChoices(re,im),
-      solution:[`\\(${k}i(${fmtC(a,b)}) = ${k}${a}i + ${k}${b}i^2 = ${re} + ${im}i\\)`]
-    };
-  }
-
-  function genIPower(){
-    const n1 = randInt(50,120)*4 + randInt(0,3);
-    const n2 = randInt(50,120)*4 + randInt(0,3);
-    const vals = {0:[1,0], 1:[0,1], 2:[-1,0], 3:[0,-1]};
-    const [re1,im1] = vals[n1%4];
-    const [re2,im2] = vals[n2%4];
-    const isAdd = Math.random() < 0.5;
-    const re = isAdd ? re1+re2 : re1-re2;
-    const im = isAdd ? im1+im2 : im1-im2;
-    const op = isAdd ? '+' : '-';
-    return {
-      type:'mc',
-      question:`\\(i^{${n1}}${op}i^{${n2}}\\)을 계산하면?`,
-      choices: buildChoices(re,im),
-      solution:[`\\(${n1}\\)을 4로 나눈 나머지 \\(=${n1%4}\\), \\(${n2}\\)를 4로 나눈 나머지 \\(=${n2%4}\\)`,
-                 `\\(i^{${n1}}=${fmtC(re1,im1)},\\ i^{${n2}}=${fmtC(re2,im2)}\\)`,
-                 `\\(${fmtC(re1,im1)} ${op} ${fmtC(re2,im2)} = ${fmtC(re,im)}\\)`]
-    };
-  }
-
-  function genSumPartsDirect(){
-    const a = randInt(-8,8), b = randNonZero(-8,8);
-    const useSquare = Math.random() < 0.4;
-    const ans = useSquare ? a*a+b*b : a+b;
+  function genSymmetricThreeVar(){
+    const x=randInt(-4,4), y=randInt(-4,4), z=randInt(-4,4);
+    const s = x+y+z, p = x*y+y*z+z*x;
+    const ans = s*s - 2*p;
     return {
       type:'fillin',
-      question: useSquare
-        ? `\\(${fmtC(a,b)}\\)의 실수부분을 \\(a\\), 허수부분을 \\(b\\)라고 할 때, \\(a^2+b^2\\)의 값을 구하시오. (단, \\(i=\\sqrt{-1}\\))`
-        : `\\(${fmtC(a,b)}\\)의 실수부분을 \\(a\\), 허수부분을 \\(b\\)라고 할 때, \\(a+b\\)의 값을 구하시오. (단, \\(i=\\sqrt{-1}\\))`,
-      answer: String(ans),
-      solution:[`\\(a=${a},\\ b=${b}\\)`, useSquare ? `\\(a^2+b^2=${a*a}+${b*b}=${ans}\\)` : `\\(a+b=${ans}\\)`]
+      question:`\\(x+y+z=${s},\\ xy+yz+zx=${p}\\)일 때, \\(x^2+y^2+z^2\\)의 값을 구하시오.`,
+      answer:String(ans),
+      solution:[`\\(x^2+y^2+z^2=(x+y+z)^2-2(xy+yz+zx)\\)`, `\\(=${s*s}-${2*p}=${ans}\\)`]
     };
   }
 
-  function genSumPartsEquation(){
-    const x = randInt(-6,6), y = randInt(-6,6);
-    const kMode = randInt(0,1); // 0: x+y, y+1 형태  1: x-2y 형태
-    let leftDesc, rightRe, rightIm, ansLabel, ans;
-    if(kMode===0){
-      rightRe = x+2; rightIm = y-1; // (x+2)+(y-1)i = 우변
-      leftDesc = `(x+2)+(y-1)i`;
-      ansLabel = 'x+y'; ans = x+y;
+  function genExpandCube(){
+    const mode = randInt(0,1);
+    if(mode===0){
+      // (p ± qx)^3 형태
+      const p=randInt(2,5), q=randInt(2,4);
+      const sign = Math.random()<0.5 ? 1 : -1;
+      const c0=p**3, c1=3*p*p*q*sign, c2=3*p*q*q, c3=(q**3)*sign;
+      const base = `(${p}${sign>0?'+':'-'}${q}x)^3`;
+      const correct = `${c0}${signStr(c1)}${Math.abs(c1)}x${signStr(c2*sign*-1>0?1:-1)}`; // 복잡하니 직접 문자열 구성
+      const cText = `${c0}${c1>=0?'+':''}${c1}x${c2>=0?'+':''}${c2}x^2${c3>=0?'+':''}${c3}x^3`;
+      const wrong1 = `${c0}${c1>=0?'+':''}${c1}x${(-c2)>=0?'+':''}${-c2}x^2${c3>=0?'+':''}${c3}x^3`;
+      const wrong2 = `${c0}${(-c1)>=0?'+':''}${-c1}x${c2>=0?'+':''}${c2}x^2${(-c3)>=0?'+':''}${-c3}x^3`;
+      const wrong3 = `${c0}${c1>=0?'+':''}${c1}x${c2>=0?'+':''}${c2}x^2${(-c3)>=0?'+':''}${-c3}x^3`;
+      const wrong4 = `${c0*2}${c1>=0?'+':''}${c1}x${c2>=0?'+':''}${c2}x^2${c3>=0?'+':''}${c3}x^3`;
+      const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3, ()=>wrong4]);
+      return {
+        type:'mc',
+        question:`곱셈 공식을 이용하여 \\(${base}\\)을 전개한 것은?`,
+        choices,
+        solution:[`\\((p${sign>0?'+':'-'}qx)^3=p^3${signStr(1)}3p^2(qx)+3p(qx)^2${signStr(1)}(qx)^3\\) 형태로 전개해보세요.`, `정답: \\(${cText}\\)`]
+      };
     } else {
-      const c = x + y, d = x - 2*y;
-      leftDesc = `x+y+(x-2y)i`;
-      rightRe = c; rightIm = d;
-      ansLabel = 'xy'; ans = x*y;
+      // (a±b)(a²∓ab+b²) = a³±b³
+      const a=randInt(2,5), b=randInt(1,4);
+      const sign = Math.random()<0.5 ? 1 : -1;
+      const left = sign>0 ? `(${a}x+${b})((${a}x)^2-${a*b}x+${b*b})` : `(${a}x-${b})((${a}x)^2+${a*b}x+${b*b})`;
+      const c1 = a**3, c2 = (b**3)*sign;
+      const cText = `${c1}x^3${c2>=0?'+':''}${c2}`;
+      const wrong1 = `${c1}x^3${(-c2)>=0?'+':''}${-c2}`;
+      const wrong2 = `${c1*3}x^3${c2>=0?'+':''}${c2}`;
+      const wrong3 = `${c1}x^2${c2>=0?'+':''}${c2}`;
+      const wrong4 = `${c1}x^3${c2>=0?'+':''}${c2*2}`;
+      const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3, ()=>wrong4]);
+      return {
+        type:'mc',
+        question:`곱셈 공식을 이용하여 \\(${left}\\)을 전개한 것은?`,
+        choices,
+        solution:[`\\(a^3${sign>0?'+':'-'}b^3\\) 공식 형태예요.`, `정답: \\(${cText}\\)`]
+      };
     }
+  }
+
+  function genRemainderLinear(){
+    const p=randInt(2,3), q=randInt(1,4)*(Math.random()<0.5?1:-1);
+    const c2=randInt(-4,4), c1=randInt(-6,6), c0=randInt(-6,6);
+    // f(x)=x^2+c2 x+c1 ... 나머지: f(q/p)
+    const root = q/p;
+    const ans = root*root + c2*root + c1;
+    const ansStr = Number.isInteger(ans) ? String(ans) : ans.toFixed(2);
     return {
       type:'fillin',
-      question:`등식 \\(${leftDesc}=${fmtC(rightRe,rightIm)}\\)를 만족하는 실수 \\(x, y\\)에 대하여 \\(${ansLabel}\\)의 값을 구하시오. (단, \\(i=\\sqrt{-1}\\))`,
+      question:`다항식 \\(x^2${signStr(c2)}${Math.abs(c2)}x${signStr(c1)}${Math.abs(c1)}\\)를 \\(${p}x${q>=0?'-':'+'}${Math.abs(q)}\\)로 나눈 나머지를 구하시오.`,
+      answer: Number.isInteger(ans) ? String(ans) : `${ans}`,
+      solution:[`나머지정리: \\(x=\\dfrac{${q}}{${p}}\\)를 대입`, `정답: \\(${ansStr}\\)`]
+    };
+  }
+
+  function genReciprocalSquare(){
+    const k = randNonZero(-4,4);
+    // a - 1/a = k → (a+1/a)^2 = k^2+4
+    const ans = k*k+4;
+    return {
+      type:'fillin',
+      question:`\\(a-\\dfrac1a=${k}\\)일 때, \\(\\left(a+\\dfrac1a\\right)^2\\)의 값을 구하시오.`,
       answer:String(ans),
-      solution:[`실수부분과 허수부분을 비교해 \\(x, y\\)를 구한 뒤 ${ansLabel}를 계산해보세요.`, `정답: \\(${ansLabel}=${ans}\\)`]
+      solution:[`\\(\\left(a+\\frac1a\\right)^2=\\left(a-\\frac1a\\right)^2+4\\)`, `\\(=${k*k}+4=${ans}\\)`]
     };
   }
 
-  function genRatioParts(){
-    const a = randNonZero(-8,8), b = randNonZero(-8,8);
-    return {
-      type:'fillin',
-      question:`\\(${fmtC(a,b)}\\)의 실수부분을 \\(a\\), 허수부분을 \\(b\\)라고 할 때, \\(\\dfrac{a}{b}\\)의 값을 구하시오. (단, \\(i=\\sqrt{-1}\\))`,
-      answer:`${a}/${b}`,
-      solution:[`\\(a=${a},\\ b=${b}\\)`, `\\(\\dfrac{a}{b}=\\dfrac{${a}}{${b}}\\)`]
-    };
-  }
-
-  function genConjugateNumeric(){
-    const a = randInt(-6,6), b = randNonZero(-6,6);
-    const ans = a*a + b*b;
-    return {
-      type:'fillin',
-      question:`\\(z=${fmtC(a,b)}\\)이고 \\(z\\)의 켤레복소수가 \\(\\bar z\\)일 때, \\(z\\bar z\\)의 값을 구하시오. (단, \\(i=\\sqrt{-1}\\))`,
-      answer:String(ans),
-      solution:[`\\(\\bar z=${fmtC(a,-b)}\\)`, `\\(z\\bar z=(${fmtC(a,b)})(${fmtC(a,-b)})=${a}^2+${b}^2=${ans}\\)`]
-    };
-  }
-
-  function genConjugateExprMC(){
-    const a = randInt(-5,5), b = randNonZero(-5,5);
-    // z + i*conj(z) = (a+bi) + i(a-bi) = a+bi + ai - bi^2 = (a+b) + (a+b)i  ... 실제 계산
-    const re = a + b;
-    const im = a + b;
+  function genFactorTrinomial(){
+    const p=randInt(2,4), q=randInt(2,4), r=randNonZero(-5,5), s=randNonZero(-5,5);
+    const a=p*q, b=p*s+q*r, c=r*s;
+    const cText = `(${p}x${r>=0?'+':''}${r})(${q}x${s>=0?'+':''}${s})`;
+    const qText = `${a}x^2${b>=0?'+':''}${b}x${c>=0?'+':''}${c}`;
+    const wrong1 = `(${p}x${s>=0?'+':''}${s})(${q}x${r>=0?'+':''}${r})`;
+    const wrong2 = `(${p}x${(-r)>=0?'+':''}${-r})(${q}x${(-s)>=0?'+':''}${-s})`;
+    const wrong3 = `(${q}x${r>=0?'+':''}${r})(${p}x${s>=0?'+':''}${s})`;
+    const wrong4 = `(${p+1}x${r>=0?'+':''}${r})(${q}x${s>=0?'+':''}${s})`;
+    const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong4, ()=>wrong3]);
     return {
       type:'mc',
-      question:`복소수 \\(z=${fmtC(a,b)}\\)의 켤레복소수가 \\(\\bar z\\)일 때, \\(z+i\\bar z\\)의 값은? (단, \\(i=\\sqrt{-1}\\))`,
-      choices: buildChoices(re,im),
-      solution:[`\\(\\bar z=${fmtC(a,-b)}\\)`, `\\(z+i\\bar z=(${fmtC(a,b)})+i(${fmtC(a,-b)})=${fmtC(re,im)}\\)`]
+      question:`\\(${qText}\\)를 인수분해하면?`,
+      choices,
+      solution:[`곱해서 \\(${qText}\\)가 되는 두 일차식을 찾아보세요.`, `정답: \\(${cText}\\)`]
     };
   }
 
-  function genFracConjugate(){
-    const denomOptions = [[1,1],[1,-1],[2,1],[1,2],[2,-1]];
-    const [c,d] = denomOptions[randInt(0,denomOptions.length-1)];
-    const k = randInt(1,4); // 분자를 분모의 배수 근처로 만들어 결과를 정수 위주로 유도
-    const denomNormSq = c*c+d*d;
-    const a = c*k + randInt(-2,2), b = d*k + randInt(-2,2);
-    // (a+bi)/(c+di) = (a+bi)(c-di) / (c^2+d^2)
-    const numRe = a*c + b*d;
-    const numIm = b*c - a*d;
-    if(numRe % denomNormSq !== 0 || numIm % denomNormSq !== 0){
-      // 정수로 안 떨어지면 분자를 분모의 실제 배수로 재설정해 깔끔하게 만든다
-      const mRe = randInt(-4,4), mIm = randInt(-4,4);
-      const newA = mRe*c - mIm*d, newB = mRe*d + mIm*c;
-      return finishFracConjugate(newA,newB,c,d,mRe,mIm);
-    }
-    return finishFracConjugate(a,b,c,d, numRe/denomNormSq, numIm/denomNormSq);
-  }
-  function finishFracConjugate(a,b,c,d,re,im){
+  function genPolyAddSub(){
+    const a1=randInt(-4,4), b1=randInt(-4,4), c1=randInt(-4,4);
+    const a2=randInt(-4,4), b2=randInt(-4,4), c2=randInt(-4,4);
+    const isAdd = Math.random()<0.5;
+    const ra = isAdd? a1+a2 : a1-a2;
+    const rb = isAdd? b1+b2 : b1-b2;
+    const rc = isAdd? c1+c2 : c1-c2;
+    const A = `${a1}x^2${b1>=0?'+':''}${b1}x${c1>=0?'+':''}${c1}`;
+    const B = `${a2}x^2${b2>=0?'+':''}${b2}x${c2>=0?'+':''}${c2}`;
+    const cText = `${ra}x^2${rb>=0?'+':''}${rb}x${rc>=0?'+':''}${rc}`;
+    const wrong1 = `${ra}x^2${(-rb)>=0?'+':''}${-rb}x${rc>=0?'+':''}${rc}`;
+    const wrong2 = `${-ra}x^2${rb>=0?'+':''}${rb}x${rc>=0?'+':''}${rc}`;
+    const wrong3 = `${ra}x^2${rb>=0?'+':''}${rb}x${(-rc)>=0?'+':''}${-rc}`;
+    const wrong4 = `${ra+1}x^2${rb>=0?'+':''}${rb}x${rc>=0?'+':''}${rc}`;
+    const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3, ()=>wrong4]);
     return {
       type:'mc',
-      question:`\\(\\dfrac{${fmtC(a,b)}}{${fmtC(c,d)}}\\)를 계산하면? (단, \\(i=\\sqrt{-1}\\))`,
-      choices: buildChoices(re,im),
-      solution:[`분모의 켤레 \\(${fmtC(c,-d)}\\)를 분자·분모에 곱해 정리해보세요.`, `정답: \\(${fmtC(re,im)}\\)`]
+      question:`두 다항식 \\(A=${A},\\ B=${B}\\)에 대하여 \\(${isAdd?'A+B':'A-B'}\\)는?`,
+      choices,
+      solution:[`\\(x^2\\)계수, \\(x\\)계수, 상수항을 각각 ${isAdd?'더해':'빼'}보세요.`, `정답: \\(${cText}\\)`]
     };
   }
 
-  function genClassify(){
-    // 실수/허수/순허수가 섞인 6개의 수를 무작위로 만들고 개수를 묻는다
-    const pool = [];
-    // 실수 2개
-    for(let i=0;i<2;i++) pool.push({re:randNonZero(-9,9), im:0, label:null});
-    // 순허수 2개
-    for(let i=0;i<2;i++) pool.push({re:0, im:randNonZero(-9,9), label:null});
-    // 일반 허수(둘 다 0 아님) 2개
-    for(let i=0;i<2;i++) pool.push({re:randNonZero(-9,9), im:randNonZero(-9,9), label:null});
-    shuffle(pool);
-    const realCount = pool.filter(p=>p.im===0).length;
-    const pureCount = pool.filter(p=>p.re===0 && p.im!==0).length;
-    const imagCount = pool.filter(p=>p.im!==0).length;
-    const askType = ['실수','순허수','허수'][randInt(0,2)];
-    const ans = askType==='실수' ? realCount : askType==='순허수' ? pureCount : imagCount;
-    const listStr = pool.map(p => fmtC(p.re,p.im)).join(',\\quad ');
+  function genFindConstant(){
+    const c2=randInt(-3,3), c1=randInt(-4,4), k=randInt(-3,3);
+    const target = randInt(-8,8);
+    // f(x)=x^3+c2x^2+c1x+a, f(k)=target
+    const base = k**3 + c2*k*k + c1*k;
+    const a = target - base;
     return {
       type:'fillin',
-      question:`다음 수 중 ${askType}${askType==='순허수'?'(실수부분이 0인 허수)':''}의 개수는?`,
-      extra:`<div class="ref-box">\\(${listStr}\\)</div>`,
-      answer:String(ans),
-      solution:[`각 수의 실수부분·허수부분을 확인해 실수/순허수/허수를 구분해보세요.`, `${askType}는 <b>${ans}개</b>예요.`]
-    };
-  }
-
-  function genCondition(){
-    const b = randNonZero(-6,6);
-    const k = randInt(-3,3), m = randInt(-6,6);
-    // 2a + b = m 형태에서 a를 구하도록
-    const a = (m - b) / 2;
-    if(!Number.isInteger(a)) return genCondition(); // 정수 아니면 다시 생성
-    return {
-      type:'fillin',
-      question:`복소수 \\(a+bi\\ (a,b\\)는 실수\\()\\)가 다음 조건을 만족시킬 때, \\(a+bi\\)의 실수부분을 구하시오.<br><span style="font-size:13px;color:#555;">(가) 허수부분은 ${b}이다. &nbsp; (나) \\(2a+b=${m}\\)</span>`,
+      question:`다항식 \\(x^3${signStr(c2)}${Math.abs(c2)}x^2${signStr(c1)}${Math.abs(c1)}x+a\\)를 \\(x${k>=0?'-':'+'}${Math.abs(k)}\\)로 나누었을 때의 나머지가 \\(${target}\\)이 되도록 하는 상수 \\(a\\)의 값을 구하시오.`,
       answer:String(a),
-      solution:[`\\(b=${b}\\)`, `\\(2a+${b}=${m} \\Rightarrow a=${a}\\)`]
+      solution:[`나머지정리: \\(f(${k})=${target}\\)`, `\\(${base}+a=${target} \\Rightarrow a=${a}\\)`]
+    };
+  }
+
+  function genExpandSquareTri(){
+    const p=randInt(1,3), q=randInt(1,3), r=randInt(1,3);
+    const signs = [Math.random()<0.5?1:-1, Math.random()<0.5?1:-1, Math.random()<0.5?1:-1];
+    const [s1,s2,s3] = signs;
+    const A=p*s1, B=q*s2, C=r*s3;
+    const base = `(${A>=0?'':'-'}${Math.abs(A)}a${B>=0?'+':'-'}${Math.abs(B)}b${C>=0?'+':'-'}${Math.abs(C)}c)^2`;
+    const a2=A*A, b2=B*B, c2=C*C, ab=2*A*B, bc=2*B*C, ca=2*A*C;
+    const cText = `${a2}a^2+${b2}b^2+${c2}c^2${ab>=0?'+':''}${ab}ab${bc>=0?'+':''}${bc}bc${ca>=0?'+':''}${ca}ca`;
+    const wrong1 = `${a2}a^2+${b2}b^2+${c2}c^2${ab>=0?'+':''}${ab}ab${(-bc)>=0?'+':''}${-bc}bc${ca>=0?'+':''}${ca}ca`;
+    const wrong2 = `${a2}a^2+${b2}b^2+${c2}c^2${ab>=0?'+':''}${ab}ab${bc>=0?'+':''}${bc}bc${(-ca)>=0?'+':''}${-ca}ca`;
+    const wrong3 = `${a2}a^2+${b2}b^2+${c2}c^2${(-ab)>=0?'+':''}${-ab}ab${bc>=0?'+':''}${bc}bc${ca>=0?'+':''}${ca}ca`;
+    const wrong4 = `${a2}a^2+${b2}b^2+${c2}c^2${ab>=0?'+':''}${ab}ab${bc>=0?'+':''}${bc*2}bc${ca>=0?'+':''}${ca}ca`;
+    const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3, ()=>wrong4]);
+    return {
+      type:'mc',
+      question:`곱셈 공식을 이용하여 \\(${base}\\)을 바르게 전개한 것은?`,
+      choices,
+      solution:[`\\((A+B+C)^2=A^2+B^2+C^2+2AB+2BC+2CA\\)`, `정답: \\(${cText}\\)`]
+    };
+  }
+
+  function genExpandThreeBinom(){
+    const a=randNonZero(-4,4), b=randNonZero(-4,4), c=randNonZero(-4,4);
+    const e1=a+b+c, e2=a*b+b*c+c*a, e3=a*b*c;
+    const cText = `x^3${e1>=0?'+':''}${e1}x^2${e2>=0?'+':''}${e2}x${e3>=0?'+':''}${e3}`;
+    const wrong1 = `x^3${e1>=0?'+':''}${e1}x^2${(-e2)>=0?'+':''}${-e2}x${e3>=0?'+':''}${e3}`;
+    const wrong2 = `x^3${(-e1)>=0?'+':''}${-e1}x^2${e2>=0?'+':''}${e2}x${e3>=0?'+':''}${e3}`;
+    const wrong3 = `x^3${e1>=0?'+':''}${e1}x^2${e2>=0?'+':''}${e2}x${(-e3)>=0?'+':''}${-e3}`;
+    const wrong4 = `x^3${e1>=0?'+':''}${e1*2}x^2${e2>=0?'+':''}${e2}x${e3>=0?'+':''}${e3}`;
+    const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3, ()=>wrong4]);
+    return {
+      type:'mc',
+      question:`곱셈 공식을 이용하여 \\((x${a>=0?'+':''}${a})(x${b>=0?'+':''}${b})(x${c>=0?'+':''}${c})\\)를 전개한 것은?`,
+      choices,
+      solution:[`\\(x^3+(a+b+c)x^2+(ab+bc+ca)x+abc\\) 형태로 전개해보세요.`, `정답: \\(${cText}\\)`]
+    };
+  }
+
+  function genIdentityCoeff(){
+    const a=randInt(-5,5), k=randInt(-5,5), m=randInt(-8,8);
+    const b = m - k;
+    return {
+      type:'fillin',
+      question:`등식 \\(x^2+(a${a>=0?'+':''}${a})x=x^2+${k}x+(b-1)\\)이 \\(x\\)에 대한 항등식일 때, 두 상수 \\(a, b\\)에 대하여 \\(a+b\\)의 값을 구하시오. (단, 문제의 \\(a\\)는 새로 구하는 미지수입니다)`,
+      answer: String((k-a)+(b+1)),
+      solution:[`계수를 비교해서 \\(a, b\\)를 각각 구한 뒤 더해보세요.`]
+    };
+  }
+
+  function genFactorPerfectCube(){
+    const p=randInt(2,4);
+    const c0=(p**3), c1=-3*p*p, c2=3*p, c3=-1;
+    const qText = `${c0}a^3${c1}a^2+${c2}a-1`;
+    const cText = `(${p}a-1)^3`;
+    const wrong1 = `-(${p}a-1)^3`;
+    const wrong2 = `(${p}a+1)^3`;
+    const wrong3 = `(${p}a-1)^2(${p}a+1)`;
+    const wrong4 = `(${p-1}a-1)^3`;
+    const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3, ()=>wrong4]);
+    return {
+      type:'mc',
+      question:`\\(${qText}\\)를 인수분해한 것은?`,
+      choices,
+      solution:[`완전세제곱식 \\((pa-1)^3=p^3a^3-3p^2a^2+3pa-1\\) 형태예요.`, `정답: \\(${cText}\\)`]
+    };
+  }
+
+  function genFactorCommonBinom(){
+    const a=randNonZero(-5,5), b=randNonZero(-5,5);
+    const cText = `(${a>=0?'':'-'}${Math.abs(a)}${b>=0?'+':'-'}${Math.abs(b)})(x-y)`;
+    // a(x-y) - b(y-x) = (a+b)(x-y)
+    const cTextClean = `(${a}+${b})(x-y)`;
+    const wrong1 = `(${a}-${b})(x-y)`;
+    const wrong2 = `(${a}+${b})(y-x)`;
+    const wrong3 = `(${a}-${b})(y-x)`;
+    const wrong4 = `(${a+b})(x+y)`;
+    const choices = buildMC(cTextClean, [()=>wrong1, ()=>wrong2, ()=>wrong3, ()=>wrong4]);
+    return {
+      type:'mc',
+      question:`\\(${a}(x-y)-(${b})(y-x)\\)를 인수분해하면?`,
+      choices,
+      solution:[`\\(-(b)(y-x)=(b)(x-y)\\)이므로`, `정답: \\(${cTextClean}\\)`]
+    };
+  }
+
+  function genFactorSumDiffCubes(){
+    const a=randInt(2,4), b=randInt(1,3);
+    const sign = Math.random()<0.5?1:-1;
+    const qText = sign>0 ? `${a**3}x^3+${b**3}` : `${a**3}x^3-${b**3}`;
+    const cText = sign>0 ? `(${a}x+${b})(${a*a}x^2-${a*b}x+${b*b})` : `(${a}x-${b})(${a*a}x^2+${a*b}x+${b*b})`;
+    const wrong1 = sign>0 ? `(${a}x+${b})(${a*a}x^2+${a*b}x+${b*b})` : `(${a}x-${b})(${a*a}x^2-${a*b}x+${b*b})`;
+    const wrong2 = sign>0 ? `(${a}x-${b})(${a*a}x^2+${a*b}x+${b*b})` : `(${a}x+${b})(${a*a}x^2-${a*b}x+${b*b})`;
+    const wrong3 = sign>0 ? `(${a}x+${b})(${a*a}x^2-${a*b*2}x+${b*b})` : `(${a}x-${b})(${a*a}x^2+${a*b*2}x+${b*b})`;
+    const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3]);
+    return {
+      type:'mc',
+      question:`\\(${qText}\\)을 인수분해한 것은?`,
+      choices,
+      solution:[`\\(a^3${sign>0?'+':'-'}b^3=(a${sign>0?'+':'-'}b)(a^2${sign>0?'-':'+'}ab+b^2)\\) 공식 형태예요.`, `정답: \\(${cText}\\)`]
+    };
+  }
+
+  function genFactorPerfectSquareTri(){
+    const p=randInt(1,3), q=randInt(1,3), r=randInt(1,4);
+    const cText = `(${p}x+${q}y+${r}z)^2`;
+    const a2=p*p, b2=q*q, c2=r*r, ab=2*p*q, bc=2*q*r, ca=2*p*r;
+    const qText = `${a2}x^2+${b2}y^2+${c2}z^2+${ab}xy+${bc}yz+${ca}zx`;
+    const wrong1 = `(${p}x+${q}y+${r+1}z)^2`;
+    const wrong2 = `(${p+1}x+${q}y+${r}z)^2`;
+    const wrong3 = `(${p}x+${q+1}y+${r}z)^2`;
+    const wrong4 = `(${p}x-${q}y+${r}z)^2`;
+    const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3, ()=>wrong4]);
+    return {
+      type:'mc',
+      question:`\\(${qText}\\)를 인수분해한 것은?`,
+      choices,
+      solution:[`\\((A+B+C)^2\\) 공식을 거꾸로 적용해보세요.`, `정답: \\(${cText}\\)`]
+    };
+  }
+
+  function genSyntheticLinear(){
+    const k=randInt(2,6);
+    const c1=randInt(3,12), c0=randInt(1,10);
+    // x^2+c1 x+c0 을 x-k 로 나눈 몫과 나머지
+    const quotConst = c1+k;
+    const remainder = c0 + k*quotConst;
+    const cText = `몫: x+${quotConst},\\ 나머지: ${remainder}`;
+    const wrong1 = `몫: x+${quotConst},\\ 나머지: ${remainder+10}`;
+    const wrong2 = `몫: x+${quotConst-2},\\ 나머지: ${remainder}`;
+    const wrong3 = `몫: x+${quotConst+3},\\ 나머지: ${remainder}`;
+    const wrong4 = `몫: x-${quotConst},\\ 나머지: ${remainder}`;
+    const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3, ()=>wrong4]);
+    return {
+      type:'mc',
+      question:`\\(x^2+${c1}x+${c0}\\)을 \\(x-${k}\\)로 나눈 몫과 나머지는?`,
+      choices,
+      solution:[`조립제법(\\(x=${k}\\))으로 계산해보세요.`, `정답: 몫 \\(x+${quotConst}\\), 나머지 \\(${remainder}\\)`]
+    };
+  }
+
+  function genSymmetricSum(){
+    const mode = randInt(0,1);
+    if(mode===0){
+      const s=randInt(-6,6), p=randInt(-6,6);
+      const ans = s*s-2*p;
+      return {
+        type:'fillin',
+        question:`\\(a+b=${s},\\ ab=${p}\\)일 때, \\(a^2+b^2\\)의 값을 구하시오.`,
+        answer:String(ans),
+        solution:[`\\(a^2+b^2=(a+b)^2-2ab=${s*s}-${2*p}=${ans}\\)`]
+      };
+    } else {
+      const d=randInt(-6,6), p=randInt(-6,6);
+      const ans = d*d+4*p;
+      return {
+        type:'fillin',
+        question:`\\(x-y=${d},\\ xy=${p}\\)일 때, \\((x+y)^2\\)의 값을 구하시오.`,
+        answer:String(ans),
+        solution:[`\\((x+y)^2=(x-y)^2+4xy=${d*d}+${4*p}=${ans}\\)`]
+      };
+    }
+  }
+
+  function genFactorDiffSquares(){
+    const a=randInt(2,9), b=randInt(2,9);
+    const cText = `(${a}a+${b}b)(${a}a-${b}b)`;
+    const qText = `${a*a}a^2-${b*b}b^2`;
+    const wrong1 = `(${a}a-${b}b)^2`;
+    const wrong2 = `(${a}a+${b}b)^2`;
+    const wrong3 = `(${a-1}a+${b}b)(${a-1}a-${b}b)`;
+    const wrong4 = `(${a}a+${b+1}b)(${a}a-${b+1}b)`;
+    const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3, ()=>wrong4]);
+    return {
+      type:'mc',
+      question:`\\(${qText}\\)을 인수분해한 것은?`,
+      choices,
+      solution:[`\\(A^2-B^2=(A+B)(A-B)\\) 공식이에요.`, `정답: \\(${cText}\\)`]
+    };
+  }
+
+  function genFactorGroupC(){
+    const a=randNonZero(-5,5), b=randNonZero(-5,5), sign=Math.random()<0.5?1:-1;
+    const cSym = sign>0?'-':'+';
+    const cText = `(a+b)(a+b${sign>0?'-':'+'}c)`;
+    const qText = `(a+b)^2${sign>0?'-':'+'}ac${sign>0?'-':'+'}bc`;
+    const wrong1 = `(a+b)(a-b${sign>0?'-':'+'}c)`;
+    const wrong2 = `(a-b)(a+b${sign>0?'-':'+'}c)`;
+    const wrong3 = `(a+b)(a+b${sign>0?'+':'-'}c)`;
+    const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3]);
+    return {
+      type:'mc',
+      question:`\\(${qText}\\)를 인수분해하면?`,
+      choices,
+      solution:[`\\((a+b)^2${sign>0?'-':'+'}c(a+b)\\) 형태로 묶어보세요.`, `정답: \\(${cText}\\)`]
+    };
+  }
+
+  function genFactorTheorem(){
+    const k = randInt(-4,4);
+    const c2=randInt(-6,6), c1coef=1; // f(x)=x^3+c2x^2+ax-a+3, x-k가 인수
+    // f(k)=k^3+c2k^2+ak-a+3=0 → a(k-1) = -k^3-c2k^2-3 → a = (-k^3-c2k^2-3)/(k-1)
+    if(k===1) return genFactorTheorem();
+    const numerator = -(k**3) - c2*k*k - 3;
+    const denom = k-1;
+    if(numerator % denom !== 0) return genFactorTheorem();
+    const a = numerator/denom;
+    return {
+      type:'fillin',
+      question:`\\(x\\)에 대한 다항식 \\(f(x)=x^3${signStr(c2)}${Math.abs(c2)}x^2+ax-a+3\\)이 \\(x${(-k)>=0?'+':'-'}${Math.abs(k)}\\)를 인수로 가질 때, 상수 \\(a\\)의 값은?`,
+      answer:String(a),
+      solution:[`\\(f(${k})=0\\)을 이용해 \\(a\\)에 대한 식을 세우고 풀어보세요.`, `정답: \\(a=${a}\\)`]
+    };
+  }
+
+  function genRemainderSimple(){
+    const c2=randInt(-4,4), c1=randInt(-6,6), c0=randInt(-6,6), k=randInt(-4,4);
+    const ans = k**3 + c2*k*k + c1*k + c0;
+    return {
+      type:'fillin',
+      question:`다항식 \\(x^3${signStr(c2)}${Math.abs(c2)}x^2${signStr(c1)}${Math.abs(c1)}x${signStr(c0)}${Math.abs(c0)}\\)를 \\(x${(-k)>=0?'+':'-'}${Math.abs(k)}\\)로 나눈 나머지는?`,
+      answer:String(ans),
+      solution:[`나머지정리: \\(f(${k})\\)를 계산해보세요.`, `정답: \\(${ans}\\)`]
+    };
+  }
+
+  function genExponentLaws(){
+    const e1=randInt(2,4), e2=randInt(2,4);
+    const cText = `-x^${e1}y^{${e1+1}}z^2`;
+    const qText = `(-x^${e1}y^2z)^${e1}\\div(-x^${e1}yz^2)^{${e1-1}}`;
+    const wrong1 = `x^${e1}y^{${e1+1}}z^2`;
+    const wrong2 = `-x^{${e1+2}}y^3z^2`;
+    const wrong3 = `-\\dfrac{x^${e1}y^{${e1+1}}}{z^2}`;
+    const choices = buildMC(cText, [()=>wrong1, ()=>wrong2, ()=>wrong3]);
+    return {
+      type:'mc',
+      question:`\\(${qText}\\)를 간단히 하면? (단, \\(z\\ne0\\))`,
+      choices,
+      solution:[`지수법칙 \\((a^m)^n=a^{mn}\\)과 나눗셈 규칙을 차례로 적용해보세요.`]
     };
   }
 
   function genConcept(origNum){
-    // 개념/표기 문제는 숫자를 랜덤화하기 어려워 원문제를 다시 보여준다
     return {
       type:'note',
-      question:`${origNum}번은 개념·표기를 확인하는 문제라 숫자를 바꾼 유사문제 대신, 원문제를 한 번 더 복습해보세요.`,
+      question:`${origNum}번은 숫자보다 개념·표기(치환, 판별, 항등식 조건 등)를 확인하는 문제라, 숫자를 바꾼 유사문제 대신 원문제를 한 번 더 복습해보세요.`,
       solution:[]
     };
   }
 
   const GENERATORS = {
-    addComplex: genAddComplex,
-    mulComplex: genMulComplex,
-    mulByI: genMulByI,
-    iPower: genIPower,
-    sumPartsDirect: genSumPartsDirect,
-    sumPartsEquation: genSumPartsEquation,
-    ratioParts: genRatioParts,
-    conjugateNumeric: genConjugateNumeric,
-    conjugateExprMC: genConjugateExprMC,
-    fracConjugate: genFracConjugate,
-    classify: genClassify,
-    condition: genCondition
+    symmetricThreeVar: genSymmetricThreeVar,
+    expandCube: genExpandCube,
+    remainderLinear: genRemainderLinear,
+    reciprocalSquare: genReciprocalSquare,
+    factorTrinomial: genFactorTrinomial,
+    polyAddSub: genPolyAddSub,
+    findConstant: genFindConstant,
+    expandSquareTri: genExpandSquareTri,
+    expandThreeBinom: genExpandThreeBinom,
+    identityCoeff: genIdentityCoeff,
+    factorPerfectCube: genFactorPerfectCube,
+    factorCommonBinom: genFactorCommonBinom,
+    factorSumDiffCubes: genFactorSumDiffCubes,
+    factorPerfectSquareTri: genFactorPerfectSquareTri,
+    syntheticLinear: genSyntheticLinear,
+    symmetricSum: genSymmetricSum,
+    factorDiffSquares: genFactorDiffSquares,
+    factorGroupC: genFactorGroupC,
+    factorTheorem: genFactorTheorem,
+    remainderSimple: genRemainderSimple,
+    exponentLaws: genExponentLaws
   };
 
+  const CIRCLE_LABELS = ['①','②','③','④','⑤'];
   let genCounter = 0;
 
   function renderGeneratedCard(origNum, spec){
@@ -2311,7 +2211,6 @@
     let inner = `
       <div class="pcard-head"><span class="pnum">${origNum}번<span class="gen-origin">유사문제</span></span></div>
       <div class="pquestion">${spec.question}</div>
-      ${spec.extra || ''}
       <div class="write-pad">
         <div class="write-pad-head">
           <span class="wp-label">✏️ 풀이 쓰기</span>
@@ -2327,8 +2226,7 @@
     if(spec.type === 'mc'){
       inner += '<div class="choices">';
       spec.choices.forEach((opt, i) => {
-        const label = fmtC(opt.re, opt.im);
-        inner += `<button class="choice-btn" onclick="pick(this,${opt.correct})">${CIRCLE_LABELS[i]} ${label}</button>`;
+        inner += `<button class="choice-btn" onclick="pick(this,${opt.correct})">${CIRCLE_LABELS[i]} \\(${opt.text}\\)</button>`;
       });
       inner += '</div>';
     } else if(spec.type === 'fillin'){
@@ -2351,8 +2249,6 @@
     wrap.innerHTML = inner;
     return wrap;
   }
-
-  const CIRCLE_LABELS = ['①','②','③','④','⑤'];
 
   function generateSimilarForChecked(){
     const checked = Array.from(document.querySelectorAll('.wrong-check:checked')).map(cb => parseInt(cb.value,10));

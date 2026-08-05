@@ -273,6 +273,7 @@
   }
   .choice-btn:hover{ border-color:var(--num); }
   .choice-btn.picked-correct{ background:var(--accent-soft); border-color:var(--accent); color:var(--accent); font-weight:700; }
+  .choice-btn.picked{ background:#eef0e8; border-color:#8a8474; color:#20242b; font-weight:700; }
   .choice-btn.picked-wrong{ background:var(--wrong-soft); border-color:var(--wrong); color:var(--wrong); font-weight:700; }
   .choice-btn.reveal-correct{ border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent); }
   .choice-btn:disabled{ cursor:default; }
@@ -2139,6 +2140,7 @@
   const TOTAL_PROBLEMS = 50;
   let quizState = { running:false, startTime:0, timerInt:null, answers:{} };
   let scrollModeOn = false;
+  let solutionsUnlocked = false;
 
   function toggleScrollMode(){
     scrollModeOn = !scrollModeOn;
@@ -2159,9 +2161,16 @@
 
   function pick(btn, isCorrect){
     const group = btn.parentElement.querySelectorAll('.choice-btn');
-    group.forEach(b => { b.disabled = true; });
+    group.forEach(b => { b.disabled = true; b.classList.remove('picked'); });
+    btn.classList.add('picked');
     const probDiv = btn.closest('.pcard');
     if(probDiv) quizState.answers[probDiv.dataset.num] = isCorrect ? 'correct' : 'wrong';
+    if(solutionsUnlocked){
+      revealChoiceFeedback(btn, isCorrect, group);
+    }
+  }
+
+  function revealChoiceFeedback(btn, isCorrect, group){
     if(isCorrect){
       btn.classList.add('picked-correct');
     } else {
@@ -2170,6 +2179,14 @@
         if(b.getAttribute('onclick').includes(',true)')) b.classList.add('reveal-correct');
       });
     }
+  }
+
+  function revealAllChoiceFeedback(){
+    document.querySelectorAll('.choice-btn.picked').forEach(btn => {
+      const group = btn.parentElement.querySelectorAll('.choice-btn');
+      const isCorrect = btn.getAttribute('onclick').includes(',true)');
+      revealChoiceFeedback(btn, isCorrect, group);
+    });
   }
 
   function parseNum(str){
@@ -2205,15 +2222,39 @@
     } else {
       isCorrect = userVal.replace(/\s+/g,'') === correctStr.replace(/\s+/g,'');
     }
+    input.dataset.checked = '1';
+    input.dataset.correct = isCorrect ? '1' : '0';
+    const probDiv = btn.closest('.pcard');
+    if(probDiv) quizState.answers[probDiv.dataset.num] = isCorrect ? 'correct' : 'wrong';
+    if(solutionsUnlocked){
+      revealAnswerFeedback(input, feedback, isCorrect);
+    } else {
+      feedback.textContent = '입력 완료 (종료 후 채점 확인)';
+      feedback.className = 'ans-feedback';
+    }
+  }
+
+  function revealAnswerFeedback(input, feedback, isCorrect){
     feedback.textContent = isCorrect ? '✓ 정답이에요!' : '✗ 다시 확인해보세요';
     feedback.className = 'ans-feedback ' + (isCorrect ? 'fb-ok' : 'fb-no');
     input.classList.toggle('input-ok', isCorrect);
     input.classList.toggle('input-no', !isCorrect);
-    const probDiv = btn.closest('.pcard');
-    if(probDiv) quizState.answers[probDiv.dataset.num] = isCorrect ? 'correct' : 'wrong';
+  }
+
+  function revealAllAnswerFeedback(){
+    document.querySelectorAll('.ans-input[data-checked="1"]').forEach(input => {
+      const wrap = input.closest('.answer-check');
+      const feedback = wrap.querySelector('.ans-feedback');
+      const isCorrect = input.dataset.correct === '1';
+      revealAnswerFeedback(input, feedback, isCorrect);
+    });
   }
 
   function toggleSol(btn){
+    if(!solutionsUnlocked){
+      alert('정답·풀이는 종료 버튼을 눌러 채점을 마친 후에 볼 수 있어요.');
+      return;
+    }
     const body = btn.nextElementSibling;
     body.classList.toggle('hidden-sol');
     btn.textContent = body.classList.contains('hidden-sol') ? '정답·풀이 보기' : '정답·풀이 숨기기';
@@ -2240,11 +2281,13 @@
   function resetAll(){
     document.querySelectorAll('.choice-btn').forEach(b => {
       b.disabled = false;
-      b.classList.remove('picked-correct','picked-wrong','reveal-correct');
+      b.classList.remove('picked','picked-correct','picked-wrong','reveal-correct');
     });
     document.querySelectorAll('.ans-input').forEach(inp => {
       inp.value = '';
       inp.classList.remove('input-ok','input-no');
+      delete inp.dataset.checked;
+      delete inp.dataset.correct;
     });
     document.querySelectorAll('.ans-feedback').forEach(fb => { fb.textContent=''; fb.className='ans-feedback'; });
     document.querySelectorAll('.solution-body').forEach(body => {
@@ -2254,6 +2297,7 @@
     });
     document.querySelectorAll('.write-canvas').forEach(c => { clearCanvas(c.id); setPenMode(c.id,'pen'); });
     quizState.answers = {};
+    solutionsUnlocked = false;
     goToPage(1);
   }
 
@@ -2280,6 +2324,9 @@
     clearInterval(quizState.timerInt);
     document.getElementById('startBtn').disabled = false;
     document.getElementById('endBtn').disabled = true;
+    solutionsUnlocked = true;
+    revealAllChoiceFeedback();
+    revealAllAnswerFeedback();
     showResults();
   }
 
@@ -2382,11 +2429,13 @@
       if(isTarget){
         p.querySelectorAll('.choice-btn').forEach(b => {
           b.disabled = false;
-          b.classList.remove('picked-correct','picked-wrong','reveal-correct');
+          b.classList.remove('picked','picked-correct','picked-wrong','reveal-correct');
         });
         p.querySelectorAll('.ans-input').forEach(inp => {
           inp.value = '';
           inp.classList.remove('input-ok','input-no');
+          delete inp.dataset.checked;
+          delete inp.dataset.correct;
         });
         p.querySelectorAll('.ans-feedback').forEach(fb => { fb.textContent=''; fb.className='ans-feedback'; });
         p.querySelectorAll('.solution-body').forEach(body => {
@@ -2402,6 +2451,7 @@
     const targetPage = Math.ceil(firstNum/6);
     goToPage(targetPage);
     quizState.answers = {};
+    solutionsUnlocked = false;
     closeResultModal();
   }
 
