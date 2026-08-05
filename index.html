@@ -217,6 +217,8 @@
   }
   .publisher-table tr:last-child td{ border-bottom:none; }
   .publisher-table td.blank{ color:var(--num); font-style:italic; }
+  .publisher-table td a{ color:var(--accent); font-weight:700; text-decoration:none; }
+  .publisher-table td a:hover{ text-decoration:underline; }
   .roadmap-link{
     display:flex;
     align-items:center;
@@ -250,6 +252,11 @@
 
 <main>
 
+  <div class="unit-label">오답노트 작성 원칙</div>
+  <div class="card principle-card">
+    <img src="wrong-answer-strategy.jpg" alt="수학 성적을 바꾸는 오답 분석 & 시간 필승 전략" style="width:100%; border-radius:10px; display:block;">
+  </div>
+
   <div class="unit-label">학교별 교재 출판사</div>
   <div class="card">
     <table class="publisher-table">
@@ -257,8 +264,8 @@
         <tr><th>학교</th><th>과목</th><th>출판사</th><th>저자</th></tr>
       </thead>
       <tbody>
-        <tr><td>신봉고</td><td>공통수학1·2</td><td>천재교과서</td><td>전인태</td></tr>
-        <tr><td>홍천고</td><td>공통수학1·2</td><td>동아출판</td><td>고호경</td></tr>
+        <tr><td>신봉고</td><td>공통수학1·2</td><td>천재교과서</td><td><a href="https://view.chunjae.co.kr/streamdocs/view/sd;streamdocsId=lluSXUr6GSkvEszJ8b3laeLHG4L7NOae8lz6KYsgOgw;isExternal=eQ;printUse=;enableDapSide=;pageView=" target="_blank" rel="noopener">전인태 ↗</a></td></tr>
+        <tr><td>홍천고</td><td>공통수학1·2</td><td>동아출판</td><td><a href="https://ebook.dongapublishing.com/ebook/ecatalog5.asp?Dir=2351" target="_blank" rel="noopener">고호경 ↗</a></td></tr>
         <tr><td>수지고</td><td>-</td><td class="blank">확인 중</td><td class="blank">확인 중</td></tr>
       </tbody>
     </table>
@@ -351,7 +358,6 @@
 <script>
   // Apps Script 배포 후 나온 웹 앱 URL로 교체하세요 (worksheets 파일들과 동일한 URL)
   const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzUef9uyH28s4l2iObFCyg131Ft2_aDdxLj_ab5vdA5wFBQKdVKMfOwh2u5EwsbWwus/exec';
-
 
   // worksheetId → 문제지 이름 / 카드 그룹
   const WORKSHEET_META = {
