@@ -267,6 +267,35 @@
   let quickFilter = 'all'; // 'all' | 'wrong'
   let activeDiffs = new Set(); // 비어있으면 전체 난이도
 
+  // 문제지 JSON은 두 가지 스키마가 섞여 있을 수 있다.
+  //  A) 정식 스키마: num / diff(low·mid·midhigh·high·top) / type(mc·fillin) / correct(0-based) / solution(배열)
+  //  B) 구 스키마(변환 문제지들): number / difficulty(하·중·중상·상·최상) / type(mcq·short) / answer / explanation(문장)
+  // normalizeProblem은 B를 A로 변환해 필터링·렌더링 코드가 항상 A만 다루도록 한다. (player.html과 동일 로직)
+  const LEGACY_DIFF_MAP = { '하':'low', '중':'mid', '중상':'midhigh', '상':'high', '최상':'top' };
+
+  function normalizeProblem(p){
+    const num = (p.num !== undefined) ? p.num : p.number;
+    const diff = (p.diff !== undefined) ? p.diff : (LEGACY_DIFF_MAP[p.difficulty] || p.difficulty);
+    let type = p.type;
+    if(type === 'mcq') type = 'mc';
+    else if(type === 'short') type = 'fillin';
+    const choices = (p.choices || []).map(c => String(c).replace(/^[①②③④⑤]\s*/, ''));
+    let correct = p.correct;
+    if(correct === undefined && type === 'mc' && typeof p.answer === 'number'){
+      correct = p.answer - 1;
+    }
+    let solution = p.solution;
+    if(!solution && p.explanation){
+      solution = [p.explanation];
+    }
+    return Object.assign({}, p, { num, diff, type, choices, correct, solution });
+  }
+
+  function normalizeSet(data){
+    data.problems = (data.problems || []).map(normalizeProblem);
+    return data;
+  }
+
   async function loadEverything(){
     const statusEl = document.getElementById('loadStatus');
     try{
@@ -275,7 +304,7 @@
 
       await Promise.all(manifest.sets.map(async s => {
         const res = await fetch('../data/' + s.file);
-        setsData[s.id] = await res.json();
+        setsData[s.id] = normalizeSet(await res.json());
       }));
 
       try{

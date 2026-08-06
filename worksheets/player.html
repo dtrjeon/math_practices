@@ -1747,6 +1747,36 @@
     return String(s).replace(/'/g, "&#39;");
   }
 
+  // 문제지 JSON은 두 가지 스키마가 섞여 있을 수 있다.
+  //  A) 정식 스키마: num / diff(low·mid·midhigh·high·top) / type(mc·fillin) / correct(0-based) / solution(배열)
+  //  B) 구 스키마(변환 문제지들): number / difficulty(하·중·중상·상·최상) / type(mcq·short) / answer / explanation(문장)
+  // normalizeProblem은 B를 A로 변환해 렌더링 코드가 항상 A만 다루도록 한다.
+  const LEGACY_DIFF_MAP = { '하':'low', '중':'mid', '중상':'midhigh', '상':'high', '최상':'top' };
+
+  function normalizeProblem(p){
+    const num = (p.num !== undefined) ? p.num : p.number;
+    const diff = (p.diff !== undefined) ? p.diff : (LEGACY_DIFF_MAP[p.difficulty] || p.difficulty);
+    let type = p.type;
+    if(type === 'mcq') type = 'mc';
+    else if(type === 'short') type = 'fillin';
+
+    // 스키마 A의 선택지는 이미 "\(10\)" 처럼 LaTeX로 감싸져 있고,
+    // 스키마 B의 선택지는 "①-1" 처럼 원문자 접두사가 붙어 있다 — 둘 다 원문자만 벗겨서 통일한다.
+    const choices = (p.choices || []).map(c => String(c).replace(/^[①②③④⑤]\s*/, ''));
+
+    let correct = p.correct;
+    if(correct === undefined && type === 'mc' && typeof p.answer === 'number'){
+      correct = p.answer - 1;
+    }
+
+    let solution = p.solution;
+    if(!solution && p.explanation){
+      solution = [p.explanation];
+    }
+
+    return Object.assign({}, p, { num, diff, type, choices, correct, solution });
+  }
+
   function renderProblemCardHTML(p){
     const n = p.num;
     const diffCls = 'diff-' + p.diff;
@@ -1774,7 +1804,7 @@
       html += '<div class="choices">';
       p.choices.forEach((ch, i) => {
         const isCorrect = (p.correct === i) ? 'true' : 'false';
-        html += `<button class="choice-btn" onclick="pick(this,${isCorrect})">${CIRCLE[i]} \\(${ch}\\)</button>`;
+        html += `<button class="choice-btn" onclick="pick(this,${isCorrect})">${CIRCLE[i]} ${ch}</button>`;
       });
       html += '</div>';
     } else {
@@ -1851,6 +1881,10 @@
     const pageCount = Math.ceil(data.problems.length / PAGE_SIZE);
     document.getElementById('setSub').textContent =
       (data.unit ? data.unit + ' · ' : '') + `전체 ${data.problems.length}문제 · ${pageCount}페이지(한 페이지당 ${PAGE_SIZE}문항) · 시작을 누르고 풀어보세요`;
+
+    // 구 스키마(number/difficulty/mcq·short/answer/explanation)로 만들어진 문제지도
+    // 정식 스키마로 변환해 동일하게 렌더링되도록 한다.
+    data.problems = data.problems.map(normalizeProblem);
 
     // 재구성 화면에서 "유사문제로 시작"을 선택한 문제는 여기서 실제 변형 문제로 교체
     data.problems = data.problems.map(p => {
