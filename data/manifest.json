@@ -1,9 +1,187 @@
 {
   "sets": [
-    { "id": "complex-5-6", "file": "complex-5-6.json", "category": "textbook", "title": "복소수 (5.6)", "unit": "2.1 복소수" },
-    { "id": "polynomial-4-30", "file": "polynomial-4-30.json", "category": "textbook", "title": "다항식 인수분해 기본 (4.30) 복습", "unit": "1.1~1.3 다항식의 연산·항등식과 나머지정리·인수분해" },
-    { "id": "math1-midterm-r1", "file": "math1-midterm-r1.json", "category": "exam", "title": "1학기 중간고사-1회차", "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소" },
-    { "id": "hwimun-final-r1", "file": "hwimun-final-r1.json", "category": "pastexam", "title": "휘문고 1학년 2025 1학기 공통수학1 기말", "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산" }
+    {
+      "id": "2605_m1_chap02_r1",
+      "file": "2605_m1_chap02_r1.json",
+      "category": "textbook",
+      "title": "복소수 (05/06)",
+      "unit": "2.1 복소수"
+    },
+    {
+      "id": "2604_m1_chap01_r1",
+      "file": "2604_m1_chap01_r1.json",
+      "category": "textbook",
+      "title": "다항식 인수분해 기본 (04/30) 복습",
+      "unit": "1.1~1.3 다항식의 연산·항등식과 나머지정리·인수분해"
+    },
+    {
+      "id": "2604_m1_midterm-r01",
+      "file": "2604_m1_midterm-r01.json",
+      "category": "exam",
+      "title": "1학기 중간고사-1회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2604_m1_midterm-r02",
+      "file": "2604_m1_midterm-r02.json",
+      "category": "exam",
+      "title": "1학기 중간고사-2회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2604_m1_midterm-r03",
+      "file": "2604_m1_midterm-r03.json",
+      "category": "exam",
+      "title": "1학기 중간고사-3회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2604_m1_midterm-r04",
+      "file": "2604_m1_midterm-r04.json",
+      "category": "exam",
+      "title": "1학기 중간고사-4회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2604_m1_midterm-r05",
+      "file": "2604_m1_midterm-r05.json",
+      "category": "exam",
+      "title": "1학기 중간고사-5회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2604_m1_midterm-r06",
+      "file": "2604_m1_midterm-r06.json",
+      "category": "exam",
+      "title": "1학기 중간고사-6회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2604_m1_midterm-r07",
+      "file": "2604_m1_midterm-r07.json",
+      "category": "exam",
+      "title": "1학기 중간고사-7회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2604_m1_midterm-r08",
+      "file": "2604_m1_midterm-r08.json",
+      "category": "exam",
+      "title": "1학기 중간고사-8회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2604_m1_midterm-r09",
+      "file": "2604_m1_midterm-r09.json",
+      "category": "exam",
+      "title": "1학기 중간고사-9회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2604_m1_midterm-r10",
+      "file": "2604_m1_midterm-r10.json",
+      "category": "exam",
+      "title": "1학기 중간고사-10회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2504_m1_midterm-r01",
+      "file": "2504_m1_midterm-r01.json",
+      "category": "exam",
+      "title": "중간고사 대비-1회차",
+      "unit": "다항식의 연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2504_m1_midterm-r02",
+      "file": "2504_m1_midterm-r02.json",
+      "category": "exam",
+      "title": "중간고사 대비-2회차",
+      "unit": "다항식의 연산 ~ 삼차방정식과 사차방정식"
+    },
+    {
+      "id": "2504_m1_midterm-r03",
+      "file": "2504_m1_midterm-r03.json",
+      "category": "exam",
+      "title": "중간고사 대비-3회차",
+      "unit": "다항식의 연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2504_m1_midterm-r04",
+      "file": "2504_m1_midterm-r04.json",
+      "category": "exam",
+      "title": "중간고사 대비-4회차",
+      "unit": "다항식의 연산 ~ 연립일차부등식"
+    },
+    {
+      "id": "2504_m1_midterm-r05",
+      "file": "2504_m1_midterm-r05.json",
+      "category": "exam",
+      "title": "중간고사 대비-5회차",
+      "unit": "곱셈 공식과 곱셈 공식의 변형 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2504_m1_midterm-r06",
+      "file": "2504_m1_midterm-r06.json",
+      "category": "exam",
+      "title": "중간고사 대비-6회차",
+      "unit": "다항식의 연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2504_m1_midterm-r07",
+      "file": "2504_m1_midterm-r07.json",
+      "category": "exam",
+      "title": "중간고사 대비-7회차",
+      "unit": "곱셈 공식과 곱셈 공식의 변형 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2504_m1_midterm-r08",
+      "file": "2504_m1_midterm-r08.json",
+      "category": "exam",
+      "title": "중간고사 대비-8회차",
+      "unit": "다항식의 연산 ~ 이차함수의 최대·최소"
+    },
+    {
+      "id": "2507_m1_final_hwimun",
+      "file": "2507_m1_final_hwimun.json",
+      "category": "pastexam",
+      "title": "휘문고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산"
+    },
+    {
+      "id": "2507_m1_final_ogeum",
+      "file": "2507_m1_final_ogeum.json",
+      "category": "pastexam",
+      "title": "오금고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산"
+    },
+    {
+      "id": "2507_m1_final_yeongdongil",
+      "file": "2507_m1_final_yeongdongil.json",
+      "category": "pastexam",
+      "title": "영동일고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산"
+    },
+    {
+      "id": "2507_m1_final_jungang-sabeom",
+      "file": "2507_m1_final_jungang-sabeom.json",
+      "category": "pastexam",
+      "title": "중앙대학교사범대학부속고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산"
+    },
+    {
+      "id": "2507_m1_final_jamsin",
+      "file": "2507_m1_final_jamsin.json",
+      "category": "pastexam",
+      "title": "잠신고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산"
+    },
+    {
+      "id": "2507_m1_final_jeongsin",
+      "file": "2507_m1_final_jeongsin.json",
+      "category": "pastexam",
+      "title": "정신여자고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산"
+    }
   ],
   "categories": {
     "textbook": "교과서 목차순",
