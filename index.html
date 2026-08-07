@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- v1.3 (2026-08-07): 학교별 기출 유사 중간(7세트)·기말 추가분(7세트) 카드 반영, 기출문제 탭 6→20 -->
+<!-- v2.1 (2026-08-07): 문제지 범위 요약을 모의고사/중간고사/기말고사 탭으로 재구성 + manifest.json 기반 동적 렌더링, 파일명 클릭 시 풀이 페이지로 이동, 회차별(1~3차) 풀이 완료 체크박스(자동) 추가 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -288,7 +288,23 @@
     text-transform:uppercase;
     margin:0 0 12px;
   }
+  .ws-loading{
+    padding:24px 4px;
+    font-size:13px;
+    color:var(--num);
+    text-align:center;
+  }
   .ws-unit-label:not(:first-child){ margin-top:28px; }
+  .attempt-check{
+    display:inline-flex;
+    align-items:center;
+    gap:3px;
+    font-size:12px;
+    margin-right:8px;
+    white-space:nowrap;
+  }
+  .attempt-check input{ accent-color:var(--ink); }
+  .publisher-table a{ color:inherit; text-decoration:underline; text-decoration-color:#c9c2b3; }
 
   footer{
     max-width:900px;
@@ -303,7 +319,7 @@
 <body>
 
 <header>
-  <span class="version-tag">v1.3 · 2026-08-07 업데이트</span>
+  <span class="version-tag">v2.1 · 2026-08-07 업데이트</span>
   <div class="kicker">전주영 · 고등 수학 학습 기록판</div>
   <h1>문제지 모음</h1>
   <div class="sub">단원별로 학생 풀이 / 검토용 문제지를 모아뒀어요</div>
@@ -339,34 +355,17 @@
     </table>
   </div>
 
-  <div class="unit-label">중간고사 문제지 범위 요약</div>
-  <div class="card">
-    <table class="publisher-table">
-      <thead>
-        <tr><th>파일명</th><th>범위</th><th>문제수</th><th>난이도(최상/상/중상/중/하)</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>2504_m1_mid1-r01</td><td>다항식의 연산 ~ 이차함수의 최대·최소</td><td>23</td><td>최상 3, 상 8, 중상 2, 중 9, 하 1</td></tr>
-        <tr><td>2504_m1_mid1-r02</td><td>다항식의 연산 ~ 삼차방정식과 사차방정식</td><td>20</td><td>최상 0, 상 5, 중상 7, 중 5, 하 3</td></tr>
-        <tr><td>2504_m1_mid1-r03</td><td>다항식의 연산 ~ 이차함수의 최대·최소</td><td>20</td><td>최상 2, 상 3, 중상 7, 중 4, 하 4</td></tr>
-        <tr><td>2504_m1_mid1-r04</td><td>다항식의 연산 ~ 연립일차부등식</td><td>22</td><td>최상 1, 상 6, 중상 4, 중 9, 하 2</td></tr>
-        <tr><td>2504_m1_mid1-r05</td><td>곱셈 공식과 곱셈 공식의 변형 ~ 이차함수의 최대·최소</td><td>20</td><td>최상 3, 상 5, 중상 4, 중 6, 하 2</td></tr>
-        <tr><td>2504_m1_mid1-r06</td><td>다항식의 연산 ~ 이차함수의 최대·최소</td><td>22</td><td>최상 2, 상 5, 중상 4, 중 7, 하 4</td></tr>
-        <tr><td>2504_m1_mid1-r07</td><td>곱셈 공식과 곱셈 공식의 변형 ~ 이차함수의 최대·최소</td><td>22</td><td>최상 4, 상 4, 중상 5, 중 6, 하 3</td></tr>
-        <tr><td>2504_m1_mid1-r08</td><td>다항식의 연산 ~ 이차함수의 최대·최소</td><td>20</td><td>최상 3, 상 2, 중상 11, 중 2, 하 2</td></tr>
-        <tr><td>2604_m1_mid1-r01</td><td>다항식의 사칙연산 ~ 이차함수의 최대·최소</td><td>25</td><td>최상 3, 상 6, 중상 7, 중 7, 하 2</td></tr>
-        <tr><td>2604_m1_mid1-r02</td><td>다항식의 사칙연산 ~ 이차함수의 최대·최소</td><td>25</td><td>최상 7, 상 4, 중상 2, 중 6, 하 6</td></tr>
-        <tr><td>2604_m1_mid1-r03</td><td>다항식의 사칙연산 ~ 이차함수의 최대·최소</td><td>25</td><td>최상 6, 상 4, 중상 3, 중 6, 하 6</td></tr>
-        <tr><td>2604_m1_mid1-r04</td><td>다항식의 사칙연산 ~ 이차함수의 최대·최소</td><td>25</td><td>최상 6, 상 3, 중상 4, 중 6, 하 6</td></tr>
-        <tr><td>2604_m1_mid1-r05</td><td>다항식의 사칙연산 ~ 삼차방정식과 사차방정식의 풀이</td><td>25</td><td>최상 6, 상 3, 중상 4, 중 6, 하 6</td></tr>
-        <tr><td>2604_m1_mid1-r06</td><td>다항식의 사칙연산 ~ 이차부등식과 연립이차부등식</td><td>22</td><td>최상 7, 상 3, 중상 1, 중 6, 하 5</td></tr>
-        <tr><td>2604_m1_mid1-r07</td><td>다항식의 연산 ~ 근과 계수의 관계</td><td>21</td><td>최상 6, 상 3, 중상 2, 중 5, 하 5</td></tr>
-        <tr><td>2604_m1_mid1-r08</td><td>다항식의 사칙연산 ~ 이차함수의 최대·최소</td><td>24</td><td>최상 5, 상 4, 중상 3, 중 6, 하 6</td></tr>
-        <tr><td>2604_m1_mid1-r09</td><td>다항식의 사칙연산 ~ 이차부등식과 연립이차부등식</td><td>24</td><td>최상 6, 상 2, 중상 4, 중 6, 하 6</td></tr>
-        <tr><td>2604_m1_mid1-r10</td><td>다항식의 사칙연산 ~ 이차함수의 최대·최소</td><td>25</td><td>최상 4, 상 5, 중상 4, 중 6, 하 6</td></tr>
-      </tbody>
-    </table>
+  <div class="unit-label">문제지 범위 요약</div>
+
+  <div class="worksheet-tabs" id="rangeTabs">
+    <button class="ws-tab-btn active" id="rangeTab-mid" onclick="switchRangeTab('mid')">📗 중간고사 <span class="count" id="rangeCount-mid">0</span></button>
+    <button class="ws-tab-btn" id="rangeTab-final" onclick="switchRangeTab('final')">📕 기말고사 <span class="count" id="rangeCount-final">0</span></button>
+    <button class="ws-tab-btn" id="rangeTab-mock" onclick="switchRangeTab('mock')">🧪 모의고사 <span class="count" id="rangeCount-mock">0</span></button>
   </div>
+
+  <div class="ws-tab-panel active" id="rangePanel-mid"><div class="ws-loading">범위 요약을 불러오는 중...</div></div>
+  <div class="ws-tab-panel" id="rangePanel-final"></div>
+  <div class="ws-tab-panel" id="rangePanel-mock"></div>
 
   <div class="unit-label">진학 로드맵</div>
   <div class="card">
@@ -401,611 +400,14 @@
   <div class="unit-label">문제지 모음</div>
 
   <div class="worksheet-tabs">
-    <button class="ws-tab-btn active" id="wsTab-textbook" onclick="switchWsTab('textbook')">📘 교과서 목차순 <span class="count">2</span></button>
-    <button class="ws-tab-btn" id="wsTab-exam" onclick="switchWsTab('exam')">📝 모의고사·중간기말 <span class="count">18</span></button>
-    <button class="ws-tab-btn" id="wsTab-pastexam" onclick="switchWsTab('pastexam')">📚 기출문제 <span class="count">20</span></button>
+    <button class="ws-tab-btn active" id="wsTab-textbook" onclick="switchWsTab('textbook')">📘 교과서 목차순 <span class="count" id="wsCount-textbook">0</span></button>
+    <button class="ws-tab-btn" id="wsTab-exam" onclick="switchWsTab('exam')">📝 모의고사·중간기말 <span class="count" id="wsCount-exam">0</span></button>
+    <button class="ws-tab-btn" id="wsTab-pastexam" onclick="switchWsTab('pastexam')">📚 기출문제 <span class="count" id="wsCount-pastexam">0</span></button>
   </div>
 
-  <div class="ws-tab-panel active" id="wsPanel-textbook">
-    <div class="ws-unit-label">2.1 복소수</div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">복소수 (5.6)</div>
-          <div class="card-meta"><span>전체 30문제 · 7페이지</span><span>29/30 정답</span></div>
-          <div class="last-run none" id="lastRun-2605_m1_chap02_r1">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">채점 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2605_m1_chap02_r1">학생 풀이 시작</a>
-        <a class="btn btn-secondary" href="worksheets/complex-5-6-review.html">검토용 보기</a>
-      </div>
-    </div>
-
-    <div class="ws-unit-label">1.1~1.3 다항식의 연산 · 항등식과 나머지정리 · 인수분해</div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">다항식 인수분해 기본 (4.30) 복습</div>
-          <div class="card-meta"><span>전체 50문제 · 9페이지</span><span>50/50 정답</span></div>
-          <div class="last-run none" id="lastRun-2604_m1_chap01_r1">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">채점 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2604_m1_chap01_r1">학생 풀이 시작</a>
-        <a class="btn btn-secondary" href="worksheets/polynomial-4-30-review.html">검토용 보기</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="ws-tab-panel" id="wsPanel-exam">
-    <div class="ws-unit-label">고등수학1 중간고사 대비 (DRE수학)</div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">1학기 중간고사-1회차</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 25문제</span></div>
-          <div class="last-run none" id="lastRun-2604_m1_mid1-r01">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2604_m1_mid1-r01">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">1학기 중간고사-2회차</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 25문제</span></div>
-          <div class="last-run none" id="lastRun-2604_m1_mid1-r02">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2604_m1_mid1-r02">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">1학기 중간고사-3회차</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 25문제</span></div>
-          <div class="last-run none" id="lastRun-2604_m1_mid1-r03">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2604_m1_mid1-r03">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">1학기 중간고사-4회차</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 25문제</span></div>
-          <div class="last-run none" id="lastRun-2604_m1_mid1-r04">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2604_m1_mid1-r04">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">1학기 중간고사-5회차</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 25문제</span></div>
-          <div class="last-run none" id="lastRun-2604_m1_mid1-r05">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2604_m1_mid1-r05">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">1학기 중간고사-6회차</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 25문제</span></div>
-          <div class="last-run none" id="lastRun-2604_m1_mid1-r06">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2604_m1_mid1-r06">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">1학기 중간고사-7회차</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 25문제</span></div>
-          <div class="last-run none" id="lastRun-2604_m1_mid1-r07">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2604_m1_mid1-r07">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">1학기 중간고사-8회차</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 25문제</span></div>
-          <div class="last-run none" id="lastRun-2604_m1_mid1-r08">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2604_m1_mid1-r08">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">1학기 중간고사-9회차</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 25문제</span></div>
-          <div class="last-run none" id="lastRun-2604_m1_mid1-r09">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2604_m1_mid1-r09">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">1학기 중간고사-10회차</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 25문제</span></div>
-          <div class="last-run none" id="lastRun-2604_m1_mid1-r10">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2604_m1_mid1-r10">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-
-    <div class="ws-unit-label">고등수학1 중간고사 대비 (매쓰플랫·Dre수학)</div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">중간고사 대비-1회차</div>
-          <div class="card-meta"><span>다항식의 연산 ~ 이차함수의 최대·최소</span><span>전체 23문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1-r01">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1-r01">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">중간고사 대비-2회차</div>
-          <div class="card-meta"><span>다항식의 연산 ~ 삼차방정식과 사차방정식</span><span>전체 20문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1-r02">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1-r02">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">중간고사 대비-3회차</div>
-          <div class="card-meta"><span>다항식의 연산 ~ 이차함수의 최대·최소</span><span>전체 20문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1-r03">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1-r03">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">중간고사 대비-4회차</div>
-          <div class="card-meta"><span>다항식의 연산 ~ 연립일차부등식</span><span>전체 22문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1-r04">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1-r04">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">중간고사 대비-5회차</div>
-          <div class="card-meta"><span>곱셈 공식과 곱셈 공식의 변형 ~ 이차함수의 최대·최소</span><span>전체 20문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1-r05">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1-r05">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">중간고사 대비-6회차</div>
-          <div class="card-meta"><span>다항식의 연산 ~ 이차함수의 최대·최소</span><span>전체 22문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1-r06">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1-r06">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">중간고사 대비-7회차</div>
-          <div class="card-meta"><span>곱셈 공식과 곱셈 공식의 변형 ~ 이차함수의 최대·최소</span><span>전체 22문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1-r07">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1-r07">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">중간고사 대비-8회차</div>
-          <div class="card-meta"><span>다항식의 연산 ~ 이차함수의 최대·최소</span><span>전체 20문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1-r08">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1-r08">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="ws-tab-panel" id="wsPanel-pastexam">
-    <div class="ws-unit-label">고등수학1 기출 유사 - 중간고사 (매쓰플랫)</div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">영동일고등학교 1학년 2025년 1학기 공통수학1 중간</div>
-          <div class="card-meta"><span>다항식의 연산 ~ 여러 가지 방정식과 부등식</span><span>전체 24문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1_yeongdongil">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1_yeongdongil">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">이화여자고등학교 1학년 2025년 1학기 공통수학1 중간</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 20문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1_ewha">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1_ewha">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">서문여자고등학교 1학년 2025년 1학기 공통수학1 중간</div>
-          <div class="card-meta"><span>다항식의 연산 ~ 여러 가지 방정식과 부등식</span><span>전체 20문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1_seomun">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1_seomun">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">개포고등학교 1학년 2025년 1학기 공통수학1 중간</div>
-          <div class="card-meta"><span>근호를 포함한 식의 계산 ~ 함수의 극한</span><span>전체 21문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1_gaepo">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1_gaepo">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">언남고등학교 1학년 2025년 1학기 공통수학1 중간</div>
-          <div class="card-meta"><span>다항식의 곱셈 ~ 이차방정식과 이차함수</span><span>전체 23문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1_eonnam">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1_eonnam">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">장충고등학교 1학년 2025년 1학기 공통수학1 중간</div>
-          <div class="card-meta"><span>다항식의 사칙연산 ~ 이차함수의 최대·최소</span><span>전체 23문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1_jangchung">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1_jangchung">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">동덕여자고등학교 1학년 2025년 1학기 공통수학1 중간</div>
-          <div class="card-meta"><span>다항식의 연산 ~ 여러 가지 방정식과 부등식</span><span>전체 21문제</span></div>
-          <div class="last-run none" id="lastRun-2504_m1_mid1_dongduk">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2504_m1_mid1_dongduk">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="ws-unit-label">고등수학1 기출 유사 - 기말고사 (매쓰플랫)</div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">휘문고등학교 1학년 2025 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>여러 가지 방정식과 부등식 ~ 행렬과 그 연산</span><span>전체 20문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_hwimun">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_hwimun">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">오금고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>여러 가지 방정식과 부등식 ~ 행렬과 그 연산</span><span>전체 22문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_ogeum">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_ogeum">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">영동일고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>여러 가지 방정식과 부등식 ~ 행렬과 그 연산</span><span>전체 24문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_yeongdongil">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_yeongdongil">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">중앙대학교사범대학부속고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>여러 가지 방정식과 부등식 ~ 행렬과 그 연산</span><span>전체 22문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_jungang-sabeom">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_jungang-sabeom">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">잠신고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>여러 가지 방정식과 부등식 ~ 행렬과 그 연산</span><span>전체 21문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_jamsin">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_jamsin">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">정신여자고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>여러 가지 방정식과 부등식 ~ 행렬과 그 연산</span><span>전체 22문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_jeongsin">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_jeongsin">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">동덕여자고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>다항식의 연산 ~ 행렬과 그 연산</span><span>전체 21문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_dongduk">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_dongduk">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">영동일고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>여러 가지 방정식과 부등식 ~ 행렬과 그 연산</span><span>전체 24문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_yeongdongil-2">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_yeongdongil-2">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">단국대학교사범대학부속고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>여러 가지 방정식과 부등식 ~ 행렬과 그 연산</span><span>전체 22문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_dankook-sabeom">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_dankook-sabeom">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">오금고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>여러 가지 방정식과 부등식 ~ 행렬과 그 연산</span><span>전체 22문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_ogeum-2">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_ogeum-2">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">반포고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>인수분해 ~ 행렬과 그 연산</span><span>전체 27문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_banpo">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_banpo">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">문현고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>여러 가지 방정식과 부등식 ~ 행렬과 그 연산</span><span>전체 21문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_munhyeon">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_munhyeon">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="card-title">서문여자고등학교 1학년 2025년 1학기 공통수학1 기말</div>
-          <div class="card-meta"><span>여러 가지 방정식과 부등식 ~ 행렬과 그 연산</span><span>전체 20문제</span></div>
-          <div class="last-run none" id="lastRun-2507_m1_final1_seomun">최근 풀이 기록 없음</div>
-        </div>
-        <span class="status-pill status-ok">등록 완료</span>
-      </div>
-      <div class="card-actions">
-        <a class="btn btn-primary" href="worksheets/player.html?set=2507_m1_final1_seomun">학생 풀이 시작</a>
-        <span class="btn btn-disabled">검토용 (준비 중)</span>
-      </div>
-    </div>
-  </div>
+  <div class="ws-tab-panel active" id="wsPanel-textbook"><div class="ws-loading">문제지 목록을 불러오는 중...</div></div>
+  <div class="ws-tab-panel" id="wsPanel-exam"></div>
+  <div class="ws-tab-panel" id="wsPanel-pastexam"></div>
 
 </main>
 
@@ -1017,51 +419,68 @@
   // Apps Script 배포 후 나온 웹 앱 URL로 교체하세요 (worksheets 파일들과 동일한 URL)
   const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzUef9uyH28s4l2iObFCyg131Ft2_aDdxLj_ab5vdA5wFBQKdVKMfOwh2u5EwsbWwus/exec';
 
-  // worksheetId → 문제지 이름 / 카드 그룹
-  const WORKSHEET_META = {
-    '2605_m1_chap02_r1-student':   { label:'복소수 (5.6) · 학생풀이', group:'2605_m1_chap02_r1' },
-    '2605_m1_chap02_r1-review':    { label:'복소수 (5.6) · 검토용',   group:'2605_m1_chap02_r1' },
-    '2604_m1_chap01_r1-student':{ label:'다항식 (4.30) · 학생풀이', group:'2604_m1_chap01_r1' },
-    '2604_m1_chap01_r1-review': { label:'다항식 (4.30) · 검토용',   group:'2604_m1_chap01_r1' },
-    '2604_m1_mid1-r01-student':{ label:'중간고사-1회차 · 학생풀이', group:'2604_m1_mid1-r01' },
-    '2604_m1_mid1-r02-student':{ label:'중간고사-2회차 · 학생풀이', group:'2604_m1_mid1-r02' },
-    '2604_m1_mid1-r03-student':{ label:'중간고사-3회차 · 학생풀이', group:'2604_m1_mid1-r03' },
-    '2604_m1_mid1-r04-student':{ label:'중간고사-4회차 · 학생풀이', group:'2604_m1_mid1-r04' },
-    '2604_m1_mid1-r05-student':{ label:'중간고사-5회차 · 학생풀이', group:'2604_m1_mid1-r05' },
-    '2604_m1_mid1-r06-student':{ label:'중간고사-6회차 · 학생풀이', group:'2604_m1_mid1-r06' },
-    '2604_m1_mid1-r07-student':{ label:'중간고사-7회차 · 학생풀이', group:'2604_m1_mid1-r07' },
-    '2604_m1_mid1-r08-student':{ label:'중간고사-8회차 · 학생풀이', group:'2604_m1_mid1-r08' },
-    '2604_m1_mid1-r09-student':{ label:'중간고사-9회차 · 학생풀이', group:'2604_m1_mid1-r09' },
-    '2604_m1_mid1-r10-student':{ label:'중간고사-10회차 · 학생풀이', group:'2604_m1_mid1-r10' },
-    '2504_m1_mid1-r01-student':{ label:'중간고사 대비-1회차 · 학생풀이', group:'2504_m1_mid1-r01' },
-    '2504_m1_mid1-r02-student':{ label:'중간고사 대비-2회차 · 학생풀이', group:'2504_m1_mid1-r02' },
-    '2504_m1_mid1-r03-student':{ label:'중간고사 대비-3회차 · 학생풀이', group:'2504_m1_mid1-r03' },
-    '2504_m1_mid1-r04-student':{ label:'중간고사 대비-4회차 · 학생풀이', group:'2504_m1_mid1-r04' },
-    '2504_m1_mid1-r05-student':{ label:'중간고사 대비-5회차 · 학생풀이', group:'2504_m1_mid1-r05' },
-    '2504_m1_mid1-r06-student':{ label:'중간고사 대비-6회차 · 학생풀이', group:'2504_m1_mid1-r06' },
-    '2504_m1_mid1-r07-student':{ label:'중간고사 대비-7회차 · 학생풀이', group:'2504_m1_mid1-r07' },
-    '2504_m1_mid1-r08-student':{ label:'중간고사 대비-8회차 · 학생풀이', group:'2504_m1_mid1-r08' },
-    '2507_m1_final1_hwimun-student':{ label:'휘문고 기말 기출유사 · 학생풀이', group:'2507_m1_final1_hwimun' },
-    '2507_m1_final1_ogeum-student':{ label:'오금고 기말 기출유사 · 학생풀이', group:'2507_m1_final1_ogeum' },
-    '2507_m1_final1_yeongdongil-student':{ label:'영동일고 기말 기출유사 · 학생풀이', group:'2507_m1_final1_yeongdongil' },
-    '2507_m1_final1_jungang-sabeom-student':{ label:'중앙대사범대부속고 기말 기출유사 · 학생풀이', group:'2507_m1_final1_jungang-sabeom' },
-    '2507_m1_final1_jamsin-student':{ label:'잠신고 기말 기출유사 · 학생풀이', group:'2507_m1_final1_jamsin' },
-    '2507_m1_final1_jeongsin-student':{ label:'정신여고 기말 기출유사 · 학생풀이', group:'2507_m1_final1_jeongsin' },
-    '2504_m1_mid1_yeongdongil-student':{ label:'영동일고 중간 기출유사 · 학생풀이', group:'2504_m1_mid1_yeongdongil' },
-    '2504_m1_mid1_ewha-student':{ label:'이화여고 중간 기출유사 · 학생풀이', group:'2504_m1_mid1_ewha' },
-    '2504_m1_mid1_seomun-student':{ label:'서문여고 중간 기출유사 · 학생풀이', group:'2504_m1_mid1_seomun' },
-    '2504_m1_mid1_gaepo-student':{ label:'개포고 중간 기출유사 · 학생풀이', group:'2504_m1_mid1_gaepo' },
-    '2504_m1_mid1_eonnam-student':{ label:'언남고 중간 기출유사 · 학생풀이', group:'2504_m1_mid1_eonnam' },
-    '2504_m1_mid1_jangchung-student':{ label:'장충고 중간 기출유사 · 학생풀이', group:'2504_m1_mid1_jangchung' },
-    '2504_m1_mid1_dongduk-student':{ label:'동덕여고 중간 기출유사 · 학생풀이', group:'2504_m1_mid1_dongduk' },
-    '2507_m1_final1_dongduk-student':{ label:'동덕여고 기말 기출유사 · 학생풀이', group:'2507_m1_final1_dongduk' },
-    '2507_m1_final1_yeongdongil-2-student':{ label:'영동일고 기말 기출유사(2) · 학생풀이', group:'2507_m1_final1_yeongdongil-2' },
-    '2507_m1_final1_dankook-sabeom-student':{ label:'단국대사범대부속고 기말 기출유사 · 학생풀이', group:'2507_m1_final1_dankook-sabeom' },
-    '2507_m1_final1_ogeum-2-student':{ label:'오금고 기말 기출유사(2) · 학생풀이', group:'2507_m1_final1_ogeum-2' },
-    '2507_m1_final1_banpo-student':{ label:'반포고 기말 기출유사 · 학생풀이', group:'2507_m1_final1_banpo' },
-    '2507_m1_final1_munhyeon-student':{ label:'문현고 기말 기출유사 · 학생풀이', group:'2507_m1_final1_munhyeon' },
-    '2507_m1_final1_seomun-student':{ label:'서문여고 기말 기출유사 · 학생풀이', group:'2507_m1_final1_seomun' }
-  };
+  // worksheetId → 문제지 이름 / 카드 그룹 (data/manifest.json 기반으로 자동 생성됨)
+  let WORKSHEET_META = {};
+
+  const CATEGORY_LABELS = { textbook:'📘 교과서 목차순', exam:'📝 모의고사·중간기말', pastexam:'📚 기출문제' };
+
+  function cardHtml(s){
+    const metaLine1 = s.stats ? `전체 ${s.count}문제${s.pages ? ' · ' + s.pages + '페이지' : ''}` : (s.unit || '');
+    const metaLine2 = s.stats ? s.stats : `전체 ${s.count || '?'}문제`;
+    const pill = s.stats ? '<span class="status-pill status-ok">채점 완료</span>' : '<span class="status-pill status-ok">등록 완료</span>';
+    const reviewBtn = s.reviewUrl
+      ? `<a class="btn btn-secondary" href="${s.reviewUrl}">검토용 보기</a>`
+      : `<span class="btn btn-disabled">검토용 (준비 중)</span>`;
+    return `<div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">${s.title}</div>
+          <div class="card-meta"><span>${metaLine1}</span><span>${metaLine2}</span></div>
+          <div class="last-run none" id="lastRun-${s.id}">최근 풀이 기록 없음</div>
+        </div>
+        ${pill}
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="worksheets/player.html?set=${s.id}">학생 풀이 시작</a>
+        ${reviewBtn}
+      </div>
+    </div>`;
+  }
+
+  async function renderWorksheetCards(){
+    const panels = { textbook:'', exam:'', pastexam:'' };
+    const counts = { textbook:0, exam:0, pastexam:0 };
+    try{
+      const res = await fetch('data/manifest.json');
+      const manifest = await res.json();
+
+      ['textbook','exam','pastexam'].forEach(cat => {
+        const sets = manifest.sets.filter(s => s.category === cat);
+        counts[cat] = sets.length;
+        let lastGroup = null;
+        sets.forEach(s => {
+          if(s.group && s.group !== lastGroup){
+            panels[cat] += `<div class="ws-unit-label">${s.group}</div>`;
+            lastGroup = s.group;
+          }
+          panels[cat] += cardHtml(s);
+
+          WORKSHEET_META[s.id + '-student'] = { label: s.title + ' · 학생풀이', group: s.id };
+          if(s.reviewUrl){
+            WORKSHEET_META[s.id + '-review'] = { label: s.title + ' · 검토용', group: s.id };
+          }
+        });
+      });
+
+      ['textbook','exam','pastexam'].forEach(cat => {
+        document.getElementById('wsPanel-' + cat).innerHTML = panels[cat] || '<div class="ws-loading">등록된 문제지가 없어요</div>';
+        document.getElementById('wsCount-' + cat).textContent = counts[cat];
+      });
+    } catch(err){
+      document.getElementById('wsPanel-textbook').innerHTML = '<div class="ws-loading">문제지 목록을 불러오지 못했어요 (data/manifest.json 확인 필요)</div>';
+    }
+  }
+
 
   function fmtDate(iso){
     const d = new Date(iso);
@@ -1134,13 +553,95 @@
     }
   }
 
-  loadBoard();
+  (async function init(){
+    await renderWorksheetCards();
+    await renderRangeSummary();
+    loadBoard();
+  })();
 
   function switchWsTab(cat){
     ['textbook','exam','pastexam'].forEach(c => {
       document.getElementById('wsTab-' + c).classList.toggle('active', c === cat);
       document.getElementById('wsPanel-' + c).classList.toggle('active', c === cat);
     });
+  }
+
+  function switchRangeTab(kind){
+    ['mid','final','mock'].forEach(k => {
+      document.getElementById('rangeTab-' + k).classList.toggle('active', k === kind);
+      document.getElementById('rangePanel-' + k).classList.toggle('active', k === kind);
+    });
+  }
+
+  const DIFF_LABELS = [['top','최상'],['high','상'],['midhigh','중상'],['mid','중'],['low','하']];
+
+  function diffSummary(problems){
+    const counts = { top:0, high:0, midhigh:0, mid:0, low:0 };
+    (problems || []).forEach(p => { if(counts.hasOwnProperty(p.diff)) counts[p.diff]++; });
+    return DIFF_LABELS.map(([key,label]) => `${label} ${counts[key]}`).join(', ');
+  }
+
+  function checkboxHtml(id, attemptCounts){
+    const n = attemptCounts[id] || 0;
+    return [1,2,3].map(i =>
+      `<label class="attempt-check"><input type="checkbox" disabled ${i<=n?'checked':''}>${i}차</label>`
+    ).join(' ');
+  }
+
+  async function renderRangeSummary(){
+    const buckets = { mid:[], final:[], mock:[] };
+
+    try{
+      const manifestRes = await fetch('data/manifest.json');
+      const manifest = await manifestRes.json();
+      const targets = manifest.sets.filter(s => s.category !== 'textbook');
+
+      let attemptCounts = {};
+      try{
+        const recRes = await fetch(SHEET_WEBHOOK_URL + '?action=list');
+        const records = await recRes.json();
+        (records || []).forEach(r => {
+          const group = String(r.worksheetId || '').replace(/-student$|-review$/, '');
+          attemptCounts[group] = (attemptCounts[group] || 0) + 1;
+        });
+      } catch(e){ /* 기록 서버 문제는 조용히 무시 - 체크박스는 0/3으로 표시 */ }
+
+      await Promise.all(targets.map(async s => {
+        let diffText = '-';
+        try{
+          const res = await fetch('data/' + s.file);
+          if(res.ok){
+            const data = await res.json();
+            diffText = diffSummary(data.problems);
+          }
+        } catch(e){ /* 개별 파일 실패 시 난이도만 '-'로 표시, 행 자체는 유지 */ }
+
+        const row = `<tr>
+          <td><a href="worksheets/player.html?set=${s.id}">${s.id}</a></td>
+          <td>${s.unit || ''}</td>
+          <td>${s.count || '?'}</td>
+          <td>${diffText}</td>
+          <td>${checkboxHtml(s.id, attemptCounts)}</td>
+        </tr>`;
+
+        if(/final1|final2/.test(s.id)) buckets.final.push(row);
+        else if(/mid1|mid2/.test(s.id)) buckets.mid.push(row);
+        else buckets.mock.push(row);
+      }));
+
+      ['mid','final','mock'].forEach(kind => {
+        const rows = buckets[kind];
+        document.getElementById('rangeCount-' + kind).textContent = rows.length;
+        document.getElementById('rangePanel-' + kind).innerHTML = rows.length
+          ? `<div class="card"><table class="publisher-table">
+              <thead><tr><th>파일명</th><th>범위</th><th>문제수</th><th>난이도(최상/상/중상/중/하)</th><th>풀이 완료</th></tr></thead>
+              <tbody>${rows.join('')}</tbody>
+            </table></div>`
+          : '<div class="ws-loading">등록된 문제지가 없어요</div>';
+      });
+    } catch(err){
+      document.getElementById('rangePanel-mid').innerHTML = '<div class="ws-loading">범위 요약을 불러오지 못했어요</div>';
+    }
   }
 </script>
 
