@@ -1,0 +1,511 @@
+{
+  "id": "2605_m1_chap02_r1",
+  "title": "복소수 (5.6)",
+  "unit": "2.1 복소수",
+  "category": "textbook",
+  "examType": null,
+  "source": "문제풀기 · MADE Sayno",
+  "problems": [
+    {
+      "num": 1,
+      "diff": "low",
+      "type": "fillin",
+      "answer": "2",
+      "question": "\\(2i\\)의 실수부분을 \\(a\\), 허수부분을 \\(b\\)라고 할 때, \\(a+b\\)의 값을 구하시오. (단, \\(i=\\sqrt{-1}\\))",
+      "solution": [
+        "\\(2i = 0 + 2i\\) 이므로 실수부분 \\(a=0\\), 허수부분 \\(b=2\\)",
+        "\\(\\therefore\\ a+b = 0+2 = 2\\)"
+      ],
+      "family": "sumPartsDirect"
+    },
+    {
+      "num": 2,
+      "diff": "low",
+      "type": "fillin",
+      "answer": "4",
+      "question": "등식 \\((x-2)+(y+1)i=1+2i\\)를 만족하는 실수 \\(x, y\\)에 대하여 \\(x+y\\)의 값을 구하시오. (단, \\(i=\\sqrt{-1}\\))",
+      "solution": [
+        "실수부분과 허수부분을 각각 비교하면 \\(x-2=1,\\ y+1=2\\)",
+        "\\(x=3,\\quad y=1\\)",
+        "\\(\\therefore\\ x+y = 3+1 = 4\\)"
+      ],
+      "family": "sumPartsEquation"
+    },
+    {
+      "num": 3,
+      "diff": "low",
+      "type": "mc",
+      "correct": 4,
+      "question": "\\((4+7i)+(2-3i)\\)를 계산하면? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "4+2i",
+        "4+3i",
+        "5+3i",
+        "5+4i",
+        "6+4i"
+      ],
+      "solution": [
+        "\\((4+7i)+(2-3i) = (4+2)+(7-3)i = 6+4i\\)"
+      ],
+      "family": "addComplex"
+    },
+    {
+      "num": 4,
+      "diff": "mid",
+      "type": "mc",
+      "correct": 1,
+      "question": "\\(\\dfrac{1}{i^{201}}+\\dfrac{1}{i^{203}}\\)의 값은? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "-1",
+        "0",
+        "1",
+        "i",
+        "-i"
+      ],
+      "solution": [
+        "\\(i^{201}=i,\\ i^{203}=-i\\)",
+        "\\(\\dfrac1i=-i,\\ \\dfrac1{-i}=i\\)",
+        "\\(-i+i=0\\)"
+      ],
+      "family": "iPower"
+    },
+    {
+      "num": 5,
+      "diff": "midhigh",
+      "type": "mc",
+      "correct": 2,
+      "question": "다음 |보기| 중에서 허수가 아닌 것을 모두 고른 것은? (단, \\(i=\\sqrt{-1}\\))",
+      "extra": "<div class=\"ref-box\">ㄱ. \\(3+2i\\) &nbsp;&nbsp; ㄴ. \\(3\\pi\\) &nbsp;&nbsp; ㄷ. \\(1-i\\) &nbsp;&nbsp; ㄹ. \\(\\sqrt2\\) &nbsp;&nbsp; ㅁ. \\(4i\\)</div>",
+      "choices": [
+        "ㄱ, ㄹ",
+        "ㄴ, ㄷ",
+        "ㄴ, ㄹ",
+        "ㄷ, ㅁ",
+        "ㄹ, ㅁ"
+      ],
+      "solution": [
+        "허수가 아닌 것 = 실수인 것",
+        "ㄴ. \\(3\\pi\\)와 ㄹ. \\(\\sqrt2\\)는 \\(i\\)가 없는 실수"
+      ],
+      "family": "classify"
+    },
+    {
+      "num": 6,
+      "diff": "low",
+      "type": "fillin",
+      "answer": "4",
+      "question": "\\(\\alpha=1+i,\\ \\beta=1-i\\)일 때, \\((\\alpha-\\beta)(\\bar\\alpha-\\bar\\beta)\\)의 값을 구하시오. (단, \\(\\bar\\alpha,\\bar\\beta\\)는 켤레복소수, \\(i=\\sqrt{-1}\\))",
+      "solution": [
+        "\\(\\bar\\alpha=1-i,\\ \\bar\\beta=1+i\\)",
+        "\\(\\alpha-\\beta=2i,\\quad \\bar\\alpha-\\bar\\beta=-2i\\)",
+        "\\((2i)(-2i)=-4i^2=4\\)"
+      ],
+      "family": "conjugateNumeric"
+    },
+    {
+      "num": 7,
+      "diff": "high",
+      "type": "mc",
+      "correct": 3,
+      "question": "복소수 \\(a+bi\\)에 대하여 \\(a, b\\)가 실수일 때, 허수부분의 부호를 바꾼 복소수 \\(a-bi\\)를 복소수 \\(a+bi\\)의 ___라 하고, ___로 나타낸다. 빈칸에 들어갈 말을 순서대로 나열한 것은? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "허수단위, \\(\\overline{a+bi}\\)",
+        "허수단위, \\(a+bi\\)",
+        "켤레복소수, \\(\\overline{a-bi}\\)",
+        "켤레복소수, \\(\\overline{a+bi}\\)",
+        "켤레복소수, \\(\\bar a+bi\\)"
+      ],
+      "solution": [
+        "허수부분의 부호를 바꾼 복소수를 켤레복소수라 하고, \\(\\overline{a+bi}\\)로 나타낸다."
+      ]
+    },
+    {
+      "num": 8,
+      "diff": "mid",
+      "type": "mc",
+      "correct": 2,
+      "question": "\\(\\dfrac{1-i}{1+i}+\\dfrac{1+i}{1-i}\\)를 계산하면? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "-2i",
+        "-2",
+        "0",
+        "2",
+        "2i"
+      ],
+      "solution": [
+        "\\(\\dfrac{1-i}{1+i}=-i,\\quad \\dfrac{1+i}{1-i}=i\\)",
+        "\\(-i+i=0\\)"
+      ],
+      "family": "fracConjugate"
+    },
+    {
+      "num": 9,
+      "diff": "low",
+      "type": "mc",
+      "correct": 1,
+      "question": "\\((1+2i)(2+3i)\\)를 바르게 계산한 것은? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "-2+7i",
+        "-4+7i",
+        "-6+7i",
+        "-4+5i",
+        "-5+3i"
+      ],
+      "solution": [
+        "\\((1+2i)(2+3i)=2+7i+6i^2=2+7i-6=-4+7i\\)"
+      ],
+      "family": "mulComplex"
+    },
+    {
+      "num": 10,
+      "diff": "midhigh",
+      "type": "fillin",
+      "answer": "2/5",
+      "question": "\\(2+5i\\)의 실수부분을 \\(a\\), 허수부분을 \\(b\\)라고 할 때, \\(\\dfrac{a}{b}\\)의 값을 구하시오. (단, \\(i=\\sqrt{-1}\\))",
+      "solution": [
+        "\\(a=2,\\ b=5\\)",
+        "\\(\\dfrac{a}{b}=\\dfrac25\\)"
+      ],
+      "family": "ratioParts"
+    },
+    {
+      "num": 11,
+      "diff": "midhigh",
+      "type": "fillin",
+      "answer": "1",
+      "question": "등식 \\((x-2)+(y+1)i=0\\)을 만족하는 실수 \\(x, y\\)에 대하여 \\(x+y\\)의 값을 구하시오. (단, \\(i=\\sqrt{-1}\\))",
+      "solution": [
+        "\\(x=2,\\ y=-1\\)",
+        "\\(\\therefore\\ x+y=1\\)"
+      ],
+      "family": "sumPartsEquation"
+    },
+    {
+      "num": 12,
+      "diff": "low",
+      "type": "mc",
+      "correct": 3,
+      "question": "\\((4+2i)+(1-3i)\\)의 값은? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "3-i",
+        "3+i",
+        "4-i",
+        "5-i",
+        "5+i"
+      ],
+      "solution": [
+        "\\((4+1)+(2-3)i=5-i\\)"
+      ],
+      "family": "addComplex"
+    },
+    {
+      "num": 13,
+      "diff": "mid",
+      "type": "mc",
+      "correct": 0,
+      "question": "\\(i^{10}+i^{100}\\)을 계산하면?",
+      "choices": [
+        "0",
+        "1",
+        "-1",
+        "1+i",
+        "1-i"
+      ],
+      "solution": [
+        "\\(i^{10}=-1,\\ i^{100}=1\\)",
+        "\\(-1+1=0\\)"
+      ],
+      "family": "iPower"
+    },
+    {
+      "num": 14,
+      "diff": "midhigh",
+      "type": "mc",
+      "correct": 0,
+      "question": "다음 |보기| 중 실수를 모두 찾은 것은? (단, \\(i=\\sqrt{-1}\\))",
+      "extra": "<div class=\"ref-box\">ㄱ. \\(-\\dfrac12\\) &nbsp;&nbsp; ㄴ. \\(\\sqrt3+1\\) &nbsp;&nbsp; ㄷ. \\(3i+4\\) &nbsp;&nbsp; ㄹ. \\(-3\\sqrt2\\,i\\) &nbsp;&nbsp; ㅁ. \\(i\\)</div>",
+      "choices": [
+        "ㄱ, ㄴ",
+        "ㄱ, ㅁ",
+        "ㄴ, ㄷ",
+        "ㄷ, ㄹ",
+        "ㄹ, ㅁ"
+      ],
+      "solution": [
+        "ㄱ, ㄴ은 실수, ㄷ,ㄹ,ㅁ은 \\(i\\)를 포함한 허수"
+      ],
+      "family": "classify"
+    },
+    {
+      "num": 15,
+      "diff": "midhigh",
+      "type": "mc",
+      "correct": 4,
+      "question": "복소수 \\(z=2+3i\\)의 켤레복소수를 \\(\\bar z\\)라고 할 때, 다음 중 옳지 않은 것은? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "\\(\\bar z=2-3i\\)",
+        "\\(z+\\bar z=4\\)",
+        "\\(z-\\bar z=6i\\)",
+        "\\(z\\bar z=13\\)",
+        "\\(\\dfrac{\\bar z}{z}=13i\\)"
+      ],
+      "solution": [
+        "\\(\\dfrac{\\bar z}{z}=\\dfrac{2-3i}{2+3i}=\\dfrac{-5-12i}{13}\\ne 13i\\)"
+      ]
+    },
+    {
+      "num": 16,
+      "diff": "high",
+      "type": "mc",
+      "correct": 1,
+      "question": "다음 중 옳지 않은 것은? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "\\(\\overline{5-3i}=5+3i\\)",
+        "\\(\\overline{i+3}=1-3i\\)",
+        "\\(\\overline{3i-5}=-5-3i\\)",
+        "\\(\\overline{4i+2}=2-4i\\)",
+        "\\(\\bar3-3i=3-3i\\)"
+      ],
+      "solution": [
+        "\\(\\overline{i+3}=\\overline{3+i}=3-i\\) 인데 ②는 \\(1-3i\\)라고 했으므로 틀림",
+        "⑤는 bar가 \\(3\\)에만 걸려 참"
+      ]
+    },
+    {
+      "num": 17,
+      "diff": "high",
+      "type": "mc",
+      "correct": 4,
+      "question": "\\(\\dfrac{3-i}{1+i}+\\dfrac1i\\)을 계산하면? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "1-i",
+        "1+i",
+        "1-2i",
+        "-1+2i",
+        "1-3i"
+      ],
+      "solution": [
+        "\\(\\dfrac{3-i}{1+i}=1-2i,\\quad \\dfrac1i=-i\\)",
+        "\\(1-2i-i=1-3i\\)"
+      ],
+      "family": "fracConjugate"
+    },
+    {
+      "num": 18,
+      "diff": "low",
+      "type": "mc",
+      "correct": 4,
+      "question": "\\((2+i)(2-i)\\)의 값은? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "solution": [
+        "\\((2+i)(2-i)=4-i^2=4+1=5\\)"
+      ],
+      "family": "mulComplex"
+    },
+    {
+      "num": 19,
+      "diff": "low",
+      "type": "fillin",
+      "answer": "6",
+      "question": "\\(\\sqrt2-i\\)의 실수부분을 \\(a\\), \\(\\dfrac{1+4i}{2}\\)의 허수부분을 \\(b\\)라 할 때, \\(a^2+b^2\\)의 값을 구하시오.",
+      "solution": [
+        "\\(a=\\sqrt2,\\ b=2\\)",
+        "\\(a^2+b^2=2+4=6\\)"
+      ],
+      "family": "sumPartsDirect"
+    },
+    {
+      "num": 20,
+      "diff": "low",
+      "type": "fillin",
+      "answer": "-6",
+      "question": "\\(x+y+(x-2y)i=1+7i\\)을 만족하는 실수 \\(x, y\\)에 대하여 \\(xy\\)의 값을 구하시오. (단, \\(i=\\sqrt{-1}\\))",
+      "solution": [
+        "\\(x+y=1,\\ x-2y=7\\)",
+        "\\(x=3,\\ y=-2\\)",
+        "\\(xy=-6\\)"
+      ],
+      "family": "sumPartsEquation"
+    },
+    {
+      "num": 21,
+      "diff": "low",
+      "type": "mc",
+      "correct": 2,
+      "question": "\\(\\left(\\dfrac32+5i\\right)-\\left(\\dfrac12-i\\right)\\)를 계산하면? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "1+4i",
+        "1+5i",
+        "1+6i",
+        "2+4i",
+        "2+6i"
+      ],
+      "solution": [
+        "\\(\\left(\\frac32-\\frac12\\right)+(5i+i)=1+6i\\)"
+      ],
+      "family": "addComplex"
+    },
+    {
+      "num": 22,
+      "diff": "mid",
+      "type": "mc",
+      "correct": 2,
+      "question": "\\(i^{100}-i^{102}\\)을 계산하면?",
+      "choices": [
+        "0",
+        "1",
+        "2",
+        "1+i",
+        "2+i"
+      ],
+      "solution": [
+        "\\(i^{100}=1,\\ i^{102}=-1\\)",
+        "\\(1-(-1)=2\\)"
+      ],
+      "family": "iPower"
+    },
+    {
+      "num": 23,
+      "diff": "top",
+      "type": "mc",
+      "correct": null,
+      "question": "다음 수들에 대한 |보기|의 설명 중 옳은 것을 모두 고른 것은?",
+      "extra": "<div class=\"ref-box\">\\(-2,\\ 2-3i,\\ -\\sqrt5\\,i,\\ -2i+\\sqrt5,\\ \\dfrac13-\\sqrt2\\,i,\\ \\dfrac{\\pi}{3},\\ 0,\\ -i^2,\\ i^{-1}\\)</div>\n   <div class=\"ref-box\">ㄱ. 복소수는 모두 3개다. &nbsp; ㄴ. 순허수는 오직 1개다. &nbsp; ㄷ. 허수는 모두 4개다. &nbsp; ㄹ. 실수는 모두 4개다.</div>",
+      "choices": [
+        "ㄱ, ㄴ",
+        "ㄴ, ㄷ",
+        "ㄷ, ㄹ",
+        "ㄱ, ㄴ, ㄹ",
+        "ㄱ, ㄷ, ㄹ"
+      ],
+      "solution": [
+        "9개의 수를 실수·허수·순허수로 하나씩 분류해보세요.",
+        "순허수(실수부분 0)는 \\(-\\sqrt5 i\\)와 \\(i^{-1}=-i\\) 2개예요."
+      ],
+      "family": "classify",
+      "wasWrong": true,
+      "reviewNote": "순허수 개수 판정에서 손글씨 표기가 애매해 재확인이 필요해요 (학생 선택 ②는 최소 1개 오류 확인됨)."
+    },
+    {
+      "num": 24,
+      "diff": "midhigh",
+      "type": "mc",
+      "correct": 4,
+      "question": "복소수 \\(z=2+i\\)의 켤레복소수가 \\(\\bar z\\)일 때, \\(z+i\\bar z\\)의 값은? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "1-3i",
+        "1+i",
+        "1+3i",
+        "3-i",
+        "3+3i"
+      ],
+      "solution": [
+        "\\(\\bar z=2-i\\)",
+        "\\(z+i\\bar z=2+i+i(2-i)=2+i+2i+1=3+3i\\)"
+      ],
+      "family": "conjugateExprMC"
+    },
+    {
+      "num": 25,
+      "diff": "midhigh",
+      "type": "mc",
+      "correct": 2,
+      "question": "다음 중 옳은 것은? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "\\(\\overline{-3+2i}=3+2i\\)",
+        "\\(\\overline{i+2}=i-2\\)",
+        "\\(\\overline{2i+5}=5-2i\\)",
+        "\\(\\bar i+\\bar1=1+i\\)",
+        "\\(\\bar3-5i=3+5i\\)"
+      ],
+      "solution": [
+        "\\(\\overline{2i+5}=\\overline{5+2i}=5-2i\\) — 참"
+      ]
+    },
+    {
+      "num": 26,
+      "diff": "low",
+      "type": "mc",
+      "correct": 3,
+      "question": "\\(1+\\dfrac{2}{1-i}\\)의 값은? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "i",
+        "1-i",
+        "1+i",
+        "2+i",
+        "2+2i"
+      ],
+      "solution": [
+        "\\(\\dfrac{2}{1-i}=1+i\\)",
+        "\\(1+(1+i)=2+i\\)"
+      ],
+      "family": "fracConjugate"
+    },
+    {
+      "num": 27,
+      "diff": "low",
+      "type": "mc",
+      "correct": 3,
+      "question": "\\(-3i(1+i)\\)를 계산하면? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "3i",
+        "-3-3i",
+        "-3+3i",
+        "3-3i",
+        "3+3i"
+      ],
+      "solution": [
+        "\\(-3i(1+i)=-3i-3i^2=-3i+3=3-3i\\)"
+      ],
+      "family": "mulByI"
+    },
+    {
+      "num": 28,
+      "diff": "low",
+      "type": "fillin",
+      "answer": "-1",
+      "question": "복소수 \\(a+bi\\ (a,b\\)는 실수\\()\\)가 다음 조건을 만족시킬 때, \\(a+bi\\)의 실수부분을 구하시오. (가) 허수부분은 3이다. &nbsp; (나) \\(2a+b=1\\)",
+      "solution": [
+        "\\(b=3\\)",
+        "\\(2a+3=1 \\Rightarrow a=-1\\)"
+      ],
+      "family": "condition"
+    },
+    {
+      "num": 29,
+      "diff": "low",
+      "type": "fillin",
+      "answer": "9",
+      "question": "등식 \\((a+1)+3i=7+bi\\)를 만족시키는 두 실수 \\(a, b\\)에 대하여 \\(a+b\\)의 값을 구하시오. (단, \\(i=\\sqrt{-1}\\))",
+      "solution": [
+        "\\(a=6,\\ b=3\\)",
+        "\\(a+b=9\\)"
+      ],
+      "family": "sumPartsEquation"
+    },
+    {
+      "num": 30,
+      "diff": "low",
+      "type": "mc",
+      "correct": 3,
+      "question": "\\((2+i)+(2-3i)\\)의 값은? (단, \\(i=\\sqrt{-1}\\))",
+      "choices": [
+        "1+i",
+        "2-2i",
+        "2+2i",
+        "4-2i",
+        "4+2i"
+      ],
+      "solution": [
+        "\\((2+2)+(1-3)i=4-2i\\)"
+      ],
+      "family": "addComplex"
+    }
+  ]
+}
