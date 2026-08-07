@@ -301,12 +301,22 @@
     const statusEl = document.getElementById('loadStatus');
     try{
       const manifestRes = await fetch('../data/manifest.json');
+      if(!manifestRes.ok) throw new Error(`manifest.json 요청 실패 (status ${manifestRes.status})`);
       manifest = await manifestRes.json();
 
+      const failed = [];
       await Promise.all(manifest.sets.map(async s => {
-        const res = await fetch('../data/' + s.file);
-        setsData[s.id] = normalizeSet(await res.json());
+        try{
+          const res = await fetch('../data/' + s.file);
+          if(!res.ok) throw new Error(`status ${res.status}`);
+          setsData[s.id] = normalizeSet(await res.json());
+        } catch(e){
+          failed.push(s.file + ' (' + e.message + ')');
+        }
       }));
+      if(failed.length > 0){
+        throw new Error('다음 파일을 못 불러왔어요: ' + failed.join(', '));
+      }
 
       try{
         const histRes = await fetch(SHEET_WEBHOOK_URL + '?action=list');
