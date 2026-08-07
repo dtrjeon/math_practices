@@ -223,7 +223,7 @@
     {
       "number": 21,
       "type": "mcq",
-      "question": "복소수 z의 켤레복소수를 z̄라 할 때, (1+i)z-2iz̄=5-3i를 만족하는 복소수 z는? (단, i=√-1)",
+      "question": "복소수 z의 켤레복소수를 \\(\\bar{z}\\)라 할 때, (1+i)z-2\\(\\bar{iz}\\)=5-3i를 만족하는 복소수 z는? (단, i=√-1)",
       "choices": [
         "1+i",
         "1-i",
@@ -232,7 +232,7 @@
         "1-2i"
       ],
       "answer": 4,
-      "explanation": "임의의 복소수 z=a+bi, z̄=a-bi (a+i)(a+bi)-2i(a-bi)=5-3i에서 a+bi+ai-b-2ai-2b=5-3i, (a-3b)+(-a+b)i=5-3i. 두 식을 연립하여 풀면 a=2, b=-1 ∴z=2-i",
+      "explanation": "임의의 복소수 z=a+bi, \\(\\bar{z}\\)=a-bi (a+i)(a+bi)-2i(a-bi)=5-3i에서 a+bi+ai-b-2ai-2b=5-3i, (a-3b)+(-a+b)i=5-3i. 두 식을 연립하여 풀면 a=2, b=-1 ∴z=2-i",
       "difficulty": "상"
     },
     {
