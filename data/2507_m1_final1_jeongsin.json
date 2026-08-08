@@ -201,7 +201,7 @@
     {
       "number": 20,
       "type": "mcq",
-      "question": "행렬 A=\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)와 이차정사각행렬 B가 다음 조건을 만족시킬 때, 행렬 A+B의 (1,1)성분과 (2,2)성분의 합은? (가) B\\(\\begin{pmatrix}2 \\\\ -2\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 \\\\ 0\\end{pmatrix}\\)이다. (나) AB=5A이고, BA=3B이다.",
+      "question": "행렬 A=\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)와 이차정사각행렬 B가 다음 조건을 만족시킬 때, 행렬 A+B의 (1,1)성분과 (2,2)성분의 합은?\n(가) B\\(\\begin{pmatrix}2 \\\\ -2\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 \\\\ 0\\end{pmatrix}\\)이다.\n(나) AB=5A이고, BA=3B이다.",
       "choices": [
         "4",
         "6",
@@ -210,7 +210,7 @@
         "12"
       ],
       "answer": 3,
-      "explanation": "B=\\(\\begin{pmatrix}p & q \\\\ r & s\\end{pmatrix}\\)라 하면 (가)에서 \\(\\begin{pmatrix}p & q \\\\ r & s\\end{pmatrix}\\)\\(\\begin{pmatrix}2 \\\\ -2\\end{pmatrix}\\)=\\(\\begin{pmatrix}2p-2q \\\\ 2r-2s\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 \\\\ 0\\end{pmatrix}\\) ∴p=q, r=s. B=\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\). 이때 (나)에서 AB=\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\)=(p+r p+r; a(p+r) a(p+r))=5\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)이므로 p+r=5. 또, BA=\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\)\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)=(p(1+a) p(1+a); r(1+a) r(1+a))=3\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\)이므로 1+a=3, 즉 a=2(∵1+a≠3이면 p=0, r=0이므로 모순이다). 따라서 A+B=\\(\\begin{pmatrix}1+p & 1+p \\\\ a+r & a+r\\end{pmatrix}\\)의 (1,1)성분과 (2,2)성분의 합은 1+p+a+r=1+a+(p+r)=1+2+5=8",
+      "explanation": "B=\\(\\begin{pmatrix}p & q \\\\ r & s\\end{pmatrix}\\)라 하면\n(가) 에서 \\(\\begin{pmatrix}p & q \\\\ r & s\\end{pmatrix}\\)\\(\\begin{pmatrix}2 \\\\ -2\\end{pmatrix}\\)=\\(\\begin{pmatrix}2p-2q \\\\ 2r-2s\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 \\\\ 0\\end{pmatrix}\\) ∴p=q, r=s. B=\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\). 이때\n(나) 에서 AB=\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\)=(p+r p+r; a(p+r) a(p+r))=5\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)이므로 p+r=5. 또, BA=\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\)\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)=(p(1+a) p(1+a); r(1+a) r(1+a))=3\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\)이므로 1+a=3, 즉 a=2(∵1+a≠3이면 p=0, r=0이므로 모순이다). 따라서 A+B=\\(\\begin{pmatrix}1+p & 1+p \\\\ a+r & a+r\\end{pmatrix}\\)의 (1,1)성분과 (2,2)성분의 합은 1+p+a+r=1+a+(p+r)=1+2+5=8",
       "difficulty": "최상"
     },
     {

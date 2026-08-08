@@ -128,7 +128,7 @@
     {
       "number": 10,
       "type": "mcq",
-      "question": "세 이차정사각행렬 A=\\(\\begin{pmatrix}0 & 0 \\\\ 2 & 0\\end{pmatrix}\\), B, C가 다음 조건을 만족시킨다. (가) AB=CA=O (나) 행렬 B의 모든 성분의 합이 4이고, 행렬 C의 (1,1) 성분과 (2,1) 성분이 같다. BC=A일 때, 행렬 C의 모든 성분의 합은? (단, O는 영행렬이다.)",
+      "question": "세 이차정사각행렬 A=\\(\\begin{pmatrix}0 & 0 \\\\ 2 & 0\\end{pmatrix}\\), B, C가 다음 조건을 만족시킨다.\n(가) AB=CA=O\n(나) 행렬 B의 모든 성분의 합이 4이고, 행렬 C의 (1,1) 성분과 (2,1) 성분이 같다. BC=A일 때, 행렬 C의 모든 성분의 합은? (단, O는 영행렬이다.)",
       "choices": [
         "-2",
         "-1",
@@ -137,7 +137,7 @@
         "2"
       ],
       "answer": 4,
-      "explanation": "B=\\(\\begin{pmatrix}b_{11} & b_{12} \\\\ b_{21} & b_{22}\\end{pmatrix}\\), C=\\(\\begin{pmatrix}c_{11} & c_{12} \\\\ c_{21} & c_{22}\\end{pmatrix}\\)라 하자. 조건 (가)에서 AB=\\(\\begin{pmatrix}0 & 0 \\\\ 2 & 0\\end{pmatrix}\\)\\(\\begin{pmatrix}b_{11} & b_{12} \\\\ b_{21} & b_{22}\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 & 0 \\\\ 2b_{11} & 2b_{12}\\end{pmatrix}\\)=O이므로 \\(b_{11}\\)=\\(b_{12}\\)=0이고, CA=\\(\\begin{pmatrix}c_{11} & c_{12} \\\\ c_{21} & c_{22}\\end{pmatrix}\\)\\(\\begin{pmatrix}0 & 0 \\\\ 2 & 0\\end{pmatrix}\\)=\\(\\begin{pmatrix}2c_{12} & 0 \\\\ 2c_{22} & 0\\end{pmatrix}\\)=O이므로 \\(c_{12}\\)=\\(c_{22}\\)=0이다. 조건 (나)에서 \\(b_{21}\\)+\\(b_{22}\\)=4, \\(c_{11}\\)=\\(c_{21}\\). BC=A이므로 \\(\\begin{pmatrix}0 & 0 \\\\ b_{21} & 4-b_{21}\\end{pmatrix}\\)\\(\\begin{pmatrix}c_{11} & 0 \\\\ c_{11} & 0\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 & 0 \\\\ 4c_{11} & 0\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 & 0 \\\\ 2 & 0\\end{pmatrix}\\)에서 \\(c_{11}\\)=\\(\\frac{1}{2}\\) ∴C=\\(\\begin{pmatrix}\\frac{1}{2} & 0 \\\\ \\frac{1}{2} & 0\\end{pmatrix}\\). 따라서 행렬 C의 모든 성분의 합은 1이다.",
+      "explanation": "B=\\(\\begin{pmatrix}b_{11} & b_{12} \\\\ b_{21} & b_{22}\\end{pmatrix}\\), C=\\(\\begin{pmatrix}c_{11} & c_{12} \\\\ c_{21} & c_{22}\\end{pmatrix}\\)라 하자. 조건\n(가) 에서 AB=\\(\\begin{pmatrix}0 & 0 \\\\ 2 & 0\\end{pmatrix}\\)\\(\\begin{pmatrix}b_{11} & b_{12} \\\\ b_{21} & b_{22}\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 & 0 \\\\ 2b_{11} & 2b_{12}\\end{pmatrix}\\)=O이므로 \\(b_{11}\\)=\\(b_{12}\\)=0이고, CA=\\(\\begin{pmatrix}c_{11} & c_{12} \\\\ c_{21} & c_{22}\\end{pmatrix}\\)\\(\\begin{pmatrix}0 & 0 \\\\ 2 & 0\\end{pmatrix}\\)=\\(\\begin{pmatrix}2c_{12} & 0 \\\\ 2c_{22} & 0\\end{pmatrix}\\)=O이므로 \\(c_{12}\\)=\\(c_{22}\\)=0이다. 조건\n(나) 에서 \\(b_{21}\\)+\\(b_{22}\\)=4, \\(c_{11}\\)=\\(c_{21}\\). BC=A이므로 \\(\\begin{pmatrix}0 & 0 \\\\ b_{21} & 4-b_{21}\\end{pmatrix}\\)\\(\\begin{pmatrix}c_{11} & 0 \\\\ c_{11} & 0\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 & 0 \\\\ 4c_{11} & 0\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 & 0 \\\\ 2 & 0\\end{pmatrix}\\)에서 \\(c_{11}\\)=\\(\\frac{1}{2}\\) ∴C=\\(\\begin{pmatrix}\\frac{1}{2} & 0 \\\\ \\frac{1}{2} & 0\\end{pmatrix}\\). 따라서 행렬 C의 모든 성분의 합은 1이다.",
       "difficulty": "중상"
     },
     {
@@ -175,7 +175,7 @@
     {
       "number": 15,
       "type": "short",
-      "question": "다음 조건을 만족시키는 세 자연수 a, b, c의 순서쌍 (a,b,c)의 개수를 구하시오. (가) a<b≤5 (나) b≤c≤8",
+      "question": "다음 조건을 만족시키는 세 자연수 a, b, c의 순서쌍 (a,b,c)의 개수를 구하시오.\n(가) a<b≤5\n(나) b≤c≤8",
       "answer": "50",
       "explanation": "(i) c=8,7,6,5인 경우: b=5,4,3,2일 때 a의 개수가 각각 4,3,2,1이므로 순서쌍의 개수는 4·(4+3+2+1)=40. (ii) c=4인 경우: b=4,3,2일 때 a의 개수가 각각 3,2,1이므로 3+2+1=6. (iii) c=3인 경우: b=3,2일 때 a의 개수가 각각 2,1이므로 2+1=3. (iv) c=2인 경우: b=2일 때 a=1뿐이므로 1. (i)~(iv)에서 구하는 순서쌍의 개수는 40+6+3+1=50",
       "difficulty": "최상"
