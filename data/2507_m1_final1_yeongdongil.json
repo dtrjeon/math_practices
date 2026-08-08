@@ -85,9 +85,9 @@
     {
       "number": 9,
       "type": "short",
-      "question": "두 행렬 A=(3 -5; -1 3), B=(2 -1; 3 7)에 대하여 A-1/2X=-2B를 만족시키는 행렬 X의 (1,2)성분을 구하시오.",
+      "question": "두 행렬 A=\\(\\begin{pmatrix}3 & -5 \\\\ -1 & 3\\end{pmatrix}\\), B=\\(\\begin{pmatrix}2 & -1 \\\\ 3 & 7\\end{pmatrix}\\)에 대하여 A-1/2X=-2B를 만족시키는 행렬 X의 (1,2)성분을 구하시오.",
       "answer": "-14",
-      "explanation": "A-1/2X=-2B에서 X=2A+4B=2(7 -7; 5 17)=(14 -14; 10 34). 따라서 (1,2)성분은 -14이다.",
+      "explanation": "A-1/2X=-2B에서 X=2A+4B=2\\(\\begin{pmatrix}7 & -7 \\\\ 5 & 17\\end{pmatrix}\\)=\\(\\begin{pmatrix}14 & -14 \\\\ 10 & 34\\end{pmatrix}\\). 따라서 (1,2)성분은 -14이다.",
       "difficulty": "중"
     },
     {
@@ -101,7 +101,7 @@
     {
       "number": 11,
       "type": "mcq",
-      "question": "두 행렬 A=(3 1; 1 1), B=(1 1; 1 1)에 대하여 행렬 AB-A의 모든 성분의 합은?",
+      "question": "두 행렬 A=\\(\\begin{pmatrix}3 & 1 \\\\ 1 & 1\\end{pmatrix}\\), B=\\(\\begin{pmatrix}1 & 1 \\\\ 1 & 1\\end{pmatrix}\\)에 대하여 행렬 AB-A의 모든 성분의 합은?",
       "choices": [
         "3",
         "4",
@@ -110,7 +110,7 @@
         "7"
       ],
       "answer": 4,
-      "explanation": "AB-A를 계산하면 AB-A=(4 4; 2 2)-(3 1; 1 1)=(1 3; 1 1). 따라서 행렬 AB-A의 모든 성분의 합은 6이다.",
+      "explanation": "AB-A를 계산하면 AB-A=\\(\\begin{pmatrix}4 & 4 \\\\ 2 & 2\\end{pmatrix}\\)-\\(\\begin{pmatrix}3 & 1 \\\\ 1 & 1\\end{pmatrix}\\)=\\(\\begin{pmatrix}1 & 3 \\\\ 1 & 1\\end{pmatrix}\\). 따라서 행렬 AB-A의 모든 성분의 합은 6이다.",
       "difficulty": "중"
     },
     {
@@ -131,7 +131,7 @@
     {
       "number": 13,
       "type": "mcq",
-      "question": "세 행렬 A=(2a; 5), B=(2 3), C=(2 -3; -4 5)에 대하여 행렬 ABC의 모든 성분의 합이 0일 때, 실수 a에 대하여 2a값은?",
+      "question": "세 행렬 A=\\(\\begin{pmatrix}2a \\\\ 5\\end{pmatrix}\\), B=(2 3), C=\\(\\begin{pmatrix}2 & -3 \\\\ -4 & 5\\end{pmatrix}\\)에 대하여 행렬 ABC의 모든 성분의 합이 0일 때, 실수 a에 대하여 2a값은?",
       "choices": [
         "-3",
         "-5",
@@ -140,15 +140,15 @@
         "-11"
       ],
       "answer": 2,
-      "explanation": "A=(2a; 5), B=(2 3), C=(2 -3; -4 5)이므로 AB=(2a; 5)(2 3)=(4a 6a; 10 15). ABC=(AB)C=(4a 6a; 10 15)(2 -3; -4 5)=(-16a+18a... 이때 행렬 ABC의 모든 성분의 합이 0이므로 -16a+18a+(-40)+45=2a+5=0 ∴2a=-5",
+      "explanation": "A=\\(\\begin{pmatrix}2a \\\\ 5\\end{pmatrix}\\), B=(2 3), C=\\(\\begin{pmatrix}2 & -3 \\\\ -4 & 5\\end{pmatrix}\\)이므로 AB=\\(\\begin{pmatrix}2a \\\\ 5\\end{pmatrix}\\)(2 3)=\\(\\begin{pmatrix}4a & 6a \\\\ 10 & 15\\end{pmatrix}\\). ABC=(AB)C=\\(\\begin{pmatrix}4a & 6a \\\\ 10 & 15\\end{pmatrix}\\)\\(\\begin{pmatrix}2 & -3 \\\\ -4 & 5\\end{pmatrix}\\)=(-16a+18a... 이때 행렬 ABC의 모든 성분의 합이 0이므로 -16a+18a+(-40)+45=2a+5=0 ∴2a=-5",
       "difficulty": "중상"
     },
     {
       "number": 14,
       "type": "short",
-      "question": "이차정사각행렬 A에 대하여 A(2;1)=(4;7), A(-1;4)=(3;2)일 때, A(7;-10)을 구하시오.",
+      "question": "이차정사각행렬 A에 대하여 A\\(\\begin{pmatrix}2 \\\\ 1\\end{pmatrix}\\)=\\(\\begin{pmatrix}4 \\\\ 7\\end{pmatrix}\\), A\\(\\begin{pmatrix}-1 \\\\ 4\\end{pmatrix}\\)=\\(\\begin{pmatrix}3 \\\\ 2\\end{pmatrix}\\)일 때, A\\(\\begin{pmatrix}7 \\\\ -10\\end{pmatrix}\\)을 구하시오.",
       "answer": "(-1;8)",
-      "explanation": "(7;-10)=2(2;1)-3(-1;4)이므로 A(7;-10)=2A(2;1)-3A(-1;4)=2(4;7)-3(3;2)=(8;14)-(9;6)=(-1;8)",
+      "explanation": "\\(\\begin{pmatrix}7 \\\\ -10\\end{pmatrix}\\)=2\\(\\begin{pmatrix}2 \\\\ 1\\end{pmatrix}\\)-3\\(\\begin{pmatrix}-1 \\\\ 4\\end{pmatrix}\\)이므로 A\\(\\begin{pmatrix}7 \\\\ -10\\end{pmatrix}\\)=2A\\(\\begin{pmatrix}2 \\\\ 1\\end{pmatrix}\\)-3A\\(\\begin{pmatrix}-1 \\\\ 4\\end{pmatrix}\\)=2\\(\\begin{pmatrix}4 \\\\ 7\\end{pmatrix}\\)-3\\(\\begin{pmatrix}3 \\\\ 2\\end{pmatrix}\\)=\\(\\begin{pmatrix}8 \\\\ 14\\end{pmatrix}\\)-\\(\\begin{pmatrix}9 \\\\ 6\\end{pmatrix}\\)=\\(\\begin{pmatrix}-1 \\\\ 8\\end{pmatrix}\\)",
       "difficulty": "상"
     },
     {
@@ -216,7 +216,7 @@
     {
       "number": 21,
       "type": "mcq",
-      "question": "두 행렬 A=(5 a+2; 7 1), B=(5 8; b-2 1)에 대하여 A=B일 때, ab의 값은? (단, a, b는 상수이다.)",
+      "question": "두 행렬 A=(5 a+2; 7 1), B=\\(\\begin{pmatrix}5 & 8 \\\\ b-2 & 1\\end{pmatrix}\\)에 대하여 A=B일 때, ab의 값은? (단, a, b는 상수이다.)",
       "choices": [
         "45",
         "54",
