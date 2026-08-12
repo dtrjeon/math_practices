@@ -1,0 +1,393 @@
+{
+  "sets": [
+    {
+      "id": "2605_m1_chap02_r1",
+      "file": "2605_m1_chap02_r1.json",
+      "category": "textbook",
+      "title": "복소수 (05/06)",
+      "unit": "2.1 복소수",
+      "count": 30,
+      "pages": 7,
+      "stats": "29/30 정답",
+      "reviewUrl": "worksheets/complex-5-6-review.html",
+      "group": "2.1 복소수"
+    },
+    {
+      "id": "2604_m1_chap01_r1",
+      "file": "2604_m1_chap01_r1.json",
+      "category": "textbook",
+      "title": "다항식 인수분해 기본 (04/30) 복습",
+      "unit": "1.1~1.3 다항식의 연산·항등식과 나머지정리·인수분해",
+      "count": 50,
+      "pages": 9,
+      "stats": "50/50 정답",
+      "reviewUrl": "worksheets/polynomial-4-30-review.html",
+      "group": "1.1~1.3 다항식의 연산 · 항등식과 나머지정리 · 인수분해"
+    },
+    {
+      "id": "2604_m1_mid1-r01",
+      "file": "2604_m1_mid1-r01.json",
+      "category": "exam",
+      "title": "1학기 중간고사-1회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 25,
+      "group": "1학기 중간고사"
+    },
+    {
+      "id": "2604_m1_mid1-r02",
+      "file": "2604_m1_mid1-r02.json",
+      "category": "exam",
+      "title": "1학기 중간고사-2회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 25,
+      "group": "1학기 중간고사"
+    },
+    {
+      "id": "2604_m1_mid1-r03",
+      "file": "2604_m1_mid1-r03.json",
+      "category": "exam",
+      "title": "1학기 중간고사-3회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 25,
+      "group": "1학기 중간고사"
+    },
+    {
+      "id": "2604_m1_mid1-r04",
+      "file": "2604_m1_mid1-r04.json",
+      "category": "exam",
+      "title": "1학기 중간고사-4회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 25,
+      "group": "1학기 중간고사"
+    },
+    {
+      "id": "2604_m1_mid1-r05",
+      "file": "2604_m1_mid1-r05.json",
+      "category": "exam",
+      "title": "1학기 중간고사-5회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 25,
+      "group": "1학기 중간고사"
+    },
+    {
+      "id": "2604_m1_mid1-r06",
+      "file": "2604_m1_mid1-r06.json",
+      "category": "exam",
+      "title": "1학기 중간고사-6회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 25,
+      "group": "1학기 중간고사"
+    },
+    {
+      "id": "2604_m1_mid1-r07",
+      "file": "2604_m1_mid1-r07.json",
+      "category": "exam",
+      "title": "1학기 중간고사-7회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 25,
+      "group": "1학기 중간고사"
+    },
+    {
+      "id": "2604_m1_mid1-r08",
+      "file": "2604_m1_mid1-r08.json",
+      "category": "exam",
+      "title": "1학기 중간고사-8회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 25,
+      "group": "1학기 중간고사"
+    },
+    {
+      "id": "2604_m1_mid1-r09",
+      "file": "2604_m1_mid1-r09.json",
+      "category": "exam",
+      "title": "1학기 중간고사-9회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 25,
+      "group": "1학기 중간고사"
+    },
+    {
+      "id": "2604_m1_mid1-r10",
+      "file": "2604_m1_mid1-r10.json",
+      "category": "exam",
+      "title": "1학기 중간고사-10회차",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 25,
+      "group": "1학기 중간고사"
+    },
+    {
+      "id": "2504_m1_mid1-r01",
+      "file": "2504_m1_mid1-r01.json",
+      "category": "exam",
+      "title": "중간고사 대비-1회차",
+      "unit": "다항식의 연산 ~ 이차함수의 최대·최소",
+      "count": 23,
+      "group": "중간고사 대비 (매쓰플랫·Dre수학)"
+    },
+    {
+      "id": "2504_m1_mid1-r02",
+      "file": "2504_m1_mid1-r02.json",
+      "category": "exam",
+      "title": "중간고사 대비-2회차",
+      "unit": "다항식의 연산 ~ 삼차방정식과 사차방정식",
+      "count": 20,
+      "group": "중간고사 대비 (매쓰플랫·Dre수학)"
+    },
+    {
+      "id": "2504_m1_mid1-r03",
+      "file": "2504_m1_mid1-r03.json",
+      "category": "exam",
+      "title": "중간고사 대비-3회차",
+      "unit": "다항식의 연산 ~ 이차함수의 최대·최소",
+      "count": 20,
+      "group": "중간고사 대비 (매쓰플랫·Dre수학)"
+    },
+    {
+      "id": "2504_m1_mid1-r04",
+      "file": "2504_m1_mid1-r04.json",
+      "category": "exam",
+      "title": "중간고사 대비-4회차",
+      "unit": "다항식의 연산 ~ 연립일차부등식",
+      "count": 22,
+      "group": "중간고사 대비 (매쓰플랫·Dre수학)"
+    },
+    {
+      "id": "2504_m1_mid1-r05",
+      "file": "2504_m1_mid1-r05.json",
+      "category": "exam",
+      "title": "중간고사 대비-5회차",
+      "unit": "곱셈 공식과 곱셈 공식의 변형 ~ 이차함수의 최대·최소",
+      "count": 20,
+      "group": "중간고사 대비 (매쓰플랫·Dre수학)"
+    },
+    {
+      "id": "2504_m1_mid1-r06",
+      "file": "2504_m1_mid1-r06.json",
+      "category": "exam",
+      "title": "중간고사 대비-6회차",
+      "unit": "다항식의 연산 ~ 이차함수의 최대·최소",
+      "count": 22,
+      "group": "중간고사 대비 (매쓰플랫·Dre수학)"
+    },
+    {
+      "id": "2504_m1_mid1-r07",
+      "file": "2504_m1_mid1-r07.json",
+      "category": "exam",
+      "title": "중간고사 대비-7회차",
+      "unit": "곱셈 공식과 곱셈 공식의 변형 ~ 이차함수의 최대·최소",
+      "count": 22,
+      "group": "중간고사 대비 (매쓰플랫·Dre수학)"
+    },
+    {
+      "id": "2504_m1_mid1-r08",
+      "file": "2504_m1_mid1-r08.json",
+      "category": "exam",
+      "title": "중간고사 대비-8회차",
+      "unit": "다항식의 연산 ~ 이차함수의 최대·최소",
+      "count": 20,
+      "group": "중간고사 대비 (매쓰플랫·Dre수학)"
+    },
+    {
+      "id": "2504_m1_mid1_yeongdongil",
+      "file": "2504_m1_mid1_yeongdongil.json",
+      "category": "pastexam",
+      "title": "영동일고등학교 1학년 2025년 1학기 공통수학1 중간",
+      "unit": "다항식의 연산 ~ 여러 가지 방정식과 부등식",
+      "count": 24,
+      "group": "고등수학1 기출 유사 - 중간고사 (매쓰플랫)"
+    },
+    {
+      "id": "2504_m1_mid1_ewha",
+      "file": "2504_m1_mid1_ewha.json",
+      "category": "pastexam",
+      "title": "이화여자고등학교 1학년 2025년 1학기 공통수학1 중간",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 20,
+      "group": "고등수학1 기출 유사 - 중간고사 (매쓰플랫)"
+    },
+    {
+      "id": "2504_m1_mid1_seomun",
+      "file": "2504_m1_mid1_seomun.json",
+      "category": "pastexam",
+      "title": "서문여자고등학교 1학년 2025년 1학기 공통수학1 중간",
+      "unit": "다항식의 연산 ~ 여러 가지 방정식과 부등식",
+      "count": 20,
+      "group": "고등수학1 기출 유사 - 중간고사 (매쓰플랫)"
+    },
+    {
+      "id": "2504_m1_mid1_gaepo",
+      "file": "2504_m1_mid1_gaepo.json",
+      "category": "pastexam",
+      "title": "개포고등학교 1학년 2025년 1학기 공통수학1 중간",
+      "unit": "근호를 포함한 식의 계산 ~ 함수의 극한",
+      "count": 21,
+      "group": "고등수학1 기출 유사 - 중간고사 (매쓰플랫)"
+    },
+    {
+      "id": "2504_m1_mid1_eonnam",
+      "file": "2504_m1_mid1_eonnam.json",
+      "category": "pastexam",
+      "title": "언남고등학교 1학년 2025년 1학기 공통수학1 중간",
+      "unit": "다항식의 곱셈 ~ 이차방정식과 이차함수",
+      "count": 23,
+      "group": "고등수학1 기출 유사 - 중간고사 (매쓰플랫)"
+    },
+    {
+      "id": "2504_m1_mid1_jangchung",
+      "file": "2504_m1_mid1_jangchung.json",
+      "category": "pastexam",
+      "title": "장충고등학교 1학년 2025년 1학기 공통수학1 중간",
+      "unit": "다항식의 사칙연산 ~ 이차함수의 최대·최소",
+      "count": 23,
+      "group": "고등수학1 기출 유사 - 중간고사 (매쓰플랫)"
+    },
+    {
+      "id": "2504_m1_mid1_dongduk",
+      "file": "2504_m1_mid1_dongduk.json",
+      "category": "pastexam",
+      "title": "동덕여자고등학교 1학년 2025년 1학기 공통수학1 중간",
+      "unit": "다항식의 연산 ~ 여러 가지 방정식과 부등식",
+      "count": 21,
+      "group": "고등수학1 기출 유사 - 중간고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_hwimun",
+      "file": "2507_m1_final1_hwimun.json",
+      "category": "pastexam",
+      "title": "휘문고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+      "count": 20,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_ogeum",
+      "file": "2507_m1_final1_ogeum.json",
+      "category": "pastexam",
+      "title": "오금고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+      "count": 22,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_yeongdongil",
+      "file": "2507_m1_final1_yeongdongil.json",
+      "category": "pastexam",
+      "title": "영동일고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+      "count": 24,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_jungang-sabeom",
+      "file": "2507_m1_final1_jungang-sabeom.json",
+      "category": "pastexam",
+      "title": "중앙대학교사범대학부속고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+      "count": 22,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_jamsin",
+      "file": "2507_m1_final1_jamsin.json",
+      "category": "pastexam",
+      "title": "잠신고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+      "count": 21,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_jeongsin",
+      "file": "2507_m1_final1_jeongsin.json",
+      "category": "pastexam",
+      "title": "정신여자고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+      "count": 22,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_dongduk",
+      "file": "2507_m1_final1_dongduk.json",
+      "category": "pastexam",
+      "title": "동덕여자고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "다항식의 연산 ~ 행렬과 그 연산",
+      "count": 21,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_yeongdongil-2",
+      "file": "2507_m1_final1_yeongdongil-2.json",
+      "category": "pastexam",
+      "title": "영동일고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+      "count": 24,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_dankook-sabeom",
+      "file": "2507_m1_final1_dankook-sabeom.json",
+      "category": "pastexam",
+      "title": "단국대학교사범대학부속고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+      "count": 22,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_ogeum-2",
+      "file": "2507_m1_final1_ogeum-2.json",
+      "category": "pastexam",
+      "title": "오금고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+      "count": 22,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_banpo",
+      "file": "2507_m1_final1_banpo.json",
+      "category": "pastexam",
+      "title": "반포고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "인수분해 ~ 행렬과 그 연산",
+      "count": 27,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_munhyeon",
+      "file": "2507_m1_final1_munhyeon.json",
+      "category": "pastexam",
+      "title": "문현고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+      "count": 21,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2507_m1_final1_seomun",
+      "file": "2507_m1_final1_seomun.json",
+      "category": "pastexam",
+      "title": "서문여자고등학교 1학년 2025년 1학기 공통수학1 기말",
+      "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+      "count": 20,
+      "group": "고등수학1 기출 유사 - 기말고사 (매쓰플랫)"
+    },
+    {
+      "id": "2604_m1_mid1_hongcheon",
+      "file": "2604_m1_mid1_hongcheon.json",
+      "category": "exam",
+      "title": "홍천고 2026학년도 1학기 1차 정기시험 1학년 공통수학1 (중간)",
+      "unit": "복소수 ~ 이차함수의 최대·최소 (선택형 19문항 + 논술형 2문항)",
+      "count": 21,
+      "group": "홍천고 정기고사"
+    },
+    {
+      "id": "2606_m1_final1_hongcheon",
+      "file": "2606_m1_final1_hongcheon.json",
+      "category": "exam",
+      "title": "홍천고 2026학년도 1학기 2차 정기시험 1학년 공통수학1 (기말)",
+      "unit": "순열·조합 ~ 이차부등식 (선택형 19문항 + 논술형 2문항)",
+      "count": 21,
+      "group": "홍천고 정기고사"
+    }
+  ],
+  "categories": {
+    "textbook": "교과서 목차순",
+    "exam": "모의고사/중간·기말고사 순",
+    "pastexam": "기출문제 순"
+  }
+}
