@@ -1,12 +1,12 @@
 {
-  "id": "2604_m1_mid_hongcheon",
+  "id": "2604_m1_mid1_hongcheon",
   "title": "2026학년도 1학기 [1차] 정기시험 1학년 공통수학1",
   "source": "학교 정기고사 (2026년 4월 29일 시행)",
   "unit": "복소수 ~ 이차함수의 최대·최소 (선택형 19문항 + 논술형 2문항)",
   "problems": [
     {
       "num": 1,
-      "diff": "중",
+      "diff": "mid",
       "type": "mc",
       "question": "\\(x-2+xi-yi=\\overline{5i}\\)를 만족시키는 두 실수 \\(x, y\\)에 대하여 \\(x+y\\)의 값은? (단, \\(i=\\sqrt{-1}\\)이다.)",
       "choices": [
@@ -23,7 +23,7 @@
     },
     {
       "num": 2,
-      "diff": "중",
+      "diff": "mid",
       "type": "mc",
       "question": "두 다항식 \\(A=x^2-3xy+2y^2\\), \\(B=3x^2+2xy-5y^2\\)에 대하여 \\((2A+B)-3(B-A)\\)를 간단히 하면?",
       "choices": [
@@ -40,7 +40,7 @@
     },
     {
       "num": 3,
-      "diff": "중",
+      "diff": "mid",
       "type": "mc",
       "question": "이차함수 \\(y=x^2+2kx+5k-6\\)의 그래프가 \\(x\\)축과 한 점에서 만나도록 하는 모든 실수 \\(k\\)의 값의 합은?",
       "choices": [
@@ -57,7 +57,7 @@
     },
     {
       "num": 4,
-      "diff": "중",
+      "diff": "mid",
       "type": "mc",
       "question": "이차방정식 \\(2x^2+3x+4=0\\)의 두 근을 \\(\\alpha, \\beta\\)라고 할 때, \\((\\alpha-1)(\\beta-1)\\)의 값은?",
       "choices": [
@@ -74,7 +74,7 @@
     },
     {
       "num": 5,
-      "diff": "중상",
+      "diff": "midhigh",
       "type": "mc",
       "question": "다항식 \\(x^3+8y^3\\)을 인수분해하면 \\((x+ay)(x^2+bxy+cy^2)\\)일 때, \\(a+b+c\\)의 값은? (단, \\(a, b, c\\)는 상수이다.)",
       "choices": [
@@ -91,7 +91,7 @@
     },
     {
       "num": 6,
-      "diff": "중상",
+      "diff": "midhigh",
       "type": "mc",
       "question": "\\(x\\)에 대한 다항식 \\((x-3)(x+1)(x+5)(x+9)+a\\)가 \\((x^2+6x+b)^2\\)으로 인수분해되도록 하는 두 실수 \\(a, b\\)에 대하여 \\(a+b\\)의 값은?",
       "choices": [
@@ -108,7 +108,7 @@
     },
     {
       "num": 7,
-      "diff": "중상",
+      "diff": "midhigh",
       "type": "mc",
       "question": "\\(x^3\\)의 계수가 1인 삼차식 \\(P(x)\\)에 대하여 \\(P(2)=P(1)=P(-1)=2\\)일 때, \\(P(x)\\)를 \\(x^2-5x+6\\)으로 나누었을 때의 나머지는?",
       "choices": [
@@ -125,7 +125,7 @@
     },
     {
       "num": 8,
-      "diff": "중상",
+      "diff": "midhigh",
       "type": "mc",
       "question": "그림과 같이 가로, 세로, 높이의 길이가 각각 \\(2x+y\\), \\(x+2y\\), \\(x+y\\)인 직육면체가 있다. 이 직육면체의 각 면의 중앙에 한 모서리의 길이가 \\(x\\)인 정사각형 모양의 구멍을 반대편까지 뚫었을 때, 남은 입체도형의 부피를 \\(x, y\\)에 대한 식으로 나타낸 것은? (단, \\(x, y\\)는 양수이다.)",
       "choices": [
@@ -143,7 +143,7 @@
     },
     {
       "num": 9,
-      "diff": "중상",
+      "diff": "midhigh",
       "type": "mc",
       "question": "자연수 \\(n\\)에 대하여 다항식 \\(x^{n+2}+ax^{n+1}-1\\)을 \\((x+2)^n\\)으로 나누었을 때의 몫은 \\(Q(x)\\), 나머지가 \\(2^n+1\\)이다. 몫 \\(Q(x)\\)의 상수항이 정수일 때, \\(Q(10)+n+a\\)의 값은? (단, \\(a\\)는 상수이다.)",
       "choices": [
@@ -160,7 +160,7 @@
     },
     {
       "num": 10,
-      "diff": "상",
+      "diff": "high",
       "type": "mc",
       "question": "그림과 같이 이차함수 \\(y=-x^2+8x\\)의 그래프 위의 서로 다른 두 점 \\(A, B\\)와 이차함수 \\(y=-x^2+8x\\)가 \\(x\\)축과 만나는 두 점 \\(O, C\\)를 꼭짓점으로 하는 등변사다리꼴 \\(OABC\\)가 있다. 선분 \\(AB\\)는 \\(x\\)축에 평행하고 그 길이는 \\(2t\\)이다. 점 \\(A\\)의 \\(x\\)좌표가 점 \\(B\\)의 \\(x\\)좌표보다 작을 때, 등변사다리꼴 \\(OABC\\)의 넓이를 \\(f(t)\\)라 하자. 다항식 \\(f(t)\\)의 차수가 홀수인 모든 항의 계수의 합은? (단, \\(O\\)는 원점이고, 두 점 \\(A, B\\)는 제1사분면 위의 점이다.)",
       "choices": [
@@ -178,7 +178,7 @@
     },
     {
       "num": 11,
-      "diff": "상",
+      "diff": "high",
       "type": "mc",
       "question": "다음은 사차 다항식 \\(P(x)=x^4+ax^3+bx^2+cx+d\\)를 다항식 \\((x-1)(x-2)(x-3)\\)으로 나누었을 때의 몫과 나머지를 조립제법을 이용하여 구하는 과정의 일부이다. \\(P(x)\\)를 \\((x-1)\\)로 나눈 나머지를 \\(R_1(x)\\), \\(P(x)\\)를 \\((x-1)(x-2)\\)로 나눈 나머지를 \\(R_2(x)\\), \\(P(x)\\)를 \\((x-1)(x-2)(x-3)\\)으로 나눈 나머지를 \\(R_3(x)\\)라 할 때, \\(R_1(1)+R_2(2)+R_3(3)\\)의 값은? (단, \\(a, b, c, d\\)는 상수이다.)",
       "choices": [
@@ -196,7 +196,7 @@
     },
     {
       "num": 12,
-      "diff": "상",
+      "diff": "high",
       "type": "mc",
       "question": "자연수 \\(a\\)는 3으로 나누면 1이 남고, 자연수 \\(b\\)는 2로 나누면 1이 남는다. \\(x\\)에 대한 이차방정식 \\(x^2-ax+b=0\\)의 두 근이 10 이하의 서로 다른 자연수가 되도록 하는 순서쌍 \\((a,b)\\)에 대하여 \\(a+b\\)의 최댓값을 \\(M\\), 최솟값을 \\(m\\)이라 하자. \\(M-m\\)의 값은?",
       "choices": [
@@ -213,7 +213,7 @@
     },
     {
       "num": 13,
-      "diff": "상",
+      "diff": "high",
       "type": "mc",
       "question": "함수 \\(y=f(t)\\)의 그래프가 그림과 같다. \\(x\\)에 대한 이차방정식 \\(x^2+2xf(t)+f(t)+20=0\\)의 근에 대한 설명으로 옳은 것만을 〈보기〉에서 있는 대로 고른 것은? (단, \\(O\\)는 원점이고, \\(f(-1)=0\\), \\(f(1)=0\\)이다.)\n〈보기〉\nㄱ. \\(-5\\leq t\\leq 5\\)일 때, 서로 다른 두 실근을 갖는다.\nㄴ. \\(f(t)\\)의 값이 최소일 때, 서로 다른 두 실근을 갖는다.\nㄷ. 중근을 갖게 하는 서로 다른 실수 \\(t\\)의 개수는 5이다.",
       "choices": [
@@ -231,7 +231,7 @@
     },
     {
       "num": 14,
-      "diff": "상",
+      "diff": "high",
       "type": "mc",
       "question": "0이 아닌 복소수 \\(z\\)와 그 켤레복소수 \\(\\bar z\\)에 대하여, 항상 실수인 것만을 〈보기〉에서 있는 대로 고른 것은? (단, \\(i=\\sqrt{-1}\\)이다.)\n〈보기〉\nㄱ. \\(z^4-\\bar z^4\\)\nㄴ. \\((z^2-\\bar z^2)i\\)\nㄷ. \\((z-\\bar z)^{2027}+(z+\\bar z)^{2027}\\)\nㄹ. \\(\\dfrac{z^3-\\bar z^3}{z-\\bar z}\\) (단, \\(z\\neq\\bar z\\))",
       "choices": [
@@ -248,7 +248,7 @@
     },
     {
       "num": 15,
-      "diff": "최상",
+      "diff": "top",
       "type": "mc",
       "question": "좌표평면에서 점 \\(\\left(\\frac{11}{8}, \\frac{22}{8}\\right)\\)를 지나고 곡선 \\(y=x^2+ax+4\\) \\((a<0)\\)에 접하는 두 직선의 기울기를 각각 \\(m_1, m_2\\)라 하면 \\(m_1\\times m_2=-1\\)이다. 이차함수 \\(f(x)=2x^2+px+q\\)가 다음 조건을 만족시킨다.\n(가) \\(f(m_1+m_2)=0\\), \\(f(m_1-m_2)=0\\) (단, \\(m_1>m_2\\))\n(나) 이차방정식 \\(2x^2+px+q=(2-k)x^2-3x+10\\)의 두 실근을 \\(x_1, x_2\\)라 하면, \\(x_1<2<x_2\\)이다.\n모든 정수 \\(k\\)의 개수는? (단, \\(a, p, q\\)는 상수이다.)",
       "choices": [
@@ -265,7 +265,7 @@
     },
     {
       "num": 16,
-      "diff": "최상",
+      "diff": "top",
       "type": "mc",
       "question": "두 이차함수 \\(y=-3x^2+3x+7\\), \\(y=x^2-3x+3\\)의 그래프가 만나는 두 점 \\(A, B\\)의 \\(x\\)좌표를 각각 \\(\\alpha, \\beta\\) \\((\\alpha<\\beta)\\)라 하자. \\(\\alpha<t<\\beta\\)인 실수 \\(t\\)에 대하여 직선 \\(x=t\\)와 두 이차함수 \\(y=-3x^2+3x+7\\), \\(y=x^2-3x+3\\)의 그래프가 만나는 점을 각각 \\(C, D\\)라 할 때, 사각형 \\(ACBD\\)의 넓이의 최댓값은?",
       "choices": [
@@ -282,7 +282,7 @@
     },
     {
       "num": 17,
-      "diff": "최상",
+      "diff": "top",
       "type": "mc",
       "question": "실수 \\(a\\)에 대하여 복소수 \\(z\\)를 \\(z=a^2+2a-3+(a^2-9)i\\)라 하자. \\(z^2\\)이 음의 실수일 때, \\(\\left(\\dfrac{\\sqrt3+i}{2}\\right)^n=\\dfrac{z-2\\bar z}{24}\\)가 되도록 하는 50 이하의 모든 자연수 \\(n\\)의 값의 합은? (단, \\(\\bar z\\)는 \\(z\\)의 켤레복소수이고, \\(i=\\sqrt{-1}\\)이다.)",
       "choices": [
@@ -299,7 +299,7 @@
     },
     {
       "num": 18,
-      "diff": "최상",
+      "diff": "top",
       "type": "mc",
       "question": "두 자연수 \\(p, q\\)에 대하여 \\(-1\\leq x\\leq5\\)에서 이차함수 \\(f(x)=(x-p)^2+q\\)의 최댓값을 \\(M\\), 최솟값을 \\(m\\)이라 하자. \\(M\\geq30\\)이고 \\(m\\leq20\\)을 만족시키는 모든 순서쌍 \\((p,q)\\)의 개수는?",
       "choices": [
@@ -316,7 +316,7 @@
     },
     {
       "num": 19,
-      "diff": "최상",
+      "diff": "top",
       "type": "mc",
       "question": "최고차항의 계수의 절댓값이 1인 두 이차함수 \\(f(x), g(x)\\)에 대하여 \\(f(1)=g(1)\\)이다. 함수 \\(h(x)\\)를\n\\(h(x)=\\begin{cases}f(x)\\ (x\\leq1) \\\\ g(x)\\ (x>1)\\end{cases}\\)\n이라 할 때, 함수 \\(h(x)\\)가 다음 조건을 만족시킨다.\n(가) 함수 \\(y=h(x)\\)의 그래프와 직선 \\(y=x+k\\)가 서로 다른 두 점에서만 만나도록 하는 실수 \\(k\\)의 값의 최댓값은 7, 최솟값은 \\(-\\frac{13}{4}\\)이다.\n(나) 함수 \\(y=h(x)\\)의 그래프와 \\(x\\)축이 만나는 점의 \\(x\\)좌표는 \\(-3, 3\\) 뿐이다.\n함수 \\(y=h(x)\\)의 그래프와 직선 \\(y=x-1\\)이 만나는 점의 모든 \\(x\\)좌표의 합은?",
       "choices": [
@@ -328,12 +328,12 @@
       ],
       "correct": 0,
       "solution": [
-        "구간별 함수의 형태 결정 및 접선 조건 분석하기\n최고차항 계수 절댓값1, f(-3)=0, g(3)=0, f(1)=g(1) 조건과 (가)의 최댓값7·최솟값-13/4 조건을 이용해 f,g를 결정합니다.\n직선 \\(y=x+k\\)가 \\(y=h(x)\\)와 '정확히 두 점'에서만 만나는 \\(k\\)는 f-branch 또는 g-branch가 접할 때(판별식=0)의 두 값이며, 이 사이 구간에서는 3점, 바깥에서는 1점에서 만납니다.\n이를 만족하는 함수는 \\(f(x)=-x^2-x+6\\ (x\\leq1)\\), \\(g(x)=(x-3)^2\\ (x>1)\\)\n검증: \\(f(-3)=0\\), \\(g(3)=0\\)(중근, x=3만), \\(f(1)=g(1)=4\\) → 조건 (나)와 연속조건 만족\nf-branch \\(f(x)-x-k=0\\)의 판별식=0 → \\(k=7\\). g-branch \\(g(x)-x-k=0\\)의 판별식=0 → \\(k=-\\frac{13}{4}\\). 이 두 값에서만 정확히 두 점에서 만남 (조건 가 성립)\n직선 \\(y=x-1\\)과의 교점:\n\\(x\\leq1\\): \\(-x^2-x+6=x-1 \\rightarrow x^2+2x-7=0 \\rightarrow x=-1\\pm2\\sqrt2\\), 이 중 \\(x\\leq1\\)인 것은 \\(x=-1-2\\sqrt2\\)\n\\(x>1\\): \\((x-3)^2=x-1 \\rightarrow x^2-7x+10=0 \\rightarrow (x-2)(x-5)=0 \\rightarrow x=2,5\\) (둘 다 유효)\n모든 x좌표의 합: \\((-1-2\\sqrt2)+2+5=6-2\\sqrt2\\)\n정답: ① \\(6-2\\sqrt2\\)\n(참고: 이전 풀이에서 '정답없음'으로 판단했던 것은 계산 오류였으며, 실제로는 명확한 해가 존재합니다.)"
+        "구간별 함수의 형태 결정 및 접선 조건 분석하기\n최고차항 계수의 절댓값이 1이므로 \\(f(x)=a(x+3)(x-p)\\), \\(g(x)=b(x-3)(x-q)\\) (\\(a=\\pm1, b=\\pm1\\))로 놓을 수 있습니다. (나)에서 \\(x\\)절편이 \\(-3, 3\\)뿐이므로 각 구간에서 다른 근이 나오면 안 됩니다.\n조건을 만족하는 경우는 \\(a=-1, b=1\\)일 때이며, \\(f(x)=-(x+3)(x-p)\\), \\(g(x)=(x-3)(x-q)\\)라 하면 \\(f(1)=g(1)\\)에서 \\(-4(1-p)=-2(1-q) \\rightarrow q=2p-1\\)\n\\(x\\leq1\\)에서 \\(f(x)=x+k\\)의 판별식을 0으로 놓으면(접할 때) \\(k=\\dfrac{p^2+4p+16}{4}\\)이고, 이것이 최댓값 7이 되도록 하면 \\(p^2+4p-12=0 \\rightarrow p=2\\) (\\(p>1\\))\n이때 \\(q=2(2)-1=3\\)\n따라서 \\(f(x)=-(x+3)(x-2)=-x^2-x+6\\ (x\\leq1)\\), \\(g(x)=(x-3)(x-3)=(x-3)^2=x^2-6x+9\\ (x>1)\\)\n검증: \\(f(-3)=0\\), \\(g(3)=0\\)(중근, \\(x=3\\)만 \\(x\\)절편), \\(f(1)=g(1)=4\\) → 연속이며 조건 (나) 만족\n직선 \\(y=x+k\\)가 \\(h(x)\\)와 '정확히 두 점'에서만 만나는 \\(k\\)는 f-branch 또는 g-branch가 접하는(판별식=0) 순간의 두 값뿐입니다. 그 사이 구간(\\(-\\frac{13}{4}<k<7\\))에서는 3점, 바깥에서는 1점에서 만나므로 이 두 접점의 \\(k\\)값이 곧 최댓값·최솟값이 됩니다.\nf-branch: \\(x^2+2x+(k-6)=0\\)의 판별식=0 → \\(k=7\\). g-branch: \\(x^2-7x+(9-k)=0\\)의 판별식=0 → \\(k=-\\dfrac{13}{4}\\). (가) 조건과 정확히 일치.\n직선 \\(y=x-1\\)과의 교점:\n\\(x\\leq1\\): \\(-x^2-x+6=x-1 \\rightarrow x^2+2x-7=0 \\rightarrow x=-1\\pm2\\sqrt2\\), 이 중 \\(x\\leq1\\)인 것은 \\(x=-1-2\\sqrt2\\) (\\(x=-1+2\\sqrt2\\approx1.83\\)은 범위 밖이라 제외)\n\\(x>1\\): \\((x-3)^2=x-1 \\rightarrow x^2-7x+10=0 \\rightarrow (x-2)(x-5)=0 \\rightarrow x=2,5\\) (둘 다 \\(x>1\\) 만족)\n모든 \\(x\\)좌표의 합: \\((-1-2\\sqrt2)+2+5=6-2\\sqrt2\\)\n정답: ① \\(6-2\\sqrt2\\)\n\n[그래프로 확인하기]\n<img src=\"data:image/jpeg;base64,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\" style=\"max-width:100%;border-radius:6px;\" alt=\"h(x) 그래프\">\n식으로 구한 결과를 그래프로 시각화하면 다음과 같은 구조가 한눈에 보입니다.\n① \\(x\\leq1\\) 구간의 \\(f(x)=-x^2-x+6\\)은 위로 볼록한 포물선, \\(x>1\\) 구간의 \\(g(x)=(x-3)^2\\)은 아래로 볼록한 포물선이며, \\(x=1\\)에서 \\(h(1)=4\\)로 매끄럽게(값은 같게, 기울기는 다르게) 이어집니다. 그래서 \\(h(x)\\)는 위로 봉긋 솟았다가 다시 아래로 내려가 \\(x=3\\)에서 x축에 닿고 다시 올라가는 'S자형 물결' 모양이 됩니다.\n② 기울기 1인 직선 \\(y=x+k\\)를 아래에서 위로 쓸어올린다고 생각하면, 직선이 볼록한 윗부분(f)에 접하는 순간(\\(k=7\\))과 오목한 아랫부분(g)에 접하는 순간(\\(k=-\\frac{13}{4}\\))에서만 교점이 정확히 2개가 되고, 그 사이에서는 3개, 바깥에서는 1개가 됩니다. 이는 (가) 조건이 왜 '접선 조건'으로 읽히는지를 그래프로 보여줍니다.\n③ 직선 \\(y=x-1\\)은 이 두 접선(\\(y=x+7\\), \\(y=x-\\frac{13}{4}\\)) 사이를 지나가는 직선이므로, 그래프상 \\(h(x)\\)와 총 3번 만나는 것이 자연스럽게 확인됩니다 — 왼쪽 오르막(f)에서 1번(\\(x=-1-2\\sqrt2\\approx-3.83\\)), 오른쪽 골짜기 부근(g)에서 2번(\\(x=2, 5\\)). 이는 앞서 대수적으로 구한 세 근과 정확히 일치하며, 그래프로 그려보면 계산 실수(정의역을 벗어난 근을 포함시키는 실수 등)를 시각적으로 바로 걸러낼 수 있어 검산 수단으로 유용합니다."
       ]
     },
     {
       "num": 20,
-      "diff": "상",
+      "diff": "high",
       "type": "essay",
       "question": "최고차항의 계수가 \\(a\\)인 두 이차다항식 \\(f(x), g(x)\\)가 있다. \\(f(x)g(x)\\)를 \\(f(x)-x^2-3x-3\\)으로 나누었을 때의 나머지를 \\(R(x)\\)라 할 때, 두 다항식 \\(f(x), g(x)\\)가 다음 조건을 만족시킨다. (단, \\(a\\)는 상수이다.)\n(가) \\(R(x)=2f(x)+g(x)-3x^2-4x-3\\)이다.\n(나) \\(g(1)=1\\)이고, 모든 실수 \\(x\\)에 대하여 \\(f(x)-g(x)=8x\\)가 성립한다.",
       "parts": [
@@ -354,7 +354,7 @@
     },
     {
       "num": 21,
-      "diff": "최상",
+      "diff": "top",
       "type": "essay",
       "question": "최고차항의 계수가 2인 이차함수 \\(f(x)\\)가 다음 조건을 만족시킨다.\n(가) \\(f(-3)=0\\)\n(나) 모든 실수 \\(x\\)에 대하여 \\(f(x)\\geq f(-1)\\)이다.\n실수 \\(t\\)에 대하여 \\(t-2\\leq x\\leq t\\)에서 이차함수 \\(f(x)\\)의 최댓값과 최솟값의 차를 \\(g(t)\\)라 하자.",
       "parts": [
