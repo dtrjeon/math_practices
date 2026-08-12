@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- v1.1 (2026-08-06): normalizeProblem()/normalizeSet() 어댑터 추가(구 스키마 자동 변환) -->
+<!-- v1.2 (2026-08-12): 문제지용 manifest.json → data/worksheets-manifest.json으로 파일명 변경 (PWA용 root manifest.json과 혼동 방지) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -300,8 +300,8 @@
   async function loadEverything(){
     const statusEl = document.getElementById('loadStatus');
     try{
-      const manifestRes = await fetch('../data/manifest.json');
-      if(!manifestRes.ok) throw new Error(`manifest.json 요청 실패 (status ${manifestRes.status})`);
+      const manifestRes = await fetch('../data/worksheets-manifest.json');
+      if(!manifestRes.ok) throw new Error(`worksheets-manifest.json 요청 실패 (status ${manifestRes.status})`);
       manifest = await manifestRes.json();
 
       const failed = [];
