@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- v2.1 (2026-08-07): 문제지 범위 요약을 모의고사/중간고사/기말고사 탭으로 재구성 + manifest.json 기반 동적 렌더링, 파일명 클릭 시 풀이 페이지로 이동, 회차별(1~3차) 풀이 완료 체크박스(자동) 추가 -->
+<!-- v1.1 (2026-08-12): 문제지용 manifest.json → data/worksheets-manifest.json으로 파일명 변경 (PWA용 root manifest.json과 혼동 방지) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -319,7 +319,7 @@
 <body>
 
 <header>
-  <span class="version-tag">v2.1 · 2026-08-07 업데이트</span>
+  <span class="version-tag">v1.1 · 2026-08-12 업데이트</span>
   <div class="kicker">전주영 · 고등 수학 학습 기록판</div>
   <h1>문제지 모음</h1>
   <div class="sub">단원별로 학생 풀이 / 검토용 문제지를 모아뒀어요</div>
@@ -419,7 +419,7 @@
   // Apps Script 배포 후 나온 웹 앱 URL로 교체하세요 (worksheets 파일들과 동일한 URL)
   const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzUef9uyH28s4l2iObFCyg131Ft2_aDdxLj_ab5vdA5wFBQKdVKMfOwh2u5EwsbWwus/exec';
 
-  // worksheetId → 문제지 이름 / 카드 그룹 (data/manifest.json 기반으로 자동 생성됨)
+  // worksheetId → 문제지 이름 / 카드 그룹 (data/worksheets-manifest.json 기반으로 자동 생성됨)
   let WORKSHEET_META = {};
 
   const CATEGORY_LABELS = { textbook:'📘 교과서 목차순', exam:'📝 모의고사·중간기말', pastexam:'📚 기출문제' };
@@ -451,7 +451,7 @@
     const panels = { textbook:'', exam:'', pastexam:'' };
     const counts = { textbook:0, exam:0, pastexam:0 };
     try{
-      const res = await fetch('data/manifest.json');
+      const res = await fetch('data/worksheets-manifest.json');
       const manifest = await res.json();
 
       ['textbook','exam','pastexam'].forEach(cat => {
@@ -477,7 +477,7 @@
         document.getElementById('wsCount-' + cat).textContent = counts[cat];
       });
     } catch(err){
-      document.getElementById('wsPanel-textbook').innerHTML = '<div class="ws-loading">문제지 목록을 불러오지 못했어요 (data/manifest.json 확인 필요)</div>';
+      document.getElementById('wsPanel-textbook').innerHTML = '<div class="ws-loading">문제지 목록을 불러오지 못했어요 (data/worksheets-manifest.json 확인 필요)</div>';
     }
   }
 
@@ -592,7 +592,7 @@
     const buckets = { mid:[], final:[], mock:[] };
 
     try{
-      const manifestRes = await fetch('data/manifest.json');
+      const manifestRes = await fetch('data/worksheets-manifest.json');
       const manifest = await manifestRes.json();
       const targets = manifest.sets.filter(s => s.category !== 'textbook');
 
