@@ -195,6 +195,20 @@
     margin-bottom:10px;
     white-space:pre-line;
   }
+  .pimg-wrap{
+    margin:0 0 12px;
+  }
+  .pimg-wrap img{
+    display:block;
+    max-width:100%;
+    max-height:480px;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    border:1px solid var(--rule);
+    border-radius:8px;
+    background:#fff;
+  }
   .ref-box{
     font-size:13.5px;
     background:#f3f0e6;
@@ -1790,6 +1804,7 @@
         <span class="diff-badge ${diffCls}">${diffLabel}</span>
       </div>
       <div class="pquestion">${p.question}</div>
+      ${Array.isArray(p.images) && p.images.length ? `<div class="pimg-wrap">${p.images.map(src => `<img src="${escapeAttr(src)}" alt="문제 ${n} 첨부 이미지">`).join('')}</div>` : ''}
       ${p.extra || ''}
       <div class="write-pad">
         <div class="write-pad-head">
