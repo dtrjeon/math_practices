@@ -1765,6 +1765,19 @@
     return String(s).replace(/'/g, "&#39;");
   }
 
+  // v1.3: 문제/보기/풀이 텍스트를 innerHTML에 그대로 꽂으면, "0°<x<45°"처럼
+  // <, > 가 포함된 LaTeX(부등호·구간 표기 등)를 브라우저가 진짜 HTML 태그로
+  // 오인해서 그 뒤 내용을 통째로 삼켜버리는 문제가 있었다(예: 118번 문항).
+  // KaTeX auto-render는 렌더링된 DOM의 텍스트 노드를 스캔하는 방식이라,
+  // 여기서 HTML 특수문자만 이스케이프해 넣어도 \( \) 안의 LaTeX 표기(<, > 포함)는
+  // 그대로 살아남아 정상적으로 수식 렌더링된다.
+  function escapeHtml(s){
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
   // 문제지 JSON은 두 가지 스키마가 섞여 있을 수 있다.
   //  A) 정식 스키마: num / diff(low·mid·midhigh·high·top) / type(mc·fillin) / correct(0-based) / solution(배열)
   //  B) 구 스키마(변환 문제지들): number / difficulty(하·중·중상·상·최상) / type(mcq·short) / answer / explanation(문장)
@@ -1804,7 +1817,7 @@
         <span class="pnum">${n}</span>
         <span class="diff-badge ${diffCls}">${diffLabel}</span>
       </div>
-      <div class="pquestion">${p.question}</div>
+      <div class="pquestion">${escapeHtml(p.question)}</div>
       ${Array.isArray(p.images) && p.images.length ? `<div class="pimg-wrap">${p.images.map(src => `<img src="${escapeAttr(src)}" alt="문제 ${n} 첨부 이미지">`).join('')}</div>` : ''}
       ${p.extra || ''}
       <div class="write-pad">
@@ -1823,7 +1836,7 @@
       html += '<div class="choices">';
       p.choices.forEach((ch, i) => {
         const isCorrect = (p.correct === i) ? 'true' : 'false';
-        html += `<button class="choice-btn" onclick="pick(this,${isCorrect})">${CIRCLE[i]} ${ch}</button>`;
+        html += `<button class="choice-btn" onclick="pick(this,${isCorrect})">${CIRCLE[i]} ${escapeHtml(ch)}</button>`;
       });
       html += '</div>';
     } else {
@@ -1835,7 +1848,7 @@
       </div>`;
     }
 
-    const solLines = (p.solution || []).map(s => `<div class="sol-line">${s}</div>`).join('');
+    const solLines = (p.solution || []).map(s => `<div class="sol-line">${escapeHtml(s)}</div>`).join('');
     html += `<div class="solution-wrap">
         <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
         <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">${solLines}</div>
