@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<!-- v1.1 (2026-08-12): 문제지용 manifest.json → data/worksheets-manifest.json으로 파일명 변경 (PWA용 root manifest.json과 혼동 방지) -->
+<!-- v1.2 (2026-08-16): "📐 쎈수학 중3-2" 전용 탭 신설 (기존 3탭 textbook/exam/pastexam → 4탭, senmath32 카테고리 추가) -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전주영 학습 기록판</title>
+
+<!-- 홈 화면 추가 (PWA) -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#20242b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="학습기록판">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+
+<style>
+  :root{
+    --paper:#f6f4ee;
+    --ink:#20242b;
+    --rule:#d9d3c4;
+    --accent:#1f6f5c;
+    --accent-soft:#e3efe9;
+    --num:#8a8474;
+    --sheet:#fffdf8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  header{
+    max-width:900px;
+    margin:0 auto;
+    padding:48px 20px 20px;
+    border-bottom:2px solid var(--ink);
+    position:relative;
+  }
+  .version-tag{
+    position:absolute;
+    top:12px;
+    right:20px;
+    font-size:10.5px;
+    color:var(--num);
+    letter-spacing:0.02em;
+  }
+  .kicker{
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--num);
+    margin-bottom:8px;
+    font-weight:700;
+  }
+  h1{
+    font-size:30px;
+    margin:0 0 8px;
+    font-weight:800;
+  }
+  .sub{
+    font-size:14px;
+    color:#555;
+  }
+
+  main{
+    max-width:900px;
+    margin:0 auto;
+    padding:32px 20px 80px;
+  }
+
+  .unit-label{
+    font-size:12px;
+    font-weight:800;
+    color:var(--num);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin:32px 0 12px;
+  }
+  .unit-label:first-child{ margin-top:0; }
+
+  .card{
+    background:var(--sheet);
+    border:1px solid var(--rule);
+    border-radius:14px;
+    padding:22px 24px;
+    margin-bottom:14px;
+    box-shadow:0 2px 8px rgba(32,36,43,0.04);
+  }
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .card-title{
+    font-size:17px;
+    font-weight:800;
+  }
+  .card-meta{
+    font-size:12.5px;
+    color:var(--num);
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:4px;
+  }
+  .status-pill{
+    font-size:11px;
+    font-weight:700;
+    padding:2px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .status-ok{ background:var(--accent-soft); color:var(--accent); }
+  .status-todo{ background:#f2ecd8; color:#8a6d1f; }
+
+  .card-actions{
+    display:flex;
+    gap:8px;
+    margin-top:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:700;
+    text-decoration:none;
+    display:inline-block;
+    padding:9px 18px;
+    border-radius:999px;
+    border:1.5px solid var(--rule);
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:#fff;
+    border-color:var(--ink);
+  }
+  .btn-primary:hover{ opacity:0.9; }
+  .btn-secondary{
+    background:#fff;
+    color:var(--ink);
+  }
+  .btn-secondary:hover{ border-color:var(--num); }
+  .btn-disabled{
+    background:#efece2;
+    color:#b3ab97;
+    border-color:transparent;
+    cursor:default;
+    pointer-events:none;
+  }
+
+  .last-run{
+    font-size:12px;
+    color:var(--accent);
+    font-weight:700;
+    margin-top:6px;
+  }
+  .last-run.none{ color:var(--num); font-weight:400; }
+
+  .board-section{
+    margin-top:8px;
+  }
+  .board-card{
+    background:var(--sheet);
+    border:1px solid var(--rule);
+    border-radius:14px;
+    padding:20px 22px;
+    box-shadow:0 2px 8px rgba(32,36,43,0.04);
+  }
+  .board-status{
+    font-size:13px;
+    color:var(--num);
+  }
+  .board-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+  }
+  .board-table th{
+    text-align:left;
+    font-size:11px;
+    font-weight:700;
+    color:var(--num);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    padding:6px 8px;
+    border-bottom:2px solid var(--ink);
+  }
+  .board-table td{
+    padding:9px 8px;
+    border-bottom:1px solid var(--rule);
+    vertical-align:top;
+  }
+  .board-table tr:last-child td{ border-bottom:none; }
+  .board-worksheet{ font-weight:700; }
+  .board-score{ font-variant-numeric:tabular-nums; }
+  .board-score.full{ color:var(--accent); font-weight:700; }
+  .board-wrong{ color:var(--num); font-size:12.5px; }
+
+  .publisher-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+    margin-top:10px;
+  }
+  .publisher-table th{
+    text-align:left;
+    font-size:11px;
+    font-weight:700;
+    color:var(--num);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    padding:6px 8px;
+    border-bottom:2px solid var(--ink);
+  }
+  .publisher-table td{
+    padding:9px 8px;
+    border-bottom:1px solid var(--rule);
+  }
+  .publisher-table tr:last-child td{ border-bottom:none; }
+  .publisher-table td.blank{ color:var(--num); font-style:italic; }
+  .publisher-table td a{ color:var(--accent); font-weight:700; text-decoration:none; }
+  .publisher-table td a:hover{ text-decoration:underline; }
+  .roadmap-link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .roadmap-link p{
+    margin:4px 0 0;
+    font-size:13px;
+    color:#555;
+  }
+
+  .worksheet-tabs{
+    display:flex;
+    gap:6px;
+    margin-bottom:16px;
+    border-bottom:2px solid var(--ink);
+    flex-wrap:wrap;
+  }
+  .ws-tab-btn{
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:700;
+    background:transparent;
+    border:none;
+    padding:10px 14px;
+    cursor:pointer;
+    color:var(--num);
+    border-bottom:3px solid transparent;
+    margin-bottom:-2px;
+  }
+  .ws-tab-btn .count{
+    font-size:11px;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    background:#e7e3d6;
+    color:#6b6558;
+    margin-left:5px;
+  }
+  .ws-tab-btn.active{
+    color:var(--ink);
+    border-bottom-color:var(--ink);
+  }
+  .ws-tab-btn.active .count{
+    background:var(--ink);
+    color:#fff;
+  }
+  .ws-tab-panel{ display:none; }
+  .ws-tab-panel.active{ display:block; }
+  .ws-unit-label{
+    font-size:12px;
+    font-weight:800;
+    color:var(--num);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin:0 0 12px;
+  }
+  .ws-loading{
+    padding:24px 4px;
+    font-size:13px;
+    color:var(--num);
+    text-align:center;
+  }
+  .ws-unit-label:not(:first-child){ margin-top:28px; }
+  .attempt-check{
+    display:inline-flex;
+    align-items:center;
+    gap:3px;
+    font-size:12px;
+    margin-right:8px;
+    white-space:nowrap;
+  }
+  .attempt-check input{ accent-color:var(--ink); }
+  .publisher-table a{ color:inherit; text-decoration:underline; text-decoration-color:#c9c2b3; }
+
+  footer{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 20px 50px;
+    font-size:12px;
+    color:var(--num);
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="version-tag">v1.2 · 2026-08-16 업데이트</span>
+  <div class="kicker">전주영 · 고등 수학 학습 기록판</div>
+  <h1>문제지 모음</h1>
+  <div class="sub">단원별로 학생 풀이 / 검토용 문제지를 모아뒀어요</div>
+</header>
+
+<main>
+
+  <div class="unit-label">오답노트 작성 원칙</div>
+  <div class="card principle-card">
+    <img src="wrong-answer-strategy.jpg" alt="수학 성적을 바꾸는 오답 분석 & 시간 필승 전략" style="width:100%; border-radius:10px; display:block;">
+  </div>
+
+  <div class="unit-label">문제 재구성</div>
+  <div class="card roadmap-link">
+    <div>
+      <div class="card-title">🧩 틀린 문제 · 난이도로 맞춤 세트 만들기</div>
+      <p>전체 문제은행에서 오답 이력과 난이도를 기준으로 문제를 골라 새 세트를 구성해요</p>
+    </div>
+    <a class="btn btn-primary" href="worksheets/compose.html">재구성 화면 열기</a>
+  </div>
+
+  <div class="unit-label">학교별 교재 출판사</div>
+  <div class="card">
+    <table class="publisher-table">
+      <thead>
+        <tr><th>학교</th><th>과목</th><th>출판사</th><th>저자</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>신봉고</td><td>공통수학1·2</td><td>천재교과서</td><td><a href="https://view.chunjae.co.kr/streamdocs/view/sd;streamdocsId=lluSXUr6GSkvEszJ8b3laeLHG4L7NOae8lz6KYsgOgw;isExternal=eQ;printUse=;enableDapSide=;pageView=" target="_blank" rel="noopener">전인태 ↗</a></td></tr>
+        <tr><td>홍천고</td><td>공통수학1·2</td><td>동아출판</td><td><a href="https://ebook.dongapublishing.com/ebook/ecatalog5.asp?Dir=2351" target="_blank" rel="noopener">고호경 ↗</a></td></tr>
+        <tr><td>수지고</td><td>-</td><td class="blank">확인 중</td><td class="blank">확인 중</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="unit-label">문제지 범위 요약</div>
+
+  <div class="worksheet-tabs" id="rangeTabs">
+    <button class="ws-tab-btn active" id="rangeTab-mid" onclick="switchRangeTab('mid')">📗 중간고사 <span class="count" id="rangeCount-mid">0</span></button>
+    <button class="ws-tab-btn" id="rangeTab-final" onclick="switchRangeTab('final')">📕 기말고사 <span class="count" id="rangeCount-final">0</span></button>
+    <button class="ws-tab-btn" id="rangeTab-mock" onclick="switchRangeTab('mock')">🧪 모의고사 <span class="count" id="rangeCount-mock">0</span></button>
+  </div>
+
+  <div class="ws-tab-panel active" id="rangePanel-mid"><div class="ws-loading">범위 요약을 불러오는 중...</div></div>
+  <div class="ws-tab-panel" id="rangePanel-final"></div>
+  <div class="ws-tab-panel" id="rangePanel-mock"></div>
+
+  <div class="unit-label">진학 로드맵</div>
+  <div class="card">
+    <div class="roadmap-link">
+      <div>
+        <div class="card-title">화학공학과 진학 수학 로드맵</div>
+        <p>목표 대학·학교별 교재 비교·시험범위 정리 자료</p>
+      </div>
+      <a class="btn btn-secondary" href="roadmap.html">로드맵 보기</a>
+    </div>
+  </div>
+
+  <div class="unit-label">학습 기록판</div>
+  <div class="board-section">
+    <div class="board-card">
+      <div class="board-status" id="boardStatus">기록 불러오는 중...</div>
+      <table class="board-table" id="boardTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>문제지</th>
+            <th>점수</th>
+            <th>걸린시간</th>
+            <th>오답 번호</th>
+          </tr>
+        </thead>
+        <tbody id="boardBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="unit-label">문제지 모음</div>
+
+  <div class="worksheet-tabs">
+    <button class="ws-tab-btn active" id="wsTab-textbook" onclick="switchWsTab('textbook')">📘 교과서 목차순 <span class="count" id="wsCount-textbook">0</span></button>
+    <button class="ws-tab-btn" id="wsTab-exam" onclick="switchWsTab('exam')">📝 모의고사·중간기말 <span class="count" id="wsCount-exam">0</span></button>
+    <button class="ws-tab-btn" id="wsTab-pastexam" onclick="switchWsTab('pastexam')">📚 기출문제 <span class="count" id="wsCount-pastexam">0</span></button>
+    <button class="ws-tab-btn" id="wsTab-senmath32" onclick="switchWsTab('senmath32')">📐 쎈수학 중3-2 <span class="count" id="wsCount-senmath32">0</span></button>
+  </div>
+
+  <div class="ws-tab-panel active" id="wsPanel-textbook"><div class="ws-loading">문제지 목록을 불러오는 중...</div></div>
+  <div class="ws-tab-panel" id="wsPanel-exam"></div>
+  <div class="ws-tab-panel" id="wsPanel-pastexam"></div>
+  <div class="ws-tab-panel" id="wsPanel-senmath32"></div>
+
+</main>
+
+<footer>
+  새 문제지는 채팅에서 사진을 올리면 채점 후 이 목록에 추가돼요
+</footer>
+
+<script>
+  // Apps Script 배포 후 나온 웹 앱 URL로 교체하세요 (worksheets 파일들과 동일한 URL)
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzUef9uyH28s4l2iObFCyg131Ft2_aDdxLj_ab5vdA5wFBQKdVKMfOwh2u5EwsbWwus/exec';
+
+  // worksheetId → 문제지 이름 / 카드 그룹 (data/worksheets-manifest.json 기반으로 자동 생성됨)
+  let WORKSHEET_META = {};
+
+  const CATEGORY_LABELS = { textbook:'📘 교과서 목차순', exam:'📝 모의고사·중간기말', pastexam:'📚 기출문제', senmath32:'📐 쎈수학 중3-2' };
+  const WS_CATEGORIES = ['textbook','exam','pastexam','senmath32'];
+
+  function cardHtml(s){
+    const metaLine1 = s.stats ? `전체 ${s.count}문제${s.pages ? ' · ' + s.pages + '페이지' : ''}` : (s.unit || '');
+    const metaLine2 = s.stats ? s.stats : `전체 ${s.count || '?'}문제`;
+    const pill = s.stats ? '<span class="status-pill status-ok">채점 완료</span>' : '<span class="status-pill status-ok">등록 완료</span>';
+    const reviewBtn = s.reviewUrl
+      ? `<a class="btn btn-secondary" href="${s.reviewUrl}">검토용 보기</a>`
+      : `<span class="btn btn-disabled">검토용 (준비 중)</span>`;
+    return `<div class="card">
+      <div class="card-top">
+        <div>
+          <div class="card-title">${s.title}</div>
+          <div class="card-meta"><span>${metaLine1}</span><span>${metaLine2}</span></div>
+          <div class="last-run none" id="lastRun-${s.id}">최근 풀이 기록 없음</div>
+        </div>
+        ${pill}
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="worksheets/player.html?set=${s.id}">학생 풀이 시작</a>
+        ${reviewBtn}
+      </div>
+    </div>`;
+  }
+
+  async function renderWorksheetCards(){
+    const panels = { textbook:'', exam:'', pastexam:'', senmath32:'' };
+    const counts = { textbook:0, exam:0, pastexam:0, senmath32:0 };
+    try{
+      const res = await fetch('data/worksheets-manifest.json');
+      const manifest = await res.json();
+
+      WS_CATEGORIES.forEach(cat => {
+        const sets = manifest.sets.filter(s => s.category === cat);
+        counts[cat] = sets.length;
+        let lastGroup = null;
+        sets.forEach(s => {
+          if(s.group && s.group !== lastGroup){
+            panels[cat] += `<div class="ws-unit-label">${s.group}</div>`;
+            lastGroup = s.group;
+          }
+          panels[cat] += cardHtml(s);
+
+          WORKSHEET_META[s.id + '-student'] = { label: s.title + ' · 학생풀이', group: s.id };
+          if(s.reviewUrl){
+            WORKSHEET_META[s.id + '-review'] = { label: s.title + ' · 검토용', group: s.id };
+          }
+        });
+      });
+
+      WS_CATEGORIES.forEach(cat => {
+        document.getElementById('wsPanel-' + cat).innerHTML = panels[cat] || '<div class="ws-loading">등록된 문제지가 없어요</div>';
+        document.getElementById('wsCount-' + cat).textContent = counts[cat];
+      });
+    } catch(err){
+      document.getElementById('wsPanel-textbook').innerHTML = '<div class="ws-loading">문제지 목록을 불러오지 못했어요 (data/worksheets-manifest.json 확인 필요)</div>';
+    }
+  }
+
+
+  function fmtDate(iso){
+    const d = new Date(iso);
+    if(isNaN(d.getTime())) return iso;
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const dd = String(d.getDate()).padStart(2,'0');
+    const hh = String(d.getHours()).padStart(2,'0');
+    const mi = String(d.getMinutes()).padStart(2,'0');
+    return `${d.getFullYear()}.${mm}.${dd} ${hh}:${mi}`;
+  }
+
+  function isFullScore(scoreStr){
+    const m = String(scoreStr).match(/(\d+)\s*\/\s*(\d+)/);
+    if(!m) return false;
+    return m[1] === m[2];
+  }
+
+  async function loadBoard(){
+    const statusEl = document.getElementById('boardStatus');
+    const table = document.getElementById('boardTable');
+    const body = document.getElementById('boardBody');
+
+    if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0){
+      statusEl.textContent = '⚠️ 기록 저장 서버가 아직 연결되지 않았어요 (관리자 설정 필요)';
+      return;
+    }
+
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL + '?action=list');
+      const records = await res.json();
+      if(!records || records.length === 0){
+        statusEl.textContent = '아직 풀이 기록이 없어요. 문제지를 풀고 종료하면 여기 쌓여요.';
+        return;
+      }
+      records.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+      statusEl.style.display = 'none';
+      table.style.display = 'table';
+      body.innerHTML = records.map(r => {
+        const meta = WORKSHEET_META[r.worksheetId] || { label: r.worksheetId, group:null };
+        const full = isFullScore(r.score);
+        return `<tr>
+          <td>${fmtDate(r.date)}</td>
+          <td class="board-worksheet">${meta.label}</td>
+          <td class="board-score${full?' full':''}">${r.score}</td>
+          <td>${r.timeTaken || '-'}</td>
+          <td class="board-wrong">${r.wrongNums ? r.wrongNums : '없음'}</td>
+        </tr>`;
+      }).join('');
+
+      // 카드별 "최근 풀이" 갱신
+      const latestByGroup = {};
+      records.forEach(r => {
+        const meta = WORKSHEET_META[r.worksheetId];
+        if(!meta || !meta.group) return;
+        if(!latestByGroup[meta.group] || new Date(r.date) > new Date(latestByGroup[meta.group].date)){
+          latestByGroup[meta.group] = r;
+        }
+      });
+      Object.keys(latestByGroup).forEach(group => {
+        const el = document.getElementById('lastRun-' + group);
+        if(!el) return;
+        const r = latestByGroup[group];
+        el.textContent = `최근 풀이: ${fmtDate(r.date)} · ${r.score}`;
+        el.classList.remove('none');
+      });
+
+    } catch(err){
+      statusEl.textContent = '기록을 불러오지 못했어요 — 인터넷 연결이나 서버 설정을 확인해주세요.';
+    }
+  }
+
+  (async function init(){
+    await renderWorksheetCards();
+    await renderRangeSummary();
+    loadBoard();
+  })();
+
+  function switchWsTab(cat){
+    WS_CATEGORIES.forEach(c => {
+      document.getElementById('wsTab-' + c).classList.toggle('active', c === cat);
+      document.getElementById('wsPanel-' + c).classList.toggle('active', c === cat);
+    });
+  }
+
+  function switchRangeTab(kind){
+    ['mid','final','mock'].forEach(k => {
+      document.getElementById('rangeTab-' + k).classList.toggle('active', k === kind);
+      document.getElementById('rangePanel-' + k).classList.toggle('active', k === kind);
+    });
+  }
+
+  const DIFF_LABELS = [['top','최상'],['high','상'],['midhigh','중상'],['mid','중'],['low','하']];
+
+  function diffSummary(problems){
+    const counts = { top:0, high:0, midhigh:0, mid:0, low:0 };
+    (problems || []).forEach(p => { if(counts.hasOwnProperty(p.diff)) counts[p.diff]++; });
+    return DIFF_LABELS.map(([key,label]) => `${label} ${counts[key]}`).join(', ');
+  }
+
+  function checkboxHtml(id, attemptCounts){
+    const n = attemptCounts[id] || 0;
+    return [1,2,3].map(i =>
+      `<label class="attempt-check"><input type="checkbox" disabled ${i<=n?'checked':''}>${i}차</label>`
+    ).join(' ');
+  }
+
+  async function renderRangeSummary(){
+    const buckets = { mid:[], final:[], mock:[] };
+
+    try{
+      const manifestRes = await fetch('data/worksheets-manifest.json');
+      const manifest = await manifestRes.json();
+      const targets = manifest.sets.filter(s => s.category !== 'textbook');
+
+      let attemptCounts = {};
+      try{
+        const recRes = await fetch(SHEET_WEBHOOK_URL + '?action=list');
+        const records = await recRes.json();
+        (records || []).forEach(r => {
+          const group = String(r.worksheetId || '').replace(/-student$|-review$/, '');
+          attemptCounts[group] = (attemptCounts[group] || 0) + 1;
+        });
+      } catch(e){ /* 기록 서버 문제는 조용히 무시 - 체크박스는 0/3으로 표시 */ }
+
+      await Promise.all(targets.map(async s => {
+        let diffText = '-';
+        try{
+          const res = await fetch('data/' + s.file);
+          if(res.ok){
+            const data = await res.json();
+            diffText = diffSummary(data.problems);
+          }
+        } catch(e){ /* 개별 파일 실패 시 난이도만 '-'로 표시, 행 자체는 유지 */ }
+
+        const row = `<tr>
+          <td><a href="worksheets/player.html?set=${s.id}">${s.id}</a></td>
+          <td>${s.unit || ''}</td>
+          <td>${s.count || '?'}</td>
+          <td>${diffText}</td>
+          <td>${checkboxHtml(s.id, attemptCounts)}</td>
+        </tr>`;
+
+        if(/final1|final2/.test(s.id)) buckets.final.push(row);
+        else if(/mid1|mid2/.test(s.id)) buckets.mid.push(row);
+        else buckets.mock.push(row);
+      }));
+
+      ['mid','final','mock'].forEach(kind => {
+        const rows = buckets[kind];
+        document.getElementById('rangeCount-' + kind).textContent = rows.length;
+        document.getElementById('rangePanel-' + kind).innerHTML = rows.length
+          ? `<div class="card"><table class="publisher-table">
+              <thead><tr><th>파일명</th><th>범위</th><th>문제수</th><th>난이도(최상/상/중상/중/하)</th><th>풀이 완료</th></tr></thead>
+              <tbody>${rows.join('')}</tbody>
+            </table></div>`
+          : '<div class="ws-loading">등록된 문제지가 없어요</div>';
+      });
+    } catch(err){
+      document.getElementById('rangePanel-mid').innerHTML = '<div class="ws-loading">범위 요약을 불러오지 못했어요</div>';
+    }
+  }
+</script>
+
+</body>
+</html>
