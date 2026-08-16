@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!-- v1.1 (2026-08-06): normalizeProblem() 어댑터 추가(구 스키마 number/difficulty/mcq/short/answer/explanation 자동 변환), 선택지 이중 LaTeX 래핑 버그 수정 -->
+<!-- v1.2 (2026-08-16): 문제 세트 로딩을 manifest.json의 file 경로 기반으로 변경 — data/ 바로 밑 평평한 구조뿐 아니라 data/senmath32/처럼 하위 폴더에 있는 세트도 로드 가능(compose.html과 동일한 방식으로 통일). manifest를 못 읽으면 기존 방식(data/<id>.json)으로 자동 폴백 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -1877,7 +1878,23 @@
 
     try{
       if(setId){
-        const res = await fetch('../data/' + setId + '.json');
+        // v1.2: data/ 바로 밑 평평한 구조뿐 아니라 data/senmath32/처럼 하위 폴더에 있는
+        // 세트도 찾을 수 있도록, id로 파일명을 직접 조합하는 대신
+        // worksheets-manifest.json에서 해당 id의 file 경로를 찾아 그걸로 fetch한다.
+        // (compose.html이 이미 쓰고 있는 방식과 통일)
+        let filePath = setId + '.json'; // manifest에서 못 찾으면 기존 방식으로 폴백
+        try{
+          const manifestRes = await fetch('../data/worksheets-manifest.json');
+          if(manifestRes.ok){
+            const manifest = await manifestRes.json();
+            const entry = manifest.sets.find(s => s.id === setId);
+            if(entry && entry.file) filePath = entry.file;
+          }
+        } catch(manifestErr){
+          // manifest를 못 읽어도 기존 방식(평평한 구조)으로 계속 시도
+        }
+        const res = await fetch('../data/' + filePath);
+        if(!res.ok) throw new Error(`문제 파일 요청 실패 (status ${res.status}): ../data/${filePath}`);
         data = await res.json();
       } else {
         const stored = sessionStorage.getItem('customProblemSet');
