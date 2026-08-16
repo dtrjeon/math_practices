@@ -396,126 +396,127 @@
     {
       "id": "senmath32_01_p001_008-ff",
       "file": "senmath32/senmath32_01_p001_008-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "삼각비의 뜻 (0001~0008)",
       "unit": "01. 삼각비의 뜻 (0001~0008)",
       "count": 8,
-      "group": "중3-2_쎈수학"
+      "group": "01. 삼각비의 뜻"
     },
     {
       "id": "senmath32_02_p009_046-ff",
       "file": "senmath32/senmath32_02_p009_046-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "삼각비의 뜻 ~ 유형02 (0009~0046)",
       "unit": "01. 삼각비의 뜻 ~ 유형02 (0009~0046, 진행중)",
       "count": 38,
-      "group": "중3-2_쎈수학",
+      "group": "01. 삼각비의 뜻",
       "pages": 5
     },
     {
       "id": "senmath32_03_p085_107-ff",
       "file": "senmath32/senmath32_03_p085_107-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "유형09 ~ 유형14 (0085~0107)",
       "unit": "유형09 ~ 유형14 (0085~0107, 완료)",
       "count": 23,
-      "group": "중3-2_쎈수학",
+      "group": "02. 삼각비",
       "pages": 4
     },
     {
       "id": "senmath32_04_q108_125-ff",
       "file": "senmath32/senmath32_04_q108_125-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "중·상위권 보충문제 (0108~0125)",
       "unit": "삼각비",
       "count": 18,
-      "group": "중3-2_쎈수학",
+      "group": "02. 삼각비",
       "pages": 3
     },
     {
       "id": "senmath32_05_q126_137-ff",
       "file": "senmath32/senmath32_05_q126_137-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "만점도전 (0126~0137)",
       "unit": "삼각비",
       "count": 12,
-      "group": "중3-2_쎈수학",
+      "group": "02. 삼각비",
       "pages": 2
     },
     {
       "id": "senmath32_06_q138_149-ff",
       "file": "senmath32/senmath32_06_q138_149-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "만점도전 (0138~0149)",
       "unit": "삼각비",
       "count": 12,
-      "group": "중3-2_쎈수학",
+      "group": "02. 삼각비",
       "pages": 2
     },
     {
       "id": "senmath32_07_q150_182-ff",
       "file": "senmath32/senmath32_07_q150_182-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "삼각비의 활용 (0150~0182)",
       "unit": "삼각비의 활용",
       "count": 33,
-      "group": "중3-2_쎈수학",
+      "group": "03. 삼각비의 활용",
       "pages": 6
     },
     {
       "id": "senmath32_08_q183_194-ff",
       "file": "senmath32/senmath32_08_q183_194-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "삼각비의 활용 (0183~0194)",
       "unit": "삼각비의 활용",
       "count": 12,
-      "group": "중3-2_쎈수학",
+      "group": "03. 삼각비의 활용",
       "pages": 2
     },
     {
       "id": "senmath32_09_q195_218-ff",
       "file": "senmath32/senmath32_09_q195_218-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "삼각비의 활용 (0195~0218)",
       "unit": "삼각비의 활용",
       "count": 24,
-      "group": "중3-2_쎈수학",
+      "group": "03. 삼각비의 활용",
       "pages": 4
     },
     {
       "id": "senmath32_10_q219_230-ff",
       "file": "senmath32/senmath32_10_q219_230-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "삼각형/다각형의 넓이 (0219~0230)",
       "unit": "삼각비의 활용 - 삼각형/다각형의 넓이",
       "count": 12,
-      "group": "중3-2_쎈수학",
+      "group": "03. 삼각비의 활용",
       "pages": 2
     },
     {
       "id": "senmath32_11_q231_242-ff",
       "file": "senmath32/senmath32_11_q231_242-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "삼각비의 활용 (0231~0242)",
       "unit": "삼각비의 활용",
       "count": 12,
-      "group": "중3-2_쎈수학",
+      "group": "03. 삼각비의 활용",
       "pages": 2
     },
     {
       "id": "senmath32_12_q243_248-ff",
       "file": "senmath32/senmath32_12_q243_248-ff.json",
-      "category": "textbook",
+      "category": "senmath32",
       "title": "만점도전 (0243~0248)",
       "unit": "삼각비의 활용",
       "count": 6,
-      "group": "중3-2_쎈수학",
+      "group": "03. 삼각비의 활용",
       "pages": 1
     }
   ],
   "categories": {
     "textbook": "교과서 목차순",
     "exam": "모의고사/중간·기말고사 순",
-    "pastexam": "기출문제 순"
+    "pastexam": "기출문제 순",
+    "senmath32": "쎈수학 중3-2 (단원별)"
   }
 }
