@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- v1.1 (2026-08-12): 문제지용 manifest.json → data/worksheets-manifest.json으로 파일명 변경 (PWA용 root manifest.json과 혼동 방지) -->
 <!-- v1.2 (2026-08-16): "📐 쎈수학 중3-2" 전용 탭 신설 (기존 3탭 textbook/exam/pastexam → 4탭, senmath32 카테고리 추가) -->
+<!-- v1.3 (2026-08-16): 문제지 모음 / 학교별 교재출판사 / 문제집 범위요약을 상위 탭 3개로 재구성 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -296,6 +297,32 @@
     text-align:center;
   }
   .ws-unit-label:not(:first-child){ margin-top:28px; }
+
+  .main-tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:24px;
+    border-bottom:2px solid var(--ink);
+    flex-wrap:wrap;
+  }
+  .main-tab-btn{
+    font-family:inherit;
+    font-size:15px;
+    font-weight:800;
+    background:transparent;
+    border:none;
+    padding:12px 18px;
+    cursor:pointer;
+    color:var(--num);
+    border-bottom:3px solid transparent;
+    margin-bottom:-2px;
+  }
+  .main-tab-btn.active{
+    color:var(--ink);
+    border-bottom-color:var(--accent);
+  }
+  .main-tab-panel{ display:none; }
+  .main-tab-panel.active{ display:block; }
   .attempt-check{
     display:inline-flex;
     align-items:center;
@@ -320,7 +347,7 @@
 <body>
 
 <header>
-  <span class="version-tag">v1.2 · 2026-08-16 업데이트</span>
+  <span class="version-tag">v1.3 · 2026-08-16 업데이트</span>
   <div class="kicker">전주영 · 고등 수학 학습 기록판</div>
   <h1>문제지 모음</h1>
   <div class="sub">단원별로 학생 풀이 / 검토용 문제지를 모아뒀어요</div>
@@ -342,31 +369,52 @@
     <a class="btn btn-primary" href="worksheets/compose.html">재구성 화면 열기</a>
   </div>
 
-  <div class="unit-label">학교별 교재 출판사</div>
-  <div class="card">
-    <table class="publisher-table">
-      <thead>
-        <tr><th>학교</th><th>과목</th><th>출판사</th><th>저자</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>신봉고</td><td>공통수학1·2</td><td>천재교과서</td><td><a href="https://view.chunjae.co.kr/streamdocs/view/sd;streamdocsId=lluSXUr6GSkvEszJ8b3laeLHG4L7NOae8lz6KYsgOgw;isExternal=eQ;printUse=;enableDapSide=;pageView=" target="_blank" rel="noopener">전인태 ↗</a></td></tr>
-        <tr><td>홍천고</td><td>공통수학1·2</td><td>동아출판</td><td><a href="https://ebook.dongapublishing.com/ebook/ecatalog5.asp?Dir=2351" target="_blank" rel="noopener">고호경 ↗</a></td></tr>
-        <tr><td>수지고</td><td>-</td><td class="blank">확인 중</td><td class="blank">확인 중</td></tr>
-      </tbody>
-    </table>
+  <div class="main-tabs" id="mainTabs">
+    <button class="main-tab-btn active" id="mainTab-worksheets" onclick="switchMainTab('worksheets')">🗂️ 문제지 모음</button>
+    <button class="main-tab-btn" id="mainTab-publisher" onclick="switchMainTab('publisher')">🏫 학교별 교재출판사</button>
+    <button class="main-tab-btn" id="mainTab-range" onclick="switchMainTab('range')">🧭 문제집 범위요약</button>
   </div>
 
-  <div class="unit-label">문제지 범위 요약</div>
+  <div class="main-tab-panel active" id="mainPanel-worksheets">
+    <div class="worksheet-tabs">
+      <button class="ws-tab-btn active" id="wsTab-textbook" onclick="switchWsTab('textbook')">📘 교과서 목차순 <span class="count" id="wsCount-textbook">0</span></button>
+      <button class="ws-tab-btn" id="wsTab-exam" onclick="switchWsTab('exam')">📝 모의고사·중간기말 <span class="count" id="wsCount-exam">0</span></button>
+      <button class="ws-tab-btn" id="wsTab-pastexam" onclick="switchWsTab('pastexam')">📚 기출문제 <span class="count" id="wsCount-pastexam">0</span></button>
+      <button class="ws-tab-btn" id="wsTab-senmath32" onclick="switchWsTab('senmath32')">📐 쎈수학 중3-2 <span class="count" id="wsCount-senmath32">0</span></button>
+    </div>
 
-  <div class="worksheet-tabs" id="rangeTabs">
-    <button class="ws-tab-btn active" id="rangeTab-mid" onclick="switchRangeTab('mid')">📗 중간고사 <span class="count" id="rangeCount-mid">0</span></button>
-    <button class="ws-tab-btn" id="rangeTab-final" onclick="switchRangeTab('final')">📕 기말고사 <span class="count" id="rangeCount-final">0</span></button>
-    <button class="ws-tab-btn" id="rangeTab-mock" onclick="switchRangeTab('mock')">🧪 모의고사 <span class="count" id="rangeCount-mock">0</span></button>
+    <div class="ws-tab-panel active" id="wsPanel-textbook"><div class="ws-loading">문제지 목록을 불러오는 중...</div></div>
+    <div class="ws-tab-panel" id="wsPanel-exam"></div>
+    <div class="ws-tab-panel" id="wsPanel-pastexam"></div>
+    <div class="ws-tab-panel" id="wsPanel-senmath32"></div>
   </div>
 
-  <div class="ws-tab-panel active" id="rangePanel-mid"><div class="ws-loading">범위 요약을 불러오는 중...</div></div>
-  <div class="ws-tab-panel" id="rangePanel-final"></div>
-  <div class="ws-tab-panel" id="rangePanel-mock"></div>
+  <div class="main-tab-panel" id="mainPanel-publisher">
+    <div class="card">
+      <table class="publisher-table">
+        <thead>
+          <tr><th>학교</th><th>과목</th><th>출판사</th><th>저자</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>신봉고</td><td>공통수학1·2</td><td>천재교과서</td><td><a href="https://view.chunjae.co.kr/streamdocs/view/sd;streamdocsId=lluSXUr6GSkvEszJ8b3laeLHG4L7NOae8lz6KYsgOgw;isExternal=eQ;printUse=;enableDapSide=;pageView=" target="_blank" rel="noopener">전인태 ↗</a></td></tr>
+          <tr><td>홍천고</td><td>공통수학1·2</td><td>동아출판</td><td><a href="https://ebook.dongapublishing.com/ebook/ecatalog5.asp?Dir=2351" target="_blank" rel="noopener">고호경 ↗</a></td></tr>
+          <tr><td>수지고</td><td>-</td><td class="blank">확인 중</td><td class="blank">확인 중</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="main-tab-panel" id="mainPanel-range">
+    <div class="worksheet-tabs" id="rangeTabs">
+      <button class="ws-tab-btn active" id="rangeTab-mid" onclick="switchRangeTab('mid')">📗 중간고사 <span class="count" id="rangeCount-mid">0</span></button>
+      <button class="ws-tab-btn" id="rangeTab-final" onclick="switchRangeTab('final')">📕 기말고사 <span class="count" id="rangeCount-final">0</span></button>
+      <button class="ws-tab-btn" id="rangeTab-mock" onclick="switchRangeTab('mock')">🧪 모의고사 <span class="count" id="rangeCount-mock">0</span></button>
+    </div>
+
+    <div class="ws-tab-panel active" id="rangePanel-mid"><div class="ws-loading">범위 요약을 불러오는 중...</div></div>
+    <div class="ws-tab-panel" id="rangePanel-final"></div>
+    <div class="ws-tab-panel" id="rangePanel-mock"></div>
+  </div>
 
   <div class="unit-label">진학 로드맵</div>
   <div class="card">
@@ -398,19 +446,6 @@
     </div>
   </div>
 
-  <div class="unit-label">문제지 모음</div>
-
-  <div class="worksheet-tabs">
-    <button class="ws-tab-btn active" id="wsTab-textbook" onclick="switchWsTab('textbook')">📘 교과서 목차순 <span class="count" id="wsCount-textbook">0</span></button>
-    <button class="ws-tab-btn" id="wsTab-exam" onclick="switchWsTab('exam')">📝 모의고사·중간기말 <span class="count" id="wsCount-exam">0</span></button>
-    <button class="ws-tab-btn" id="wsTab-pastexam" onclick="switchWsTab('pastexam')">📚 기출문제 <span class="count" id="wsCount-pastexam">0</span></button>
-    <button class="ws-tab-btn" id="wsTab-senmath32" onclick="switchWsTab('senmath32')">📐 쎈수학 중3-2 <span class="count" id="wsCount-senmath32">0</span></button>
-  </div>
-
-  <div class="ws-tab-panel active" id="wsPanel-textbook"><div class="ws-loading">문제지 목록을 불러오는 중...</div></div>
-  <div class="ws-tab-panel" id="wsPanel-exam"></div>
-  <div class="ws-tab-panel" id="wsPanel-pastexam"></div>
-  <div class="ws-tab-panel" id="wsPanel-senmath32"></div>
 
 </main>
 
@@ -562,6 +597,13 @@
     await renderRangeSummary();
     loadBoard();
   })();
+
+  function switchMainTab(tab){
+    ['worksheets','publisher','range'].forEach(t => {
+      document.getElementById('mainTab-' + t).classList.toggle('active', t === tab);
+      document.getElementById('mainPanel-' + t).classList.toggle('active', t === tab);
+    });
+  }
 
   function switchWsTab(cat){
     WS_CATEGORIES.forEach(c => {
