@@ -10,6 +10,7 @@
 <!-- v1.9 (2026-08-17): 여전히 겹쳐 보여서 float-nav bottom값을 78px → 140px로 더 크게 띄움 -->
 <!-- v2.0 (2026-08-17): 풀이 쓰기 캔버스에 "공간 줄이기" 버튼 추가 — 처음 눌렀던 시점의 기본 높이 아래로는 줄어들지 않음 -->
 <!-- v2.1 (2026-08-17): "내 답 입력" 텍스트박스 폭을 120px → 240px로 2배 확대 (좁은 화면에서는 max-width:100%로 자동 축소) -->
+<!-- v2.2 (2026-08-17): 오답노트용 "오답 유형 선택" 태그 UI 추가 (계산실수/개념부족/부호실수/조건누락/풀이전략오류/시간부족). 시험 중 정답 노출 방지를 위해 정답 공개(solutionsUnlocked) 상태에서만 즉시 표시되고, 잠긴 상태로 답한 건 퀴즈 종료(endQuiz) 시 한꺼번에 표시됨. 유형 선택 시 backend action:'updateReason'으로 이미 저장된 로그 행을 그 자리에서 갱신(중복 행 생성 없음) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -372,6 +373,33 @@
   .ans-feedback.fb-ok{ color:var(--accent); }
   .ans-feedback.fb-no{ color:var(--wrong); }
 
+  /* ===== 오답 유형 선택 (오답노트용) ===== */
+  .reason-picker{
+    margin-top:10px;
+    padding:10px 12px;
+    background:var(--wrong-soft);
+    border:1.5px solid var(--wrong);
+    border-radius:10px;
+  }
+  .reason-label{ font-size:12.5px; font-weight:700; color:var(--wrong); display:block; margin-bottom:8px; }
+  .reason-chips{ display:flex; flex-wrap:wrap; gap:6px; }
+  .reason-chip{
+    font-family:inherit;
+    font-size:12px;
+    font-weight:700;
+    background:#fff;
+    border:1.5px solid var(--rule);
+    border-radius:999px;
+    padding:6px 12px;
+    cursor:pointer;
+    color:var(--num);
+  }
+  .reason-chip.active{
+    background:var(--wrong);
+    border-color:var(--wrong);
+    color:#fff;
+  }
+
   /* ===== 정답/풀이 토글 ===== */
   .solution-wrap{ margin-top:10px; }
   .solution-toggle{
@@ -607,7 +635,7 @@
   });
 
   let TOTAL_PROBLEMS = 0;
-  let quizState = { running:false, startTime:0, timerInt:null, answers:{} };
+  let quizState = { running:false, startTime:0, timerInt:null, answers:{}, wrongReasons:{} };
   let scrollModeOn = false;
   // 테스트 기간 임시 설정: true로 두면 "종료" 없이도 정답·풀이를 바로 볼 수 있음.
   // 테스트가 끝나면 이 값을 false로 되돌려서 원래대로(종료 후에만 정답 공개) 되돌리세요.
@@ -639,12 +667,59 @@
   const STUDENT_NAME_KEY = 'complex56_student_name';
   let WORKSHEET_ID = '';
 
+  const WRONG_REASONS = ['계산 실수', '개념 부족', '부호 실수', '조건 누락', '풀이 전략 오류', '시간 부족'];
+
+  function showReasonPicker(n){
+    const el = document.getElementById('reason-' + n);
+    if(el) el.style.display = 'block';
+  }
+  function hideReasonPicker(n){
+    const el = document.getElementById('reason-' + n);
+    if(el) el.style.display = 'none';
+  }
+  function pickReason(n, btn, reason){
+    quizState.wrongReasons[n] = reason;
+    const chips = btn.parentElement.querySelectorAll('.reason-chip');
+    chips.forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+
+    // 이미 저장된 오답 로그 행에 유형만 갱신 (새 행을 만들지 않음 — logProblemAttempts가
+    // 퀴즈 종료 즉시 정답/오답만 먼저 보내고, 유형은 이렇게 나중에 골라도 따로 붙는다)
+    if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0) return;
+    const prob = (currentProblemsData || []).find(pp => String(pp.num) === String(n));
+    const problemId = prob && prob.problemId ? prob.problemId : (WORKSHEET_ID + '#' + n);
+    const studentName = localStorage.getItem(STUDENT_NAME_KEY) || '학생';
+
+    fetch(SHEET_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'updateReason', studentName: studentName, problemId: problemId, reason: reason })
+    }).catch(() => {
+      // 유형 업데이트 실패는 조용히 무시 — 정답/오답 자체 기록에는 영향 없음
+    });
+  }
+
+  function revealAllReasonPickers(){
+    Object.keys(quizState.answers).forEach(n => {
+      if(quizState.answers[n] === 'wrong') showReasonPicker(n);
+    });
+  }
+
   function pick(btn, isCorrect){
     const group = btn.parentElement.querySelectorAll('.choice-btn');
     group.forEach(b => { b.disabled = true; b.classList.remove('picked'); });
     btn.classList.add('picked');
     const probDiv = btn.closest('.pcard');
-    if(probDiv) quizState.answers[probDiv.dataset.num] = isCorrect ? 'correct' : 'wrong';
+    if(probDiv){
+      const n = probDiv.dataset.num;
+      quizState.answers[n] = isCorrect ? 'correct' : 'wrong';
+      // 시험 진행 중(정답 잠김 상태)에는 오답 유형 선택창을 바로 띄우지 않는다 —
+      // 그 자리에서 틀렸다고 알려주는 셈이 되어 시험 중 정답 노출과 같은 문제가 생기기 때문.
+      // 정답이 공개된 상태(연습 모드 또는 시험 종료 후)에서만 즉시 보여준다.
+      if(solutionsUnlocked){
+        if(isCorrect) hideReasonPicker(n); else showReasonPicker(n);
+      }
+    }
     if(solutionsUnlocked){
       revealChoiceFeedback(btn, isCorrect, group);
     }
@@ -705,7 +780,14 @@
     input.dataset.checked = '1';
     input.dataset.correct = isCorrect ? '1' : '0';
     const probDiv = btn.closest('.pcard');
-    if(probDiv) quizState.answers[probDiv.dataset.num] = isCorrect ? 'correct' : 'wrong';
+    if(probDiv){
+      const n = probDiv.dataset.num;
+      quizState.answers[n] = isCorrect ? 'correct' : 'wrong';
+      // pick()과 동일한 이유로, 정답이 공개된 상태에서만 오답 유형 선택창을 즉시 보여준다.
+      if(solutionsUnlocked){
+        if(isCorrect) hideReasonPicker(n); else showReasonPicker(n);
+      }
+    }
     if(solutionsUnlocked){
       revealAnswerFeedback(input, feedback, isCorrect);
     } else {
@@ -874,6 +956,7 @@
     });
     document.querySelectorAll('.write-canvas').forEach(c => { clearCanvas(c.id); setPenMode(c.id,'pen'); });
     quizState.answers = {};
+    quizState.wrongReasons = {};
     solutionsUnlocked = TEST_MODE_UNLOCK_SOLUTIONS;
     goToPage(1);
   }
@@ -904,6 +987,7 @@
     solutionsUnlocked = true;
     revealAllChoiceFeedback();
     revealAllAnswerFeedback();
+    revealAllReasonPickers();
     showResults();
   }
 
@@ -1005,10 +1089,12 @@
 
     const attempts = answeredNums.map(n => {
       const prob = (currentProblemsData || []).find(pp => String(pp.num) === String(n));
+      const correct = quizState.answers[n] === 'correct';
       return {
         problemId: prob && prob.problemId ? prob.problemId : (WORKSHEET_ID + '#' + n),
         worksheetId: WORKSHEET_ID,
-        correct: quizState.answers[n] === 'correct'
+        correct: correct,
+        reason: correct ? '' : (quizState.wrongReasons[n] || '')
       };
     });
 
@@ -1061,6 +1147,7 @@
     const targetPage = Math.ceil(firstNum/6);
     goToPage(targetPage);
     quizState.answers = {};
+    quizState.wrongReasons = {};
     solutionsUnlocked = TEST_MODE_UNLOCK_SOLUTIONS;
     closeResultModal();
   }
@@ -2087,6 +2174,13 @@
         <span class="ans-feedback" id="feedback-${n}"></span>
       </div>`;
     }
+
+    html += `<div class="reason-picker" id="reason-${n}" style="display:none;">
+      <span class="reason-label">🤔 왜 틀렸을까요? (선택하면 오답노트에 기록돼요)</span>
+      <div class="reason-chips">
+        ${WRONG_REASONS.map(r => `<button class="reason-chip" onclick="pickReason(${n}, this, '${r}')">${r}</button>`).join('')}
+      </div>
+    </div>`;
 
     const solLines = (p.solution || []).map(s => `<div class="sol-line">${escapeHtml(s)}</div>`).join('');
     html += `<div class="solution-wrap">
