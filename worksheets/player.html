@@ -8,6 +8,7 @@
 <!-- v1.7 (2026-08-17): 화면 우측 하단에 "맨 위로"/"다음 페이지" 플로팅 버튼 추가. 맨 위로는 300px 이상 스크롤 시 표시, 다음 페이지는 마지막 페이지가 아닐 때만 표시 -->
 <!-- v1.8 (2026-08-17): 플로팅 버튼(맨 위로/다음 페이지)이 기존 🏠 홈 버튼과 겹치던 문제 수정 — 홈 버튼 위쪽으로 위치 조정 -->
 <!-- v1.9 (2026-08-17): 여전히 겹쳐 보여서 float-nav bottom값을 78px → 140px로 더 크게 띄움 -->
+<!-- v2.0 (2026-08-17): 풀이 쓰기 캔버스에 "공간 줄이기" 버튼 추가 — 처음 눌렀던 시점의 기본 높이 아래로는 줄어들지 않음 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -274,7 +275,7 @@
   }
   .wp-label{ font-size:12px; font-weight:700; color:var(--num); }
   .wp-tools{ display:flex; gap:6px; }
-  .wp-mode, .wp-clear, .wp-grow{
+  .wp-mode, .wp-clear, .wp-grow, .wp-shrink{
     font-family:inherit;
     font-size:11.5px;
     font-weight:700;
@@ -286,6 +287,7 @@
     cursor:pointer;
   }
   .wp-grow{ color:var(--accent); background:#eef3ff; }
+  .wp-shrink{ color:#8a6d1f; background:#fbf1de; }
   .wp-mode.active{ background:#fff; border-color:var(--ink); color:var(--ink); }
   .wp-mode-erase.active{ border-color:var(--wrong); color:var(--wrong); }
   .write-canvas{
@@ -1144,16 +1146,39 @@
     ctx.restore();
   }
 
-  // 풀이 공간이 부족할 때 누르면 캔버스 높이를 늘려준다.
+  // 풀이 공간이 부족할 때 누르면 캔버스 높이를 늘리거나(공간 늘리기),
+  // 다시 줄일 수 있다(공간 줄이기 — 단, 원래 기본 높이보다 더 줄어들지는 않음).
   // 이미 그려둔 내용은 그대로 유지된다 — window resize 이벤트를 재발생시키면
   // setupCanvas 안의 resize()가 이전 그림을 새 캔버스 크기로 옮겨 그려주기 때문.
-  const CANVAS_GROW_STEP = 120; // 누를 때마다 늘어나는 높이(px)
+  const CANVAS_GROW_STEP = 120; // 누를 때마다 늘거나 줄어드는 높이(px)
   const CANVAS_MAX_HEIGHT = 800; // 무한정 늘어나지 않도록 상한
+
+  // 캔버스의 원래(기본) 높이를 기억해둔다 — 처음 늘리기/줄이기를 누르는 시점의
+  // 현재 렌더링 높이를 기준값으로 저장하므로, 그 이하로는 줄어들지 않는다.
+  function getBaseCanvasHeight(canvas){
+    if(!canvas.dataset.baseHeight){
+      const rect = canvas.getBoundingClientRect();
+      canvas.dataset.baseHeight = String(Math.round(rect.height));
+    }
+    return parseInt(canvas.dataset.baseHeight, 10);
+  }
+
   function growCanvas(id){
     const canvas = document.getElementById(id);
     if(!canvas) return;
+    getBaseCanvasHeight(canvas);
     const rect = canvas.getBoundingClientRect();
     const newHeight = Math.min(Math.round(rect.height) + CANVAS_GROW_STEP, CANVAS_MAX_HEIGHT);
+    canvas.style.height = newHeight + 'px';
+    window.dispatchEvent(new Event('resize'));
+  }
+
+  function shrinkCanvas(id){
+    const canvas = document.getElementById(id);
+    if(!canvas) return;
+    const base = getBaseCanvasHeight(canvas);
+    const rect = canvas.getBoundingClientRect();
+    const newHeight = Math.max(Math.round(rect.height) - CANVAS_GROW_STEP, base);
     canvas.style.height = newHeight + 'px';
     window.dispatchEvent(new Event('resize'));
   }
@@ -1889,6 +1914,7 @@
             <button class="wp-mode wp-mode-pen active" id="pen-mode-${gid}" onclick="setPenMode('canvas-${gid}','pen')">펜</button>
             <button class="wp-mode wp-mode-erase" id="erase-mode-${gid}" onclick="setPenMode('canvas-${gid}','erase')">지우개</button>
             <button class="wp-grow" onclick="growCanvas('canvas-${gid}')">공간 늘리기</button>
+            <button class="wp-shrink" onclick="shrinkCanvas('canvas-${gid}')">공간 줄이기</button>
             <button class="wp-clear" onclick="clearCanvas('canvas-${gid}')">전체 지우기</button>
           </div>
         </div>
@@ -2024,6 +2050,7 @@
             <button class="wp-mode wp-mode-pen active" id="pen-mode-${n}" onclick="setPenMode('canvas-${n}','pen')">펜</button>
             <button class="wp-mode wp-mode-erase" id="erase-mode-${n}" onclick="setPenMode('canvas-${n}','erase')">지우개</button>
             <button class="wp-grow" onclick="growCanvas('canvas-${n}')">공간 늘리기</button>
+            <button class="wp-shrink" onclick="shrinkCanvas('canvas-${n}')">공간 줄이기</button>
             <button class="wp-clear" onclick="clearCanvas('canvas-${n}')">전체 지우기</button>
           </div>
         </div>
