@@ -12,6 +12,7 @@
 <!-- v2.1 (2026-08-17): "내 답 입력" 텍스트박스 폭을 120px → 240px로 2배 확대 (좁은 화면에서는 max-width:100%로 자동 축소) -->
 <!-- v2.2 (2026-08-17): 오답노트용 "오답 유형 선택" 태그 UI 추가 (계산실수/개념부족/부호실수/조건누락/풀이전략오류/시간부족). 시험 중 정답 노출 방지를 위해 정답 공개(solutionsUnlocked) 상태에서만 즉시 표시되고, 잠긴 상태로 답한 건 퀴즈 종료(endQuiz) 시 한꺼번에 표시됨. 유형 선택 시 backend action:'updateReason'으로 이미 저장된 로그 행을 그 자리에서 갱신(중복 행 생성 없음) -->
 <!-- v2.3 (2026-08-17): "필기 모드" 옆에 "⚙️ 필기감" 설정 버튼 추가 — 펜 굵기 슬라이더(미리보기 포함) + S펜 필압 반영 on/off 토글. localStorage에 저장돼서 다음에도 유지됨 -->
+<!-- v2.4 (2026-08-17): 채점 버그 수정 — "AC = 6"처럼 변수명이 붙은 입력(손글씨 인식 결과 포함)이 정답 "6"과 안 맞아 오답 처리되던 문제. 등호가 있으면 마지막 등호 뒤 값만 비교하도록 수정(extractAnswerValue) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -868,6 +869,14 @@
     });
   }
 
+  // 손글씨 인식이나 직접 입력 시 "AC = 6"처럼 변수명이 앞에 붙어도 채점되도록,
+  // 등호(=)가 있으면 맨 마지막 등호 뒤쪽 값만 뽑아서 비교에 쓴다.
+  function extractAnswerValue(str){
+    const s = (str || '').trim();
+    const idx = s.lastIndexOf('=');
+    return idx === -1 ? s : s.slice(idx + 1).trim();
+  }
+
   function parseNum(str){
     str = (str||'').trim();
     if(str === '') return null;
@@ -893,13 +902,13 @@
       feedback.className = 'ans-feedback fb-no';
       return;
     }
-    const uNum = parseNum(userVal);
-    const cNum = parseNum(correctStr);
+    const uNum = parseNum(extractAnswerValue(userVal));
+    const cNum = parseNum(extractAnswerValue(correctStr));
     let isCorrect;
     if(uNum !== null && cNum !== null){
       isCorrect = Math.abs(uNum - cNum) < 1e-9;
     } else {
-      isCorrect = userVal.replace(/\s+/g,'') === correctStr.replace(/\s+/g,'');
+      isCorrect = extractAnswerValue(userVal).replace(/\s+/g,'') === extractAnswerValue(correctStr).replace(/\s+/g,'');
     }
     input.dataset.checked = '1';
     input.dataset.correct = isCorrect ? '1' : '0';
