@@ -3,6 +3,7 @@
 <!-- v1.2 (2026-08-16): "📐 쎈수학 중3-2" 전용 탭 신설 (기존 3탭 textbook/exam/pastexam → 4탭, senmath32 카테고리 추가) -->
 <!-- v1.3 (2026-08-16): 문제지 모음 / 학교별 교재출판사 / 문제집 범위요약을 상위 탭 3개로 재구성 -->
 <!-- v1.4 (2026-08-17): "🔁 오답 반복" 탭 복구, 학교별 교재출판사를 하드코딩 표에서 data/publishers.json 기반으로 변경 (다른 탭들과 동일하게 데이터 파일에서 관리) -->
+<!-- v1.5 (2026-08-17): 최상단에 "고등학교 / 중학교 3-2" 레벨 스위치 추가 — worksheets-manifest.json의 category가 'senmath32'면 중학교, 나머지는 고등학교로 자동 분류. 문제지 모음 서브탭·범위요약·오답반복이 선택된 레벨에 맞게 필터링되고, 교재출판사는 고등학교 자료만 있어 중학교 선택 시 안내 문구 표시 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -299,6 +300,30 @@
   }
   .ws-unit-label:not(:first-child){ margin-top:28px; }
 
+  .level-switch{
+    display:inline-flex;
+    gap:4px;
+    background:#efece2;
+    border-radius:999px;
+    padding:4px;
+    margin-bottom:16px;
+  }
+  .level-btn{
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:800;
+    background:transparent;
+    border:none;
+    border-radius:999px;
+    padding:8px 16px;
+    cursor:pointer;
+    color:var(--num);
+  }
+  .level-btn.active{
+    background:var(--ink);
+    color:#fff;
+  }
+
   .main-tabs{
     display:flex;
     gap:8px;
@@ -348,7 +373,7 @@
 <body>
 
 <header>
-  <span class="version-tag">v1.4 · 2026-08-17 업데이트</span>
+  <span class="version-tag">v1.5 · 2026-08-17 업데이트</span>
   <div class="kicker">전주영 · 고등 수학 학습 기록판</div>
   <h1>문제지 모음</h1>
   <div class="sub">단원별로 학생 풀이 / 검토용 문제지를 모아뒀어요</div>
@@ -368,6 +393,11 @@
       <p>전체 문제은행에서 오답 이력과 난이도를 기준으로 문제를 골라 새 세트를 구성해요</p>
     </div>
     <a class="btn btn-primary" href="worksheets/compose.html">재구성 화면 열기</a>
+  </div>
+
+  <div class="level-switch" id="levelSwitch">
+    <button class="level-btn active" id="levelBtn-highschool" onclick="switchLevel('highschool')">고등학교</button>
+    <button class="level-btn" id="levelBtn-middleschool" onclick="switchLevel('middleschool')">중학교 3-2</button>
   </div>
 
   <div class="main-tabs" id="mainTabs">
@@ -456,6 +486,10 @@
 
   // worksheetId → 문제지 이름 / 카드 그룹 (data/worksheets-manifest.json 기반으로 자동 생성됨)
   let WORKSHEET_META = {};
+  // 원본 문제지 id → category (senmath32는 중학교 3-2, 나머지는 고등학교)
+  let GROUP_CATEGORY = {};
+  let currentLevel = 'highschool'; // 'highschool' | 'middleschool'
+  const isMiddleCategory = cat => cat === 'senmath32';
 
   const CATEGORY_LABELS = { textbook:'📘 교과서 목차순', exam:'📝 모의고사·중간기말', pastexam:'📚 기출문제', senmath32:'📐 쎈수학 중3-2' };
   const WS_CATEGORIES = ['textbook','exam','pastexam','senmath32'];
@@ -505,6 +539,7 @@
           if(s.reviewUrl){
             WORKSHEET_META[s.id + '-review'] = { label: s.title + ' · 검토용', group: s.id };
           }
+          GROUP_CATEGORY[s.id] = s.category;
         });
       });
 
@@ -512,8 +547,28 @@
         document.getElementById('wsPanel-' + cat).innerHTML = panels[cat] || '<div class="ws-loading">등록된 문제지가 없어요</div>';
         document.getElementById('wsCount-' + cat).textContent = counts[cat];
       });
+      applyWorksheetTabsVisibility();
     } catch(err){
       document.getElementById('wsPanel-textbook').innerHTML = '<div class="ws-loading">문제지 목록을 불러오지 못했어요 (data/worksheets-manifest.json 확인 필요)</div>';
+    }
+  }
+
+  // 레벨(중학교/고등학교)에 맞는 문제지 모음 서브탭만 보이게 하고, 필요하면 활성 탭을 전환한다.
+  function applyWorksheetTabsVisibility(){
+    const middleCats = ['senmath32'];
+    const highCats = ['textbook','exam','pastexam'];
+    const visibleCats = currentLevel === 'middleschool' ? middleCats : highCats;
+
+    WS_CATEGORIES.forEach(cat => {
+      const show = visibleCats.includes(cat);
+      const btn = document.getElementById('wsTab-' + cat);
+      if(btn) btn.style.display = show ? '' : 'none';
+    });
+
+    const activeBtn = document.querySelector('.worksheet-tabs .ws-tab-btn.active');
+    const activeCat = activeBtn ? activeBtn.id.replace('wsTab-','') : null;
+    if(!activeCat || !visibleCats.includes(activeCat)){
+      switchWsTab(visibleCats[0]);
     }
   }
 
@@ -591,6 +646,8 @@
 
   // ===== 학교별 교재출판사 =====
   // data/publishers.json에서 읽어와서 표를 그린다. (다른 탭들처럼 데이터 파일 기반으로 관리)
+  let PUBLISHER_TABLE_HTML = '';
+
   async function renderPublisherTable(){
     const card = document.getElementById('publisherCard');
     try{
@@ -608,17 +665,28 @@
           <td${isBlank ? ' class="blank"' : ''}>${authorCell}</td>
         </tr>`;
       }).join('');
-      card.innerHTML = `<table class="publisher-table">
+      PUBLISHER_TABLE_HTML = `<table class="publisher-table">
         <thead><tr><th>학교</th><th>과목</th><th>출판사</th><th>저자</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>`;
+      applyPublisherFilter();
     } catch(err){
       card.innerHTML = '<div class="ws-loading">교재출판사 정보를 불러오지 못했어요 (data/publishers.json 확인 필요)</div>';
     }
   }
 
+  // publishers.json은 고등학교 자료라, 중학교 3-2 선택 시엔 안내 문구만 보여준다.
+  function applyPublisherFilter(){
+    const card = document.getElementById('publisherCard');
+    card.innerHTML = currentLevel === 'middleschool'
+      ? '<div class="ws-loading">중학교 3-2 교재출판사 정보는 아직 준비되지 않았어요</div>'
+      : (PUBLISHER_TABLE_HTML || '<div class="ws-loading">교재출판사 정보를 불러오는 중...</div>');
+  }
+
   // ===== 오답 반복 =====
   // 아직 마스터(연속 3회 정답)되지 않은 오답 문제들을 백엔드(wrongStats)에서 받아와 보여준다.
+  let WRONG_STATS_RAW = [];
+
   function renderWrongRepeat(){
     const panel = document.getElementById('mainPanel-wrongrepeat');
     if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0){
@@ -628,36 +696,62 @@
     fetch(SHEET_WEBHOOK_URL + '?action=wrongStats')
       .then(res => res.json())
       .then(list => {
-        document.getElementById('wrongRepeatCount').textContent = (list || []).length;
-        if(!list || list.length === 0){
-          panel.innerHTML = '<div class="ws-loading">아직 반복할 오답이 없어요. 잘하고 있어요! 🎉</div>';
-          return;
-        }
-        const rows = list.map(item => {
-          const parts = String(item.problemId).split('#');
-          const num = parts[1] || parts[0];
-          const meta = WORKSHEET_META[item.worksheetId] || null;
-          const label = meta ? meta.label.replace(' · 학생풀이','').replace(' · 검토용','') : (item.worksheetId || '-');
-          const playCell = meta
-            ? `<a class="btn btn-secondary" href="worksheets/player.html?set=${meta.group}">다시 풀기</a>`
-            : '-';
-          return `<tr>
-            <td>${label} · ${num}번</td>
-            <td>오답 ${item.totalWrong}회 / 시도 ${item.totalAttempts}회</td>
-            <td>연속정답 ${item.currentStreak}/3</td>
-            <td>${fmtDate(item.lastDate)}</td>
-            <td>${playCell}</td>
-          </tr>`;
-        }).join('');
-        panel.innerHTML = `<div class="card"><table class="publisher-table">
-            <thead><tr><th>문제</th><th>오답/시도</th><th>연속정답</th><th>최근 풀이</th><th></th></tr></thead>
-            <tbody>${rows}</tbody>
-          </table></div>
-          <p style="font-size:12.5px;color:var(--num);margin-top:10px;">연속 3회 정답이면 이 목록에서 자동으로 빠져요.</p>`;
+        WRONG_STATS_RAW = list || [];
+        applyWrongRepeatFilter();
       })
       .catch(() => {
         panel.innerHTML = '<div class="ws-loading">오답 반복 목록을 불러오지 못했어요</div>';
       });
+  }
+
+  // 레벨(중학교/고등학교)에 맞는 오답 반복 항목만 걸러서 다시 그린다.
+  function applyWrongRepeatFilter(){
+    const panel = document.getElementById('mainPanel-wrongrepeat');
+    const list = WRONG_STATS_RAW.filter(item => {
+      const meta = WORKSHEET_META[item.worksheetId];
+      const category = meta ? GROUP_CATEGORY[meta.group] : undefined;
+      const belongsToMiddle = isMiddleCategory(category);
+      return (currentLevel === 'middleschool') === belongsToMiddle;
+    });
+
+    document.getElementById('wrongRepeatCount').textContent = list.length;
+    if(list.length === 0){
+      panel.innerHTML = '<div class="ws-loading">아직 반복할 오답이 없어요. 잘하고 있어요! 🎉</div>';
+      return;
+    }
+    const rows = list.map(item => {
+      const parts = String(item.problemId).split('#');
+      const num = parts[1] || parts[0];
+      const meta = WORKSHEET_META[item.worksheetId] || null;
+      const label = meta ? meta.label.replace(' · 학생풀이','').replace(' · 검토용','') : (item.worksheetId || '-');
+      const playCell = meta
+        ? `<a class="btn btn-secondary" href="worksheets/player.html?set=${meta.group}">다시 풀기</a>`
+        : '-';
+      return `<tr>
+        <td>${label} · ${num}번</td>
+        <td>오답 ${item.totalWrong}회 / 시도 ${item.totalAttempts}회</td>
+        <td>연속정답 ${item.currentStreak}/3</td>
+        <td>${fmtDate(item.lastDate)}</td>
+        <td>${playCell}</td>
+      </tr>`;
+    }).join('');
+    panel.innerHTML = `<div class="card"><table class="publisher-table">
+        <thead><tr><th>문제</th><th>오답/시도</th><th>연속정답</th><th>최근 풀이</th><th></th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+      <p style="font-size:12.5px;color:var(--num);margin-top:10px;">연속 3회 정답이면 이 목록에서 자동으로 빠져요.</p>`;
+  }
+
+  // 상단 "고등학교 / 중학교 3-2" 스위치 — 문제지 모음 서브탭, 범위요약, 교재출판사, 오답 반복을
+  // 모두 다시 필터링해서 보여준다(데이터 재요청 없이 캐시에서만 다시 그림).
+  function switchLevel(level){
+    currentLevel = level;
+    document.getElementById('levelBtn-highschool').classList.toggle('active', level === 'highschool');
+    document.getElementById('levelBtn-middleschool').classList.toggle('active', level === 'middleschool');
+    applyWorksheetTabsVisibility();
+    applyRangeFilter();
+    applyPublisherFilter();
+    applyWrongRepeatFilter();
   }
 
   (async function init(){
@@ -704,9 +798,9 @@
     ).join(' ');
   }
 
-  async function renderRangeSummary(){
-    const buckets = { mid:[], final:[], mock:[] };
+  let RANGE_ROWS = []; // { category, bucket, html } — fetch는 한 번만 하고, 레벨 전환 시 여기서 필터링만 다시 함
 
+  async function renderRangeSummary(){
     try{
       const manifestRes = await fetch('data/worksheets-manifest.json');
       const manifest = await manifestRes.json();
@@ -740,24 +834,39 @@
           <td>${checkboxHtml(s.id, attemptCounts)}</td>
         </tr>`;
 
-        if(/final1|final2/.test(s.id)) buckets.final.push(row);
-        else if(/mid1|mid2/.test(s.id)) buckets.mid.push(row);
-        else buckets.mock.push(row);
+        let bucket = 'mock';
+        if(/final1|final2/.test(s.id)) bucket = 'final';
+        else if(/mid1|mid2/.test(s.id)) bucket = 'mid';
+
+        RANGE_ROWS.push({ category: s.category, bucket, html: row });
       }));
 
-      ['mid','final','mock'].forEach(kind => {
-        const rows = buckets[kind];
-        document.getElementById('rangeCount-' + kind).textContent = rows.length;
-        document.getElementById('rangePanel-' + kind).innerHTML = rows.length
-          ? `<div class="card"><table class="publisher-table">
-              <thead><tr><th>파일명</th><th>범위</th><th>문제수</th><th>난이도(최상/상/중상/중/하)</th><th>풀이 완료</th></tr></thead>
-              <tbody>${rows.join('')}</tbody>
-            </table></div>`
-          : '<div class="ws-loading">등록된 문제지가 없어요</div>';
-      });
+      applyRangeFilter();
     } catch(err){
       document.getElementById('rangePanel-mid').innerHTML = '<div class="ws-loading">범위 요약을 불러오지 못했어요</div>';
     }
+  }
+
+  // 레벨(중학교/고등학교)에 맞는 범위요약 행만 걸러서 다시 그린다.
+  function applyRangeFilter(){
+    const buckets = { mid:[], final:[], mock:[] };
+    RANGE_ROWS.forEach(r => {
+      const belongsToMiddle = isMiddleCategory(r.category);
+      if((currentLevel === 'middleschool') === belongsToMiddle){
+        buckets[r.bucket].push(r.html);
+      }
+    });
+
+    ['mid','final','mock'].forEach(kind => {
+      const rows = buckets[kind];
+      document.getElementById('rangeCount-' + kind).textContent = rows.length;
+      document.getElementById('rangePanel-' + kind).innerHTML = rows.length
+        ? `<div class="card"><table class="publisher-table">
+            <thead><tr><th>파일명</th><th>범위</th><th>문제수</th><th>난이도(최상/상/중상/중/하)</th><th>풀이 완료</th></tr></thead>
+            <tbody>${rows.join('')}</tbody>
+          </table></div>`
+        : '<div class="ws-loading">등록된 문제지가 없어요</div>';
+    });
   }
 </script>
 
