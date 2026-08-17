@@ -1,0 +1,24 @@
+{
+  "schools": [
+    {
+      "school": "신봉고",
+      "subject": "공통수학1·2",
+      "publisher": "천재교과서",
+      "author": "전인태",
+      "url": "https://view.chunjae.co.kr/streamdocs/view/sd;streamdocsId=lluSXUr6GSkvEszJ8b3laeLHG4L7NOae8lz6KYsgOgw;isExternal=eQ;printUse=;enableDapSide=;pageView="
+    },
+    {
+      "school": "홍천고",
+      "subject": "공통수학1·2",
+      "publisher": "동아출판",
+      "author": "고호경",
+      "url": "https://ebook.dongapublishing.com/ebook/ecatalog5.asp?Dir=2351"
+    },
+    {
+      "school": "수지고",
+      "subject": "-",
+      "publisher": "확인 중",
+      "author": "확인 중"
+    }
+  ]
+}

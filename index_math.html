@@ -2,6 +2,7 @@
 <!-- v1.1 (2026-08-12): 문제지용 manifest.json → data/worksheets-manifest.json으로 파일명 변경 (PWA용 root manifest.json과 혼동 방지) -->
 <!-- v1.2 (2026-08-16): "📐 쎈수학 중3-2" 전용 탭 신설 (기존 3탭 textbook/exam/pastexam → 4탭, senmath32 카테고리 추가) -->
 <!-- v1.3 (2026-08-16): 문제지 모음 / 학교별 교재출판사 / 문제집 범위요약을 상위 탭 3개로 재구성 -->
+<!-- v1.4 (2026-08-17): "🔁 오답 반복" 탭 복구, 학교별 교재출판사를 하드코딩 표에서 data/publishers.json 기반으로 변경 (다른 탭들과 동일하게 데이터 파일에서 관리) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -347,7 +348,7 @@
 <body>
 
 <header>
-  <span class="version-tag">v1.3 · 2026-08-16 업데이트</span>
+  <span class="version-tag">v1.4 · 2026-08-17 업데이트</span>
   <div class="kicker">전주영 · 고등 수학 학습 기록판</div>
   <h1>문제지 모음</h1>
   <div class="sub">단원별로 학생 풀이 / 검토용 문제지를 모아뒀어요</div>
@@ -373,6 +374,7 @@
     <button class="main-tab-btn active" id="mainTab-worksheets" onclick="switchMainTab('worksheets')">🗂️ 문제지 모음</button>
     <button class="main-tab-btn" id="mainTab-publisher" onclick="switchMainTab('publisher')">🏫 학교별 교재출판사</button>
     <button class="main-tab-btn" id="mainTab-range" onclick="switchMainTab('range')">🧭 문제집 범위요약</button>
+    <button class="main-tab-btn" id="mainTab-wrongrepeat" onclick="switchMainTab('wrongrepeat')">🔁 오답 반복 <span class="count" id="wrongRepeatCount">0</span></button>
   </div>
 
   <div class="main-tab-panel active" id="mainPanel-worksheets">
@@ -390,17 +392,8 @@
   </div>
 
   <div class="main-tab-panel" id="mainPanel-publisher">
-    <div class="card">
-      <table class="publisher-table">
-        <thead>
-          <tr><th>학교</th><th>과목</th><th>출판사</th><th>저자</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>신봉고</td><td>공통수학1·2</td><td>천재교과서</td><td><a href="https://view.chunjae.co.kr/streamdocs/view/sd;streamdocsId=lluSXUr6GSkvEszJ8b3laeLHG4L7NOae8lz6KYsgOgw;isExternal=eQ;printUse=;enableDapSide=;pageView=" target="_blank" rel="noopener">전인태 ↗</a></td></tr>
-          <tr><td>홍천고</td><td>공통수학1·2</td><td>동아출판</td><td><a href="https://ebook.dongapublishing.com/ebook/ecatalog5.asp?Dir=2351" target="_blank" rel="noopener">고호경 ↗</a></td></tr>
-          <tr><td>수지고</td><td>-</td><td class="blank">확인 중</td><td class="blank">확인 중</td></tr>
-        </tbody>
-      </table>
+    <div class="card" id="publisherCard">
+      <div class="ws-loading">교재출판사 정보를 불러오는 중...</div>
     </div>
   </div>
 
@@ -414,6 +407,10 @@
     <div class="ws-tab-panel active" id="rangePanel-mid"><div class="ws-loading">범위 요약을 불러오는 중...</div></div>
     <div class="ws-tab-panel" id="rangePanel-final"></div>
     <div class="ws-tab-panel" id="rangePanel-mock"></div>
+  </div>
+
+  <div class="main-tab-panel" id="mainPanel-wrongrepeat">
+    <div class="card"><div class="ws-loading">오답 반복 목록을 불러오는 중...</div></div>
   </div>
 
   <div class="unit-label">진학 로드맵</div>
@@ -592,14 +589,87 @@
     }
   }
 
+  // ===== 학교별 교재출판사 =====
+  // data/publishers.json에서 읽어와서 표를 그린다. (다른 탭들처럼 데이터 파일 기반으로 관리)
+  async function renderPublisherTable(){
+    const card = document.getElementById('publisherCard');
+    try{
+      const res = await fetch('data/publishers.json');
+      const data = await res.json();
+      const rows = (data.schools || []).map(s => {
+        const authorCell = s.author
+          ? (s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${s.author} ↗</a>` : s.author)
+          : '';
+        const isBlank = !s.publisher || s.publisher === '확인 중';
+        return `<tr>
+          <td>${s.school || ''}</td>
+          <td>${s.subject || ''}</td>
+          <td${isBlank ? ' class="blank"' : ''}>${s.publisher || ''}</td>
+          <td${isBlank ? ' class="blank"' : ''}>${authorCell}</td>
+        </tr>`;
+      }).join('');
+      card.innerHTML = `<table class="publisher-table">
+        <thead><tr><th>학교</th><th>과목</th><th>출판사</th><th>저자</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+    } catch(err){
+      card.innerHTML = '<div class="ws-loading">교재출판사 정보를 불러오지 못했어요 (data/publishers.json 확인 필요)</div>';
+    }
+  }
+
+  // ===== 오답 반복 =====
+  // 아직 마스터(연속 3회 정답)되지 않은 오답 문제들을 백엔드(wrongStats)에서 받아와 보여준다.
+  function renderWrongRepeat(){
+    const panel = document.getElementById('mainPanel-wrongrepeat');
+    if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0){
+      panel.innerHTML = '<div class="ws-loading">⚠️ 기록 저장 서버가 아직 연결되지 않았어요</div>';
+      return;
+    }
+    fetch(SHEET_WEBHOOK_URL + '?action=wrongStats')
+      .then(res => res.json())
+      .then(list => {
+        document.getElementById('wrongRepeatCount').textContent = (list || []).length;
+        if(!list || list.length === 0){
+          panel.innerHTML = '<div class="ws-loading">아직 반복할 오답이 없어요. 잘하고 있어요! 🎉</div>';
+          return;
+        }
+        const rows = list.map(item => {
+          const parts = String(item.problemId).split('#');
+          const num = parts[1] || parts[0];
+          const meta = WORKSHEET_META[item.worksheetId] || null;
+          const label = meta ? meta.label.replace(' · 학생풀이','').replace(' · 검토용','') : (item.worksheetId || '-');
+          const playCell = meta
+            ? `<a class="btn btn-secondary" href="worksheets/player.html?set=${meta.group}">다시 풀기</a>`
+            : '-';
+          return `<tr>
+            <td>${label} · ${num}번</td>
+            <td>오답 ${item.totalWrong}회 / 시도 ${item.totalAttempts}회</td>
+            <td>연속정답 ${item.currentStreak}/3</td>
+            <td>${fmtDate(item.lastDate)}</td>
+            <td>${playCell}</td>
+          </tr>`;
+        }).join('');
+        panel.innerHTML = `<div class="card"><table class="publisher-table">
+            <thead><tr><th>문제</th><th>오답/시도</th><th>연속정답</th><th>최근 풀이</th><th></th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table></div>
+          <p style="font-size:12.5px;color:var(--num);margin-top:10px;">연속 3회 정답이면 이 목록에서 자동으로 빠져요.</p>`;
+      })
+      .catch(() => {
+        panel.innerHTML = '<div class="ws-loading">오답 반복 목록을 불러오지 못했어요</div>';
+      });
+  }
+
   (async function init(){
     await renderWorksheetCards();
     await renderRangeSummary();
+    await renderPublisherTable();
     loadBoard();
+    renderWrongRepeat();
   })();
 
   function switchMainTab(tab){
-    ['worksheets','publisher','range'].forEach(t => {
+    ['worksheets','publisher','range','wrongrepeat'].forEach(t => {
       document.getElementById('mainTab-' + t).classList.toggle('active', t === tab);
       document.getElementById('mainPanel-' + t).classList.toggle('active', t === tab);
     });
