@@ -11,6 +11,7 @@
 <!-- v2.0 (2026-08-17): 풀이 쓰기 캔버스에 "공간 줄이기" 버튼 추가 — 처음 눌렀던 시점의 기본 높이 아래로는 줄어들지 않음 -->
 <!-- v2.1 (2026-08-17): "내 답 입력" 텍스트박스 폭을 120px → 240px로 2배 확대 (좁은 화면에서는 max-width:100%로 자동 축소) -->
 <!-- v2.2 (2026-08-17): 오답노트용 "오답 유형 선택" 태그 UI 추가 (계산실수/개념부족/부호실수/조건누락/풀이전략오류/시간부족). 시험 중 정답 노출 방지를 위해 정답 공개(solutionsUnlocked) 상태에서만 즉시 표시되고, 잠긴 상태로 답한 건 퀴즈 종료(endQuiz) 시 한꺼번에 표시됨. 유형 선택 시 backend action:'updateReason'으로 이미 저장된 로그 행을 그 자리에서 갱신(중복 행 생성 없음) -->
+<!-- v2.3 (2026-08-17): "필기 모드" 옆에 "⚙️ 필기감" 설정 버튼 추가 — 펜 굵기 슬라이더(미리보기 포함) + S펜 필압 반영 on/off 토글. localStorage에 저장돼서 다음에도 유지됨 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -68,6 +69,59 @@
   .quiz-btn:disabled{ background:#d9d3c4; color:#8a8474; cursor:not-allowed; }
   .quiz-btn.scroll-mode{ background:#efece2; color:#20242b; border:1.5px solid #d9d3c4; }
   .quiz-btn.scroll-mode.active{ background:#b23a2e; color:#fff; border-color:#b23a2e; }
+  .quiz-bar{ position:relative; }
+  .quiz-btn.pen-settings-btn{ background:#efece2; color:#20242b; border:1.5px solid #d9d3c4; }
+
+  .pen-settings-panel{
+    position:absolute;
+    top:100%;
+    right:20px;
+    margin-top:8px;
+    width:260px;
+    background:#fff;
+    border:1.5px solid var(--ink);
+    border-radius:12px;
+    padding:16px;
+    box-shadow:0 8px 24px rgba(0,0,0,.14);
+    z-index:110;
+  }
+  .ps-title{ font-size:13.5px; font-weight:800; margin-bottom:12px; }
+  .ps-row{ margin-bottom:14px; }
+  .ps-label{ font-size:12.5px; font-weight:700; color:var(--num); display:block; margin-bottom:6px; }
+  .ps-slider-row{ display:flex; align-items:center; gap:10px; }
+  .ps-slider-row input[type="range"]{ flex:1; }
+  .ps-value{ font-size:12.5px; font-weight:800; min-width:44px; text-align:right; }
+  .ps-preview{
+    height:34px;
+    border:1.5px solid var(--rule);
+    border-radius:8px;
+    background:#fff;
+    margin-top:8px;
+  }
+  .ps-checkbox{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    font-weight:700;
+    color:#20242b;
+    cursor:pointer;
+  }
+  .ps-checkbox input{ width:16px; height:16px; }
+  .ps-close{
+    width:100%;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:800;
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    padding:9px;
+    cursor:pointer;
+    margin-top:4px;
+  }
+
   .quiz-timer{
     font-variant-numeric:tabular-nums;
     font-size:19px;
@@ -581,6 +635,26 @@
   <button class="quiz-btn stop" id="endBtn" onclick="endQuiz()" disabled>■ 종료</button>
   <div class="quiz-timer" id="quizTimer">00:00</div>
   <button class="quiz-btn scroll-mode" id="scrollModeBtn" onclick="toggleScrollMode()">✏️ 필기 모드</button>
+  <button class="quiz-btn pen-settings-btn" id="penSettingsBtn" onclick="togglePenSettings()">⚙️ 필기감</button>
+
+  <div class="pen-settings-panel" id="penSettingsPanel" style="display:none;">
+    <div class="ps-title">✏️ S펜 필기감 설정</div>
+    <div class="ps-row">
+      <span class="ps-label">굵기</span>
+      <div class="ps-slider-row">
+        <input type="range" id="penThicknessSlider" min="1" max="5" step="0.2" oninput="updatePenThickness(this.value)">
+        <span class="ps-value" id="penThicknessValue">2.2px</span>
+      </div>
+      <canvas class="ps-preview" id="penPreviewCanvas" width="228" height="34"></canvas>
+    </div>
+    <div class="ps-row">
+      <label class="ps-checkbox">
+        <input type="checkbox" id="penPressureToggle" onchange="togglePenPressure(this.checked)">
+        S펜 필압 반영 (꾹 누르면 굵게)
+      </label>
+    </div>
+    <button class="ps-close" onclick="togglePenSettings()">닫기</button>
+  </div>
 </div>
 
 <div class="page-nav" id="pageNav">
@@ -654,6 +728,56 @@
       c.style.touchAction = scrollModeOn ? 'pan-y' : 'none';
     });
   }
+
+  // ===== S펜 필기감 설정 (굵기 / 필압 반영) =====
+  // 값은 localStorage에 저장해서 다음에 다시 들어와도 유지된다.
+  let PEN_THICKNESS = parseFloat(localStorage.getItem('penThickness')) || 2.2;
+  let PEN_PRESSURE_ON = localStorage.getItem('penPressure') === '1';
+
+  function togglePenSettings(){
+    const panel = document.getElementById('penSettingsPanel');
+    const opening = panel.style.display === 'none';
+    panel.style.display = opening ? 'block' : 'none';
+    if(opening) drawPenPreview();
+  }
+
+  function updatePenThickness(val){
+    PEN_THICKNESS = parseFloat(val);
+    localStorage.setItem('penThickness', String(PEN_THICKNESS));
+    document.getElementById('penThicknessValue').textContent = PEN_THICKNESS.toFixed(1) + 'px';
+    drawPenPreview();
+  }
+
+  function togglePenPressure(checked){
+    PEN_PRESSURE_ON = checked;
+    localStorage.setItem('penPressure', checked ? '1' : '0');
+  }
+
+  // 설정창 안에 지금 굵기로 선 하나를 미리 그려서 감을 잡을 수 있게 해준다.
+  function drawPenPreview(){
+    const canvas = document.getElementById('penPreviewCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#20242b';
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = PEN_THICKNESS;
+    ctx.beginPath();
+    ctx.moveTo(14, canvas.height/2);
+    ctx.bezierCurveTo(canvas.width*0.35, canvas.height*0.2, canvas.width*0.65, canvas.height*0.85, canvas.width-14, canvas.height/2);
+    ctx.stroke();
+  }
+
+  (function initPenSettingsUI(){
+    const slider = document.getElementById('penThicknessSlider');
+    const valueEl = document.getElementById('penThicknessValue');
+    const checkbox = document.getElementById('penPressureToggle');
+    if(slider){ slider.value = PEN_THICKNESS; }
+    if(valueEl){ valueEl.textContent = PEN_THICKNESS.toFixed(1) + 'px'; }
+    if(checkbox){ checkbox.checked = PEN_PRESSURE_ON; }
+    drawPenPreview();
+  })();
 
   // 구글 시트 저장 설정 — Apps Script 배포 후 URL 교체
   const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzqgkELv7cxD3UZlVj1XfvNiFtR4o6nI5uyDOLiMme6hx5eCcaVkNc_cUZ3JawAafKc/exec';
@@ -1182,14 +1306,20 @@
       const rect = canvas.getBoundingClientRect();
       return { x: e.clientX-rect.left, y: e.clientY-rect.top };
     }
-    function strokeStyleFor(mode){
+    function strokeStyleFor(mode, pressure){
       if(mode === 'erase'){
         ctx.globalCompositeOperation = 'destination-out';
         ctx.lineWidth = 20;
       } else {
         ctx.globalCompositeOperation = 'source-over';
         ctx.strokeStyle = '#20242b';
-        ctx.lineWidth = 2.2;
+        let width = PEN_THICKNESS;
+        // S펜은 pressure가 0~1로 들어옴(꾹 누를수록 1에 가까움). 필압 반영이 켜져 있으면
+        // 설정한 굵기를 기준으로 0.4배~1.6배 사이에서 눌러쓴 정도에 따라 굵기가 변함.
+        if(PEN_PRESSURE_ON && typeof pressure === 'number' && pressure > 0){
+          width = PEN_THICKNESS * (0.4 + Math.min(pressure, 1) * 1.2);
+        }
+        ctx.lineWidth = width;
       }
     }
     canvas.addEventListener('pointerdown', e => {
@@ -1197,7 +1327,7 @@
       drawing = true;
       canvas.setPointerCapture(e.pointerId);
       const p = pos(e); lastX = p.x; lastY = p.y;
-      strokeStyleFor(canvas.dataset.mode);
+      strokeStyleFor(canvas.dataset.mode, e.pressure);
       ctx.beginPath();
       ctx.arc(p.x, p.y, ctx.lineWidth/2, 0, Math.PI*2);
       ctx.fillStyle = '#20242b';
@@ -1206,7 +1336,7 @@
     canvas.addEventListener('pointermove', e => {
       if(!drawing) return;
       const p = pos(e);
-      strokeStyleFor(canvas.dataset.mode);
+      strokeStyleFor(canvas.dataset.mode, e.pressure);
       ctx.beginPath();
       ctx.moveTo(lastX,lastY);
       ctx.lineTo(p.x,p.y);
