@@ -13,6 +13,8 @@
 <!-- v2.2 (2026-08-17): 오답노트용 "오답 유형 선택" 태그 UI 추가 (계산실수/개념부족/부호실수/조건누락/풀이전략오류/시간부족). 시험 중 정답 노출 방지를 위해 정답 공개(solutionsUnlocked) 상태에서만 즉시 표시되고, 잠긴 상태로 답한 건 퀴즈 종료(endQuiz) 시 한꺼번에 표시됨. 유형 선택 시 backend action:'updateReason'으로 이미 저장된 로그 행을 그 자리에서 갱신(중복 행 생성 없음) -->
 <!-- v2.3 (2026-08-17): "필기 모드" 옆에 "⚙️ 필기감" 설정 버튼 추가 — 펜 굵기 슬라이더(미리보기 포함) + S펜 필압 반영 on/off 토글. localStorage에 저장돼서 다음에도 유지됨 -->
 <!-- v2.4 (2026-08-17): 채점 버그 수정 — "AC = 6"처럼 변수명이 붙은 입력(손글씨 인식 결과 포함)이 정답 "6"과 안 맞아 오답 처리되던 문제. 등호가 있으면 마지막 등호 뒤 값만 비교하도록 수정(extractAnswerValue) -->
+<!-- v2.5 (2026-08-17): 문제 하나 채점하는 즉시(pick/checkAnswer) 바로 서버에 저장하도록 변경(logSingleAttempt, backend action:'logAttempt' 재사용) — 종료 버튼 안 누르고 중간에 나가도 그때까지 푼 건 안전하게 남음. 퀴즈 종료 시 일괄 전송하던 logProblemAttempts 호출은 중복 저장 방지를 위해 제거(함수 자체는 남겨둠) -->
+<!-- v2.6 (2026-08-17): 네트워크 끊긴 상태에서 저장 실패하면 조용히 버려지던 문제 수정 — localStorage 기반 재시도 큐(pendingLogAttempts) 추가. 저장 실패 시 큐에 쌓아두고, 네트워크 복구(online 이벤트)나 앱 재실행 시 순서대로 자동 재전송. logAttempt/updateReason 둘 다 적용됨 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -808,19 +810,18 @@
     chips.forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
 
-    // 이미 저장된 오답 로그 행에 유형만 갱신 (새 행을 만들지 않음 — logProblemAttempts가
-    // 퀴즈 종료 즉시 정답/오답만 먼저 보내고, 유형은 이렇게 나중에 골라도 따로 붙는다)
+    // 이미 저장된 오답 로그 행에 유형만 갱신 (새 행을 만들지 않음)
     if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0) return;
     const prob = (currentProblemsData || []).find(pp => String(pp.num) === String(n));
     const problemId = prob && prob.problemId ? prob.problemId : (WORKSHEET_ID + '#' + n);
     const studentName = localStorage.getItem(STUDENT_NAME_KEY) || '학생';
 
-    fetch(SHEET_WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action: 'updateReason', studentName: studentName, problemId: problemId, reason: reason })
-    }).catch(() => {
-      // 유형 업데이트 실패는 조용히 무시 — 정답/오답 자체 기록에는 영향 없음
+    const payload = { action: 'updateReason', studentName: studentName, problemId: problemId, reason: reason };
+
+    sendAttemptPayload(payload).catch(() => {
+      // 지금 실패해도 큐에 쌓아뒀다가 네트워크 복구 시 자동 재전송 (순서 보장을 위해
+      // logAttempt와 같은 큐를 씀 — 오답 행이 먼저 만들어진 뒤에 유형이 갱신되도록)
+      enqueuePendingAttempt(payload);
     });
   }
 
@@ -838,6 +839,7 @@
     if(probDiv){
       const n = probDiv.dataset.num;
       quizState.answers[n] = isCorrect ? 'correct' : 'wrong';
+      logSingleAttempt(n, isCorrect);
       // 시험 진행 중(정답 잠김 상태)에는 오답 유형 선택창을 바로 띄우지 않는다 —
       // 그 자리에서 틀렸다고 알려주는 셈이 되어 시험 중 정답 노출과 같은 문제가 생기기 때문.
       // 정답이 공개된 상태(연습 모드 또는 시험 종료 후)에서만 즉시 보여준다.
@@ -848,6 +850,83 @@
     if(solutionsUnlocked){
       revealChoiceFeedback(btn, isCorrect, group);
     }
+  }
+
+  // v2.5: 채점되는 즉시(문제 하나 단위로) 바로 서버에 저장 — 종료를 안 누르고
+  // 나가도 그때까지 푼 건 안전하게 남도록 하기 위함.
+  // v2.6: 저장 요청이 실패하면(네트워크 끊김 등) 조용히 버리지 않고 localStorage에
+  // 큐로 쌓아뒀다가, 네트워크가 돌아오거나 다음에 앱을 다시 열 때 자동으로 재전송한다.
+  const PENDING_QUEUE_KEY = 'pendingLogAttempts';
+
+  function loadPendingQueue(){
+    try{ return JSON.parse(localStorage.getItem(PENDING_QUEUE_KEY) || '[]'); }
+    catch(e){ return []; }
+  }
+  function savePendingQueue(queue){
+    localStorage.setItem(PENDING_QUEUE_KEY, JSON.stringify(queue));
+  }
+  function enqueuePendingAttempt(payload){
+    const queue = loadPendingQueue();
+    queue.push(payload);
+    savePendingQueue(queue);
+  }
+
+  function sendAttemptPayload(payload){
+    return fetch(SHEET_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+  }
+
+  // 큐에 쌓인 걸 순서대로 다시 보내본다. 하나라도 실패하면 그 뒤는 큐에 그대로 남겨둔다
+  // (순서를 지키기 위해 — 오답유형 갱신 등이 로그 저장보다 먼저 도착하면 안 되기 때문).
+  let flushingQueue = false;
+  async function flushPendingQueue(){
+    if(flushingQueue) return;
+    if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0) return;
+    flushingQueue = true;
+    try{
+      let queue = loadPendingQueue();
+      while(queue.length > 0){
+        const next = queue[0];
+        try{
+          await sendAttemptPayload(next);
+          queue.shift();
+          savePendingQueue(queue);
+        } catch(e){
+          break; // 아직도 네트워크가 안 되는 것 — 나머지는 큐에 남겨두고 다음 기회에
+        }
+      }
+    } finally {
+      flushingQueue = false;
+    }
+  }
+
+  window.addEventListener('online', flushPendingQueue);
+  document.addEventListener('DOMContentLoaded', flushPendingQueue);
+  flushPendingQueue(); // 스크립트 로드 시점에도 한 번 시도 (이미 DOMContentLoaded 지난 경우 대비)
+
+  function logSingleAttempt(n, correct){
+    if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0) return;
+    const prob = (currentProblemsData || []).find(pp => String(pp.num) === String(n));
+    const problemId = prob && prob.problemId ? prob.problemId : (WORKSHEET_ID + '#' + n);
+    const studentName = localStorage.getItem(STUDENT_NAME_KEY) || '학생';
+
+    const payload = {
+      action: 'logAttempt',
+      studentName: studentName,
+      worksheetId: WORKSHEET_ID,
+      problemId: problemId,
+      correct: correct,
+      reason: correct ? '' : (quizState.wrongReasons[n] || '')
+    };
+
+    sendAttemptPayload(payload).catch(() => {
+      // 지금 당장은 실패해도 잃어버리지 않도록 큐에 쌓아둔다 — 다음에 네트워크가
+      // 돌아오거나 앱을 다시 열 때 flushPendingQueue()가 자동으로 재전송한다.
+      enqueuePendingAttempt(payload);
+    });
   }
 
   function revealChoiceFeedback(btn, isCorrect, group){
@@ -916,6 +995,7 @@
     if(probDiv){
       const n = probDiv.dataset.num;
       quizState.answers[n] = isCorrect ? 'correct' : 'wrong';
+      logSingleAttempt(n, isCorrect);
       // pick()과 동일한 이유로, 정답이 공개된 상태에서만 오답 유형 선택창을 즉시 보여준다.
       if(solutionsUnlocked){
         if(isCorrect) hideReasonPicker(n); else showReasonPicker(n);
@@ -1160,7 +1240,10 @@
     document.getElementById('resultModal').style.display = 'flex';
 
     saveResultsToSheet(correctCount, wrongNums, unanswered, elapsed);
-    logProblemAttempts(answeredNums);
+    // v2.5: 문제별 정답/오답은 이제 pick()/checkAnswer()에서 채점하는 즉시
+    // logSingleAttempt()로 바로바로 서버에 저장되므로, 여기서 한꺼번에 또
+    // 보내면 같은 문제가 중복으로 로그된다. 그래서 quiz 종료 시점의 일괄
+    // 전송(logProblemAttempts)은 더 이상 호출하지 않는다.
   }
 
   function isCanvasBlank(canvas){
