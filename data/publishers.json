@@ -19,6 +19,18 @@
       "subject": "-",
       "publisher": "확인 중",
       "author": "확인 중"
+    },
+    {
+      "school": "홍천중학교",
+      "subject": "수학 3-2",
+      "publisher": "천재교육",
+      "author": "이준열",
+      "level": "middleschool",
+      "materials": [
+        { "label": "04 기하", "url": "data/04 기하.pdf" },
+        { "label": "05 통계 part.1", "url": "data/05 통계 part.1.pdf" },
+        { "label": "05 통계 part.2", "url": "data/05 통계 part.2.pdf" }
+      ]
     }
   ]
 }
