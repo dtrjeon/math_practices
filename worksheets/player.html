@@ -9,6 +9,7 @@
 <!-- v1.8 (2026-08-17): 플로팅 버튼(맨 위로/다음 페이지)이 기존 🏠 홈 버튼과 겹치던 문제 수정 — 홈 버튼 위쪽으로 위치 조정 -->
 <!-- v1.9 (2026-08-17): 여전히 겹쳐 보여서 float-nav bottom값을 78px → 140px로 더 크게 띄움 -->
 <!-- v2.0 (2026-08-17): 풀이 쓰기 캔버스에 "공간 줄이기" 버튼 추가 — 처음 눌렀던 시점의 기본 높이 아래로는 줄어들지 않음 -->
+<!-- v2.1 (2026-08-17): "내 답 입력" 텍스트박스 폭을 120px → 240px로 2배 확대 (좁은 화면에서는 max-width:100%로 자동 축소) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -349,7 +350,8 @@
     border:1.5px solid var(--rule);
     border-radius:8px;
     padding:7px 10px;
-    width:120px;
+    width:240px;
+    max-width:100%;
     background:#fff;
   }
   .ans-input:focus{ outline:none; border-color:var(--accent); }
