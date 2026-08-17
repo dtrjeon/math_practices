@@ -9,6 +9,7 @@
 <!-- v2.0 (2026-08-17): 전체 화면구성을 좌측 사이드바 레이아웃으로 재구성 (상단 탭 → 좌측 nav). "홈" 대시보드 신설(요약 통계 4개 + 바로가기 카드), 기존 탭들(문제집 모음/학교별 교재출판사/문제집 범위요약/오답노트[구 오답반복]/시험범위 공지)과 진학 로드맵·학습 기록판까지 전부 사이드바 하위 메뉴로 편입. 모바일(760px 이하)에서는 사이드바가 상단 가로 스크롤 바로 전환됨 -->
 <!-- v2.1 (2026-08-17): 비밀번호(0000) 로그인 화면 추가 — 진짜 보안이 아니라 접근 방지용 간단 잠금. localStorage에 저장해서 한번 맞추면 그 브라우저에서는 다시 안 물어봄 -->
 <!-- v2.2 (2026-08-17): 로그인 비밀번호 잠금 제거 (우선 보류) -->
+<!-- v2.3 (2026-08-17): 학교별 교재출판사를 고등학교/중학교 레벨별로 분리 표시(각각 별도 표), 첨부자료(PDF) 열 추가 — 홍천중학교 3-2 천재교육(이준열) + PDF 3개 연동 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -883,41 +884,52 @@
 
   // ===== 학교별 교재출판사 =====
   // data/publishers.json에서 읽어와서 표를 그린다. (다른 탭들처럼 데이터 파일 기반으로 관리)
-  let PUBLISHER_TABLE_HTML = '';
+  let PUBLISHER_TABLE_HTML_HIGH = '';
+  let PUBLISHER_TABLE_HTML_MIDDLE = '';
 
   async function renderPublisherTable(){
     const card = document.getElementById('publisherCard');
     try{
       const res = await fetch('data/publishers.json');
       const data = await res.json();
-      const rows = (data.schools || []).map(s => {
-        const authorCell = s.author
-          ? (s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${s.author} ↗</a>` : s.author)
-          : '';
-        const isBlank = !s.publisher || s.publisher === '확인 중';
-        return `<tr>
-          <td>${s.school || ''}</td>
-          <td>${s.subject || ''}</td>
-          <td${isBlank ? ' class="blank"' : ''}>${s.publisher || ''}</td>
-          <td${isBlank ? ' class="blank"' : ''}>${authorCell}</td>
-        </tr>`;
-      }).join('');
-      PUBLISHER_TABLE_HTML = `<table class="publisher-table">
-        <thead><tr><th>학교</th><th>과목</th><th>출판사</th><th>저자</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>`;
+      const schools = data.schools || [];
+
+      const buildTable = (list) => {
+        if(list.length === 0) return '';
+        const rows = list.map(s => {
+          const authorCell = s.author
+            ? (s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${s.author} ↗</a>` : s.author)
+            : '';
+          const isBlank = !s.publisher || s.publisher === '확인 중';
+          const materialsCell = (s.materials && s.materials.length)
+            ? s.materials.map(m => `<a href="${encodeURI(m.url)}" target="_blank" rel="noopener">${m.label}</a>`).join('<br>')
+            : '';
+          return `<tr>
+            <td>${s.school || ''}</td>
+            <td>${s.subject || ''}</td>
+            <td${isBlank ? ' class="blank"' : ''}>${s.publisher || ''}</td>
+            <td${isBlank ? ' class="blank"' : ''}>${authorCell}</td>
+            <td>${materialsCell}</td>
+          </tr>`;
+        }).join('');
+        return `<table class="publisher-table">
+          <thead><tr><th>학교</th><th>과목</th><th>출판사</th><th>저자</th><th>첨부 자료</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+      };
+
+      PUBLISHER_TABLE_HTML_HIGH = buildTable(schools.filter(s => s.level !== 'middleschool'));
+      PUBLISHER_TABLE_HTML_MIDDLE = buildTable(schools.filter(s => s.level === 'middleschool'));
       applyPublisherFilter();
     } catch(err){
       card.innerHTML = '<div class="ws-loading">교재출판사 정보를 불러오지 못했어요 (data/publishers.json 확인 필요)</div>';
     }
   }
 
-  // publishers.json은 고등학교 자료라, 중학교 3-2 선택 시엔 안내 문구만 보여준다.
   function applyPublisherFilter(){
     const card = document.getElementById('publisherCard');
-    card.innerHTML = currentLevel === 'middleschool'
-      ? '<div class="ws-loading">중학교 3-2 교재출판사 정보는 아직 준비되지 않았어요</div>'
-      : (PUBLISHER_TABLE_HTML || '<div class="ws-loading">교재출판사 정보를 불러오는 중...</div>');
+    const html = currentLevel === 'middleschool' ? PUBLISHER_TABLE_HTML_MIDDLE : PUBLISHER_TABLE_HTML_HIGH;
+    card.innerHTML = html || `<div class="ws-loading">${currentLevel === 'middleschool' ? '중학교 3-2' : '고등학교'} 교재출판사 정보가 아직 없어요</div>`;
   }
 
   // ===== 오답 반복 =====
