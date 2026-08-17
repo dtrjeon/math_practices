@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <!-- v1.1 (2026-08-06): normalizeProblem() 어댑터 추가(구 스키마 number/difficulty/mcq/short/answer/explanation 자동 변환), 선택지 이중 LaTeX 래핑 버그 수정 -->
 <!-- v1.2 (2026-08-16): 문제 세트 로딩을 manifest.json의 file 경로 기반으로 변경 — data/ 바로 밑 평평한 구조뿐 아니라 data/senmath32/처럼 하위 폴더에 있는 세트도 로드 가능(compose.html과 동일한 방식으로 통일). manifest를 못 읽으면 기존 방식(data/<id>.json)으로 자동 폴백 -->
+<!-- v1.3 (2026-08-16): 오답 반복 학습 기능 연동 — 문제별 고유키(problemId) 부여, 퀴즈 종료 시 채점 결과를 문제 단위로 백엔드에 일괄 로그(action:'logAttempts') -->
+<!-- v1.4 (2026-08-17): 단답형 문제에 "S펜으로 정답만 쓰기" 캔버스 추가 — 손글씨 인식으로 답 입력창을 자동으로 채워줌(자동채점은 안 하고 학생이 "확인"을 직접 눌러야 채점됨, 오인식 방지). 인식 엔진은 OCR_PROVIDER로 전환 가능: 'ocrspace'(현재, 브라우저에서 OCR.space 직접 호출, 키/백엔드 불필요) / 'anthropic'(백엔드 action:'ocrAnswer' 경유, ANTHROPIC_API_KEY 등록 후 전환) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -266,6 +268,9 @@
     touch-action:none;
     cursor:crosshair;
   }
+  .ans-canvas{ height:80px; }
+  .ocr-btn{ margin-top:8px; }
+  .ocr-status{ font-size:12.5px; color:var(--num); margin-top:6px; display:block; }
   @media (min-width:760px){
     .write-canvas{ height:230px; }
   }
@@ -579,7 +584,14 @@
   }
 
   // 구글 시트 저장 설정 — Apps Script 배포 후 URL 교체
-  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzUef9uyH28s4l2iObFCyg131Ft2_aDdxLj_ab5vdA5wFBQKdVKMfOwh2u5EwsbWwus/exec';
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzqgkELv7cxD3UZlVj1XfvNiFtR4o6nI5uyDOLiMme6hx5eCcaVkNc_cUZ3JawAafKc/exec';
+
+  // v1.4: 손글씨 답 인식 방식 선택.
+  // 'ocrspace' — 브라우저에서 OCR.space로 직접 호출 (백엔드/Anthropic 키 불필요, 지금 사용)
+  // 'anthropic' — Apps Script 백엔드(action:'ocrAnswer')를 통해 Claude 비전으로 인식
+  //               (ANTHROPIC_API_KEY를 스크립트 속성에 등록한 뒤 이 값을 'anthropic'으로 바꾸면 전환됨)
+  const OCR_PROVIDER = 'ocrspace';
+  const OCR_SPACE_KEY = 'K83219514388957';
   const STUDENT_NAME_KEY = 'complex56_student_name';
   let WORKSHEET_ID = '';
 
@@ -663,6 +675,83 @@
     feedback.className = 'ans-feedback ' + (isCorrect ? 'fb-ok' : 'fb-no');
     input.classList.toggle('input-ok', isCorrect);
     input.classList.toggle('input-no', !isCorrect);
+  }
+
+  // v1.4: S펜 손글씨 "정답 칸"을 인식해서 답 입력창에 자동으로 채워준다.
+  // 자동으로 채점까지 하지 않고, 인식된 값을 입력창에 넣어 학생이 눈으로 확인한 뒤
+  // 직접 "확인" 버튼을 눌러 채점하게 한다 — 오인식으로 억울하게 채점되는 걸 막기 위함.
+  // OCR_PROVIDER 값에 따라 OCR.space(브라우저 직접 호출) 또는 백엔드 경유 Claude 비전 중 선택.
+  async function recognizeHandwrittenAnswer(n){
+    const canvas = document.getElementById('canvas-ans' + n);
+    const status = document.getElementById('ocr-status-' + n);
+    const input = document.getElementById('input-' + n);
+    if(!canvas || !input) return;
+
+    if(status) status.textContent = '🔎 인식 중...';
+
+    try {
+      const dataUrl = canvas.toDataURL('image/png');
+      const text = (OCR_PROVIDER === 'anthropic')
+        ? await recognizeViaAnthropicBackend(dataUrl)
+        : await recognizeViaOcrSpace(dataUrl);
+
+      if(text){
+        input.value = text;
+        input.focus();
+        if(status) status.textContent = `✏️ "${text}" 로 인식했어요. 맞으면 확인 버튼을 눌러주세요`;
+      } else {
+        if(status) status.textContent = '⚠️ 글씨를 알아보지 못했어요. 더 또렷하게 써보거나 직접 입력해주세요';
+      }
+    } catch(err){
+      if(status) status.textContent = '⚠️ 인식 실패: ' + (err.message || '알 수 없는 오류');
+    }
+  }
+
+  // OCR.space로 직접 인식 (백엔드/Anthropic 키 불필요)
+  async function recognizeViaOcrSpace(dataUrl){
+    const fd = new FormData();
+    fd.append('apikey', OCR_SPACE_KEY);
+    fd.append('base64Image', dataUrl);
+    fd.append('language', 'eng');
+    fd.append('OCREngine', '2');
+    fd.append('scale', 'true');
+    fd.append('isOverlayRequired', 'false');
+
+    let res, data;
+    try {
+      res = await fetch('https://api.ocr.space/parse/image', { method: 'POST', body: fd });
+      data = await res.json();
+    } catch(e){
+      throw new Error('OCR.space 연결 실패');
+    }
+    if(data.IsErroredOnProcessing){
+      // 엔진2 실패 시 엔진1로 한 번 더 시도
+      fd.set('OCREngine', '1');
+      res = await fetch('https://api.ocr.space/parse/image', { method: 'POST', body: fd });
+      data = await res.json();
+      if(data.IsErroredOnProcessing){
+        throw new Error((data.ErrorMessage && data.ErrorMessage[0]) || 'OCR 처리 실패');
+      }
+    }
+    const text = data.ParsedResults && data.ParsedResults[0] ? data.ParsedResults[0].ParsedText.trim() : '';
+    return text;
+  }
+
+  // 백엔드(action:'ocrAnswer')를 통해 Claude 비전으로 인식 — ANTHROPIC_API_KEY 등록 후 사용
+  async function recognizeViaAnthropicBackend(dataUrl){
+    if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0){
+      throw new Error('서버가 연결되어 있지 않아요');
+    }
+    const res = await fetch(SHEET_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'ocrAnswer', imageDataUrl: dataUrl })
+    });
+    const json = await res.json();
+    if(json.status === 'ok'){
+      return json.recognized ? json.text : '';
+    }
+    throw new Error(json.message || '알 수 없는 오류');
   }
 
   function revealAllAnswerFeedback(){
@@ -790,6 +879,7 @@
     document.getElementById('resultModal').style.display = 'flex';
 
     saveResultsToSheet(correctCount, wrongNums, unanswered, elapsed);
+    logProblemAttempts(answeredNums);
   }
 
   function isCanvasBlank(canvas){
@@ -839,6 +929,38 @@
     })
     .catch(() => {
       if(statusEl){ statusEl.textContent = '✕ 저장 실패 — 인터넷 연결을 확인해주세요'; statusEl.className = 'save-status fail'; }
+    });
+  }
+
+  // v1.3: 오답 반복 학습 — 채점된 문제들을 problemId 단위로 백엔드에 일괄 로그.
+  // 여기서 정답/오답을 모두 보내야, 반복 학습 화면에서 "연속 3회 정답 시 마스터"
+  // 판정을 정확히 계산할 수 있다(오답만 보내면 연속 정답 스트릭을 셀 수 없다).
+  function logProblemAttempts(answeredNums){
+    if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0) return;
+    if(!answeredNums || answeredNums.length === 0) return;
+
+    const attempts = answeredNums.map(n => {
+      const prob = (currentProblemsData || []).find(pp => String(pp.num) === String(n));
+      return {
+        problemId: prob && prob.problemId ? prob.problemId : (WORKSHEET_ID + '#' + n),
+        worksheetId: WORKSHEET_ID,
+        correct: quizState.answers[n] === 'correct'
+      };
+    });
+
+    const studentName = localStorage.getItem(STUDENT_NAME_KEY) || '학생';
+
+    fetch(SHEET_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'logAttempts',
+        studentName: studentName,
+        worksheetId: WORKSHEET_ID,
+        attempts: attempts
+      })
+    }).catch(() => {
+      // 오답 반복용 로그 저장 실패는 조용히 무시한다 — 메인 결과 저장(saveResultsToSheet)에는 영향 없음.
     });
   }
 
@@ -1840,9 +1962,22 @@
       });
       html += '</div>';
     } else {
-      html += `<div class="answer-check">
+      html += `<div class="write-pad answer-pad">
+        <div class="write-pad-head">
+          <span class="wp-label">✍️ S펜으로 정답만 쓰기</span>
+          <div class="wp-tools">
+            <button class="wp-mode wp-mode-pen active" id="pen-mode-ans${n}" onclick="setPenMode('canvas-ans${n}','pen')">펜</button>
+            <button class="wp-mode wp-mode-erase" id="erase-mode-ans${n}" onclick="setPenMode('canvas-ans${n}','erase')">지우개</button>
+            <button class="wp-clear" onclick="clearCanvas('canvas-ans${n}')">지우기</button>
+          </div>
+        </div>
+        <canvas class="write-canvas ans-canvas" id="canvas-ans${n}"></canvas>
+        <button class="ac-btn ocr-btn" type="button" onclick="recognizeHandwrittenAnswer(${n})">🔍 손글씨 인식해서 입력</button>
+        <span class="ocr-status" id="ocr-status-${n}"></span>
+      </div>
+      <div class="answer-check">
         <span class="ac-label">내 답 입력</span>
-        <input type="text" class="ans-input" id="input-${n}" placeholder="답 입력">
+        <input type="text" class="ans-input" id="input-${n}" placeholder="답 입력 (또는 위에서 손글씨 인식)">
         <button class="ac-btn" onclick="checkAnswer(this, '${escapeAttr(p.answer)}')">확인</button>
         <span class="ans-feedback" id="feedback-${n}"></span>
       </div>`;
@@ -1933,6 +2068,15 @@
     // 구 스키마(number/difficulty/mcq·short/answer/explanation)로 만들어진 문제지도
     // 정식 스키마로 변환해 동일하게 렌더링되도록 한다.
     data.problems = data.problems.map(normalizeProblem);
+
+    // v1.3: 오답 반복 학습을 위한 문제 고유키 부여.
+    // 문제지가 재구성(compose.html)되어 새 worksheetId를 갖게 되어도 같은 문제로
+    // 인식되도록, 개별 문제에 원본 출처(p.sourceId)가 있으면 그것을 쓰고,
+    // 없으면 지금 이 세트의 id를 출처로 삼는다.
+    const SOURCE_ID = data.id || setId || 'custom';
+    data.problems = data.problems.map(p => Object.assign({}, p, {
+      problemId: (p.sourceId || SOURCE_ID) + '#' + p.num
+    }));
 
     // 재구성 화면에서 "유사문제로 시작"을 선택한 문제는 여기서 실제 변형 문제로 교체
     data.problems = data.problems.map(p => {
