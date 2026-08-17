@@ -81,6 +81,25 @@
   .chip.active{ background:var(--ink); border-color:var(--ink); color:#fff; }
   .chip.wrong-chip.active{ background:var(--wrong); border-color:var(--wrong); }
   .chip.diff-chip.active{ background:var(--accent); border-color:var(--accent); }
+  .chip.exam-chip.active{ background:#33578c; border-color:#33578c; }
+
+  .level-switch{
+    display:flex;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .level-btn{
+    font-family:inherit;
+    font-size:14px;
+    font-weight:800;
+    padding:9px 18px;
+    border-radius:10px;
+    border:1.5px solid var(--rule);
+    background:#fff;
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .level-btn.active{ background:var(--ink); border-color:var(--ink); color:#fff; }
 
   .status-line{
     font-size:13px;
@@ -223,11 +242,22 @@
 
 <main>
 
+  <div class="level-switch" id="levelSwitch">
+    <button class="level-btn active" id="levelBtn-highschool" onclick="switchLevel('highschool')">고등학교</button>
+    <button class="level-btn" id="levelBtn-middleschool" onclick="switchLevel('middleschool')">중학교 3-2</button>
+  </div>
+
   <div class="filter-card">
     <div class="filter-row">
       <span class="filter-label">빠른 필터</span>
       <button class="chip wrong-chip" id="filterWrong" onclick="toggleQuickFilter('wrong')">❌ 틀렸던 문제만</button>
       <button class="chip" id="filterAll" onclick="toggleQuickFilter('all')">전체 보기</button>
+    </div>
+    <div class="filter-row" id="examFilterRow">
+      <span class="filter-label">시험 구분</span>
+      <button class="chip exam-chip active" data-exam="all" onclick="toggleExamFilter('all')">전체</button>
+      <button class="chip exam-chip" data-exam="mid" onclick="toggleExamFilter('mid')">📗 중간고사</button>
+      <button class="chip exam-chip" data-exam="final" onclick="toggleExamFilter('final')">📕 기말고사</button>
     </div>
     <div class="filter-row">
       <span class="filter-label">난이도</span>
@@ -259,7 +289,17 @@
 <script>
   const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzUef9uyH28s4l2iObFCyg131Ft2_aDdxLj_ab5vdA5wFBQKdVKMfOwh2u5EwsbWwus/exec';
   const DIFF_LABEL = { low:'하', mid:'중', midhigh:'중상', high:'상', top:'최상' };
-  const CATEGORY_LABEL = { textbook:'교과서', exam:'중간·기말고사', pastexam:'기출문제' };
+  const CATEGORY_LABEL = { textbook:'교과서', exam:'중간·기말고사', pastexam:'기출문제', senmath32:'쎈수학 중3-2' };
+
+  // index_mathc1.html과 동일한 규칙: category가 'senmath32'면 중학교 3-2, 나머지는 고등학교
+  const isMiddleCategory = cat => cat === 'senmath32';
+
+  // 세트 id에 mid1/mid2/final1/final2가 들어있으면 중간·기말로 분류 (index_mathc1.html 범위요약과 동일 규칙)
+  function getExamBucket(id){
+    if(/final1|final2/.test(id)) return 'final';
+    if(/mid1|mid2/.test(id)) return 'mid';
+    return 'other';
+  }
 
   let manifest = null;
   let setsData = {};       // setId -> full set JSON (title, unit, problems[])
@@ -267,6 +307,8 @@
   let selection = new Set(); // "setId-num"
   let quickFilter = 'all'; // 'all' | 'wrong'
   let activeDiffs = new Set(); // 비어있으면 전체 난이도
+  let currentLevel = 'highschool'; // 'highschool' | 'middleschool'
+  let examFilter = 'all'; // 'all' | 'mid' | 'final'
 
   // 문제지 JSON은 두 가지 스키마가 섞여 있을 수 있다.
   //  A) 정식 스키마: num / diff(low·mid·midhigh·high·top) / type(mc·fillin) / correct(0-based) / solution(배열)
@@ -345,6 +387,27 @@
     }
   }
 
+  function switchLevel(level){
+    currentLevel = level;
+    document.getElementById('levelBtn-highschool').classList.toggle('active', level === 'highschool');
+    document.getElementById('levelBtn-middleschool').classList.toggle('active', level === 'middleschool');
+    // 쎈수학(중학교)은 중간/기말 구분이 없는 문제집이라 중학교 선택 시엔 시험구분 필터를 숨기고 '전체'로 초기화
+    examFilter = 'all';
+    document.querySelectorAll('.exam-chip').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.exam === 'all');
+    });
+    document.getElementById('examFilterRow').style.display = (level === 'middleschool') ? 'none' : 'flex';
+    renderGroups();
+  }
+
+  function toggleExamFilter(mode){
+    examFilter = mode;
+    document.querySelectorAll('.exam-chip').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.exam === mode);
+    });
+    renderGroups();
+  }
+
   function toggleQuickFilter(mode){
     quickFilter = mode;
     document.getElementById('filterWrong').classList.toggle('active', mode==='wrong');
@@ -371,11 +434,17 @@
   function renderGroups(){
     const container = document.getElementById('setGroups');
     let html = '';
+    let shownSetCount = 0, shownProblemCount = 0;
     manifest.sets.forEach(s => {
+      const belongsToMiddle = isMiddleCategory(s.category);
+      if((currentLevel === 'middleschool') !== belongsToMiddle) return;
+      if(examFilter !== 'all' && getExamBucket(s.id) !== examFilter) return;
+
       const data = setsData[s.id];
       if(!data) return;
       const visible = data.problems.filter(p => problemPasses(s.id, p));
       if(visible.length === 0) return;
+      shownSetCount++; shownProblemCount += visible.length;
 
       html += `<div class="set-group">
         <div class="set-group-head">
@@ -401,6 +470,10 @@
     });
 
     container.innerHTML = html || '<p style="color:var(--num);font-size:14px;">조건에 맞는 문제가 없어요. 필터를 조정해보세요.</p>';
+
+    const levelLabel = currentLevel === 'middleschool' ? '중학교 3-2' : '고등학교';
+    document.getElementById('loadStatus').textContent =
+      `${levelLabel} · 문제은행 ${shownSetCount}개 세트 · 총 ${shownProblemCount}문제 표시 중`;
   }
 
   function toggleProblem(evt, key){
