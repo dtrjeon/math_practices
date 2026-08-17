@@ -3,6 +3,9 @@
 <!-- v1.2 (2026-08-16): 문제 세트 로딩을 manifest.json의 file 경로 기반으로 변경 — data/ 바로 밑 평평한 구조뿐 아니라 data/senmath32/처럼 하위 폴더에 있는 세트도 로드 가능(compose.html과 동일한 방식으로 통일). manifest를 못 읽으면 기존 방식(data/<id>.json)으로 자동 폴백 -->
 <!-- v1.3 (2026-08-16): 오답 반복 학습 기능 연동 — 문제별 고유키(problemId) 부여, 퀴즈 종료 시 채점 결과를 문제 단위로 백엔드에 일괄 로그(action:'logAttempts') -->
 <!-- v1.4 (2026-08-17): 단답형 문제에 "S펜으로 정답만 쓰기" 캔버스 추가 — 손글씨 인식으로 답 입력창을 자동으로 채워줌(자동채점은 안 하고 학생이 "확인"을 직접 눌러야 채점됨, 오인식 방지). 인식 엔진은 OCR_PROVIDER로 전환 가능: 'ocrspace'(현재, 브라우저에서 OCR.space 직접 호출, 키/백엔드 불필요) / 'anthropic'(백엔드 action:'ocrAnswer' 경유, ANTHROPIC_API_KEY 등록 후 전환) -->
+<!-- v1.5 (2026-08-17): [테스트 기간 임시] TEST_MODE_UNLOCK_SOLUTIONS = true — 종료 버튼 없이도 "정답·풀이 보기"를 바로 열람 가능. 테스트 끝나면 false로 되돌릴 것 -->
+<!-- v1.6 (2026-08-17): 풀이 쓰기 캔버스에 "공간 늘리기" 버튼 추가 — 누를 때마다 120px씩 높이가 늘어남(최대 800px), 이미 쓴 내용은 유지됨 -->
+<!-- v1.7 (2026-08-17): 화면 우측 하단에 "맨 위로"/"다음 페이지" 플로팅 버튼 추가. 맨 위로는 300px 이상 스크롤 시 표시, 다음 페이지는 마지막 페이지가 아닐 때만 표시 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -109,6 +112,32 @@
     border-color:var(--ink);
     color:#fff;
   }
+
+  .float-nav{
+    position:fixed;
+    right:16px;
+    bottom:24px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    z-index:500;
+  }
+  .float-btn{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    background:#fff;
+    box-shadow:0 4px 14px rgba(0,0,0,.16);
+    font-size:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .float-btn:active{ transform:scale(0.94); }
+  .float-btn-next{ background:var(--accent); color:#fff; border-color:var(--accent); }
 
   header{
     max-width:var(--content-max);
@@ -243,7 +272,7 @@
   }
   .wp-label{ font-size:12px; font-weight:700; color:var(--num); }
   .wp-tools{ display:flex; gap:6px; }
-  .wp-mode, .wp-clear{
+  .wp-mode, .wp-clear, .wp-grow{
     font-family:inherit;
     font-size:11.5px;
     font-weight:700;
@@ -254,6 +283,7 @@
     padding:4px 11px;
     cursor:pointer;
   }
+  .wp-grow{ color:var(--accent); background:#eef3ff; }
   .wp-mode.active{ background:#fff; border-color:var(--ink); color:var(--ink); }
   .wp-mode-erase.active{ border-color:var(--wrong); color:var(--wrong); }
   .write-canvas{
@@ -557,6 +587,11 @@
   ✏️ 펜으로 직접 풀이를 쓰고, 다 풀면 "정답·풀이 보기"로 확인하세요 · 종료를 누르면 전체 결과가 나와요 (매쓰플랫 기출 유사 문제 제공)
 </footer>
 
+<div class="float-nav">
+  <button class="float-btn" id="floatTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로" style="display:none;">▲</button>
+  <button class="float-btn float-btn-next" id="floatNextBtn" onclick="goToNextPage()" title="다음 페이지" style="display:none;">▶</button>
+</div>
+
 <script>
   renderMathInElement(document.body, {
     delimiters: [
@@ -568,7 +603,10 @@
   let TOTAL_PROBLEMS = 0;
   let quizState = { running:false, startTime:0, timerInt:null, answers:{} };
   let scrollModeOn = false;
-  let solutionsUnlocked = false;
+  // 테스트 기간 임시 설정: true로 두면 "종료" 없이도 정답·풀이를 바로 볼 수 있음.
+  // 테스트가 끝나면 이 값을 false로 되돌려서 원래대로(종료 후에만 정답 공개) 되돌리세요.
+  const TEST_MODE_UNLOCK_SOLUTIONS = true;
+  let solutionsUnlocked = TEST_MODE_UNLOCK_SOLUTIONS;
   let currentProblemsData = [];
 
   function toggleScrollMode(){
@@ -782,7 +820,27 @@
       b.classList.toggle('active', parseInt(b.dataset.page,10) === n);
     });
     window.scrollTo({top:0, behavior:'smooth'});
+    updateFloatNav(n);
   }
+
+  // 화면 우측 하단 "맨 위로" / "다음 페이지" 버튼
+  function updateFloatNav(currentPage){
+    const total = document.querySelectorAll('.page').length;
+    const nextBtn = document.getElementById('floatNextBtn');
+    if(nextBtn){
+      nextBtn.style.display = (total > 1 && currentPage < total) ? 'flex' : 'none';
+    }
+  }
+  function goToNextPage(){
+    const total = document.querySelectorAll('.page').length;
+    const activeEl = document.querySelector('.page.active');
+    const current = activeEl ? parseInt(activeEl.dataset.page, 10) : 1;
+    if(current < total) goToPage(current + 1);
+  }
+  window.addEventListener('scroll', () => {
+    const topBtn = document.getElementById('floatTopBtn');
+    if(topBtn) topBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  });
 
   // ===== 시작 / 종료 / 타이머 =====
   function formatTime(sec){
@@ -810,7 +868,7 @@
     });
     document.querySelectorAll('.write-canvas').forEach(c => { clearCanvas(c.id); setPenMode(c.id,'pen'); });
     quizState.answers = {};
-    solutionsUnlocked = false;
+    solutionsUnlocked = TEST_MODE_UNLOCK_SOLUTIONS;
     goToPage(1);
   }
 
@@ -997,7 +1055,7 @@
     const targetPage = Math.ceil(firstNum/6);
     goToPage(targetPage);
     quizState.answers = {};
-    solutionsUnlocked = false;
+    solutionsUnlocked = TEST_MODE_UNLOCK_SOLUTIONS;
     closeResultModal();
   }
 
@@ -1082,6 +1140,20 @@
     ctx.setTransform(1,0,0,1,0,0);
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.restore();
+  }
+
+  // 풀이 공간이 부족할 때 누르면 캔버스 높이를 늘려준다.
+  // 이미 그려둔 내용은 그대로 유지된다 — window resize 이벤트를 재발생시키면
+  // setupCanvas 안의 resize()가 이전 그림을 새 캔버스 크기로 옮겨 그려주기 때문.
+  const CANVAS_GROW_STEP = 120; // 누를 때마다 늘어나는 높이(px)
+  const CANVAS_MAX_HEIGHT = 800; // 무한정 늘어나지 않도록 상한
+  function growCanvas(id){
+    const canvas = document.getElementById(id);
+    if(!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    const newHeight = Math.min(Math.round(rect.height) + CANVAS_GROW_STEP, CANVAS_MAX_HEIGHT);
+    canvas.style.height = newHeight + 'px';
+    window.dispatchEvent(new Event('resize'));
   }
 
   document.querySelectorAll('.write-canvas').forEach(setupCanvas);
@@ -1814,6 +1886,7 @@
           <div class="wp-tools">
             <button class="wp-mode wp-mode-pen active" id="pen-mode-${gid}" onclick="setPenMode('canvas-${gid}','pen')">펜</button>
             <button class="wp-mode wp-mode-erase" id="erase-mode-${gid}" onclick="setPenMode('canvas-${gid}','erase')">지우개</button>
+            <button class="wp-grow" onclick="growCanvas('canvas-${gid}')">공간 늘리기</button>
             <button class="wp-clear" onclick="clearCanvas('canvas-${gid}')">전체 지우기</button>
           </div>
         </div>
@@ -1948,6 +2021,7 @@
           <div class="wp-tools">
             <button class="wp-mode wp-mode-pen active" id="pen-mode-${n}" onclick="setPenMode('canvas-${n}','pen')">펜</button>
             <button class="wp-mode wp-mode-erase" id="erase-mode-${n}" onclick="setPenMode('canvas-${n}','erase')">지우개</button>
+            <button class="wp-grow" onclick="growCanvas('canvas-${n}')">공간 늘리기</button>
             <button class="wp-clear" onclick="clearCanvas('canvas-${n}')">전체 지우기</button>
           </div>
         </div>
@@ -2017,6 +2091,7 @@
     });
     container.innerHTML = pagesHtml;
     nav.innerHTML = navHtml;
+    updateFloatNav(1);
   }
 
   async function loadProblemSet(){
