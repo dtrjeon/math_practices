@@ -6,6 +6,7 @@
 <!-- v1.5 (2026-08-17): [테스트 기간 임시] TEST_MODE_UNLOCK_SOLUTIONS = true — 종료 버튼 없이도 "정답·풀이 보기"를 바로 열람 가능. 테스트 끝나면 false로 되돌릴 것 -->
 <!-- v1.6 (2026-08-17): 풀이 쓰기 캔버스에 "공간 늘리기" 버튼 추가 — 누를 때마다 120px씩 높이가 늘어남(최대 800px), 이미 쓴 내용은 유지됨 -->
 <!-- v1.7 (2026-08-17): 화면 우측 하단에 "맨 위로"/"다음 페이지" 플로팅 버튼 추가. 맨 위로는 300px 이상 스크롤 시 표시, 다음 페이지는 마지막 페이지가 아닐 때만 표시 -->
+<!-- v1.8 (2026-08-17): 플로팅 버튼(맨 위로/다음 페이지)이 기존 🏠 홈 버튼과 겹치던 문제 수정 — 홈 버튼 위쪽으로 위치 조정 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -116,11 +117,11 @@
   .float-nav{
     position:fixed;
     right:16px;
-    bottom:24px;
+    bottom:78px;
     display:flex;
     flex-direction:column;
     gap:10px;
-    z-index:500;
+    z-index:150;
   }
   .float-btn{
     width:48px;
