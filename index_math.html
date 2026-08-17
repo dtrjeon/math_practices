@@ -5,6 +5,7 @@
 <!-- v1.4 (2026-08-17): "🔁 오답 반복" 탭 복구, 학교별 교재출판사를 하드코딩 표에서 data/publishers.json 기반으로 변경 (다른 탭들과 동일하게 데이터 파일에서 관리) -->
 <!-- v1.5 (2026-08-17): 최상단에 "고등학교 / 중학교 3-2" 레벨 스위치 추가 — worksheets-manifest.json의 category가 'senmath32'면 중학교, 나머지는 고등학교로 자동 분류. 문제지 모음 서브탭·범위요약·오답반복이 선택된 레벨에 맞게 필터링되고, 교재출판사는 고등학교 자료만 있어 중학교 선택 시 안내 문구 표시 -->
 <!-- v1.6 (2026-08-17): "📢 시험범위 공지" 탭 신설, data/exam-ranges.json 기반. 레벨 스위치에 맞춰 학교 필터링됨 -->
+<!-- v1.7 (2026-08-17): 헤더 우측 상단에 🔄 새로고침 버튼 추가 — 페이지 새로고침 없이 모든 데이터(문제지/범위요약/교재출판사/시험범위/오답반복/학습기록)를 다시 불러옴. 보고 있던 레벨(고등학교/중학교) 상태는 유지됨 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -47,9 +48,29 @@
     border-bottom:2px solid var(--ink);
     position:relative;
   }
+  .refresh-btn{
+    position:absolute;
+    top:10px;
+    right:20px;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:1.5px solid var(--rule);
+    background:#fff;
+    font-size:15px;
+    line-height:1;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--ink);
+  }
+  .refresh-btn:active{ transform:scale(0.92); }
+  .refresh-btn.spinning{ animation:refresh-spin 0.8s linear; }
+  @keyframes refresh-spin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
   .version-tag{
     position:absolute;
-    top:12px;
+    top:46px;
     right:20px;
     font-size:10.5px;
     color:var(--num);
@@ -374,7 +395,8 @@
 <body>
 
 <header>
-  <span class="version-tag">v1.5 · 2026-08-17 업데이트</span>
+  <button class="refresh-btn" id="refreshBtn" onclick="refreshAllData()" title="새로고침">🔄</button>
+  <span class="version-tag">v1.7 · 2026-08-17 업데이트</span>
   <div class="kicker">전주영 · 고등 수학 학습 기록판</div>
   <h1>문제지 모음</h1>
   <div class="sub">단원별로 학생 풀이 / 검토용 문제지를 모아뒀어요</div>
@@ -800,13 +822,33 @@
     applyExamRangeFilter();
   }
 
-  (async function init(){
+  async function loadAllData(){
     await renderWorksheetCards();
     await renderRangeSummary();
     await renderPublisherTable();
     await renderExamRanges();
     loadBoard();
     renderWrongRepeat();
+    // (각 render* 함수가 끝에서 자기 자신의 apply*Filter를 이미 호출하므로
+    //  여기서 다시 호출할 필요는 없음 — 지금 보고 있던 레벨 상태 그대로 반영됨)
+  }
+
+  function refreshAllData(){
+    const btn = document.getElementById('refreshBtn');
+    if(btn){
+      btn.disabled = true;
+      btn.classList.add('spinning');
+    }
+    loadAllData().finally(() => {
+      if(btn){
+        btn.disabled = false;
+        btn.classList.remove('spinning');
+      }
+    });
+  }
+
+  (async function init(){
+    await loadAllData();
   })();
 
   function switchMainTab(tab){
@@ -848,6 +890,7 @@
   let RANGE_ROWS = []; // { category, bucket, html } — fetch는 한 번만 하고, 레벨 전환 시 여기서 필터링만 다시 함
 
   async function renderRangeSummary(){
+    RANGE_ROWS = []; // 새로고침 시 중복 누적 방지
     try{
       const manifestRes = await fetch('data/worksheets-manifest.json');
       const manifest = await manifestRes.json();
