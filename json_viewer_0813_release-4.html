@@ -748,6 +748,57 @@
 <li>디스플레이 수식: <code>\[ ... \]</code></li>
 <li>그 밖의 일반 텍스트는 그대로 escape되어 출력됨 (HTML 태그 삽입 불가)</li>
 </ul>
+<h2>파일명(id) 규칙</h2>
+<p>문제지 JSON의 <code>id</code>와 파일명은 다음 순서로 구성한다. 과목은 전부 수학이므로
+표기하지 않는다.</p>
+<pre>{학년}_{연월}_{학기}_{분류}_{세부}_{학교또는출처}</pre>
+<h3>학년</h3>
+<table>
+<thead><tr><th>표기</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><code>m0</code></td><td>중학교 3학년</td></tr>
+<tr><td><code>m1</code></td><td>고등학교 1학년</td></tr>
+<tr><td><code>m2</code></td><td>고등학교 2학년</td></tr>
+</tbody>
+</table>
+<h3>연월</h3>
+<p><code>YYMM</code> 4자리 (예: 2026년 9월 → <code>2609</code>)</p>
+<h3>학기</h3>
+<table>
+<thead><tr><th>표기</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><code>s1</code></td><td>1학기</td></tr>
+<tr><td><code>s2</code></td><td>2학기</td></tr>
+</tbody>
+</table>
+<h3>분류</h3>
+<table>
+<thead><tr><th>약어</th><th>영어명</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><code>tb</code></td><td>Textbook Problems</td><td>교과문제 (교과서·교과 과정 중심)</td></tr>
+<tr><td><code>sep</code></td><td>School Exam Preparation</td><td>내신대비 (학교 중간·기말고사 대비)</td></tr>
+<tr><td><code>peq</code></td><td>Past Exam Questions</td><td>기출문제 (과거 실제 출제 문제)</td></tr>
+<tr><td><code>me</code></td><td>Mock Exam</td><td>모의고사</td></tr>
+</tbody>
+</table>
+<h3>세부</h3>
+<p><code>sep</code>일 때만 사용. 학기(<code>s1</code>/<code>s2</code>)가 이미 학기 번호를
+포함하므로, 세부에는 번호 없이 <code>mid</code>(중간고사) 또는 <code>final</code>(기말고사)만 붙인다
+(예전의 <code>mid1</code>/<code>final1</code>/<code>mid2</code>/<code>final2</code> 방식은 더 이상 쓰지 않는다).</p>
+<h3>학교 또는 출처</h3>
+<p>특정 학교의 실제 시험 대비 자료라면 학교명 로마자 표기(예: <code>hwimun</code>,
+<code>hongcheon</code>)를 항상 포함한다. 특정 학교가 없는 범용 문제집(예: DRE수학
+내신대비 시리즈)이라면 출처 슬러그(예: <code>dre</code>)를 대신 쓴다. 여러 학교의
+문제가 한 파일에 섞여 있는 경우에는 학교명을 나열하지 않고 <code>mix</code>로
+표기한다 (예: <code>m1_2504_s1_sep_mid_mix</code>).</p>
+<h3>예시</h3>
+<ul>
+<li><code>m0_2609_s2_sep_mid_dre</code> — 중3, 26년 9월, 2학기, 내신대비, 중간고사, DRE수학</li>
+<li><code>m1_2504_s1_sep_mid_hwimun</code> — 고1, 25년 4월, 1학기, 내신대비, 중간고사, 휘문고</li>
+<li><code>m1_2606_s1_sep_final_hongcheon</code> — 고1, 26년 6월, 1학기, 내신대비, 기말고사, 홍천고</li>
+<li><code>m1_2504_s1_sep_mid_mix</code> — 고1, 25년 4월, 1학기, 내신대비, 중간고사, 여러 학교 혼합</li>
+<li><code>m0_26_s2_tb_senmath_q108-125</code> — 중3, 26년, 2학기, 교과문제, 쎈수학, 108~125번 범위 (학년·학기가 접두어에 이미 있으므로 교재명의 "32" 같은 학년-학기 중복 표기는 생략)</li>
+</ul>
 <h2>지원하는 LaTeX 명령어 (texToHtml)</h2>
 <table>
 <thead>
@@ -1844,6 +1895,17 @@ data URL 문자열의 배열이며, 이 도구들은 전부 그 배열을 직접
         i += 9;
         const content = parseGroup();
         return `<span style="text-decoration:overline; text-decoration-thickness:1px;">${content}</span>`;
+      }
+      if (tex.startsWith('\\widehat', i)) {
+        // 호(arc) 표기: \overline과 구분되도록 위쪽이 살짝 둥근 모자 모양 선을 CSS로 그린다.
+        i += 8;
+        const content = parseGroup();
+        return `<span style="display:inline-block; border-top:1.3px solid; border-radius:50% 50% 0 0 / 100% 100% 0 0; padding:0 1px;">${content}</span>`;
+      }
+      if (tex.startsWith('\\hat', i)) {
+        i += 4;
+        const content = parseGroup();
+        return `<span style="display:inline-block; border-top:1.3px solid; border-radius:50% 50% 0 0 / 100% 100% 0 0; padding:0 1px;">${content}</span>`;
       }
       if (tex.startsWith('\\{', i)) { i += 2; return '{'; }
       if (tex.startsWith('\\}', i)) { i += 2; return '}'; }
