@@ -11,6 +11,7 @@
 <!-- v2.2 (2026-08-17): 로그인 비밀번호 잠금 제거 (우선 보류) -->
 <!-- v2.3 (2026-08-17): 학교별 교재출판사를 고등학교/중학교 레벨별로 분리 표시(각각 별도 표), 첨부자료(PDF) 열 추가 — 홍천중학교 3-2 천재교육(이준열) + PDF 3개 연동 -->
 <!-- v2.4 (2026-08-18): 문제지 분류를 새 명명규칙(tb/peq/me)에 맞춰 개편 — 기존 textbook/exam/pastexam/senmath32 4탭을 tb(교과문제)/peq(기출·내신)/me(모의고사) 3탭으로 통합. 학년(중학교/고등학교) 판별을 category 기반(senmath32 여부)에서 manifest 각 세트의 grade 필드(m0/m1/m2) 기반으로 변경 — tb/peq/me가 이제 학년과 무관하게 양쪽에 다 쓰이기 때문. 범위요약 중간·기말 구분 정규식도 mid1/mid2/final1/final2 → _mid_/_final_로 변경(학기가 이미 id 접두어 s1/s2에 포함되므로 회차 번호 불필요) -->
+<!-- v2.5 (2026-08-18): publishers.json·exam-ranges.json도 "level":"middleschool" 방식에서 "grade":"m0" 방식으로 통일 (worksheets-manifest.json과 동일 규칙). exam-ranges.json의 기존 "grade"(사람이 읽는 학년도 텍스트, 예: "2025학년도 3학년")는 필드명 충돌을 피하려고 "gradeLabel"로 이름 변경 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -923,8 +924,8 @@
         </table>`;
       };
 
-      PUBLISHER_TABLE_HTML_HIGH = buildTable(schools.filter(s => s.level !== 'middleschool'));
-      PUBLISHER_TABLE_HTML_MIDDLE = buildTable(schools.filter(s => s.level === 'middleschool'));
+      PUBLISHER_TABLE_HTML_HIGH = buildTable(schools.filter(s => !isMiddleGrade(s.grade)));
+      PUBLISHER_TABLE_HTML_MIDDLE = buildTable(schools.filter(s => isMiddleGrade(s.grade)));
       applyPublisherFilter();
     } catch(err){
       card.innerHTML = '<div class="ws-loading">교재출판사 정보를 불러오지 못했어요 (data/publishers.json 확인 필요)</div>';
@@ -1032,7 +1033,7 @@
   // 레벨(중학교/고등학교)에 맞는 학교만 걸러서 다시 그린다.
   function applyExamRangeFilter(){
     const panel = document.getElementById('mainPanel-examrange');
-    const schools = EXAM_RANGE_SCHOOLS.filter(s => (s.level === 'middleschool') === (currentLevel === 'middleschool'));
+    const schools = EXAM_RANGE_SCHOOLS.filter(s => isMiddleGrade(s.grade) === (currentLevel === 'middleschool'));
     panel.innerHTML = schools.length
       ? schools.map(examRangeCardHtml).join('')
       : `<div class="ws-loading">${currentLevel === 'middleschool' ? '중학교 3-2' : '고등학교'} 시험범위 공지가 아직 없어요</div>`;
@@ -1055,7 +1056,7 @@
 
     boardEl.textContent = BOARD_RECORD_COUNT;
 
-    const examCount = (EXAM_RANGE_SCHOOLS || []).filter(s => (s.level === 'middleschool') === (currentLevel === 'middleschool')).length;
+    const examCount = (EXAM_RANGE_SCHOOLS || []).filter(s => isMiddleGrade(s.grade) === (currentLevel === 'middleschool')).length;
     examEl.textContent = examCount;
   }
 
