@@ -29,6 +29,83 @@
       "source": "self"
     },
     {
+      "id": "2604_m1_s1_sayno_11_polynomial_factorization",
+      "file": "2604_m1_s1_sayno_11_polynomial_factorization.json",
+      "category": "tb",
+      "title": "다항식 인수분해 기본 (4.30) 복습",
+      "unit": "1.1 다항식의 연산 / 1.2 항등식과 나머지정리 / 1.3 인수분해",
+      "count": 50,
+      "group": "1.1 다항식의 연산 / 1.2 항등식과 나머지정리 / 1.3 인수분해",
+      "grade": "m1",
+      "source": "MADE Sayno (4.30)"
+    },
+    {
+      "id": "2605_m1_s1_sayno_21_complex_numbers",
+      "file": "2605_m1_s1_sayno_21_complex_numbers.json",
+      "category": "tb",
+      "title": "복소수",
+      "unit": "2.1 복소수",
+      "count": 30,
+      "group": "2.1 복소수",
+      "grade": "m1",
+      "source": "MADE Sayno (5.6)"
+    },
+    {
+      "id": "2605_m1_s1_sayno_23_quadratic_maxmin",
+      "file": "2605_m1_s1_sayno_23_quadratic_maxmin.json",
+      "category": "tb",
+      "title": "이차함수의 최대최소 기본 실력하",
+      "unit": "2.3 이차방정식과 이차함수",
+      "count": 20,
+      "group": "2.3 이차방정식과 이차함수",
+      "grade": "m1",
+      "source": "MADE Sayno (5.20)"
+    },
+    {
+      "id": "2605_m1_s1_sayno_24_quadeq_quadfunc",
+      "file": "2605_m1_s1_sayno_24_quadeq_quadfunc.json",
+      "category": "tb",
+      "title": "이차방정식 이차함수 실력중 심화하",
+      "unit": "2.3 이차방정식 / 2.4 이차방정식의 활용 / 3.1 이차함수",
+      "count": 30,
+      "group": "2.3 이차방정식 / 2.4 이차방정식의 활용 / 3.1 이차함수",
+      "grade": "m1",
+      "source": "MADE Sayno (5.6)"
+    },
+    {
+      "id": "2607_m1_s1_sayno_26_abs_inequalities",
+      "file": "2607_m1_s1_sayno_26_abs_inequalities.json",
+      "category": "tb",
+      "title": "절댓값 일차부등식, 이차부등식 풀이기본",
+      "unit": "2.6 일차부등식 / 2.7 이차부등식",
+      "count": 30,
+      "group": "2.6 일차부등식 / 2.7 이차부등식",
+      "grade": "m1",
+      "source": "MADE Sayno (7.13)"
+    },
+    {
+      "id": "2607_m1_s1_sayno_31_counting",
+      "file": "2607_m1_s1_sayno_31_counting.json",
+      "category": "tb",
+      "title": "경우의 수 기본 실력하",
+      "unit": "3.1 경우의 수",
+      "count": 30,
+      "group": "3.1 경우의 수",
+      "grade": "m1",
+      "source": "MADE Sayno (7.27)"
+    },
+    {
+      "id": "2607_m1_s1_sayno_32_statistics",
+      "file": "2607_m1_s1_sayno_32_statistics.json",
+      "category": "tb",
+      "title": "통계 실력중 심화하 과제 프린트",
+      "unit": "3.1 대푯값과 산포도 / 3.2 상관관계",
+      "count": 30,
+      "group": "3.1 대푯값과 산포도 / 3.2 상관관계",
+      "grade": "m1",
+      "source": "MADE Sayno (7.27)"
+    },
+    {
       "id": "m1_2604_s1_peq_mid_self-r01",
       "file": "m1_2604_s1_peq_mid_self-r01.json",
       "category": "peq",
