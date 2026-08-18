@@ -10,6 +10,7 @@
 <!-- v2.1 (2026-08-17): 비밀번호(0000) 로그인 화면 추가 — 진짜 보안이 아니라 접근 방지용 간단 잠금. localStorage에 저장해서 한번 맞추면 그 브라우저에서는 다시 안 물어봄 -->
 <!-- v2.2 (2026-08-17): 로그인 비밀번호 잠금 제거 (우선 보류) -->
 <!-- v2.3 (2026-08-17): 학교별 교재출판사를 고등학교/중학교 레벨별로 분리 표시(각각 별도 표), 첨부자료(PDF) 열 추가 — 홍천중학교 3-2 천재교육(이준열) + PDF 3개 연동 -->
+<!-- v2.4 (2026-08-18): 문제지 분류를 새 명명규칙(tb/peq/me)에 맞춰 개편 — 기존 textbook/exam/pastexam/senmath32 4탭을 tb(교과문제)/peq(기출·내신)/me(모의고사) 3탭으로 통합. 학년(중학교/고등학교) 판별을 category 기반(senmath32 여부)에서 manifest 각 세트의 grade 필드(m0/m1/m2) 기반으로 변경 — tb/peq/me가 이제 학년과 무관하게 양쪽에 다 쓰이기 때문. 범위요약 중간·기말 구분 정규식도 mid1/mid2/final1/final2 → _mid_/_final_로 변경(학기가 이미 id 접두어 s1/s2에 포함되므로 회차 번호 불필요) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -478,6 +479,15 @@
     text-transform:uppercase;
     margin:0 0 12px;
   }
+  .ws-source-label{
+    font-size:15px;
+    font-weight:800;
+    color:var(--ink);
+    margin:28px 0 10px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--ink);
+  }
+  .ws-source-label:first-child{ margin-top:0; }
   .ws-loading{
     padding:24px 4px;
     font-size:13px;
@@ -630,16 +640,14 @@
     <section class="page" id="mainPanel-worksheets">
       <div class="unit-label">문제집 모음</div>
       <div class="worksheet-tabs">
-        <button class="ws-tab-btn active" id="wsTab-textbook" onclick="switchWsTab('textbook')">📘 교과서 목차순 <span class="count" id="wsCount-textbook">0</span></button>
-        <button class="ws-tab-btn" id="wsTab-exam" onclick="switchWsTab('exam')">📝 모의고사·중간기말 <span class="count" id="wsCount-exam">0</span></button>
-        <button class="ws-tab-btn" id="wsTab-pastexam" onclick="switchWsTab('pastexam')">📚 기출문제 <span class="count" id="wsCount-pastexam">0</span></button>
-        <button class="ws-tab-btn" id="wsTab-senmath32" onclick="switchWsTab('senmath32')">📐 쎈수학 중3-2 <span class="count" id="wsCount-senmath32">0</span></button>
+        <button class="ws-tab-btn active" id="wsTab-tb" onclick="switchWsTab('tb')">📘 교과문제 <span class="count" id="wsCount-tb">0</span></button>
+        <button class="ws-tab-btn" id="wsTab-peq" onclick="switchWsTab('peq')">📚 기출·내신 <span class="count" id="wsCount-peq">0</span></button>
+        <button class="ws-tab-btn" id="wsTab-me" onclick="switchWsTab('me')">📝 모의고사 <span class="count" id="wsCount-me">0</span></button>
       </div>
 
-      <div class="ws-tab-panel active" id="wsPanel-textbook"><div class="ws-loading">문제지 목록을 불러오는 중...</div></div>
-      <div class="ws-tab-panel" id="wsPanel-exam"></div>
-      <div class="ws-tab-panel" id="wsPanel-pastexam"></div>
-      <div class="ws-tab-panel" id="wsPanel-senmath32"></div>
+      <div class="ws-tab-panel active" id="wsPanel-tb"><div class="ws-loading">문제지 목록을 불러오는 중...</div></div>
+      <div class="ws-tab-panel" id="wsPanel-peq"></div>
+      <div class="ws-tab-panel" id="wsPanel-me"></div>
     </section>
 
     <section class="page" id="mainPanel-publisher">
@@ -719,15 +727,15 @@
 
   // worksheetId → 문제지 이름 / 카드 그룹 (data/worksheets-manifest.json 기반으로 자동 생성됨)
   let WORKSHEET_META = {};
-  // 원본 문제지 id → category (senmath32는 중학교 3-2, 나머지는 고등학교)
-  let GROUP_CATEGORY = {};
+  // 원본 문제지 id → grade (m0=중3, m1/m2=고등학교) — 레벨 스위치 필터링에 사용
+  let GROUP_GRADE = {};
   let currentLevel = 'highschool'; // 'highschool' | 'middleschool'
-  let WORKSHEET_COUNTS = { textbook:0, exam:0, pastexam:0, senmath32:0 }; // 홈 대시보드 통계용
+  let WORKSHEET_COUNTS = { tb:0, peq:0, me:0 }; // 홈 대시보드 통계용
   let BOARD_RECORD_COUNT = 0; // 홈 대시보드 통계용
-  const isMiddleCategory = cat => cat === 'senmath32';
+  const isMiddleGrade = grade => grade === 'm0';
 
-  const CATEGORY_LABELS = { textbook:'📘 교과서 목차순', exam:'📝 모의고사·중간기말', pastexam:'📚 기출문제', senmath32:'📐 쎈수학 중3-2' };
-  const WS_CATEGORIES = ['textbook','exam','pastexam','senmath32'];
+  const CATEGORY_LABELS = { tb:'📘 교과문제', peq:'📚 기출·내신', me:'📝 모의고사' };
+  const WS_CATEGORIES = ['tb','peq','me'];
 
   function cardHtml(s){
     const metaLine1 = s.stats ? `전체 ${s.count}문제${s.pages ? ' · ' + s.pages + '페이지' : ''}` : (s.unit || '');
@@ -752,60 +760,57 @@
     </div>`;
   }
 
+  let MANIFEST_SETS = []; // fetch는 한 번만 하고, 레벨 전환 시 여기서 필터링만 다시 함
+
   async function renderWorksheetCards(){
-    const panels = { textbook:'', exam:'', pastexam:'', senmath32:'' };
-    const counts = { textbook:0, exam:0, pastexam:0, senmath32:0 };
     try{
       const res = await fetch('data/worksheets-manifest.json');
       const manifest = await res.json();
+      MANIFEST_SETS = manifest.sets || [];
 
-      WS_CATEGORIES.forEach(cat => {
-        const sets = manifest.sets.filter(s => s.category === cat);
-        counts[cat] = sets.length;
-        let lastGroup = null;
-        sets.forEach(s => {
-          if(s.group && s.group !== lastGroup){
-            panels[cat] += `<div class="ws-unit-label">${s.group}</div>`;
-            lastGroup = s.group;
-          }
-          panels[cat] += cardHtml(s);
-
-          WORKSHEET_META[s.id + '-student'] = { label: s.title + ' · 학생풀이', group: s.id };
-          if(s.reviewUrl){
-            WORKSHEET_META[s.id + '-review'] = { label: s.title + ' · 검토용', group: s.id };
-          }
-          GROUP_CATEGORY[s.id] = s.category;
-        });
+      MANIFEST_SETS.forEach(s => {
+        WORKSHEET_META[s.id + '-student'] = { label: s.title + ' · 학생풀이', group: s.id };
+        if(s.reviewUrl){
+          WORKSHEET_META[s.id + '-review'] = { label: s.title + ' · 검토용', group: s.id };
+        }
+        GROUP_GRADE[s.id] = s.grade;
       });
 
-      WS_CATEGORIES.forEach(cat => {
-        document.getElementById('wsPanel-' + cat).innerHTML = panels[cat] || '<div class="ws-loading">등록된 문제지가 없어요</div>';
-        document.getElementById('wsCount-' + cat).textContent = counts[cat];
-      });
-      WORKSHEET_COUNTS = counts;
       applyWorksheetTabsVisibility();
     } catch(err){
-      document.getElementById('wsPanel-textbook').innerHTML = '<div class="ws-loading">문제지 목록을 불러오지 못했어요 (data/worksheets-manifest.json 확인 필요)</div>';
+      document.getElementById('wsPanel-tb').innerHTML = '<div class="ws-loading">문제지 목록을 불러오지 못했어요 (data/worksheets-manifest.json 확인 필요)</div>';
     }
   }
 
-  // 레벨(중학교/고등학교)에 맞는 문제지 모음 서브탭만 보이게 하고, 필요하면 활성 탭을 전환한다.
+  // 레벨(중학교/고등학교)에 맞는 문제지만 걸러서 3개 탭(교과문제/기출·내신/모의고사)을 다시 그린다.
+  // tb/peq/me 분류는 학년과 무관하게 항상 같은 3탭이고, 그 안의 "내용"만 학년별로 달라진다.
   function applyWorksheetTabsVisibility(){
-    const middleCats = ['senmath32'];
-    const highCats = ['textbook','exam','pastexam'];
-    const visibleCats = currentLevel === 'middleschool' ? middleCats : highCats;
+    const counts = { tb:0, peq:0, me:0 };
+    const panels = { tb:'', peq:'', me:'' };
+    const SOURCE_LABELS = { senmath: '📐 쎈수학', self: '📖 자체 복습' };
 
     WS_CATEGORIES.forEach(cat => {
-      const show = visibleCats.includes(cat);
-      const btn = document.getElementById('wsTab-' + cat);
-      if(btn) btn.style.display = show ? '' : 'none';
+      const sets = MANIFEST_SETS.filter(s => s.category === cat && isMiddleGrade(s.grade) === (currentLevel === 'middleschool'));
+      counts[cat] = sets.length;
+      let lastSource = null;
+      let lastGroup = null;
+      sets.forEach(s => {
+        if(s.source && s.source !== lastSource){
+          panels[cat] += `<div class="ws-source-label">${SOURCE_LABELS[s.source] || s.source}</div>`;
+          lastSource = s.source;
+          lastGroup = null; // 출처가 바뀌면 그 아래 단원 구분도 새로 시작
+        }
+        if(s.group && s.group !== lastGroup){
+          panels[cat] += `<div class="ws-unit-label">${s.group}</div>`;
+          lastGroup = s.group;
+        }
+        panels[cat] += cardHtml(s);
+      });
+      document.getElementById('wsPanel-' + cat).innerHTML = panels[cat] || '<div class="ws-loading">등록된 문제지가 없어요</div>';
+      document.getElementById('wsCount-' + cat).textContent = counts[cat];
     });
 
-    const activeBtn = document.querySelector('.worksheet-tabs .ws-tab-btn.active');
-    const activeCat = activeBtn ? activeBtn.id.replace('wsTab-','') : null;
-    if(!activeCat || !visibleCats.includes(activeCat)){
-      switchWsTab(visibleCats[0]);
-    }
+    WORKSHEET_COUNTS = counts;
   }
 
 
@@ -958,8 +963,8 @@
     const panel = document.getElementById('mainPanel-wrongrepeat');
     const list = WRONG_STATS_RAW.filter(item => {
       const meta = WORKSHEET_META[item.worksheetId];
-      const category = meta ? GROUP_CATEGORY[meta.group] : undefined;
-      const belongsToMiddle = isMiddleCategory(category);
+      const grade = meta ? GROUP_GRADE[meta.group] : undefined;
+      const belongsToMiddle = isMiddleGrade(grade);
       return (currentLevel === 'middleschool') === belongsToMiddle;
     });
 
@@ -1041,8 +1046,8 @@
     const examEl = document.getElementById('statExamRange');
     if(!wsEl) return; // 홈 패널이 아직 렌더링 전이면 조용히 무시
 
-    const wsCats = currentLevel === 'middleschool' ? ['senmath32'] : ['textbook','exam','pastexam'];
-    const wsTotal = wsCats.reduce((sum, c) => sum + (WORKSHEET_COUNTS[c] || 0), 0);
+    // WORKSHEET_COUNTS는 이미 현재 레벨 기준으로 필터링된 값이라 그대로 합산하면 됨
+    const wsTotal = WS_CATEGORIES.reduce((sum, c) => sum + (WORKSHEET_COUNTS[c] || 0), 0);
     wsEl.textContent = wsTotal;
 
     const wrongCountEl = document.getElementById('wrongRepeatCount');
@@ -1141,7 +1146,7 @@
     try{
       const manifestRes = await fetch('data/worksheets-manifest.json');
       const manifest = await manifestRes.json();
-      const targets = manifest.sets.filter(s => s.category !== 'textbook');
+      const targets = manifest.sets.filter(s => s.category !== 'tb');
 
       let attemptCounts = {};
       try{
@@ -1172,10 +1177,10 @@
         </tr>`;
 
         let bucket = 'mock';
-        if(/final1|final2/.test(s.id)) bucket = 'final';
-        else if(/mid1|mid2/.test(s.id)) bucket = 'mid';
+        if(/_final_/.test(s.id)) bucket = 'final';
+        else if(/_mid_/.test(s.id)) bucket = 'mid';
 
-        RANGE_ROWS.push({ category: s.category, bucket, html: row });
+        RANGE_ROWS.push({ grade: s.grade, bucket, html: row });
       }));
 
       applyRangeFilter();
@@ -1188,7 +1193,7 @@
   function applyRangeFilter(){
     const buckets = { mid:[], final:[], mock:[] };
     RANGE_ROWS.forEach(r => {
-      const belongsToMiddle = isMiddleCategory(r.category);
+      const belongsToMiddle = isMiddleGrade(r.grade);
       if((currentLevel === 'middleschool') === belongsToMiddle){
         buckets[r.bucket].push(r.html);
       }
