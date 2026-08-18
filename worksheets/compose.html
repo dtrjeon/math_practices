@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!-- v1.2 (2026-08-12): 문제지용 manifest.json → data/worksheets-manifest.json으로 파일명 변경 (PWA용 root manifest.json과 혼동 방지) -->
+<!-- v1.3 (2026-08-18): 새 파일명 규칙(tb/peq/me + grade 필드) 반영 — CATEGORY_LABEL을 tb/peq/me로 교체, 학년 판별을 category 기반에서 grade 필드 기반(isMiddleGrade)으로 변경, 중간·기말 정규식을 mid1/mid2/final1/final2 → _mid_/_final_로 변경, 오래된(재배포 이전) SHEET_WEBHOOK_URL을 최신 URL로 교체 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -287,17 +288,19 @@
 </div>
 
 <script>
-  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzUef9uyH28s4l2iObFCyg131Ft2_aDdxLj_ab5vdA5wFBQKdVKMfOwh2u5EwsbWwus/exec';
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzqgkELv7cxD3UZlVj1XfvNiFtR4o6nI5uyDOLiMme6hx5eCcaVkNc_cUZ3JawAafKc/exec';
   const DIFF_LABEL = { low:'하', mid:'중', midhigh:'중상', high:'상', top:'최상' };
-  const CATEGORY_LABEL = { textbook:'교과서', exam:'중간·기말고사', pastexam:'기출문제', senmath32:'쎈수학 중3-2' };
+  const CATEGORY_LABEL = { tb:'교과문제', peq:'기출·내신', me:'모의고사' };
 
-  // index_mathc1.html과 동일한 규칙: category가 'senmath32'면 중학교 3-2, 나머지는 고등학교
-  const isMiddleCategory = cat => cat === 'senmath32';
+  // index_mathc1.html과 동일한 규칙: grade가 'm0'면 중학교 3-2, 나머지(m1/m2)는 고등학교
+  // (분류(tb/peq/me)는 이제 학년과 무관하게 양쪽 다 쓰이므로, 학년 판별은 category가 아니라
+  //  manifest 각 세트의 grade 필드로 한다)
+  const isMiddleGrade = grade => grade === 'm0';
 
-  // 세트 id에 mid1/mid2/final1/final2가 들어있으면 중간·기말로 분류 (index_mathc1.html 범위요약과 동일 규칙)
+  // 세트 id에 _mid_/_final_이 들어있으면 중간·기말로 분류 (index_mathc1.html 범위요약과 동일 규칙)
   function getExamBucket(id){
-    if(/final1|final2/.test(id)) return 'final';
-    if(/mid1|mid2/.test(id)) return 'mid';
+    if(/_final_/.test(id)) return 'final';
+    if(/_mid_/.test(id)) return 'mid';
     return 'other';
   }
 
@@ -436,7 +439,7 @@
     let html = '';
     let shownSetCount = 0, shownProblemCount = 0;
     manifest.sets.forEach(s => {
-      const belongsToMiddle = isMiddleCategory(s.category);
+      const belongsToMiddle = isMiddleGrade(s.grade);
       if((currentLevel === 'middleschool') !== belongsToMiddle) return;
       if(examFilter !== 'all' && getExamBucket(s.id) !== examFilter) return;
 
