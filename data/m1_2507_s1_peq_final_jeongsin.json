@@ -1,0 +1,284 @@
+{
+  "id": "m1_2507_s1_peq_final_jeongsin",
+  "title": "정신여자고등학교 1학년 2025년 1학기 공통수학1 기말",
+  "source": "매쓰플랫 기출 유사",
+  "unit": "여러 가지 방정식과 부등식 ~ 행렬과 그 연산",
+  "problems": [
+    {
+      "num": 1,
+      "diff": "low",
+      "type": "fillin",
+      "question": "행렬 A=\\(\\begin{pmatrix}1 & 2 \\\\ -3 & 0\\end{pmatrix}\\)에 대하여 \\(A^2\\)=pA+qE가 성립할 때, 실수 p, q의 곱 pq의 값을 구하시오.",
+      "answer": "-6",
+      "solution": [
+        "\\(A^2\\)=AA=\\(\\begin{pmatrix}1 & 2 \\\\ -3 & 0\\end{pmatrix}\\)\\(\\begin{pmatrix}1 & 2 \\\\ -3 & 0\\end{pmatrix}\\)=\\(\\begin{pmatrix}-5 & 2 \\\\ -3 & -6\\end{pmatrix}\\). 이때 \\(A^2\\)=pA+qE이므로 \\(\\begin{pmatrix}-5 & 2 \\\\ -3 & -6\\end{pmatrix}\\)=p\\(\\begin{pmatrix}1 & 2 \\\\ -3 & 0\\end{pmatrix}\\)+q\\(\\begin{pmatrix}1 & 0 \\\\ 0 & 1\\end{pmatrix}\\)=\\(\\begin{pmatrix}p+q & 2p \\\\ -3p & q\\end{pmatrix}\\). 두 행렬이 서로 같을 조건에 의하여 2=2p, -6=q. 따라서 p=1, q=-6이므로 pq=1·(-6)=-6"
+      ]
+    },
+    {
+      "num": 2,
+      "diff": "low",
+      "type": "fillin",
+      "question": "어느 동아리에서 A, B, C를 포함한 10명의 학생 중에서 4명의 대표를 선발할 때, A, B는 선발되고 C는 선발되지 않는 방법의 수를 구하시오.",
+      "answer": "21",
+      "solution": [
+        "A, B, C를 제외한 7명 중에서 2명을 선발하면 되므로 구하는 방법의 수는 \\({}_7C_2\\)=21"
+      ]
+    },
+    {
+      "num": 3,
+      "diff": "low",
+      "type": "fillin",
+      "question": "다음 그림과 같은 스테인드 글라스의 5개의 서로 다른 영역에 서로 다른 5가지 색의 유리를 부착하려고 한다. 같은 색을 중복하여 사용해도 좋으나 인접한 영역은 서로 다른 색의 유리를 사용할 때, 유리를 부착하는 경우의 수를 구하시오.",
+      "answer": "420",
+      "solution": [
+        "서로 다른 5가지 색의 유리를 부착하는 것을 서로 다른 5개의 색을 칠하는 것으로 생각하면 A, B, C, D, E의 순서로 칠할 때, A에 칠할 수 있는 색은 5가지, B에 칠할 수 있는 색은 A에 칠한 색을 제외한 4가지, C에 칠할 수 있는 색은 A, B에 칠한 색을 제외한 3가지. (i) C와 D에 같은 색을 칠할 경우: D에 칠할 수 있는 색은 C에 칠한 색과 같은 1가지, E에 칠할 수 있는 색은 A와 C(D)에 칠한 색을 제외한 3가지이므로 경우의 수는 5·4·3·1·3=180. (ii) C와 D에 다른 색을 칠할 경우: D에 칠할 수 있는 색은 A, B, C에 칠한 색을 제외한 2가지, E에 칠할 수 있는 색은 A, C, D에 칠한 색을 제외한 2가지이므로 경우의 수는 5·4·3·2·2=240. (i),(ii)에 의하여 구하는 경우의 수는 180+240=420"
+      ]
+    },
+    {
+      "num": 4,
+      "diff": "low",
+      "type": "mc",
+      "question": "부등식 |x-1|<4를 만족시키는 정수 x의 개수는?",
+      "choices": [
+        "1",
+        "3",
+        "5",
+        "7",
+        "9"
+      ],
+      "correct": 3,
+      "solution": [
+        "|x-1|<4에서 -4<x-1<4. 각 변에 1을 더하면 -3<x<5. 따라서 조건을 만족시키는 정수 x는 -2,-1,0,1,2,3,4이므로 그 개수는 7이다."
+      ]
+    },
+    {
+      "num": 5,
+      "diff": "low",
+      "type": "mc",
+      "question": "연립방정식 \\(\\begin{cases}x^2-3xy+2y^2=0 \\\\ 2x^2-y^2=2\\end{cases}\\)의 해를 x=α, y=β라 할 때, \\(α^2\\)+\\(β^2\\)의 최댓값은?",
+      "choices": [
+        "4",
+        "\\(\\frac{9}{2}\\)",
+        "5",
+        "\\(\\frac{11}{2}\\)",
+        "6"
+      ],
+      "correct": 0,
+      "solution": [
+        "\\(x^2\\)-3xy+2\\(y^2\\)=0의 좌변을 인수분해하면 (x-y)(x-2y)=0에서 y=x 또는 y=\\(\\frac{1}{2}\\)x. y=x일 때 대입하면 \\(x^2\\)=2, \\(y^2\\)=2이므로 \\(α^2\\)+\\(β^2\\)=4. y=\\(\\frac{1}{2}\\)x일 때 대입하면 \\(x^2\\)=\\(\\frac{8}{7}\\), \\(y^2\\)=\\(\\frac{2}{7}\\)이므로 \\(α^2\\)+\\(β^2\\)=\\(\\frac{10}{7}\\). (i),(ii)에서 \\(α^2\\)+\\(β^2\\)의 최댓값은 4"
+      ]
+    },
+    {
+      "num": 6,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "등식 \\(\\begin{pmatrix}2 & a \\\\ 0 & -1\\end{pmatrix}\\)\\(\\begin{pmatrix}2 & -1 \\\\ b & 2\\end{pmatrix}\\)=\\(\\begin{pmatrix}2 & 4 \\\\ x & -3\\end{pmatrix}\\)-\\(\\begin{pmatrix}-4 & 4 \\\\ -1 & -y\\end{pmatrix}\\)를 만족시키는 실수 x, y에 대하여 x+y의 값을 구하시오. (단, a, b는 실수)",
+      "answer": "-2",
+      "solution": [
+        "\\(\\begin{pmatrix}2 & a \\\\ 0 & -1\\end{pmatrix}\\)\\(\\begin{pmatrix}2 & -1 \\\\ b & 2\\end{pmatrix}\\)=\\(\\begin{pmatrix}4+ab & -2+2a \\\\ -b & -2\\end{pmatrix}\\)이고 우변은 \\(\\begin{pmatrix}2 & 4 \\\\ x & -3\\end{pmatrix}\\)-\\(\\begin{pmatrix}-4 & 4 \\\\ -1 & -y\\end{pmatrix}\\)=\\(\\begin{pmatrix}6 & 0 \\\\ x+1 & y-3\\end{pmatrix}\\)이다. 4+ab=6, -2+2a=0, -b=x+1, -2=y-3에서 a=1, b=-1, x=-3, y=1 ∴x+y=-2"
+      ]
+    },
+    {
+      "num": 7,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "이차함수 y=3\\(x^2\\)-2ax+b의 그래프가 x축과 만나지 않도록 하는 5 이하의 자연수 a, b의 순서쌍 (a,b)의 개수를 구하시오.",
+      "answer": "11",
+      "solution": [
+        "이차방정식 3\\(x^2\\)-2ax+b=0의 판별식을 D라 하면 D/4=\\(a^2\\)-3b<0이어야 한다. (i) a=1일 때: 1<3b에서 b=1,2,3,4,5의 5개. (ii) a=2일 때: 4<3b에서 b=2,3,4,5의 4개. (iii) a=3일 때: 9<3b에서 b=4,5의 2개. (iv) a=4일 때: 16<3b에서 b는 존재하지 않는다. (v) a=5일 때: (iv)와 마찬가지로 존재하지 않는다. (i)~(v)에 의하여 구하고자 하는 순서쌍 (a,b)는 11개이다."
+      ]
+    },
+    {
+      "num": 8,
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 연립부등식을 만족하는 정수 x의 개수는? \\(\\begin{cases}|x+3|>1 ⋯㉠ \\\\ x^2+4x-3≤0 ⋯㉡\\end{cases}\\)",
+      "choices": [
+        "1개",
+        "2개",
+        "3개",
+        "4개",
+        "5개"
+      ],
+      "correct": 1,
+      "solution": [
+        "㉠: x+3>1, x+3<-1에서 x>-2 또는 x<-4. ㉡: \\(x^2\\)+4x-3=0에서 x=-2±√(4+3)=-2±√7이므로 부등식의 해는 -2-√7≤x≤-2+√7. ㉠과 ㉡의 공통 범위는 -2-√7≤x<-4, -2<x≤-2+√7. 정수 x: -1,0 (2개)"
+      ]
+    },
+    {
+      "num": 9,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "두 행렬 A=\\(\\begin{pmatrix}a & -1 \\\\ 1 & b\\end{pmatrix}\\), B=\\(\\begin{pmatrix}-1 & -1 \\\\ 0 & -2\\end{pmatrix}\\)에 대하여 AB+A=O를 만족시킬 때, A+\\(A^2\\)+\\(A^3\\)+⋯+\\(A^{2010}\\)=\\(\\begin{pmatrix}p & q \\\\ r & s\\end{pmatrix}\\)이다. \\(p^2\\)+\\(q^2\\)+\\(r^2\\)+\\(s^2\\)의 값을 구하시오. (단, O는 영행렬이다.)",
+      "answer": "4",
+      "solution": [
+        "두 행렬 A, B를 AB+A=O에 대입하면 \\(\\begin{pmatrix}a & -1 \\\\ 1 & b\\end{pmatrix}\\)\\(\\begin{pmatrix}-1 & -1 \\\\ 0 & -2\\end{pmatrix}\\)+\\(\\begin{pmatrix}a & -1 \\\\ 1 & b\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 & 0 \\\\ 0 & 0\\end{pmatrix}\\), \\(\\begin{pmatrix}-a & -a+2 \\\\ -1 & -2b-1\\end{pmatrix}\\)+\\(\\begin{pmatrix}a & -1 \\\\ 1 & b\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 & 0 \\\\ 0 & 0\\end{pmatrix}\\), \\(\\begin{pmatrix}0 & -a+1 \\\\ 0 & -b-1\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 & 0 \\\\ 0 & 0\\end{pmatrix}\\). 따라서 -a+1=0, -b-1=0이므로 a=1, b=-1. 즉, A=\\(\\begin{pmatrix}1 & -1 \\\\ 1 & -1\\end{pmatrix}\\)이고 \\(A^2\\)=\\(\\begin{pmatrix}1 & -1 \\\\ 1 & -1\\end{pmatrix}\\)\\(\\begin{pmatrix}1 & -1 \\\\ 1 & -1\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 & 0 \\\\ 0 & 0\\end{pmatrix}\\)=O. ∴A+\\(A^2\\)+\\(A^3\\)+⋯+\\(A^{2010}\\)=A=\\(\\begin{pmatrix}1 & -1 \\\\ 1 & -1\\end{pmatrix}\\). 따라서 p=1, q=-1, r=1, s=-1이므로 \\(p^2\\)+\\(q^2\\)+\\(r^2\\)+\\(s^2\\)=4"
+      ]
+    },
+    {
+      "num": 10,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "x에 대한 방정식 a[x\\(]^2\\)+b[x]+c=0(a≠0)의 해가 연립부등식 \\(\\begin{cases}x^2-16<0 \\\\ x^2-6x+8≤0\\end{cases}\\)의 해와 같을 때, 상수 a, b, c에 대하여 c/a-b/a의 값을 구하시오. (단, [x]는 x보다 크지 않은 최대의 정수이다.)",
+      "answer": "11",
+      "solution": [
+        "\\(x^2\\)-16<0에서 -4<x<4 ⋯㉠. \\(x^2\\)-6x+8≤0에서 (x-2)(x-4)≤0 ∴2≤x≤4 ⋯㉡. ㉠, ㉡에서 2≤x<4. 그런데 [x]는 정수이므로 2≤x<4에서 [x]=2 또는 [x]=3. 따라서 방정식 a[x\\(]^2\\)+b[x]+c=0에서 이차방정식의 근과 계수의 관계에 의하여 -b/a=5, c/a=2·3=6 ∴c/a-b/a=6+5=11"
+      ]
+    },
+    {
+      "num": 11,
+      "diff": "mid",
+      "type": "mc",
+      "question": "연립부등식 \\(\\begin{cases}|x-1|<3 \\\\ x^2-x-1≥1\\end{cases}\\)을 풀면?",
+      "choices": [
+        "-2<x<4",
+        "x≤-1 또는 x≥2",
+        "-1≤x≤2",
+        "-1≤x≤2 또는 x>4",
+        "-2<x≤-1 또는 2≤x<4"
+      ],
+      "correct": 4,
+      "solution": [
+        "|x-1|<3에서 -3<x-1<3 ∴-2<x<4. \\(x^2\\)-x-1≥1에서 \\(x^2\\)-x-2≥0, (x-2)(x+1)≥0 ∴x≤-1 또는 x≥2. 두 부등식의 공통 범위는 -2<x≤-1 또는 2≤x<4"
+      ]
+    },
+    {
+      "num": 12,
+      "diff": "high",
+      "type": "fillin",
+      "question": "두 이차정사각행렬 A, B에 대하여 행렬 A의 (i,j)성분 aij와 행렬 B의 (i,j)성분 bij가 각각 aij=aji, bij=-bji를 만족한다. A+B=\\(\\begin{pmatrix}8 & 15 \\\\ -1 & 7\\end{pmatrix}\\)일 때, \\(a_{21}\\)+\\(a_{22}\\)의 값을 구하시오.",
+      "answer": "14",
+      "solution": [
+        "aij=aji이므로 \\(a_{12}\\)=\\(a_{21}\\). bij=-bji이므로 \\(b_{11}\\)=\\(b_{22}\\)=0, \\(b_{21}\\)=-\\(b_{12}\\). A+B=\\(\\begin{pmatrix}a_{11} & a_{21} \\\\ a_{21} & a_{22}\\end{pmatrix}\\)+\\(\\begin{pmatrix}0 & b_{12} \\\\ -b_{12} & 0\\end{pmatrix}\\)=\\(\\begin{pmatrix}8 & 15 \\\\ -1 & 7\\end{pmatrix}\\)에서 \\(a_{22}\\)=7, \\(a_{21}\\)=7. ∴\\(a_{21}\\)+\\(a_{22}\\)=14"
+      ]
+    },
+    {
+      "num": 13,
+      "diff": "midhigh",
+      "type": "mc",
+      "question": "이차함수 f(x)에 대하여 f(4)=-4이고 부등식 f(x)≥0의 해가 0≤x≤3일 때, f(1)의 값은?",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "correct": 1,
+      "solution": [
+        "f(x)=a\\(x^2\\)+bx+c(a≠0)이라 하면 f(x)≥0의 해가 0≤x≤3이므로 a<0. 해가 0≤x≤3이고 \\(x^2\\)의 계수가 1인 이차부등식은 x(x-3)≤0 ∴\\(x^2\\)-3x≤0. 양변에 a를 곱하면 a\\(x^2\\)-3ax≥0(∵a<0). 이 부등식이 a\\(x^2\\)+bx+c≥0과 같으므로 b=-3a, c=0 ⋯㉠. 한편, f(4)=-4이므로 16a+4b+c=-4. ㉠을 위의 식에 대입한 후 정리하면 4a=-4 ∴a=-1. 따라서 f(x)=-\\(x^2\\)+3x이므로 f(1)=2"
+      ]
+    },
+    {
+      "num": 14,
+      "diff": "high",
+      "type": "fillin",
+      "question": "7개의 숫자 0,1,2,3,4,5,6 중에서 서로 다른 5개의 숫자를 사용하여 만들 수 있는 다섯 자리 자연수 중 5의 배수의 개수를 구하시오.",
+      "answer": "660",
+      "solution": [
+        "5의 배수는 일의 자리 숫자가 0 또는 5이어야 한다. (i) 일의 자리 숫자가 0인 경우: 나머지 자리에는 0을 제외한 6개의 숫자 중에서 4개를 택하여 일렬로 나열하면 되므로 일의 자리 숫자가 0인 5의 배수의 개수는 \\({}_6P_4\\)=360. (ii) 일의 자리 숫자가 5인 경우: 만의 자리에 올 수 있는 숫자는 0과 5를 제외한 1,2,3,4,6의 5개이고, 천의 자리와 백의 자리, 십의 자리에 올 수 있는 숫자는 만의 자리의 숫자와 일의 자리의 숫자인 5를 제외한 5개의 숫자 중 3개이므로 일의 자리 숫자가 5인 5의 배수의 개수는 5·\\({}_5P_3\\)=5·60=300. (i),(ii)에 의하여 구하는 자연수의 개수는 360+300=660"
+      ]
+    },
+    {
+      "num": 15,
+      "diff": "high",
+      "type": "fillin",
+      "question": "등식 \\(\\begin{pmatrix}3 & a \\\\ 0 & 2\\end{pmatrix}\\)\\(\\begin{pmatrix}4 & -2 \\\\ b & 2\\end{pmatrix}\\)=\\(\\begin{pmatrix}2 & 5 \\\\ x & 9\\end{pmatrix}\\)-\\(\\begin{pmatrix}-1 & 5 \\\\ -2 & y\\end{pmatrix}\\)를 만족시키는 실수 x, y에 대하여 -x+y의 값을 구하시오. (단, a, b는 실수)",
+      "answer": "13",
+      "solution": [
+        "\\(\\begin{pmatrix}3 & a \\\\ 0 & 2\\end{pmatrix}\\)\\(\\begin{pmatrix}4 & -2 \\\\ b & 2\\end{pmatrix}\\)=\\(\\begin{pmatrix}12+ab & -6+2a \\\\ 2b & 4\\end{pmatrix}\\)=\\(\\begin{pmatrix}2 & 5 \\\\ x & 9\\end{pmatrix}\\)-\\(\\begin{pmatrix}-1 & 5 \\\\ -2 & y\\end{pmatrix}\\)=\\(\\begin{pmatrix}3 & 0 \\\\ x+2 & 9-y\\end{pmatrix}\\)에서 12+ab=3, -6+2a=0, 2b=x+2, 4=9-y. ∴a=3, b=-3, x=-8, y=5 ∴-x+y=13"
+      ]
+    },
+    {
+      "num": 16,
+      "diff": "high",
+      "type": "fillin",
+      "question": "한 개의 주사위를 던져서 나오는 눈의 수가 2의 배수이거나 5의 약수인 경우의 수를 구하시오.",
+      "answer": "5",
+      "solution": [
+        "(i) 6 이하의 자연수 중에서 2의 배수는 2,4,6의 3가지. (ii) 6 이하의 자연수 중에서 5의 약수는 1,5의 2가지. (i),(ii)가 동시에 일어나지 않으므로 구하는 경우의 수는 합의 법칙에 의하여 3+2=5"
+      ]
+    },
+    {
+      "num": 17,
+      "diff": "top",
+      "type": "fillin",
+      "question": "A, B, C, D 네 지점 사이에 그림과 같은 도로망이 있다. A 지점에서 출발하여 B 지점으로 가는 방법의 수를 구하시오. (단, 같은 지점은 두 번 지나지 않는다.)",
+      "answer": "18",
+      "solution": [
+        "A 지점에서 B 지점으로 가는 방법은 C 지점을 거치거나 D 지점을 거치는 2가지의 경우가 있으므로 (i) A→C→B로 가는 방법의 수는 3·2=6. (ii) A→D→B로 가는 방법의 수는 3·4=12. (i),(ii)에서 합의 법칙에 의하여 6+12=18"
+      ]
+    },
+    {
+      "num": 18,
+      "diff": "high",
+      "type": "mc",
+      "question": "등식 2(\\({}_nP_3\\)+\\({}_{n+1}P_4\\))=7·\\({}_{n+1}P_3\\)을 만족시키는 n의 값은?",
+      "choices": [
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "correct": 0,
+      "solution": [
+        "2(\\({}_nP_3\\)+\\({}_{n+1}P_4\\))=7·\\({}_{n+1}P_3\\)에서 2{n(n-1)(n-2)+(n+1)n(n-1)}=7(n+1)n(n-1). n≥3이므로 양변을 n(n-1)로 나누면 2{(n-2)+(n+1)(n-2)}=7(n+1), 2(\\(n^2\\)-4)=7n+7, 2\\(n^2\\)-7n-15=0, (n-5)(2n+3)=0 ∴n=5"
+      ]
+    },
+    {
+      "num": 19,
+      "diff": "top",
+      "type": "fillin",
+      "question": "부등식 |x-5|+|x|<a의 해가 -3<x<8일 때, 실수 a의 값을 구하시오.",
+      "answer": "11",
+      "solution": [
+        "x<0일 때, x-5<0, x<0이므로 -x+5-x<a에서 x>(5-a)/2. 그런데 부등식의 해가 -3<x<8이므로 해당 범위에서 -3<x<0의 해가 나와야 한다. 따라서 (5-a)/2=-3이므로 a=11"
+      ]
+    },
+    {
+      "num": 20,
+      "diff": "top",
+      "type": "mc",
+      "question": "행렬 A=\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)와 이차정사각행렬 B가 다음 조건을 만족시킬 때, 행렬 A+B의 (1,1)성분과 (2,2)성분의 합은?\n(가) B\\(\\begin{pmatrix}2 \\\\ -2\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 \\\\ 0\\end{pmatrix}\\)이다.\n(나) AB=5A이고, BA=3B이다.",
+      "choices": [
+        "4",
+        "6",
+        "8",
+        "10",
+        "12"
+      ],
+      "correct": 2,
+      "solution": [
+        "B=\\(\\begin{pmatrix}p & q \\\\ r & s\\end{pmatrix}\\)라 하면\n(가) 에서 \\(\\begin{pmatrix}p & q \\\\ r & s\\end{pmatrix}\\)\\(\\begin{pmatrix}2 \\\\ -2\\end{pmatrix}\\)=\\(\\begin{pmatrix}2p-2q \\\\ 2r-2s\\end{pmatrix}\\)=\\(\\begin{pmatrix}0 \\\\ 0\\end{pmatrix}\\) ∴p=q, r=s. B=\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\). 이때\n(나) 에서 AB=\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\)=(p+r p+r; a(p+r) a(p+r))=5\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)이므로 p+r=5. 또, BA=\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\)\\(\\begin{pmatrix}1 & 1 \\\\ a & a\\end{pmatrix}\\)=(p(1+a) p(1+a); r(1+a) r(1+a))=3\\(\\begin{pmatrix}p & p \\\\ r & r\\end{pmatrix}\\)이므로 1+a=3, 즉 a=2(∵1+a≠3이면 p=0, r=0이므로 모순이다). 따라서 A+B=\\(\\begin{pmatrix}1+p & 1+p \\\\ a+r & a+r\\end{pmatrix}\\)의 (1,1)성분과 (2,2)성분의 합은 1+p+a+r=1+a+(p+r)=1+2+5=8"
+      ]
+    },
+    {
+      "num": 21,
+      "diff": "top",
+      "type": "mc",
+      "question": "행렬 A=\\(\\begin{pmatrix}0 & 1 \\\\ -1 & 1\\end{pmatrix}\\)에 대하여 \\(A^{101}\\)=\\(\\begin{pmatrix}a & b \\\\ c & d\\end{pmatrix}\\)일 때, ac+bd의 값은?",
+      "choices": [
+        "-2",
+        "-1",
+        "0",
+        "1",
+        "2"
+      ],
+      "correct": 3,
+      "solution": [
+        "\\(A^2\\)=AA=\\(\\begin{pmatrix}0 & 1 \\\\ -1 & 1\\end{pmatrix}\\)\\(\\begin{pmatrix}0 & 1 \\\\ -1 & 1\\end{pmatrix}\\)=\\(\\begin{pmatrix}-1 & 1 \\\\ -1 & 0\\end{pmatrix}\\). \\(A^3\\)=\\(A^2\\)A=\\(\\begin{pmatrix}-1 & 1 \\\\ -1 & 0\\end{pmatrix}\\)\\(\\begin{pmatrix}0 & 1 \\\\ -1 & 1\\end{pmatrix}\\)=\\(\\begin{pmatrix}-1 & 0 \\\\ 0 & -1\\end{pmatrix}\\)=-E. \\(A^6\\)=(\\(A^3\\)\\()^2\\)=(-E\\()^2\\)=E ∴\\(A^{101}\\)=(\\(A^6\\)\\()^{16}\\)\\(A^5\\)=\\(E^{16}\\)\\(A^5\\)=\\(A^5\\)=\\(A^3\\)\\(A^2\\)=-\\(A^2\\)=-\\(\\begin{pmatrix}-1 & 1 \\\\ -1 & 0\\end{pmatrix}\\)=\\(\\begin{pmatrix}1 & -1 \\\\ 1 & 0\\end{pmatrix}\\). 따라서 a=1, b=-1, c=1, d=0이므로 ac+bd=1·1+(-1)·0=1"
+      ]
+    },
+    {
+      "num": 22,
+      "diff": "top",
+      "type": "fillin",
+      "question": "네 명의 학생 A, B, C, D를 일렬로 세울 때, A가 B보다 왼쪽에 있도록 세우는 방법의 수를 구하시오.",
+      "answer": "12",
+      "solution": [
+        "4명의 학생을 일렬로 세우는 방법의 수는 4!=24. 이때 A가 B보다 왼쪽에 있는 경우와 오른쪽에 있는 경우가 같은 비율로 있으므로 구하는 경우의 수는 \\(\\frac{1}{2}\\)·24=12"
+      ]
+    }
+  ]
+}
