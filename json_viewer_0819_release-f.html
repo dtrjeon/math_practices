@@ -1,0 +1,2693 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>문제지 미리보기</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --paper:#f6f4ee;
+    --ink:#20242b;
+    --line:#dedad0;
+    --accent:#0d9488;
+    --wrong:#b42318;
+    --content-width:760px;
+
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    font-family:-apple-system,'Pretendard',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    padding:20px 16px 60px;
+  }
+  h1{ font-size:19px; margin:4px 0 4px; }
+  .sub{ font-size:12.5px; color:#6b6f78; margin-bottom:18px; }
+
+  .drop{
+    border:2px dashed var(--line);
+    border-radius:14px;
+    padding:28px 16px;
+    text-align:center;
+    cursor:pointer;
+    background:#fff;
+    margin-bottom:18px;
+  }
+  .drop.has-file{ border-color:var(--accent); background:#f0fdfa; }
+  .drop input{ display:none; }
+  .drop-label{ font-size:13.5px; color:#555; }
+  .drop-label b{ color:var(--ink); }
+  .reset-btn{
+    width:100%;
+    margin-top:8px;
+    padding:9px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:#fff;
+    color:#8a3b2f;
+    font-size:12.5px;
+    cursor:pointer;
+  }
+  .reset-btn:active{ background:#faf0ee; }
+
+  .meta-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px 18px;
+    margin-bottom:18px;
+    max-width:var(--content-width);
+    display:none;
+  }
+  .meta-card .title{ font-size:16px; font-weight:700; margin-bottom:4px; }
+  .meta-card .unit{ font-size:12.5px; color:#6b6f78; }
+
+  .problem{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:14px;
+    max-width:var(--content-width);
+  }
+  .p-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:10px;
+  }
+  .p-num{ font-size:14px; font-weight:700; }
+  .p-diff{
+    font-size:11px;
+    padding:2px 8px;
+    border-radius:999px;
+    background:#f2f0e8;
+    color:#6b6f78;
+  }
+  .p-question{ font-size:14.5px; line-height:1.6; margin-bottom:12px; white-space:pre-line; }
+  .source-tag{ color:#adb0b6; font-size:0.82em; }
+  .p-choices{ font-size:14px; line-height:2; margin-bottom:12px; }
+  .p-choices div{ padding-left:2px; }
+  .p-answer{
+    font-size:12.5px;
+    color:var(--accent);
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  .p-explanation{
+    font-size:13px;
+    line-height:1.6;
+    color:#444;
+    background:#faf9f5;
+    border-radius:10px;
+    padding:12px 14px;
+    border-left:3px solid var(--accent);
+    white-space:pre-line;
+  }
+  .p-explanation .label{
+    font-size:11px;
+    font-weight:700;
+    color:var(--accent);
+    display:block;
+    margin-bottom:4px;
+  }
+  .check-panel{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    margin-bottom:14px;
+    max-width:var(--content-width);
+    font-size:12.5px;
+  }
+  .check-panel .check-title{ font-weight:600; margin-bottom:8px; font-size:13.5px; }
+  .check-panel .check-row{ display:flex; justify-content:space-between; padding:3px 0; color:#444; }
+  .check-panel .check-row b{ color:var(--wrong); }
+  .check-panel .check-row.ok b{ color:var(--accent); }
+  .check-panel .check-actions{ display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
+  .check-panel button{
+    flex:1 1 auto;
+    padding:8px 6px;
+    border:1px solid var(--accent);
+    border-radius:8px;
+    background:#f0fdfa;
+    color:var(--accent);
+    font-size:12px;
+    cursor:pointer;
+  }
+  .check-panel button:active{ background:#ccfbf1; }
+  .check-panel .warn-list{ margin-top:8px; max-height:160px; overflow-y:auto; border-top:1px dashed var(--line); padding-top:8px; }
+  .check-panel .warn-list div{ padding:2px 0; color:#8a3b2f; }
+
+  .img-tool{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    margin-bottom:18px;
+    max-width:var(--content-width);
+    font-size:12.5px;
+  }
+  .img-tool .check-title{ font-weight:600; margin-bottom:8px; font-size:13.5px; }
+  .img-tool label{ display:block; margin:8px 0 4px; color:#555; }
+  .img-tool select, .img-tool input[type=file]{ width:100%; padding:7px; border:1px solid var(--line); border-radius:8px; font-size:12.5px; background:#fafafa; }
+  .img-tool canvas{ max-width:100%; border:1px solid var(--line); border-radius:8px; margin-top:8px; touch-action:none; cursor:crosshair; }
+  .img-tool .img-tool-actions{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+  .img-tool button{
+    flex:1 1 auto;
+    padding:8px 6px;
+    border:1px solid var(--accent);
+    border-radius:8px;
+    background:#f0fdfa;
+    color:var(--accent);
+    font-size:12px;
+    cursor:pointer;
+  }
+  .img-tool button:disabled{ opacity:.4; cursor:not-allowed; }
+
+  .p-img-manage{ display:flex; flex-direction:row; flex-wrap:wrap; align-items:flex-start; gap:10px; margin:10px 0 14px; }
+  .p-img-manage .thumb-wrap{ position:relative; align-self:flex-start; max-width:100%; }
+  .p-img-manage img{ display:block; max-width:100%; max-height:420px; width:auto; height:auto; object-fit:contain; border-radius:8px; border:1px solid var(--line); background:#fff; }
+  .p-img-manage .thumb-wrap[style*="width"] img{ width:100%; max-height:none; }
+  .p-img-manage .thumb-drag{
+    position:absolute; top:6px; left:6px; z-index:2;
+    width:28px; height:28px; border-radius:50%;
+    background:rgba(0,0,0,.55); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; line-height:1; cursor:grab;
+    touch-action:none; user-select:none;
+  }
+  .p-img-manage .thumb-wrap.dragging{
+    opacity:.5; outline:2px dashed var(--accent); outline-offset:2px;
+  }
+  .p-img-manage .thumb-actions{
+    position:absolute; top:6px; right:6px; display:flex; gap:6px; align-items:center;
+  }
+  .p-img-manage .thumb-del{
+    width:26px; height:26px; border-radius:50%;
+    background:rgba(0,0,0,.55); color:#fff; font-size:15px; line-height:26px; text-align:center;
+    border:none; cursor:pointer; padding:0; flex-shrink:0;
+  }
+  .p-img-manage .thumb-crop{
+    height:26px; padding:0 10px; border-radius:13px; white-space:nowrap;
+    background:rgba(13,148,136,.9); color:#fff; font-size:11px; line-height:26px; text-align:center;
+    border:none; cursor:pointer; flex-shrink:0;
+  }
+  .p-img-manage .thumb-undo{
+    height:26px; padding:0 10px; border-radius:13px; white-space:nowrap;
+    background:rgba(217,119,6,.9); color:#fff; font-size:11px; line-height:26px; text-align:center;
+    border:none; cursor:pointer; flex-shrink:0;
+  }
+  .p-img-manage .thumb-resize{
+    position:absolute; right:2px; bottom:2px;
+    width:22px; height:22px; border-radius:6px;
+    background:rgba(13,148,136,.9); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; line-height:1; cursor:nwse-resize;
+    touch-action:none; user-select:none;
+  }
+  .p-img-manage .thumb-wrap.resizing{ outline:2px dashed var(--accent); outline-offset:2px; }
+  .p-img-manage .thumb-wrap.resizing img{ pointer-events:none; }
+  .p-img-manage .thumb-size-label{
+    position:absolute; left:6px; bottom:6px;
+    background:rgba(0,0,0,.55); color:#fff; font-size:10.5px;
+    padding:2px 6px; border-radius:5px; pointer-events:none;
+    opacity:0; transition:opacity .15s;
+  }
+  .p-img-manage .thumb-wrap.resizing .thumb-size-label{ opacity:1; }
+
+  .p-img-manage .add-img-btn{
+    align-self:flex-start;
+    padding:8px 14px; border:1px dashed var(--line); border-radius:6px;
+    background:#fafafa; color:#888; font-size:11px; cursor:pointer;
+  }
+  .p-badges{ display:flex; gap:4px; margin-left:auto; }
+  .p-badge{ font-size:10.5px; padding:2px 6px; border-radius:6px; }
+  .p-badge.b-diff{ background:#fef3c7; color:#92400e; }
+  .p-badge.b-struct{ background:#fee2e2; color:#991b1b; }
+  .p-badge.b-latex{ background:#e0e7ff; color:#3730a3; }
+
+  .p-figure{
+    text-align:center;
+    margin-bottom:12px;
+    padding:10px 6px;
+    background:#fafaf7;
+    border:1px solid var(--line);
+    border-radius:10px;
+  }
+  .p-figure svg{ display:inline-block; }
+  .p-figure-note{
+    font-size:11px;
+    color:#9a6a3a;
+    margin-top:6px;
+  }
+  .p-images{
+    text-align:center;
+    margin-bottom:12px;
+    padding:10px 6px;
+    background:#fafaf7;
+    border:1px solid var(--line);
+    border-radius:10px;
+  }
+  .p-images img{
+    max-width:100%;
+    height:auto;
+    display:block;
+    margin:0 auto 8px;
+    border-radius:6px;
+  }
+  .p-images img:last-child{ margin-bottom:0; }
+  .empty{ text-align:center; padding:40px 10px; color:#8a8f99; font-size:13px; }
+
+  /* 화면 밖으로 넘치지 않도록 자동 줄바꿈 */
+  html, body{ max-width:100%; overflow-x:hidden; }
+  h1, .sub, .p-question, .p-choices, .p-explanation, .meta-card, .docs-panel,
+  .file-item, .source-tag, code, pre{
+    overflow-wrap:break-word;
+    word-break:break-word;
+  }
+  .docs-panel pre{ white-space:pre-wrap; }
+  .layout{ flex-wrap:wrap; }
+  .file-panel{ max-width:100%; }
+
+  /* 폰트 크기 / 인쇄 컨트롤 — 우측 상단 고정 플로팅 카드 */
+  #fontZoomBar{
+    position:fixed;
+    top:14px;
+    right:14px;
+    z-index:60;
+    display:flex;
+    align-items:center;
+    gap:2px;
+    background:rgba(255,255,255,0.86);
+    -webkit-backdrop-filter:blur(10px);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(32,36,43,0.08);
+    border-radius:18px;
+    padding:5px 7px;
+    box-shadow:0 8px 22px rgba(32,36,43,0.12), 0 1px 3px rgba(32,36,43,0.06);
+  }
+  .toolbar-zoom{ display:flex; align-items:center; gap:3px; }
+  #fontZoomBar button{
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    border:none;
+    background:#f1efe7;
+    color:var(--ink);
+    font-weight:700;
+    cursor:pointer;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+    transition:background .15s ease, transform .1s ease;
+  }
+  #fontZoomOut{ font-size:10px; }
+  #fontZoomIn{ font-size:16px; }
+  #fontZoomBar button:active{ background:var(--accent); color:#fff; transform:scale(.92); }
+  #fontZoomBar button:disabled{ opacity:.35; cursor:default; }
+  #fontZoomBar button:disabled:active{ background:#f1efe7; color:var(--ink); transform:none; }
+  #fontZoomLevel{ font-size:10.5px; color:#8a8f99; min-width:30px; text-align:center; font-variant-numeric:tabular-nums; }
+  #widthZoomOut, #widthZoomIn{ font-size:11px; }
+  #widthZoomLevel{ font-size:10.5px; color:#8a8f99; min-width:42px; text-align:center; font-variant-numeric:tabular-nums; }
+  .toolbar-divider{ width:1px; height:16px; background:rgba(32,36,43,0.10); margin:0 5px; }
+  #perPageLabel{
+    display:flex; align-items:center; gap:5px;
+    font-size:10.5px; color:#8a8f99; white-space:nowrap;
+  }
+  #perPageSelect{
+    font-size:11px;
+    border:1px solid rgba(32,36,43,0.10);
+    border-radius:8px;
+    padding:3px 5px;
+    background:#faf9f5;
+    color:var(--ink);
+    appearance:none;
+    -webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='6'><path d='M0 0L4.5 5.5L9 0' fill='none' stroke='%236b6f78' stroke-width='1.3'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 6px center;
+    padding-right:18px;
+  }
+  #printBtn{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:none;
+    background:var(--accent);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 3px 8px rgba(13,148,136,0.38);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  #printBtn svg{ width:14px; height:14px; display:block; }
+  #printBtn:active{ transform:scale(.92); box-shadow:0 1px 3px rgba(13,148,136,0.38); }
+  #previewBtn{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:none;
+    background:#f1efe7;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:background .15s ease, transform .1s ease;
+  }
+  #previewBtn:active{ background:var(--accent); transform:scale(.92); }
+  #previewBtn:active svg path, #previewBtn:active svg circle{ stroke:#fff; }
+
+  /* 맨 위로 / 맨 아래로 이동 버튼 — 상단 툴바(#fontZoomBar)와 동일한 right:14px 축에 맞춰
+     같은 세로줄(문제지 미리보기 영역의 오른쪽 경계)에 세로로 나란히 놓이도록 배치 */
+  .scroll-fab{
+    position:fixed;
+    right:14px;
+    z-index:60;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid rgba(32,36,43,0.08);
+    background:rgba(255,255,255,0.92);
+    -webkit-backdrop-filter:blur(10px);
+    backdrop-filter:blur(10px);
+    box-shadow:0 8px 20px rgba(32,36,43,0.14), 0 1px 3px rgba(32,36,43,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    opacity:0;
+    transform:translateY(8px);
+    pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .scroll-fab.visible{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .scroll-fab svg{ width:16px; height:16px; display:block; }
+  .scroll-fab:active{ transform:scale(.9); }
+  #scrollTopBtn{ bottom:18px; }
+  #scrollBottomBtn{ bottom:64px; }
+
+  /* 플로팅 툴바가 제목과 겹치지 않도록 상단 여백 확보 */
+  body{ padding-top:58px; }
+
+  #zoomWrap{ transition:zoom .1s ease; }
+
+  /* 자체 수식 렌더링용 스타일 (MathJax 없이 오프라인 작동) */
+  .mfrac{ display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; margin:0 2px; font-size:0.92em; line-height:1.1; }
+  .mfrac .num{ border-bottom:1.3px solid currentColor; padding:0 3px 1px; }
+  .mfrac .den{ padding:1px 3px 0; }
+  .msqrt{ display:inline-flex; align-items:flex-start; margin:0 1px; }
+  .msqrt .radical{ padding-top:1px; }
+  .msqrt .radicand{ border-top:1.3px solid currentColor; padding:0 2px; margin-left:1px; }
+  sup, sub{ font-size:0.72em; }
+  .matrix-wrap{ display:inline-flex; align-items:center; margin:0 2px; vertical-align:middle; }
+  .matrix-paren{ display:inline-block; line-height:1; font-weight:300; }
+  .matrix-table{ display:inline-table; border-collapse:collapse; margin:0 2px; vertical-align:middle; }
+  .matrix-table td{ padding:1px 7px; text-align:center; font-variant-numeric:tabular-nums; }
+  .cases-wrap{ display:inline-flex; align-items:center; margin:0 2px; vertical-align:middle; }
+  .cases-brace{ display:inline-block; line-height:1; font-weight:300; margin-right:3px; }
+  .cases-table{ display:inline-table; border-collapse:collapse; margin:0 2px; vertical-align:middle; }
+  .cases-table td{ padding:1px 4px; text-align:left; }
+
+  /* 좌: 파일명 목록 / 우: 미리보기 2단 레이아웃 */
+  .layout{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .file-panel{
+    width:132px;
+    flex-shrink:0;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    position:sticky;
+    top:12px;
+    max-height:calc(100vh - 24px);
+    overflow-y:auto;
+  }
+  .file-panel-empty{
+    padding:16px 10px;
+    font-size:11.5px;
+    color:#9a9da4;
+    text-align:center;
+  }
+  .file-item{
+    display:block;
+    width:100%;
+    text-align:left;
+    padding:10px 10px;
+    font-size:12px;
+    line-height:1.35;
+    border:none;
+    border-bottom:1px solid var(--line);
+    background:#fff;
+    color:var(--ink);
+    cursor:pointer;
+    word-break:break-all;
+  }
+  .file-item:last-child{ border-bottom:none; }
+  .file-item.active{ background:var(--accent); color:#fff; font-weight:700; }
+  .preview-panel{
+    flex:1;
+    min-width:0;
+  }
+
+  .docs-toggle{
+    display:inline-block;
+    font-size:12px;
+    color:var(--accent);
+    background:#f0fdfa;
+    border:1px solid #b6ded8;
+    border-radius:8px;
+    padding:5px 10px;
+    margin-bottom:14px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .docs-panel{
+    display:none;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:18px 20px;
+    margin-bottom:18px;
+    font-size:13px;
+    line-height:1.65;
+    overflow-x:auto;
+  }
+  .docs-panel.open{ display:block; }
+  .docs-panel h1{ font-size:16px; margin:0 0 10px; }
+  .docs-panel h2{ font-size:14px; margin:20px 0 8px; color:var(--accent); border-top:1px solid var(--line); padding-top:14px; }
+  .docs-panel h2:first-of-type{ border-top:none; padding-top:0; }
+  .docs-panel p{ margin:8px 0; }
+  .docs-panel ul{ margin:6px 0; padding-left:20px; }
+  .docs-panel li{ margin:3px 0; }
+  .docs-panel code{
+    background:#f3f1ea;
+    border-radius:4px;
+    padding:1px 5px;
+    font-size:12px;
+    font-family:'SFMono-Regular',Consolas,monospace;
+    word-break:break-all;
+  }
+  .docs-panel pre{
+    background:#20242b;
+    color:#e8e6df;
+    border-radius:10px;
+    padding:12px 14px;
+    overflow-x:auto;
+    font-size:11.5px;
+    line-height:1.5;
+  }
+  .docs-panel pre code{ background:none; padding:0; color:inherit; }
+  .docs-panel table{
+    border-collapse:collapse;
+    width:100%;
+    margin:10px 0;
+    font-size:12px;
+  }
+  .docs-panel th, .docs-panel td{
+    border:1px solid var(--line);
+    padding:6px 8px;
+    text-align:left;
+    vertical-align:top;
+  }
+  .docs-panel th{ background:#f6f4ee; }
+  .docs-panel strong{ color:var(--wrong); }
+
+  /* ===== 인쇄용 미리보기 (화면에서는 숨김) ===== */
+  .print-only{ display:none; }
+
+  @media print{
+    @page{ size:A4; margin:12mm 10mm; }
+
+    html, body{ background:#fff; padding:0; margin:0; }
+    #zoomWrap{ zoom:1 !important; }
+
+    /* 화면 전용 UI는 인쇄에서 전부 숨김 */
+    #fontZoomBar, #scrollTopBtn, #scrollBottomBtn, .docs-toggle, .docs-panel, .drop, #resetBtn,
+    .sub, h1, .layout, .preview-overlay{ display:none !important; }
+
+    #printArea{ display:block !important; }
+
+    .print-page{
+      page-break-after:always;
+      break-after:page;
+    }
+    .print-page:last-child{ page-break-after:auto; break-after:auto; }
+
+    .print-cols-row{
+      display:flex;
+      gap:12mm;
+    }
+    .print-col{
+      flex:1 1 0;
+      min-width:0;
+    }
+
+    .print-title{
+      font-size:13px;
+      font-weight:700;
+      margin:0 0 6mm;
+    }
+
+    .problem{
+      break-inside:avoid;
+      page-break-inside:avoid;
+      border:1px solid #ccc;
+      border-radius:6px;
+      padding:8px 9px;
+      margin-bottom:16mm;
+      background:#fff;
+    }
+    .problem:last-child{ margin-bottom:0; }
+    .p-head{ margin-bottom:6px; }
+    .p-num{ font-size:12px; }
+    .p-diff{ font-size:9.5px; padding:1px 6px; }
+    .p-question{ font-size:11.5px; line-height:1.5; margin-bottom:8px; }
+    .p-choices{ font-size:11.5px; line-height:1.75; margin-bottom:0; }
+    .p-figure, .p-images{ padding:6px 4px; margin-bottom:8px; }
+    .p-images img{ max-width:100%; }
+
+    /* 풀이/정답은 인쇄에서 절대 표시하지 않음 (noshow) */
+    .p-answer, .p-explanation{ display:none !important; }
+  }
+
+  /* ===== 화면에서 보는 인쇄 미리보기 모달 ===== */
+  .preview-overlay{
+    display:none;
+    position:fixed; inset:0; z-index:200;
+    background:#2b2e33;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .preview-overlay.open{ display:block; }
+  .preview-header{
+    position:sticky; top:0; z-index:2;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:8px;
+    padding:10px 12px;
+    background:#20242b;
+    color:#fff;
+    font-size:12px;
+  }
+  .preview-header #previewTitle{
+    flex:1 1 auto;
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .preview-header .preview-actions{ display:flex; gap:6px; flex:0 0 auto; }
+  .preview-header button{
+    padding:8px 10px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,.35);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    font-size:12px;
+    white-space:nowrap;
+    cursor:pointer;
+  }
+  .preview-header button.preview-print{
+    background:var(--accent);
+    border-color:var(--accent);
+    font-weight:600;
+  }
+  .preview-hint{
+    position:sticky; top:44px; z-index:1;
+    background:#f0fdfa;
+    color:#0d6b62;
+    font-size:11.5px;
+    text-align:center;
+    padding:6px 12px;
+    border-bottom:1px solid #ccfbf1;
+  }
+  .preview-scale-wrap{
+    padding:22px 10px 60px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .preview-sheet{
+    width:780px;
+    max-width:none;
+    background:#fff;
+    box-shadow:0 6px 24px rgba(0,0,0,.35);
+    padding:14mm 10mm;
+    transform-origin:top center;
+    box-sizing:border-box;
+  }
+  .preview-sheet .print-cols-row{
+    display:flex;
+    gap:12mm;
+  }
+  .preview-sheet .print-col{
+    flex:1 1 0;
+    min-width:0;
+  }
+  .preview-sheet .print-title{
+    font-size:13px;
+    font-weight:700;
+    margin:0 0 6mm;
+  }
+  .preview-sheet .problem{
+    break-inside:avoid;
+    -webkit-column-break-inside:avoid;
+    border:1px solid #ccc;
+    border-radius:6px;
+    padding:8px 9px;
+    margin-bottom:16mm;
+    background:#fff;
+  }
+  .preview-sheet .problem:last-child{ margin-bottom:0; }
+  .preview-sheet .p-head{
+    margin:-8px -9px 8px;
+    padding:10px 9px;
+    display:flex; align-items:center; gap:6px;
+    background:#f6f5f1;
+    border-bottom:1px solid #e5e3da;
+    border-radius:6px 6px 0 0;
+    touch-action:none;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+    cursor:grab;
+  }
+  .preview-sheet .p-head:active{ background:#eafaf7; cursor:grabbing; }
+  .preview-sheet .p-num{ font-size:12px; font-weight:700; }
+  .preview-sheet .p-diff{ font-size:9.5px; padding:1px 8px; border-radius:999px; background:#fff; color:#6b6f78; }
+  .preview-sheet .p-question{ font-size:11.5px; line-height:1.5; margin-bottom:8px; white-space:pre-line; }
+  .preview-sheet .p-choices{ font-size:11.5px; line-height:1.75; margin-bottom:0; }
+  .preview-sheet .p-figure, .preview-sheet .p-images{ padding:6px 4px; margin-bottom:8px; text-align:center; }
+  .preview-sheet .p-images img{ max-width:100%; }
+  .preview-page-label{
+    color:#aeb2ba; font-size:11.5px; text-align:center;
+  }
+  .preview-sheet .drag-handle{
+    margin-left:auto;
+    display:flex; align-items:center; justify-content:center;
+    color:#999;
+    font-size:15px; letter-spacing:-2px;
+    pointer-events:none; /* 클릭은 항상 상위 p-head가 받음 — 아이콘은 시각적 표시만 */
+  }
+  .preview-sheet .problem.dragging{
+    opacity:.45;
+    box-shadow:0 0 0 2px var(--accent) inset;
+  }
+</style>
+</head>
+<body>
+
+<div id="fontZoomBar">
+  <div class="toolbar-zoom">
+    <button type="button" id="fontZoomOut" aria-label="글자 작게" title="글자 작게">가</button>
+    <span id="fontZoomLevel">100%</span>
+    <button type="button" id="fontZoomIn" aria-label="글자 크게" title="글자 크게">가</button>
+  </div>
+  <span class="toolbar-divider"></span>
+  <div class="toolbar-zoom" id="widthZoomGroup">
+    <button type="button" id="widthZoomOut" aria-label="화면 좁게" title="화면 좁게">◀</button>
+    <span id="widthZoomLevel">760px</span>
+    <button type="button" id="widthZoomIn" aria-label="화면 넓게" title="화면 넓게">▶</button>
+  </div>
+  <span class="toolbar-divider"></span>
+  <label id="perPageLabel">
+    1p당
+    <select id="perPageSelect">
+      <option value="6" selected>6문제</option>
+      <option value="5">5문제</option>
+    </select>
+  </label>
+  <span class="toolbar-divider"></span>
+  <button type="button" id="previewBtn" title="인쇄 미리보기" aria-label="인쇄 미리보기 열기">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" stroke="#20242b" stroke-width="2" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="3" stroke="#20242b" stroke-width="2"/>
+    </svg>
+  </button>
+  <span class="toolbar-divider"></span>
+  <button type="button" id="printBtn" title="인쇄 / PDF 저장" aria-label="인쇄 또는 PDF로 저장">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 9V3h12v6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="4" y="9" width="16" height="8" rx="1.6" stroke="white" stroke-width="2"/>
+      <path d="M6 14h12v7H6z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+
+<button type="button" id="scrollBottomBtn" class="scroll-fab" title="맨 아래로" aria-label="맨 아래로 이동">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 5v14M5 12l7 7 7-7" stroke="#20242b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<button type="button" id="scrollTopBtn" class="scroll-fab" title="맨 위로" aria-label="맨 위로 이동">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 19V5M5 12l7-7 7 7" stroke="#20242b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<div id="printArea" class="print-only"></div>
+
+<div id="previewOverlay" class="preview-overlay">
+  <div class="preview-header">
+    <span id="previewTitle">인쇄 미리보기</span>
+    <div class="preview-actions">
+      <button type="button" id="previewPrintBtn" class="preview-print">인쇄하기</button>
+      <button type="button" id="previewCloseBtn">닫기 ✕</button>
+    </div>
+  </div>
+  <div class="preview-hint">문제 카드 상단 회색 바(⠿⠿)를 누른 채 끌면 1열↔2열, 같은 열 안 어디로든 옮길 수 있어요. 손을 떼면 그 자리로 확정됩니다.</div>
+  <div class="preview-scale-wrap" id="previewScaleWrap"></div>
+</div>
+
+<div id="zoomWrap">
+
+<h1>📄 문제지 미리보기</h1>
+<div class="sub">JSON 파일을 여러 개 올리면 왼쪽 목록에서 골라 오른쪽에서 확인할 수 있어요</div>
+
+<div class="docs-toggle" id="docsToggle">📖 뷰어 사양 문서 보기 (viewer.md)</div>
+<div class="docs-panel" id="docsPanel">
+<h1>json_mult_review.html — 뷰어 사양 문서</h1>
+<p><code>26_1st.json</code>류 문제지 JSON을 렌더링하는 <code>json_mult_review.html</code>이 지원하는
+문법을 정리한 문서. 새 문제/해설 텍스트를 JSON에 작성할 때 이 문서 기준으로
+작성하면 뷰어에서 깨지지 않는다.</p>
+<h2>수식 구분자</h2>
+<ul>
+<li>인라인 수식: <code>\( ... \)</code></li>
+<li>디스플레이 수식: <code>\[ ... \]</code></li>
+<li>그 밖의 일반 텍스트는 그대로 escape되어 출력됨 (HTML 태그 삽입 불가)</li>
+</ul>
+<h2>파일명(id) 규칙</h2>
+<p>문제지 JSON의 <code>id</code>와 파일명은 다음 순서로 구성한다. 과목은 전부 수학이므로
+표기하지 않는다.</p>
+<pre>{학년}_{연월}_{학기}_{분류}_{세부}_{학교또는출처}</pre>
+<h3>학년</h3>
+<table>
+<thead><tr><th>표기</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><code>m0</code></td><td>중학교 3학년</td></tr>
+<tr><td><code>m1</code></td><td>고등학교 1학년</td></tr>
+<tr><td><code>m2</code></td><td>고등학교 2학년</td></tr>
+</tbody>
+</table>
+<h3>연월</h3>
+<p><code>YYMM</code> 4자리 (예: 2026년 9월 → <code>2609</code>)</p>
+<h3>학기</h3>
+<table>
+<thead><tr><th>표기</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><code>s1</code></td><td>1학기</td></tr>
+<tr><td><code>s2</code></td><td>2학기</td></tr>
+</tbody>
+</table>
+<h3>분류</h3>
+<table>
+<thead><tr><th>약어</th><th>영어명</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td><code>tb</code></td><td>Textbook Problems</td><td>교과문제 (교과서·교과 과정 중심)</td></tr>
+<tr><td><code>sep</code></td><td>School Exam Preparation</td><td>내신대비 (학교 중간·기말고사 대비)</td></tr>
+<tr><td><code>peq</code></td><td>Past Exam Questions</td><td>기출문제 (과거 실제 출제 문제)</td></tr>
+<tr><td><code>me</code></td><td>Mock Exam</td><td>모의고사</td></tr>
+</tbody>
+</table>
+<h3>세부</h3>
+<p><code>sep</code>일 때만 사용. 학기(<code>s1</code>/<code>s2</code>)가 이미 학기 번호를
+포함하므로, 세부에는 번호 없이 <code>mid</code>(중간고사) 또는 <code>final</code>(기말고사)만 붙인다
+(예전의 <code>mid1</code>/<code>final1</code>/<code>mid2</code>/<code>final2</code> 방식은 더 이상 쓰지 않는다).</p>
+<h3>학교 또는 출처</h3>
+<p>특정 학교의 실제 시험 대비 자료라면 학교명 로마자 표기(예: <code>hwimun</code>,
+<code>hongcheon</code>)를 항상 포함한다. 특정 학교가 없는 범용 문제집(예: DRE수학
+내신대비 시리즈)이라면 출처 슬러그(예: <code>dre</code>)를 대신 쓴다. 여러 학교의
+문제가 한 파일에 섞여 있는 경우에는 학교명을 나열하지 않고 <code>mix</code>로
+표기한다 (예: <code>m1_2504_s1_sep_mid_mix</code>).</p>
+<h3>예시</h3>
+<ul>
+<li><code>m0_2609_s2_sep_mid_dre</code> — 중3, 26년 9월, 2학기, 내신대비, 중간고사, DRE수학</li>
+<li><code>m1_2504_s1_sep_mid_hwimun</code> — 고1, 25년 4월, 1학기, 내신대비, 중간고사, 휘문고</li>
+<li><code>m1_2606_s1_sep_final_hongcheon</code> — 고1, 26년 6월, 1학기, 내신대비, 기말고사, 홍천고</li>
+<li><code>m1_2504_s1_sep_mid_mix</code> — 고1, 25년 4월, 1학기, 내신대비, 중간고사, 여러 학교 혼합</li>
+<li><code>m0_26_s2_tb_senmath_q108-125</code> — 중3, 26년, 2학기, 교과문제, 쎈수학, 108~125번 범위 (학년·학기가 접두어에 이미 있으므로 교재명의 "32" 같은 학년-학기 중복 표기는 생략)</li>
+</ul>
+<h2>지원하는 LaTeX 명령어 (texToHtml)</h2>
+<table>
+<thead>
+<tr>
+<th>명령어</th>
+<th>출력</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\frac{a}{b}</code></td>
+<td>분수</td>
+</tr>
+<tr>
+<td><code>\sqrt{x}</code>, <code>\sqrt[n]{x}</code></td>
+<td>제곱근/거듭제곱근</td>
+</tr>
+<tr>
+<td><code>\bar{x}</code>, <code>\overline{x}</code></td>
+<td>윗줄(overline)</td>
+</tr>
+<tr>
+<td><code>^{...}</code>, <code>_{...}</code></td>
+<td>위첨자/아래첨자 (중괄호 생략 가능: <code>x^2</code>)</td>
+</tr>
+<tr>
+<td><code>\begin{pmatrix}...\end{pmatrix}</code></td>
+<td>행렬 (행 구분 <code>\\</code>, 열 구분 <code>&amp;</code>)</td>
+</tr>
+<tr>
+<td><code>\begin{cases}...\end{cases}</code></td>
+<td>조건식(중괄호) (행 구분 <code>\\</code>)</td>
+</tr>
+<tr>
+<td><code>\dfrac{a}{b}</code></td>
+<td>분수 (<code>\frac</code>와 동일 처리)</td>
+</tr>
+<tr>
+<td><code>\times</code>, <code>\div</code>, <code>\cdot</code>, <code>\cdots</code>, <code>\dots</code></td>
+<td>× ÷ · ⋯ …</td>
+</tr>
+<tr>
+<td><code>\leq</code>, <code>\geq</code>, <code>\neq</code>, <code>\equiv</code></td>
+<td>≤ ≥ ≠ ≡</td>
+</tr>
+<tr>
+<td><code>\pmod{n}</code></td>
+<td>" (mod n)"</td>
+</tr>
+<tr>
+<td><code>\pm</code></td>
+<td>±</td>
+</tr>
+<tr>
+<td><code>\pi</code></td>
+<td>π (그리스 문자 표 밖에 별도 처리)</td>
+</tr>
+<tr>
+<td><code>\infty</code></td>
+<td>∞</td>
+</tr>
+<tr>
+<td><code>\in</code></td>
+<td>∈</td>
+</tr>
+<tr>
+<td><code>\max</code>, <code>\min</code></td>
+<td>max, min (텍스트)</td>
+</tr>
+<tr>
+<td><code>\cos</code>, <code>\sin</code>, <code>\tan</code>, <code>\log</code>, <code>\ln</code></td>
+<td>cos, sin, tan, log, ln (텍스트)</td>
+</tr>
+<tr>
+<td><code>\therefore</code>, <code>\because</code></td>
+<td>∴ ∵</td>
+</tr>
+<tr>
+<td><code>\Rightarrow</code></td>
+<td>⇒</td>
+</tr>
+<tr>
+<td><code>\Leftrightarrow</code></td>
+<td>⇔</td>
+</tr>
+<tr>
+<td><code>\rightarrow</code>, <code>\to</code></td>
+<td>→</td>
+</tr>
+<tr>
+<td><code>\leftarrow</code></td>
+<td>←</td>
+</tr>
+<tr>
+<td><code>\left</code>, <code>\right</code></td>
+<td>무시(크기 조절 명령이라 기호만 그대로 통과 — <code>\left(</code> → <code>(</code>)</td>
+</tr>
+<tr>
+<td><code>\{</code>, <code>\}</code></td>
+<td>리터럴 중괄호 <code>{</code> <code>}</code> (그룹핑 중괄호와 구분됨)</td>
+</tr>
+<tr>
+<td><code>\alpha</code> ~ <code>\omega</code>, <code>\Alpha</code> ~ <code>\Omega</code></td>
+<td>그리스 문자 전체 (대소문자)</td>
+</tr>
+<tr>
+<td><code>\</code> (백슬래시+공백)</td>
+<td>공백 한 칸</td>
+</tr>
+</tbody>
+</table>
+<p><strong>주의</strong>: 위 목록에 없는 LaTeX 명령어(<code>\quad</code>, <code>\text{}</code>, <code>\lim</code>, <code>\sum</code>,
+<code>\int</code>, <code>\iff</code>, <code>\implies</code> 등)는 처리되지 않고 글자 그대로 출력된다.
+필요해지면 <code>texToHtml</code>의 <code>parseToken()</code>에 동일한 패턴
+(<code>if (tex.startsWith('\\명령어', i)) { i += 길이; return '기호'; }</code>)으로
+추가할 것 — <strong>단, 접두사 충돌을 반드시 확인</strong>할 것 (아래 원칙 참고).</p>
+<p><strong>2026-08-14 추가된 명령어</strong>: 중3-2 삼각비 문제지(<code>senmath32_04_q108~125.json</code>)
+작업 중 아래 5개 명령어가 목록에 없어 화면에 백슬래시가 그대로 노출되는 문제를
+겪음(<code>\dfrac</code>·<code>\sqrt</code>·<code>\sin</code> 등은 정상 렌더링돼서 "일부만 깨지는" 것처럼 보여
+원인 파악이 늦어졌음). 원칙대로 JSON이 아니라 <code>texToHtml</code>에 추가해서 해결하고,
+임시로 유니코드 치환했던 JSON은 표준 LaTeX 표기로 되돌림 — 위 지원 명령어
+표에도 반영됨.</p>
+<table>
+<thead>
+<tr>
+<th>명령어</th>
+<th>출력</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\circ</code></td>
+<td>°</td>
+<td>보통 <code>^\circ</code> 형태로 사용</td>
+</tr>
+<tr>
+<td><code>\angle</code></td>
+<td>∠</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\le</code></td>
+<td>≤</td>
+<td><code>\leq</code>·<code>\left</code>·<code>\leftarrow</code>보다 반드시 뒤에 검사(접두사 충돌)</td>
+</tr>
+<tr>
+<td><code>\ne</code></td>
+<td>≠</td>
+<td><code>\neq</code>보다 반드시 뒤에 검사(접두사 충돌)</td>
+</tr>
+<tr>
+<td><code>\fallingdotseq</code></td>
+<td>≈</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>2026-08-14 추가 2차</strong>: <code>senmath32_05~07</code> 문제지 작업 중 아래 7개 명령어도
+JSON에서 유니코드로 임시 치환했다가, 그 임시 치환이 오히려 <code>\( \)</code> 수식
+구분자 밖에 놓인 문장에서 문제를 일으킨다는 걸 뒤늦게 발견함(예: "OB⊥OC이므로"처럼
+평문 속 유니코드 기호는 그대로 통과돼 잘 보였지만, 표준 LaTeX <code>\perp</code>로 되돌리는
+과정에서 그 자리가 수식 모드 밖이라 백슬래시가 그대로 노출되는 역버그가 생김).
+<code>texToHtml</code>에 정식 추가하고, JSON도 표준 LaTeX로 되돌리면서 문제가 된 자리는
+<code>\( \)</code>로 새로 감싸 수정함.</p>
+<table>
+<thead>
+<tr>
+<th>명령어</th>
+<th>출력</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\perp</code></td>
+<td>⊥</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\triangle</code></td>
+<td>△</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\square</code></td>
+<td>□</td>
+<td><code>\sqrt</code>와 접두사가 겹쳐 보이지만 3번째 글자(r vs u)가 달라 충돌 없음</td>
+</tr>
+<tr>
+<td><code>\sim</code></td>
+<td>∼ (닮음 기호)</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\ldots</code></td>
+<td>⋯</td>
+<td></td>
+</tr>
+<tr>
+<td><code>\vec{XY}</code></td>
+<td>인자를 그대로 출력(화살표 생략)</td>
+<td><code>parseGroup()</code>으로 인자만 풀어서 반환 — JSON은 아직 유니코드 치환 상태 그대로 유지(원래 화살표 없이 "XY"로만 썼던 거라 되돌릴 표준 표기가 없음)</td>
+</tr>
+<tr>
+<td><code>\text{...}</code></td>
+<td>인자를 그대로 출력(평문)</td>
+<td>위와 같은 이유로 JSON은 아직 <code>\text{}</code> 벗긴 평문 상태 유지</td>
+</tr>
+</tbody>
+</table>
+<p>새 명령어를 추가하기 전에는 항상 실제 JSON 데이터에서 쓰인 전체 명령어
+목록을 뽑아 대조한다:</p>
+<pre><code class="language-python">import json, re
+cmds = set()
+for fn in ['26_1st.json', '26_2nd.json']:
+    d = json.load(open(fn, encoding='utf-8'))
+    for p in d['problems']:
+        text = p.get('question','') + ' '.join(p.get('choices') or []) + ' '.join(p.get('solution') or [])
+        cmds |= set(re.findall(r'\\[a-zA-Z]+', text))
+print(sorted(cmds))
+</code></pre>
+<p>그리고 <code>texToHtml</code>을 Node로 분리해 모든 문항의 모든 텍스트 필드를 실제로
+돌려보고 <code>\[A-Za-z]+</code> 패턴이 출력에 남아있지 않은지(=처리 안 된 명령어가
+없는지) 회귀 테스트할 것. 브라우저 없이도 <code>&lt;script&gt;</code> 내용만 추출해
+<code>module.exports</code>로 Node에서 실행 가능하다.</p>
+<h2>처리 원칙</h2>
+<ul>
+<li><strong>화살표 등 새 기호가 필요하면 JSON이 아니라 뷰어(texToHtml)에서
+  추가한다.</strong> JSON은 표준 LaTeX 표기를 그대로 쓰는 "원문 데이터"로 유지하고,
+  화면에 어떻게 그릴지는 뷰어 책임으로 분리한다. JSON에서 유니코드 기호로
+  직접 바꿔치기하면 같은 명령어를 쓰는 다른 모든 문제를 하나씩 찾아 고쳐야
+  하고, 다음 시험지 JSON을 만들 때도 표준 표기를 못 쓰게 된다.</li>
+<li>새 명령어를 추가할 때는 기존 명령어(<code>\times</code>, <code>\pm</code> 등)와 같은 위치
+  (그리스 문자 처리 이후, <code>^</code>/<code>_</code> 처리 이전)에 넣는다.</li>
+<li>명령어 이름이 서로의 접두사인 경우 반드시 <strong>긴 것부터</strong> 먼저 검사해야
+  짧은 명령어가 긴 명령어를 가로채지 않는다. 실제로 겪은 충돌 사례:</li>
+<li><code>\rightarrow</code>/<code>\to</code>, <code>\Rightarrow</code>/<code>\rightarrow</code></li>
+<li><code>\leftarrow</code> vs <code>\left</code> (leftarrow가 먼저 와야 함)</li>
+<li><code>\rightarrow</code> vs <code>\right</code> (rightarrow가 먼저 와야 함)</li>
+<li><code>\pmod</code> vs <code>\pm</code> (pmod가 먼저 와야 함)</li>
+<li><code>\cdots</code> vs <code>\cdot</code> (cdots가 먼저 와야 함)</li>
+<li><code>\infty</code> vs <code>\in</code> (infty가 먼저 와야 함)
+  새 명령어를 추가할 때마다 기존 목록 전체와 접두사 겹침이 없는지 확인.</li>
+<li><code>\{</code>, <code>\}</code> (이스케이프된 리터럴 중괄호)는 파서의 기본 중괄호 그룹핑
+  (<code>{...}</code> = 인자 묶음)과 반드시 구분해서 처리해야 한다. 구분 없이 두면
+  <code>\in\{2,4,6,8\}</code> 같은 집합 표기가 깨진다 — 이스케이프 브레이스 검사를
+  일반 백슬래시 처리보다 먼저 넣을 것.</li>
+</ul>
+<h2><code>solution</code> 필드 구조</h2>
+<p><code>solution</code>은 배열이지만, <strong>단일 원소 배열</strong>로 작성한다. 그 원소 안에 다음
+구조를 <code>\n</code>(줄바꿈)으로 이어붙인 하나의 문자열을 담는다:</p>
+<pre><code>&quot;진단 문구(핵심 개념/스킬 한 줄)\n풀이 단계1\n풀이 단계2\n...&quot;
+</code></pre>
+<p>예:</p>
+<pre><code class="language-json">&quot;solution&quot;: [
+  &quot;복소수의 상등 조건 활용하기\n\\(\\overline{5i}=-5i\\)이므로 \\((x-2)+(x-y)i=0-5i\\).\n실수부: \\(x-2=0 \\therefore x=2\\). 허수부: \\(x-y=-5 \\therefore y=7\\).\n\\(x+y=2+7=9\\)&quot;
+]
+</code></pre>
+<ul>
+<li>첫 줄(진단 문구)은 이 문제가 확인하려는 핵심 개념/스킬을 한 문장으로
+  요약한 것 ("~하기", "~할 수 있는가?" 등). 실제 풀이 단계가 아니다.</li>
+<li>뷰어는 <code>p.solution.join(' ')</code>으로 explanation을 만드는데, 배열 원소가
+  하나뿐이면 <code>join</code>이 구분자를 넣지 않으므로 내부의 <code>\n</code>이 그대로
+  보존된다. <code>.p-explanation</code>에 <code>white-space:pre-line</code>이 이미 적용돼
+  있어 <code>\n</code>이 실제 줄바꿈으로 렌더링된다 — <strong>뷰어 코드 수정 불필요</strong>.</li>
+<li>여러 단계를 배열 원소로 쪼개 넣는 예전 방식(<code>["단계1","단계2",...]</code>)은
+  쓰지 않는다. 그렇게 하면 <code>join(' ')</code>이 각 단계 사이에 공백만 넣어
+  한 줄로 뭉개진다.</li>
+</ul>
+<h2><code>question</code> 필드 - |보기| 표기</h2>
+<p>|보기|(ㄱ, ㄴ, ㄷ, ㄹ, ㅁ 등) 형태가 있는 문제는 <code>question</code> 필드 안에서
+각 항목을 <code>\n</code>(줄바꿈)으로 구분해 한 줄씩 적는다. 도입 문장, (있다면) 숫자/식
+목록, "- 보기 -" 구분선, 각 보기 항목까지 전부 별도 줄로 끊는다:</p>
+<pre><code class="language-json">&quot;question&quot;: &quot;다음 수들에 대한 |보기|의 설명 중 옳은 것을 모두 고른 것은?\n[ -2, 2-3i, -√5i, -2i+√5, 1/3-√2i, π/3, 0, -i², -i⁴ ]\n- 보기 -\nㄱ. 복소수는 모두 3개다.\nㄴ. 순허수는 오직 1개다.\nㄷ. 허수는 모두 4개다.\nㄹ. 실수는 모두 4개다.&quot;
+</code></pre>
+<p>4개짜리(ㄱ~ㄹ)든 5개짜리(ㄱ~ㅁ)든 항목 개수에 상관없이 같은 규칙을 적용한다.
+줄 끝에 불필요한 공백이 남지 않게 각 줄을 <code>ㄱ. 내용</code> 형태로 정리한다(스캔본
+손글씨에 있는 들쭉날쭉한 공백은 옮기지 않음).</p>
+<p><code>.p-question</code>에 <code>white-space:pre-line</code>이 이미 적용돼 있어
+<code>\n</code>이 그대로 줄바꿈으로 렌더링된다 — 뷰어 코드 수정 불필요.</p>
+<h2>켤레복소수 표기</h2>
+<p>켤레복소수는 텍스트로 <code>켤레(a+bi)</code>처럼 쓰지 않고, LaTeX
+<code>\overline{...}</code> 표기를 그대로 쓴다(수식이므로 <code>\(...\)</code>로 감싼다):</p>
+<pre><code class="language-json">&quot;answer&quot;: &quot;켤레복소수, \\(\\overline{a+bi}\\)&quot;,
+&quot;choices&quot;: [&quot;\\(\\overline{5-3i}=5+3i\\)&quot;, &quot;\\(\\overline{i+3}=1-3i\\)&quot;, &quot;\\(\\overline{4i}+\\overline{2}=2-4i\\)&quot;]
+</code></pre>
+<p><strong>막대 범위를 원본 그대로 옮기는 것이 핵심이다.</strong> 막대가 식 전체를
+덮는지, 문자 하나만 덮는지에 따라 완전히 다른 식이 된다:</p>
+<ul>
+<li><code>\overline{a+bi}</code> → a+bi 전체 위에 막대(올바른 켤레 표기)</li>
+<li><code>\bar{a}+bi</code> → a 위에만 짧은 막대, 뒤에 <code>+bi</code>가 막대 밖에 있음(틀린/함정 표기)</li>
+<li><code>\overline{a-bi}</code>, <code>\overline{3}-3i</code> 등도 마찬가지로 막대가
+  어디서 끝나는지가 정답·오답을 가르는 장치로 쓰이는 경우가 많다.</li>
+</ul>
+<p>확인 방법: 원본 이미지를 확대해서 막대 선이 식의 어느 글자 위에서 끝나는지
+직접 눈으로 추적한 뒤, 그 범위 그대로 <code>\overline{}</code>의 중괄호 안에 넣는다.
+"어차피 켤레니까 대충 전체에 막대"로 임의로 통일하면 안 된다 — 짧은 막대(문자
+하나만)와 긴 막대(식 전체)를 섞어 오답 선택지를 만드는 것 자체가 출제 의도인
+경우가 흔하다 (예: 2605_m1_s1_sayno_21_complex_numbers.json 7번은 ①②⑤가
+막대 범위만 다르게 틀린 선택지, 16번 ⑤는 <code>\overline{3}-3i</code>처럼 숫자
+하나에만 막대가 걸린 참인 명제).</p>
+<p><code>bar</code>, <code>overline</code> 둘 다 지원 명령어 목록에 있으므로 렌더링
+걱정 없이 그대로 쓴다.</p>
+<h2><code>question</code> 필드 - 대괄호(자료 목록) 앞 줄바꿈</h2>
+<p>지문 뒤에 <code>[점수(점): 6,7,8,9,10 / 학생 수(명): 1,4,5,x,6]</code>처럼
+표·줄기와 잎 그림·자료 목록·조건 등을 대괄호로 붙여 적는 문제가 많다. 이때
+여는 대괄호 <code>[</code> 앞에서 줄을 바꿔, 지문과 자료 목록이 한 줄에
+붙어 있지 않고 시각적으로 분리되게 한다:</p>
+<pre><code class="language-json">&quot;question&quot;: &quot;다음 표는 양궁 대회에 참가한 학생 20명의 예선 점수를 조사하여 나타낸 것이다. 예선 점수 평균을 a점, 중앙값을 b점, 최빈값을 c점이라고 할 때, a+b-c의 값을 구하여라.\n[점수(점): 6,7,8,9,10 / 학생 수(명): 1,4,5,x,6, 합계 20]&quot;
+</code></pre>
+<ul>
+<li>대괄호 앞의 공백은 지우고 <code>\n[</code>로 바로 이어 붙인다(공백+줄바꿈이
+  아니라 줄바꿈 하나만).</li>
+<li>한 문제 지문 안에 대괄호가 여러 번 나오면(드묾) 각각의 여는 대괄호
+  앞에서 전부 줄바꿈한다.</li>
+<li>|보기| 규칙과 마찬가지로 <code>.p-question</code>의 <code>white-space:pre-line</code>
+  덕분에 뷰어 코드 수정 없이 <code>\n</code>만으로 줄바꿈이 반영된다.</li>
+</ul>
+<h2>참조 파일과의 차이 (의도적으로 다르게 유지 중인 것)</h2>
+<p><code>2507_m1_final1_munhyeon.json</code> 같은 외부 참조 JSON과 비교했을 때, 아래
+항목들은 <strong>동일하게 맞추지 않기로</strong> 확인됨 (2026-08 대화 기준):</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>이 프로젝트(hongcheon 등)</th>
+<th>munhyeon 참조 파일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>선택지 표기</td>
+<td><code>① 9</code>, <code>② 10</code> (원문자 있음)</td>
+<td><code>1</code>, <code>2</code> (원문자 없음)</td>
+</tr>
+<tr>
+<td>난이도 값</td>
+<td><code>하</code>,<code>중</code>,<code>중상</code>,<code>상</code>,<code>최상</code> (한글)</td>
+<td><code>low</code>,<code>mid</code>,<code>high</code>,<code>top</code> (영어)</td>
+</tr>
+<tr>
+<td>문제 유형(type)</td>
+<td><code>mc</code>, <code>essay</code></td>
+<td><code>mc</code>, <code>fillin</code></td>
+</tr>
+<tr>
+<td><strong>해설 구조</strong></td>
+<td><strong>동일하게 적용함</strong> (위 항목 참고)</td>
+<td>동일</td>
+</tr>
+</tbody>
+</table>
+<p>새 참조 JSON을 볼 때마다 무조건 규칙을 그대로 가져오지 말고, 어떤
+항목을 반영할지 사용자에게 구체적으로 확인할 것 — 과거에 명시적으로
+결정한 규칙(원문자, 한글 난이도)을 말없이 되돌리지 않는다.</p>
+<h2><code>figure</code> 필드 (도형/그래프)</h2>
+<p>각 문제 객체(<code>problems[]</code>)에 선택적으로 <code>figure</code> 키를 추가하면 문제 지문과
+보기 사이에 렌더링된다.</p>
+<ul>
+<li>값은 완전한 <code>&lt;svg&gt;...&lt;/svg&gt;</code> 마크업 문자열 (JSON 문자열이므로 한 줄로,
+  줄바꿈 없이 작성)</li>
+<li>뷰어의 <code>.p-figure</code> 클래스가 배경/테두리/중앙정렬을 담당하므로 SVG 자체는
+  <code>viewBox</code>와 도형만 있으면 됨</li>
+<li>부정확하거나 근사치인 도형은 <code>figure_note</code> 필드로 주석을 달 수 있음
+  (예: "⚠ 원본 이미지 판독 기반 근사 재현")</li>
+<li>도형은 반드시 원본 시험지 이미지를 픽셀 단위로 대조(그리드 오버레이 등)해서
+  좌표를 잡을 것 — 눈대중으로 그리면 비율/위치가 어긋난다.</li>
+</ul>
+<h2>이미지 도구 (첨부·자르기·되돌리기)</h2>
+<p>문제지 미리보기 화면 상단 "📷 이미지 도구" 패널과, 각 문제에 이미 붙은
+이미지 위에 뜨는 버튼들로 이미지를 관리한다. <code>problems[i].images</code>는
+data URL 문자열의 배열이며, 이 도구들은 전부 그 배열을 직접 수정한다.</p>
+<p><strong>첨부 방법 두 가지 (패널 상단)</strong></p>
+<ul>
+<li><strong>① 사진 전체를 문제에 그대로 첨부</strong>: 파일 선택 즉시 원본 그대로
+  <code>대상 문제 번호</code>로 지정된 문제의 <code>images</code>에 추가됨 (자르기 없음)</li>
+<li><strong>② 시험지 스캔본에서 영역을 잘라 첨부</strong>: 스캔본 이미지를 올리면
+  <code>#imgCropCanvas</code>에 미리보기가 뜨고, 마우스/터치 드래그로 사각형을
+  선택한 뒤 "선택 영역을 이 문제에 첨부"를 누르면 잘라낸 부분만 새
+  이미지로 <code>images</code> 배열에 <strong>추가</strong>됨(기존 이미지는 그대로 둔 채 push)</li>
+</ul>
+<p><strong>이미 첨부된 이미지 자르기 (썸네일 위 버튼, 2026-08-14 추가)</strong></p>
+<p>각 썸네일(<code>.thumb-wrap</code>) 우측 상단에 버튼 묶음(<code>.thumb-actions</code>)이
+뜬다:</p>
+<table>
+<thead>
+<tr>
+<th>버튼</th>
+<th>동작</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>✂ 자르기</code></td>
+<td>그 이미지를 <code>#imgCropCanvas</code>에 불러와 위 ②와 동일한 드래그 자르기 UI를 연다. <code>replaceTarget = {idx, imgidx}</code>를 설정해두고, 확인 버튼 라벨이 "잘라서 이 이미지 교체하기"로 바뀐다. 확인을 누르면 새로 추가되는 게 아니라 <strong>그 자리(<code>images[imgidx]</code>)를 잘라낸 결과로 교체</strong>하고, 교체 직후 그 문제 카드(<code>.problem[data-pidx="idx"]</code>)로 자동 스크롤된다(2026-08-14 추가 — 목록 아래쪽 문제를 자를 때마다 매번 위쪽 이미지 도구 패널에서 손으로 다시 스크롤해 내려가야 했던 불편 해소).</td>
+</tr>
+<tr>
+<td><code>↩ 되돌리기</code></td>
+<td>방금 자르기로 교체하기 전의 원본을 그 자리에 복원한다. 자르기로 교체가 일어난 이미지에만 나타나고, 되돌리면 다시 사라진다(더 되돌릴 게 없으므로).</td>
+</tr>
+<tr>
+<td><code>×</code></td>
+<td>그 이미지를 <code>images</code> 배열에서 삭제</td>
+</tr>
+</tbody>
+</table>
+<p><strong>구현 메모</strong></p>
+<ul>
+<li>자르기 전 원본은 <code>cropUndoStore</code> (JS 객체, 키 <code>"문제idx:이미지idx"</code>)에
+  메모리로만 저장된다 — <strong>새로고침하거나 파일을 다시 불러오면 사라진다.</strong>
+  되돌릴 가능성이 있으면 "JSON 다운로드"로 저장하기 전에 확인할 것.</li>
+<li>이미지를 <code>×</code>로 삭제하면 뒤 인덱스가 한 칸씩 당겨지므로, 그 문제(idx)에
+  대한 <code>cropUndoStore</code> 기록은 안전하게 전부 비운다(안 그러면 되돌리기가
+  엉뚱한 이미지를 가리키게 됨).</li>
+<li><code>②</code> 자르기(스캔본에서 새로 첨부)와 <code>✂ 자르기</code>(기존 이미지 교체)는
+  같은 <code>cropImg</code>/<code>cropCanvas</code>/<code>cropRect</code> 상태와 드래그 로직을 공유하고,
+  <code>replaceTarget</code>이 설정돼 있는지 여부로 "추가" vs "교체" 분기만 다르다.
+  새로운 소스 이미지를 <code>②</code>로 올리면 <code>replaceTarget</code>은 자동으로 초기화됨.</li>
+<li>각 <code>.problem</code> 카드에 <code>data-pidx="문제idx"</code> 속성을 달아뒀다 — 교체 완료 후
+  <code>problemList.querySelector('.problem[data-pidx="idx"]').scrollIntoView(...)</code>
+  로 그 카드까지 자동 스크롤하는 데 씀. 카드 순서가 바뀌는 기능(정렬 등)을
+  나중에 추가하면 이 속성도 같이 갱신해야 함.</li>
+</ul>
+<h2>알려진 버그와 수정 이력</h2>
+<p><strong>2026-08-14 발견·수정된 렌더링 버그 2건</strong>: <code>senmath32_05_q126~137.json</code>을
+실제 뷰어에 로드해 확인하던 중 사용자가 지적해서 발견함. 둘 다 JSON
+데이터가 아니라 뷰어 코드 자체의 결함이었음.</p>
+<ol>
+<li><strong>선택지 원문자(①②③④⑤) 누락</strong>: 이 문서의 "참조 파일과의 차이" 절에
+   선택지는 원문자를 붙이기로 이미 명시돼 있었는데도, 실제 렌더링 코드
+   (<code>render()</code>의 메인 카드 렌더링, <code>buildPrintProblemHTML()</code> 둘 다)는
+   <code>p.choices</code>를 그냥 <code>&lt;div&gt;${renderMathText(c)}&lt;/div&gt;</code>로만 찍고 있어서
+   원문자가 전혀 안 붙고 있었음 — 스펙 문서와 실제 코드가 어긋나 있었던
+   사례. <code>CIRCLE = ['①','②','③','④','⑤','⑥','⑦','⑧']</code> 배열을 추가하고
+   두 렌더링 함수 모두 <code>${CIRCLE[ci] || (ci+1)+'.'} ${renderMathText(c)}</code>
+   형태로 수정.</li>
+<li><strong>문제 번호·난이도 배지가 화면 폭에 따라 멀리 떨어져 보임</strong>: <code>.problem</code>
+   카드에 <code>max-width</code> 제한이 없어서, 아주 넓은 화면(태블릿 가로모드 등,
+   ~2400px)에서는 카드가 화면 폭 전체로 늘어나고, <code>.p-head</code>의
+   <code>justify-content:space-between</code> 때문에 번호(<code>134번</code>)와 난이도 배지
+   (<code>mid</code>)가 화면 양 끝까지 벌어져 마치 배지가 사라진 것처럼 보였음.
+   <code>.problem{ max-width:760px; }</code> 추가로 해결.</li>
+<li><strong>이미지 도구·메타 정보·검수 패널 폭이 문제 카드와 안 맞음</strong> (2026-08-19):
+   <code>.problem</code>에만 <code>max-width:760px</code>가 있고 <code>.meta-card</code>,
+   <code>.img-tool</code>, <code>.check-panel</code>에는 없어서, 넓은 화면에서 이
+   세 패널은 화면 폭 전체로 늘어나는데 그 아래 문제 카드들만 760px로 좁아
+   보이는 폭 불일치가 있었음. 네 클래스 모두 <code>max-width:var(--content-width)</code>로
+   통일(아래 화면 폭 조절 기능 참고).</li>
+<li><strong>화면 폭 조절 기능 추가</strong> (2026-08-19): <code>:root</code>에
+   <code>--content-width</code> CSS 변수(기본 760px)를 추가하고, 네 패널
+   (<code>.problem</code>, <code>.meta-card</code>, <code>.img-tool</code>, <code>.check-panel</code>)의
+   <code>max-width</code>를 전부 이 변수 참조로 바꿨다. 툴바에 글자 확대/축소
+   (가/가) 옆에 <code>◀ / 폭(px) / ▶</code> 버튼을 추가해 480~1400px 범위에서
+   80px 단위로 <code>--content-width</code>를 조절한다. 이미지는 이미
+   <code>max-width:100%</code>로 컨테이너 기준이라 폭을 넓히면 이미지도 그만큼
+   커진다 — 별도 처리 불필요. 글자 크기는 기존 폰트 확대/축소(zoom 방식)가
+   이미 이미지까지 함께 스케일하므로, 폭 조절과 글자 확대는 서로 다른 축으로
+   독립적으로 작동한다(둘을 같이 조합해서 쓸 수 있음). 인쇄 미리보기
+   (<code>.preview-sheet</code>)는 별도 고정 레이아웃이라 이 변수의 영향을
+   받지 않는다.</li>
+<li>
+<p><strong>난이도 배지 표기가 실제 사이트와 불일치</strong>: 이 뷰어는 <code>diff</code> 값
+   (<code>low</code>/<code>mid</code>/<code>midhigh</code>/<code>high</code>/<code>top</code>)을 영어 그대로 배지에 찍고 있었는데,
+   실제 math_practices 사이트(<code>player.html</code>)는 <code>DIFF_LABEL</code> 매핑으로
+   한글 배지(<code>하</code>/<code>중</code>/<code>중상</code>/<code>상</code>/<code>최상</code>)를 보여주고 있어서 두 화면의
+   배지 표기가 서로 달랐음. <code>player.html</code>의 매핑을 그대로 가져와
+   <code>const DIFF_LABEL = { low:'하', mid:'중', midhigh:'중상', high:'상', top:'최상' };</code>
+   을 추가하고, 두 렌더링 함수 모두 <code>${DIFF_LABEL[diff] || diff}</code>로 통일.</p>
+</li>
+<li>
+<p><strong>줄바꿈이 문자 그대로 <code>\n</code>으로 노출됨 (뷰어 버그 아님, JSON 생성 실수)</strong>:
+   <code>senmath32_06_q138~149.json</code>의 0141번처럼 <code>(1)...(2)...</code> 형태로 줄을
+   나눠야 하는 문제에서, question 텍스트 중간에 진짜 개행 문자가 아니라
+   백슬래시+n 두 글자("\n")가 그대로 들어가 있어서 화면에 <code>\n</code>이 글자로
+   찍혔음. Python으로 JSON을 만들 때 <code>"...\\n(1)..."</code>처럼 이중 백슬래시로
+   써야 할 걸 실수로 그렇게 썼지만 실제로는 진짜 개행이 필요한 자리였음
+   (Python 문자열에서 <code>\\n</code>은 문자 그대로 <code>\</code>+<code>n</code> 두 글자, <code>\n</code> 한 번만
+   써야 실제 줄바꿈 한 글자가 됨). <code>senmath32_04·05·06</code> 세 파일 전부에
+   같은 실수가 있어서 일괄 치환(<code>content.replace('\\n', '\n')</code>)으로
+   전부 고침. <code>.p-question</code>에 <code>white-space:pre-line</code>이 이미 적용돼
+   있으므로 실제 개행 문자만 넣으면 뷰어 코드 수정 없이 줄바꿈이 된다 —
+   <strong>문제 텍스트에 줄바꿈이 필요하면 JSON 생성 스크립트에서 반드시 진짜
+   개행 문자를 넣을 것, 백슬래시-n 두 글자를 넣지 말 것.</strong></p>
+</li>
+</ol>
+<p>두 버그 모두 좁은 화면(모바일 세로모드, ~390px)에서는 우연히 눈에 덜
+띄거나 안 보였을 수 있어서, 새 기능을 검증할 때는 좁은 뷰포트뿐 아니라
+아주 넓은 뷰포트에서도 스크린샷을 떠서 확인할 것.</p>
+<p><strong>2026-08-15 발견·수정 (전부 JSON 생성 실수, 뷰어 버그 아님)</strong>:
+<code>senmath32_09~12</code>에 <code>solution</code>을 새로 채워 넣는 작업 중 실제
+뷰어에 로드해 확인하다가 발견함. 앞선 <code>\n</code> 사례처럼 전부 데이터
+생성 스크립트 쪽 실수였고, 이번에도 사용자가 스크린샷으로 지적해서
+찾음.</p>
+<ol start="1">
+<li><strong>수식을 닫는 <code>\)</code> 누락</strong>: 문제 46개(<code>solution</code> 새로 작성한
+   것 전부)에서 마지막 수식 블록을 <code>\(</code>로 열기만 하고 <code>\)</code>로 닫는 걸
+   빠뜨림. <code>renderMathText()</code>는 <code>\(...\)</code>로 정확히 짝이 맞는 구간만
+   수식으로 바꾸고 나머지는 그대로 escape하므로, 닫는 괄호가 없으면
+   그 지점부터 문자열 끝까지 전부(백슬래시 명령어 포함) 날것 그대로
+   노출된다. 매번 <code>open('\(') != close('\)')</code>이면 마지막에 <code>\)</code>를
+   보충하는 식으로 일괄 수정. <strong>solution 문자열을 새로 쓸 때마다
+   <code>text.count('\\(') == text.count('\\)')</code>를 반드시 스크립트로
+   검증할 것 — 육안 검수만으로는 긴 문자열 끝의 누락을 놓치기 쉽다.</strong></li>
+<li><strong>지원하지 않는 LaTeX 명령어 사용</strong>: 위 "지원하는 LaTeX 명령어"
+   표에 없는 명령어를 solution에 그대로 써서 백슬래시가 노출됨.
+   <ul>
+   <li><code>\Box</code>(대문자) — 표에 있는 건 <code>\square</code>(소문자)뿐. <code>\Box</code>→<code>\square</code>로 교체.</li>
+   <li><code>\backsim</code> — 닮음 기호는 <code>\sim</code>만 지원. <code>\backsim</code>→<code>\sim</code>로 교체.</li>
+   <li><code>\sec</code>, <code>\cot</code> — 목록에 없음. <code>\sec x</code>는 일반 텍스트 <code>sec x</code>로,
+      <code>\cot\theta</code>는 <code>\dfrac{1}{\tan\theta}</code>로 풀어씀.</li>
+   <li><code>\parallel</code> — 목록에 없음. 유니코드 <code>∥</code> 문자를 명령어 없이
+      직접 텍스트에 넣는 방식으로 대체(어차피 <code>\(...\)</code> 안이든 밖이든
+      일반 문자는 <code>esc()</code>로 그대로 출력되므로 문제없음).</li>
+   </ul>
+   새 명령어를 쓰기 전에 반드시 이 문서의 지원 명령어 표와 대조하거나,
+   <code>texToHtml</code>의 <code>parseToken()</code> 소스에서 검색해 실제로 처리되는지
+   확인할 것.</li>
+<li><strong>Python raw string(<code>r'...'</code>) 안에 유니코드 이스케이프를 써서
+   글자가 그대로 노출됨</strong>: <code>solution</code> 문자열을 <code>r'...60\u00b0를...'</code>처럼
+   raw string으로 작성하면 <code>\u00b0</code>가 실제 도(°) 문자로 해석되지 않고
+   <code>\</code>+<code>u</code>+<code>0</code>+<code>0</code>+<code>b</code>+<code>0</code> 여섯 글자 그대로 남는다(raw string은
+   이스케이프 시퀀스를 전혀 해석하지 않음). 실제 <code>°</code> 문자를 직접
+   타이핑하거나, 유니코드 이스케이프가 필요하면 raw string을 쓰지 말 것.</li>
+<li><strong><code>\n</code> 리터럴 노출 버그 재발</strong>: 앞서(2026-08-14) 이미 고쳤던
+   <code>senmath32_05_q126~137.json</code>의 0132번이 나중에 스키마 전체를
+   다시 정규화하는 스크립트를 돌리면서 <strong>수정 전 원본 업로드 파일을
+   다시 읽어들이는 바람에</strong> 고친 내용이 통째로 사라지고 리터럴 <code>\n</code>이
+   되살아남. 이미 고친 필드를 다른 이유로 재가공할 때는 항상 "가장
+   최근에 고친 버전"을 소스로 삼을 것 — 실수로 더 오래된(문제가 있는)
+   버전을 다시 불러오면 이전 수정이 조용히 사라진다.</li>
+<li><strong>"정규화·검수" 패널이 문서와 반대로 동작한 버그 (2026-08-18 발견·수정)</strong>:
+   이 문서의 "참조 파일과의 차이" 절에는 diff 값을 한글(하/중/중상/상/최상)로
+   유지하기로 이미 확인됐다고 적혀 있는데, 실제 코드의 "자동 정규화 적용" 버튼과
+   검수 패널은 한글 diff 값을 "고쳐야 할 문제"로 표시하고 클릭 시 영문(low/mid/
+   midhigh/high/top)으로 강제 변환하고 있었음 — CIRCLE 사례와 같은 유형의
+   문서-코드 불일치. VALID_DIFF에 한글 값도 포함시켜 diffIssues 플래그 자체를
+   없애고, 자동 정규화 버튼에서 diff 변환 로직을 제거해 id 정규화만 남김
+   (버튼 라벨도 "자동 정규화 적용 (diff·id)" → "자동 정규화 적용 (id)"로 수정).
+   diff 값 언어는 실제 math_practices 사이트의 diffSummary가 한글·영문 둘 다
+   인식하도록 이미 수정되어 있어 변환이 애초에 불필요했다.</li>
+</ol>
+<h2>관련 파일</h2>
+<ul>
+<li><code>26_1st.json</code> — 문제/해설 원문 데이터</li>
+<li><code>json_mult_review.html</code> — 이 문서가 다루는 뷰어</li>
+</ul>
+</div>
+
+<div class="drop" id="drop">
+  <input type="file" id="fileInput" accept="application/json,.json" multiple>
+  <div class="drop-label" id="dropLabel">탭해서 <b>JSON 파일 선택</b> (여러 개 가능)</div>
+</div>
+<div class="drop" id="dropFolder">
+  <input type="file" id="folderInput" webkitdirectory directory multiple>
+  <div class="drop-label" id="dropFolderLabel">탭해서 <b>폴더 선택</b> (안의 JSON 파일 전부 불러옴)</div>
+</div>
+<button class="reset-btn" id="resetBtn" style="display:none;">🗑 선택 초기화</button>
+
+<div class="layout">
+  <div class="file-panel" id="filePanel">
+    <div class="file-panel-empty">파일을 선택하면<br>여기 목록이 떠요</div>
+  </div>
+
+  <div class="preview-panel">
+    <div class="meta-card" id="metaCard">
+      <div class="title" id="metaTitle"></div>
+      <div class="unit" id="metaUnit"></div>
+    </div>
+
+    <div class="check-panel" id="checkPanel" style="display:none;">
+      <div class="check-title">🔧 정규화 · 검수</div>
+      <div id="checkSummary"></div>
+      <div class="warn-list" id="checkWarnList" style="display:none;"></div>
+      <div class="check-actions">
+        <button type="button" id="applyNormalizeBtn">자동 정규화 적용 (id)</button>
+        <button type="button" id="applyLatexWrapBtn">LaTeX 자동 wrap 시도</button>
+        <button type="button" id="downloadJsonBtn">JSON 다운로드</button>
+      </div>
+    </div>
+
+    <div class="img-tool" id="imgTool" style="display:none;">
+      <div class="check-title">📷 이미지 도구</div>
+      <label>대상 문제 번호</label>
+      <select id="imgTargetProblem"></select>
+
+      <label>① 사진 전체를 문제에 그대로 첨부</label>
+      <input type="file" id="imgWholeInput" accept="image/*">
+
+      <label>② 시험지 스캔본에서 영역을 잘라 첨부 (드래그로 선택)</label>
+      <input type="file" id="imgSourceInput" accept="image/*">
+      <canvas id="imgCropCanvas" style="display:none;"></canvas>
+      <div class="img-tool-actions">
+        <button type="button" id="imgCropAttachBtn" disabled>선택 영역을 이 문제에 첨부</button>
+        <button type="button" id="imgCropClearBtn" disabled>선택 초기화</button>
+      </div>
+    </div>
+
+    <input type="file" id="quickAttachInput" accept="image/*" style="display:none;">
+    <div id="problemList">
+      <div class="empty">왼쪽에서 파일을 선택하면 문제 목록이 여기 표시돼요</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const docsToggle = document.getElementById('docsToggle');
+  const docsPanel = document.getElementById('docsPanel');
+  docsToggle.addEventListener('click', () => {
+    docsPanel.classList.toggle('open');
+    docsToggle.textContent = docsPanel.classList.contains('open')
+      ? '📖 뷰어 사양 문서 닫기'
+      : '📖 뷰어 사양 문서 보기 (viewer.md)';
+  });
+
+  const fileInput = document.getElementById('fileInput');
+  const drop = document.getElementById('drop');
+  const dropLabel = document.getElementById('dropLabel');
+  const folderInput = document.getElementById('folderInput');
+  const dropFolder = document.getElementById('dropFolder');
+  const dropFolderLabel = document.getElementById('dropFolderLabel');
+  const resetBtn = document.getElementById('resetBtn');
+  const filePanel = document.getElementById('filePanel');
+  const metaCard = document.getElementById('metaCard');
+  const problemList = document.getElementById('problemList');
+
+  let loadedFiles = {}; // name -> parsed data
+  let activeName = null;
+
+
+  drop.addEventListener('click', () => fileInput.click());
+  dropFolder.addEventListener('click', () => folderInput.click());
+
+  resetBtn.addEventListener('click', () => {
+    loadedFiles = {};
+    activeName = null;
+    fileInput.value = '';
+    folderInput.value = '';
+    drop.classList.remove('has-file');
+    dropLabel.innerHTML = '탭해서 <b>JSON 파일 선택</b> (여러 개 가능)';
+    dropFolder.classList.remove('has-file');
+    dropFolderLabel.innerHTML = '탭해서 <b>폴더 선택</b> (안의 JSON 파일 전부 불러옴)';
+    resetBtn.style.display = 'none';
+    filePanel.innerHTML = '<div class="file-panel-empty">파일을 선택하면<br>여기 목록이 떠요</div>';
+    metaCard.style.display = 'none';
+    document.getElementById('checkPanel').style.display = 'none';
+    document.getElementById('imgTool').style.display = 'none';
+    problemList.innerHTML = '<div class="empty">왼쪽에서 파일을 선택하면 문제 목록이 여기 표시돼요</div>';
+  });
+
+  // fileInput(개별 파일)과 folderInput(폴더 통째로)이 공유하는 로딩 로직.
+  // 폴더 선택은 accept 필터가 적용되지 않아 폴더 안의 모든 파일이 넘어오므로,
+  // 여기서 .json 확장자만 걸러낸다. webkitRelativePath가 있으면(폴더 선택 경로)
+  // 폴더명을 뺀 파일명만 키로 써서 fileInput으로 개별 선택했을 때와 표시가 같아지게 한다.
+  function loadFileList(rawFiles, labelEl, dropEl, emptyMsg){
+    const files = Array.from(rawFiles || []).filter(f => /\.json$/i.test(f.name));
+    if (files.length === 0) {
+      if (rawFiles && rawFiles.length) alert(emptyMsg);
+      return;
+    }
+    let loadedCount = 0;
+    files.forEach(f => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result);
+          loadedFiles[f.name] = data;
+        } catch (e) {
+          loadedFiles[f.name] = { __error: e.message };
+        }
+        loadedCount++;
+        if (loadedCount === files.length) {
+          drop.classList.add('has-file');
+          dropEl.classList.add('has-file');
+          onAllFilesLoaded(files.map(f => f.name));
+        }
+      };
+      reader.readAsText(f, 'UTF-8');
+    });
+  }
+
+  fileInput.addEventListener('change', () => {
+    loadFileList(fileInput.files, dropLabel, drop, '선택한 파일 중 JSON이 없어요.');
+  });
+
+  folderInput.addEventListener('change', () => {
+    loadFileList(folderInput.files, dropFolderLabel, dropFolder, '이 폴더 안에는 JSON 파일이 없어요.');
+  });
+
+  function onAllFilesLoaded(names){
+    const countMsg = `✓ 파일 <b>${Object.keys(loadedFiles).length}개</b> 불러옴`;
+    dropLabel.innerHTML = countMsg;
+    dropFolderLabel.innerHTML = countMsg;
+    drop.classList.add('has-file');
+    dropFolder.classList.add('has-file');
+    resetBtn.style.display = 'block';
+    renderFileList();
+    // 처음 불러온 목록 중 아직 선택된 게 없으면 첫 번째(정상 파싱된 것)를 자동 선택
+    if (!activeName || !loadedFiles[activeName]) {
+      const firstOk = Object.keys(loadedFiles).sort().find(n => !loadedFiles[n].__error);
+      if (firstOk) selectFile(firstOk);
+    }
+  }
+
+  function renderFileList(){
+    const names = Object.keys(loadedFiles).sort();
+    if (names.length === 0) {
+      filePanel.innerHTML = '<div class="file-panel-empty">파일을 선택하면<br>여기 목록이 떠요</div>';
+      return;
+    }
+    filePanel.innerHTML = names.map(name => {
+      const isErr = loadedFiles[name].__error;
+      const label = isErr ? `⚠ ${esc(name)}` : esc(name);
+      const activeCls = name === activeName ? ' active' : '';
+      return `<button class="file-item${activeCls}" data-name="${esc(name)}">${label}</button>`;
+    }).join('');
+
+    filePanel.querySelectorAll('.file-item').forEach(btn => {
+      btn.addEventListener('click', () => selectFile(btn.dataset.name));
+    });
+  }
+
+  function selectFile(name){
+    activeName = name;
+    renderFileList();
+    const data = loadedFiles[name];
+    if (data.__error) {
+      metaCard.style.display = 'none';
+      document.getElementById('checkPanel').style.display = 'none';
+      document.getElementById('imgTool').style.display = 'none';
+      problemList.innerHTML = `<div class="empty">JSON 파싱 실패: ${esc(data.__error)}</div>`;
+      return;
+    }
+    renderCheckPanel(data, name);
+    render(data);
+    populateImgTargetSelect(data);
+    if (window.__updateScrollFabs) setTimeout(window.__updateScrollFabs, 0);
+  }
+
+  const CIRCLE = ['①','②','③','④','⑤','⑥','⑦','⑧'];
+  // math_practices 실제 사이트(player.html)의 DIFF_LABEL과 동일하게 맞춤 —
+  // diff 값(low/mid/midhigh/high/top)을 한글 배지로 통일해서 표시한다.
+  const DIFF_LABEL = { low:'하', mid:'중', midhigh:'중상', high:'상', top:'최상' };
+
+  function esc(s){
+    return (s || '').toString()
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // problem.images(배열) 또는 problem.image(문자열 단수) 둘 다 지원
+  function getProblemImages(p){
+    if (Array.isArray(p.images)) return p.images;
+    if (typeof p.image === 'string' && p.image) return [p.image];
+    return [];
+  }
+
+  /* ===== ① 정규화 · 검수 (normalize_and_register.py 로직 이식) =====
+     diff 한글값 감지, 내부 id-파일명 불일치, 필수 필드 누락, LaTeX 델리미터
+     누락 의심을 파일을 열자마자 바로 점검해서 뷰어에서 보는 상태와
+     실제 site 등록 스키마가 어긋나지 않게 한다. */
+  /* 2026-08-18: diff 값은 한글(하/중/중상/상/최상)을 이 프로젝트의 정식 표기로
+     유지하기로 이미 결정됨(viewer.md "참조 파일과의 차이" 참고, 2026-08-11 대화에서
+     사용자가 "한글 난이도 유지"를 명시적으로 선택). 실제 사이트(math_practices)도
+     한글·영문 diff 값을 둘 다 인식하도록 diffSummary가 수정되어 있어 변환이 필요
+     없다. 따라서 한글값을 "고쳐야 할 문제"로 플래그하지 않고 VALID_DIFF에 포함시킨다. */
+  const DIFF_KO2EN = {"최상":"top","상":"high","중상":"midhigh","중":"mid","하":"low"};
+  const VALID_DIFF = new Set([...Object.values(DIFF_KO2EN), ...Object.keys(DIFF_KO2EN)]);
+  const REQUIRED_PROBLEM_FIELDS = ['num','diff','type','question','solution'];
+  let lastAnalysis = null;
+
+  function analyzeWorksheet(data, fname){
+    const result = { diffIssues: [], idIssue: null, structIssues: [], latexIssues: [], perProblem: {} };
+    const fnameId = (fname || '').replace(/\.json$/i, '');
+    if (data.id !== undefined && fname && data.id !== fnameId) {
+      result.idIssue = { current: data.id, expected: fnameId };
+    }
+    (data.problems || []).forEach(p => {
+      const num = p.num ?? p.number ?? '?';
+      const flags = { diff:false, struct:false, latex:false };
+
+      const d = p.diff;
+      if (d !== undefined && !VALID_DIFF.has(d)) { result.structIssues.push({num, msg:`알 수 없는 diff 값 '${d}'`}); flags.struct = true; }
+
+      const missing = REQUIRED_PROBLEM_FIELDS.filter(k => !(k in p));
+      if (missing.length) { result.structIssues.push({num, msg:`필드 누락: ${missing.join(', ')}`}); flags.struct = true; }
+
+      if (p.type === 'mc') {
+        if (!('choices' in p)) { result.structIssues.push({num, msg:'type=mc인데 choices 없음'}); flags.struct = true; }
+        if (!('correct' in p)) { result.structIssues.push({num, msg:'type=mc인데 correct 없음'}); flags.struct = true; }
+      }
+
+      const q = p.question || '';
+      if (q.includes('\\') && !q.includes('\\(')) {
+        result.latexIssues.push({num, snippet: q.slice(0,40)});
+        flags.latex = true;
+      }
+      result.perProblem[num] = flags;
+    });
+    return result;
+  }
+
+  function renderCheckPanel(data, fname){
+    lastAnalysis = analyzeWorksheet(data, fname);
+    const a = lastAnalysis;
+    document.getElementById('checkPanel').style.display = 'block';
+
+    function row(label, value, ok){
+      return `<div class="check-row${ok?' ok':''}"><span>${label}</span>${ok?`<span>${esc(value)}</span>`:`<b>${esc(value)}</b>`}</div>`;
+    }
+    const rows = [
+      row('내부 id', a.idIssue ? `'${a.idIssue.current}' → '${a.idIssue.expected}' 필요` : '일치', !a.idIssue),
+      row('구조 경고', a.structIssues.length ? `${a.structIssues.length}건` : '없음', a.structIssues.length===0),
+      row('LaTeX 델리미터 누락 의심', a.latexIssues.length ? `${a.latexIssues.length}문제` : '없음', a.latexIssues.length===0)
+    ];
+    document.getElementById('checkSummary').innerHTML = rows.join('');
+
+    const allWarns = [
+      ...a.structIssues.map(w => `문제 ${w.num}: ${esc(w.msg)}`),
+      ...a.latexIssues.map(w => `문제 ${w.num}: LaTeX 명령어가 있는데 \\( \\) 델리미터 없음 - "${esc(w.snippet)}..."`)
+    ];
+    const warnList = document.getElementById('checkWarnList');
+    if (allWarns.length) {
+      warnList.style.display = 'block';
+      warnList.innerHTML = allWarns.map(w => `<div>${w}</div>`).join('');
+    } else {
+      warnList.style.display = 'none';
+      warnList.innerHTML = '';
+    }
+  }
+
+  document.getElementById('applyNormalizeBtn').addEventListener('click', () => {
+    if (!activeName || !loadedFiles[activeName] || loadedFiles[activeName].__error) return;
+    const data = loadedFiles[activeName];
+    const fnameId = activeName.replace(/\.json$/i, '');
+    const idChanged = data.id !== fnameId;
+    if (idChanged) data.id = fnameId;
+    renderCheckPanel(data, activeName);
+    render(data);
+    if (!idChanged) { alert('내부 id가 이미 파일명과 일치합니다. 변경 사항 없음.'); return; }
+    alert(`정규화 적용 완료: id 수정 1건 ('${fnameId}').\n하단 "JSON 다운로드"로 저장한 뒤 실제 파일을 교체하세요.`);
+  });
+
+  /* ===== ② LaTeX 미변환(델리미터 누락) 자동 wrap - 휴리스틱 =====
+     \( \) \[ \] 로 이미 감싸진 구간은 건드리지 않고, 그 밖에서 backslash
+     명령어를 포함한 '수식스러운' 연속 구간만 찾아 \( \)로 감싼다.
+     행렬·연립방정식·보기(ㄱㄴㄷ)처럼 복잡한 표기 변환은 다루지 않으므로
+     (기존 convert_math_safe.py 영역), 적용 후 반드시 육안 재검수 필요. */
+  function wrapBareLatex(text){
+    if (typeof text !== 'string' || !text.includes('\\')) return { result:text, changed:false };
+    let changed = false;
+    const delimRe = /\\\(.*?\\\)|\\\[.*?\\\]/g;
+    let lastIndex = 0, out = '', m;
+    while ((m = delimRe.exec(text)) !== null) {
+      const before = text.slice(lastIndex, m.index);
+      const w = wrapRun(before);
+      out += w.result; changed = changed || w.changed;
+      out += m[0];
+      lastIndex = delimRe.lastIndex;
+    }
+    const w = wrapRun(text.slice(lastIndex));
+    out += w.result; changed = changed || w.changed;
+    return { result: out, changed };
+
+    function wrapRun(segment){
+      const runRe = /[0-9A-Za-z+\-*/=<>.,(){}^_\\ ]*\\[A-Za-z]+[0-9A-Za-z+\-*/=<>.,(){}^_\\ ]*/g;
+      let segChanged = false;
+      const wrapped = segment.replace(runRe, (run) => {
+        const trimmed = run.trim();
+        if (!trimmed) return run;
+        segChanged = true;
+        const leadWS = run.match(/^\s*/)[0];
+        const trailWS = run.match(/\s*$/)[0];
+        return leadWS + '\\(' + trimmed + '\\)' + trailWS;
+      });
+      return { result: wrapped, changed: segChanged };
+    }
+  }
+
+  document.getElementById('applyLatexWrapBtn').addEventListener('click', () => {
+    if (!activeName || !loadedFiles[activeName] || loadedFiles[activeName].__error) return;
+    const data = loadedFiles[activeName];
+    let changedCount = 0;
+    (data.problems || []).forEach(p => {
+      if (typeof p.question === 'string') {
+        const w = wrapBareLatex(p.question);
+        if (w.changed) { p.question = w.result; changedCount++; }
+      }
+      if (Array.isArray(p.choices)) {
+        p.choices = p.choices.map(c => {
+          const w = wrapBareLatex(c);
+          if (w.changed) changedCount++;
+          return w.result;
+        });
+      }
+      if (Array.isArray(p.solution)) {
+        p.solution = p.solution.map(s => {
+          const w = wrapBareLatex(s);
+          if (w.changed) changedCount++;
+          return w.result;
+        });
+      } else if (typeof p.solution === 'string') {
+        const w = wrapBareLatex(p.solution);
+        if (w.changed) { p.solution = w.result; changedCount++; }
+      }
+    });
+    renderCheckPanel(data, activeName);
+    render(data);
+    alert(`LaTeX 자동 wrap 시도 완료: ${changedCount}건 처리.\n휴리스틱 방식이라 결과를 꼭 육안으로 확인하세요. 행렬·연립방정식·보기(ㄱㄴㄷ) 등 복잡한 표기는 자동 처리되지 않으니 기존 convert_math_safe.py 사용을 권장합니다.`);
+  });
+
+  document.getElementById('downloadJsonBtn').addEventListener('click', () => {
+    if (!activeName || !loadedFiles[activeName] || loadedFiles[activeName].__error) return;
+    const data = loadedFiles[activeName];
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = activeName.endsWith('.json') ? activeName : activeName + '.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+
+  /* ===== ③ 이미지 도구: 사진 통째 첨부 + 시험지 스캔본에서 영역 잘라 첨부 ===== */
+  function populateImgTargetSelect(data){
+    const sel = document.getElementById('imgTargetProblem');
+    const problems = data.problems || [];
+    sel.innerHTML = problems.map((p, idx) => {
+      const num = p.num ?? p.number ?? (idx+1);
+      return `<option value="${idx}">${esc(String(num))}번</option>`;
+    }).join('');
+    document.getElementById('imgTool').style.display = problems.length ? 'block' : 'none';
+  }
+
+  document.getElementById('imgWholeInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file || !activeName) return;
+    const data = loadedFiles[activeName];
+    const targetIdx = +document.getElementById('imgTargetProblem').value;
+    if (isNaN(targetIdx) || !data.problems[targetIdx]) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (!Array.isArray(data.problems[targetIdx].images)) data.problems[targetIdx].images = [];
+      data.problems[targetIdx].images.push(reader.result);
+      render(data);
+      document.getElementById('imgTargetProblem').value = targetIdx;
+      e.target.value = '';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  let cropImg = null, cropScale = 1, cropRect = null, isDragging = false, dragStart = null;
+  let replaceTarget = null; // {idx, imgidx} — 기존 첨부 이미지를 잘라서 교체하는 중일 때 설정됨
+  let cropUndoStore = {}; // key: "idx:imgidx" -> 자르기 전 원본 이미지(data URL). "되돌리기" 버튼에 씀
+  // (이미지 크기 조절값은 imgSizeStore 같은 별도 변수가 아니라, 각 문제 객체의 imageWidths에 바로 저장한다.
+  //  이렇게 해야 "JSON 다운로드"를 눌렀을 때도 data 안에 포함되어 함께 저장된다.)
+  const cropCanvas = document.getElementById('imgCropCanvas');
+  const cropCtx = cropCanvas.getContext('2d');
+
+  document.getElementById('imgSourceInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    replaceTarget = null;
+    document.getElementById('imgCropAttachBtn').textContent = '선택 영역을 이 문제에 첨부';
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        cropImg = img;
+        const maxW = 560;
+        cropScale = img.width > maxW ? maxW / img.width : 1;
+        cropCanvas.width = img.width * cropScale;
+        cropCanvas.height = img.height * cropScale;
+        cropCanvas.style.display = 'block';
+        cropRect = null;
+        redrawCropCanvas();
+        document.getElementById('imgCropAttachBtn').disabled = true;
+        document.getElementById('imgCropClearBtn').disabled = true;
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function redrawCropCanvas(){
+    if (!cropImg) return;
+    cropCtx.clearRect(0, 0, cropCanvas.width, cropCanvas.height);
+    cropCtx.drawImage(cropImg, 0, 0, cropCanvas.width, cropCanvas.height);
+    if (cropRect) {
+      cropCtx.strokeStyle = '#0d9488';
+      cropCtx.lineWidth = 2;
+      cropCtx.strokeRect(cropRect.x, cropRect.y, cropRect.w, cropRect.h);
+      cropCtx.fillStyle = 'rgba(13,148,136,0.15)';
+      cropCtx.fillRect(cropRect.x, cropRect.y, cropRect.w, cropRect.h);
+    }
+  }
+
+  function getCanvasPos(evt){
+    const rect = cropCanvas.getBoundingClientRect();
+    const cx = evt.touches ? evt.touches[0].clientX : evt.clientX;
+    const cy = evt.touches ? evt.touches[0].clientY : evt.clientY;
+    return { x: (cx - rect.left) * (cropCanvas.width / rect.width), y: (cy - rect.top) * (cropCanvas.height / rect.height) };
+  }
+  function onCropStart(evt){
+    if (!cropImg) return;
+    isDragging = true;
+    dragStart = getCanvasPos(evt);
+    evt.preventDefault();
+  }
+  function onCropMove(evt){
+    if (!isDragging) return;
+    const pos = getCanvasPos(evt);
+    cropRect = {
+      x: Math.min(dragStart.x, pos.x), y: Math.min(dragStart.y, pos.y),
+      w: Math.abs(pos.x - dragStart.x), h: Math.abs(pos.y - dragStart.y)
+    };
+    redrawCropCanvas();
+    evt.preventDefault();
+  }
+  function onCropEnd(){
+    if (!isDragging) return;
+    isDragging = false;
+    const ok = cropRect && cropRect.w > 8 && cropRect.h > 8;
+    document.getElementById('imgCropAttachBtn').disabled = !ok;
+    document.getElementById('imgCropClearBtn').disabled = !ok;
+  }
+  cropCanvas.addEventListener('mousedown', onCropStart);
+  cropCanvas.addEventListener('mousemove', onCropMove);
+  cropCanvas.addEventListener('mouseup', onCropEnd);
+  cropCanvas.addEventListener('touchstart', onCropStart, { passive:false });
+  cropCanvas.addEventListener('touchmove', onCropMove, { passive:false });
+  cropCanvas.addEventListener('touchend', onCropEnd);
+
+  document.getElementById('imgCropClearBtn').addEventListener('click', () => {
+    cropRect = null;
+    redrawCropCanvas();
+    document.getElementById('imgCropAttachBtn').disabled = true;
+    document.getElementById('imgCropClearBtn').disabled = true;
+  });
+
+  document.getElementById('imgCropAttachBtn').addEventListener('click', () => {
+    if (!cropImg || !cropRect || !activeName) return;
+    const data = loadedFiles[activeName];
+    const sx = cropRect.x / cropScale, sy = cropRect.y / cropScale;
+    const sw = cropRect.w / cropScale, sh = cropRect.h / cropScale;
+    const out = document.createElement('canvas');
+    out.width = sw; out.height = sh;
+    out.getContext('2d').drawImage(cropImg, sx, sy, sw, sh, 0, 0, sw, sh);
+    const dataUrl = out.toDataURL('image/png');
+    if (replaceTarget) {
+      const { idx, imgidx } = replaceTarget;
+      if (!data.problems[idx] || !Array.isArray(data.problems[idx].images) || !data.problems[idx].images[imgidx]) return;
+      cropUndoStore[idx+':'+imgidx] = data.problems[idx].images[imgidx];
+      data.problems[idx].images[imgidx] = dataUrl;
+      replaceTarget = null;
+      document.getElementById('imgCropAttachBtn').textContent = '선택 영역을 이 문제에 첨부';
+      cropImg = null; cropRect = null;
+      cropCanvas.style.display = 'none';
+      render(data);
+      alert('이미지를 잘라서 교체했습니다. 확인 후 "JSON 다운로드"로 저장하세요.');
+      const backTo = problemList.querySelector(`.problem[data-pidx="${idx}"]`);
+      if (backTo) backTo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    const targetIdx = +document.getElementById('imgTargetProblem').value;
+    if (isNaN(targetIdx) || !data.problems[targetIdx]) return;
+    if (!Array.isArray(data.problems[targetIdx].images)) data.problems[targetIdx].images = [];
+    data.problems[targetIdx].images.push(dataUrl);
+    render(data);
+    document.getElementById('imgTargetProblem').value = targetIdx;
+    alert('선택 영역을 문제에 첨부했습니다. 확인 후 "JSON 다운로드"로 저장하세요.');
+  });
+
+  const quickAttachInput = document.getElementById('quickAttachInput');
+  let quickAttachIdx = null;
+  quickAttachInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file || quickAttachIdx === null || !activeName) return;
+    const data = loadedFiles[activeName];
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (!Array.isArray(data.problems[quickAttachIdx].images)) data.problems[quickAttachIdx].images = [];
+      data.problems[quickAttachIdx].images.push(reader.result);
+      render(data);
+      e.target.value = '';
+      quickAttachIdx = null;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  /* ===== 오프라인 LaTeX 렌더러 =====
+     MathJax 없이 \(...\) \[...\] 안의 ^{} _{} \frac{}{} \sqrt{} 등
+     기본 수식 문법만 직접 HTML(sup/sub/분수/제곱근)로 변환한다.
+     content:// 뷰어 등 인터넷 연결 없이 열리는 환경에서도 항상 작동. */
+  function texToHtml(tex){
+    const GREEK = {
+      alpha:'α', beta:'β', gamma:'γ', delta:'δ', epsilon:'ε', zeta:'ζ', eta:'η',
+      theta:'θ', iota:'ι', kappa:'κ', lambda:'λ', mu:'μ', nu:'ν', xi:'ξ',
+      omicron:'ο', pi:'π', rho:'ρ', sigma:'σ', tau:'τ', upsilon:'υ', phi:'φ',
+      chi:'χ', psi:'ψ', omega:'ω',
+      Alpha:'Α', Beta:'Β', Gamma:'Γ', Delta:'Δ', Epsilon:'Ε', Zeta:'Ζ', Eta:'Η',
+      Theta:'Θ', Iota:'Ι', Kappa:'Κ', Lambda:'Λ', Mu:'Μ', Nu:'Ν', Xi:'Ξ',
+      Omicron:'Ο', Pi:'Π', Rho:'Ρ', Sigma:'Σ', Tau:'Τ', Upsilon:'Υ', Phi:'Φ',
+      Chi:'Χ', Psi:'Ψ', Omega:'Ω'
+    };
+    let i = 0;
+    function parseGroup(){
+      // LaTeX 관례: 명령어 뒤 공백은 인자와 무관하게 무시 (\bar z == \bar{z})
+      while (tex[i] === ' ') i++;
+      if (tex[i] === '{') {
+        i++;
+        let out = parseUntil('}');
+        i++; // skip }
+        return out;
+      }
+      // 중괄호 없이 명령어/문자 하나만 (예: x^2, \bar\alpha)
+      return parseToken();
+    }
+    function parseUntil(stopChars){
+      let out = '';
+      while (i < tex.length && stopChars.indexOf(tex[i]) === -1) {
+        out += parseToken();
+      }
+      return out;
+    }
+    function parseToken(){
+      if (tex.startsWith('\\begin{pmatrix}', i)) {
+        i += 15;
+        const endMarker = '\\end{pmatrix}';
+        const endIdx = tex.indexOf(endMarker, i);
+        const inner = endIdx >= 0 ? tex.slice(i, endIdx) : tex.slice(i);
+        i = endIdx >= 0 ? endIdx + endMarker.length : tex.length;
+        const rows = inner.split('\\\\').map(r => r.trim()).filter(r => r.length > 0);
+        const rowsHtml = rows.map(r => {
+          const cells = r.split('&').map(c => c.trim());
+          return '<tr>' + cells.map(c => `<td>${texToHtml(c)}</td>`).join('') + '</tr>';
+        }).join('');
+        const fsize = (1 + rows.length * 0.45).toFixed(2);
+        return `<span class="matrix-wrap"><span class="matrix-paren" style="font-size:${fsize}em">(</span><table class="matrix-table"><tbody>${rowsHtml}</tbody></table><span class="matrix-paren" style="font-size:${fsize}em">)</span></span>`;
+      }
+      if (tex.startsWith('\\begin{cases}', i)) {
+        i += 13;
+        const endMarker = '\\end{cases}';
+        const endIdx = tex.indexOf(endMarker, i);
+        const inner = endIdx >= 0 ? tex.slice(i, endIdx) : tex.slice(i);
+        i = endIdx >= 0 ? endIdx + endMarker.length : tex.length;
+        const rows = inner.split('\\\\').map(r => r.trim()).filter(r => r.length > 0);
+        const rowsHtml = rows.map(r => `<tr><td>${texToHtml(r)}</td></tr>`).join('');
+        const fsize = (1 + rows.length * 0.45).toFixed(2);
+        return `<span class="cases-wrap"><span class="cases-brace" style="font-size:${fsize}em">{</span><table class="cases-table"><tbody>${rowsHtml}</tbody></table></span>`;
+      }
+      if (tex.startsWith('\\dfrac', i) || tex.startsWith('\\frac', i)) {
+        i += tex.startsWith('\\dfrac', i) ? 6 : 5;
+        const num = parseGroup();
+        const den = parseGroup();
+        return `<span class="mfrac"><span class="num">${num}</span><span class="den">${den}</span></span>`;
+      }
+      if (tex.startsWith('\\sqrt', i)) {
+        i += 5;
+        let idx = '';
+        if (tex[i] === '[') {
+          i++;
+          idx = parseUntil(']');
+          i++;
+        }
+        const rad = parseGroup();
+        return `<span class="msqrt">${idx ? '<sup class="radical">'+idx+'</sup>' : ''}<span class="radical">√</span><span class="radicand">${rad}</span></span>`;
+      }
+      if (tex.startsWith('\\bar', i)) {
+        i += 4;
+        const content = parseGroup();
+        return `<span style="text-decoration:overline; text-decoration-thickness:1px;">${content}</span>`;
+      }
+      if (tex.startsWith('\\overline', i)) {
+        i += 9;
+        const content = parseGroup();
+        return `<span style="text-decoration:overline; text-decoration-thickness:1px;">${content}</span>`;
+      }
+      if (tex.startsWith('\\widehat', i)) {
+        // 호(arc) 표기: \overline과 구분되도록 위쪽이 살짝 둥근 모자 모양 선을 CSS로 그린다.
+        i += 8;
+        const content = parseGroup();
+        return `<span style="display:inline-block; border-top:1.3px solid; border-radius:50% 50% 0 0 / 100% 100% 0 0; padding:0 1px;">${content}</span>`;
+      }
+      if (tex.startsWith('\\hat', i)) {
+        i += 4;
+        const content = parseGroup();
+        return `<span style="display:inline-block; border-top:1.3px solid; border-radius:50% 50% 0 0 / 100% 100% 0 0; padding:0 1px;">${content}</span>`;
+      }
+      if (tex.startsWith('\\{', i)) { i += 2; return '{'; }
+      if (tex.startsWith('\\}', i)) { i += 2; return '}'; }
+      if (tex[i] === '\\') {
+        // \greek 명령어 (\alpha, \beta, \Gamma 등) 매칭 시도
+        const m = /^\\([A-Za-z]+)/.exec(tex.slice(i));
+        if (m && GREEK[m[1]]) {
+          i += m[0].length;
+          return GREEK[m[1]];
+        }
+      }
+      if (tex.startsWith('\\times', i)) { i += 6; return '×'; }
+      if (tex.startsWith('\\div', i)) { i += 4; return '÷'; }
+      if (tex.startsWith('\\cdots', i)) { i += 6; return '⋯'; }
+      if (tex.startsWith('\\cdot', i)) { i += 5; return '·'; }
+      if (tex.startsWith('\\dots', i)) { i += 5; return '…'; }
+      if (tex.startsWith('\\leq', i)) { i += 4; return '≤'; }
+      if (tex.startsWith('\\geq', i)) { i += 4; return '≥'; }
+      if (tex.startsWith('\\neq', i)) { i += 4; return '≠'; }
+      if (tex.startsWith('\\equiv', i)) { i += 6; return '≡'; }
+      if (tex.startsWith('\\circ', i)) { i += 5; return '°'; }
+      if (tex.startsWith('\\angle', i)) { i += 6; return '∠'; }
+      if (tex.startsWith('\\fallingdotseq', i)) { i += 14; return '≈'; }
+      if (tex.startsWith('\\perp', i)) { i += 5; return '⊥'; }
+      if (tex.startsWith('\\triangle', i)) { i += 9; return '△'; }
+      if (tex.startsWith('\\square', i)) { i += 7; return '□'; }
+      if (tex.startsWith('\\sim', i)) { i += 4; return '∼'; }
+      if (tex.startsWith('\\ldots', i)) { i += 6; return '⋯'; }
+      if (tex.startsWith('\\vec', i)) { i += 4; return parseGroup(); }
+      if (tex.startsWith('\\text', i)) { i += 5; return parseGroup(); }
+      if (tex.startsWith('\\pmod', i)) {
+        i += 5;
+        const mod = parseGroup();
+        return ` (mod ${mod})`;
+      }
+      if (tex.startsWith('\\pm', i)) { i += 3; return '±'; }
+      if (tex.startsWith('\\pi', i)) { i += 3; return 'π'; }
+      if (tex.startsWith('\\infty', i)) { i += 6; return '∞'; }
+      if (tex.startsWith('\\in', i)) { i += 3; return '∈'; }
+      if (tex.startsWith('\\max', i)) { i += 4; return 'max'; }
+      if (tex.startsWith('\\min', i)) { i += 4; return 'min'; }
+      if (tex.startsWith('\\cos', i)) { i += 4; return 'cos'; }
+      if (tex.startsWith('\\sin', i)) { i += 4; return 'sin'; }
+      if (tex.startsWith('\\tan', i)) { i += 4; return 'tan'; }
+      if (tex.startsWith('\\log', i)) { i += 4; return 'log'; }
+      if (tex.startsWith('\\ln', i)) { i += 3; return 'ln'; }
+      if (tex.startsWith('\\therefore', i)) { i += 10; return '∴'; }
+      if (tex.startsWith('\\because', i)) { i += 8; return '∵'; }
+      if (tex.startsWith('\\Rightarrow', i)) { i += 11; return '⇒'; }
+      if (tex.startsWith('\\Leftrightarrow', i)) { i += 15; return '⇔'; }
+      if (tex.startsWith('\\rightarrow', i)) { i += 11; return '→'; }
+      if (tex.startsWith('\\leftarrow', i)) { i += 10; return '←'; }
+      if (tex.startsWith('\\to', i)) { i += 3; return '→'; }
+      if (tex.startsWith('\\left', i)) { i += 5; return ''; }
+      if (tex.startsWith('\\right', i)) { i += 6; return ''; }
+      if (tex.startsWith('\\le', i)) { i += 3; return '≤'; }
+      if (tex.startsWith('\\ne', i)) { i += 3; return '≠'; }
+      if (tex.startsWith('\\ ', i)) { i += 2; return ' '; }
+      if (tex[i] === '^') {
+        i++;
+        return `<sup>${parseGroup()}</sup>`;
+      }
+      if (tex[i] === '_') {
+        i++;
+        return `<sub>${parseGroup()}</sub>`;
+      }
+      if (tex[i] === '{') {
+        return parseGroup();
+      }
+      if (tex[i] === '}') {
+        // 짝 안 맞는 닫는 괄호는 그냥 건너뜀
+        i++;
+        return '';
+      }
+      const ch = tex[i];
+      i++;
+      return esc(ch);
+    }
+    return parseUntil('');
+  }
+
+  // 해설 텍스트 안에 <img ...> 태그가 그대로 박혀 있는 경우(예: "[그래프로 확인하기]"
+  // 섹션에 base64 그래프 이미지를 직접 삽입한 경우), esc()가 이를 텍스트로 지워버리지
+  // 않도록 미리 안전한 자리표시자로 빼놨다가 마지막에 원래 태그로 복원한다.
+  // <img> 태그 이외의 다른 HTML은 여전히 전부 이스케이프되어 화면에 그대로 찍힌다(보안).
+  function extractRawImgTags(text){
+    const images = [];
+    const replaced = text.replace(/<img\b[^>]*>/gi, (match) => {
+      images.push(match);
+      return '\u0000IMG' + (images.length - 1) + '\u0000';
+    });
+    return { replaced, images };
+  }
+  function restoreRawImgTags(text, images){
+    return text.replace(/\u0000IMG(\d+)\u0000/g, (m, idx) => images[+idx] || '');
+  }
+
+  function renderMathText(raw){
+    const original = (raw || '').toString();
+    const { replaced: text, images } = extractRawImgTags(original);
+    // \(...\) 인라인, \[...\] 디스플레이 구간만 찾아서 변환하고 나머지는 escape
+    const re = /\\\((.+?)\\\)|\\\[(.+?)\\\]/gs;
+    let out = '';
+    let last = 0;
+    let m;
+    while ((m = re.exec(text)) !== null) {
+      out += esc(text.slice(last, m.index));
+      const inner = m[1] !== undefined ? m[1] : m[2];
+      out += texToHtml(inner);
+      last = re.lastIndex;
+    }
+    out += esc(text.slice(last));
+    return restoreRawImgTags(out, images);
+  }
+
+  // 문두의 출처 표기 "[2019년 6월 고1 29번/4점]"류를 연하게 스타일링하고 줄바꿈
+  function renderQuestionWithSourceTag(raw){
+    const text = (raw || '').toString();
+    const m = /^(\[[^\[\]]*\])\s*/.exec(text);
+    if (!m) return renderMathText(text);
+    const tag = m[1];
+    const rest = text.slice(m[0].length);
+    return `<span class="source-tag">${esc(tag)}</span><br>` + renderMathText(rest);
+  }
+
+  // ---- 폰트 크기 확대/축소 ----
+  (function(){
+    const wrap = document.getElementById('zoomWrap');
+    const label = document.getElementById('fontZoomLevel');
+    const btnIn = document.getElementById('fontZoomIn');
+    const btnOut = document.getElementById('fontZoomOut');
+    const STEP = 0.1, MIN = 0.7, MAX = 2.0;
+    let level = 1.0;
+
+    function apply(){
+      // CSS zoom은 transform과 달리 실제 레이아웃을 다시 계산하므로
+      // 폰트가 커져도 내용이 화면 밖으로 넘치지 않고 자동으로 줄바꿈된다.
+      wrap.style.zoom = level;
+      label.textContent = Math.round(level * 100) + '%';
+      btnOut.disabled = level <= MIN;
+      btnIn.disabled = level >= MAX;
+    }
+    btnIn.addEventListener('click', function(){
+      level = Math.min(MAX, +(level + STEP).toFixed(2));
+      apply();
+    });
+    btnOut.addEventListener('click', function(){
+      level = Math.max(MIN, +(level - STEP).toFixed(2));
+      apply();
+    });
+    apply();
+  })();
+
+  // ---- 화면 폭(카드 max-width) 조절 ----
+  // .problem/.meta-card/.img-tool/.check-panel이 전부 --content-width CSS
+  // 변수를 max-width로 쓰고 있으므로, 이 변수만 바꾸면 네 패널의 폭이 함께
+  // 조절된다. 이미지는 이미 max-width:100%로 컨테이너에 맞춰져 있어서
+  // 컨테이너가 넓어지면 이미지도 그만큼 커진다(별도 처리 불필요). 글자
+  // 크기는 위의 폰트 확대/축소(가/가)가 이미 zoom으로 이미지까지 함께
+  // 스케일하므로, 폭 조절과 글자 확대는 서로 다른 축으로 독립적으로
+  // 작동시키고 각자 원하는 조합을 고를 수 있게 둔다.
+  (function(){
+    const label = document.getElementById('widthZoomLevel');
+    const btnIn = document.getElementById('widthZoomIn');
+    const btnOut = document.getElementById('widthZoomOut');
+    const STEP = 80, MIN = 480, MAX = 1400;
+    let width = 760;
+
+    function apply(){
+      document.documentElement.style.setProperty('--content-width', width + 'px');
+      label.textContent = width + 'px';
+      btnOut.disabled = width <= MIN;
+      btnIn.disabled = width >= MAX;
+    }
+    btnIn.addEventListener('click', function(){
+      width = Math.min(MAX, width + STEP);
+      apply();
+    });
+    btnOut.addEventListener('click', function(){
+      width = Math.max(MIN, width - STEP);
+      apply();
+    });
+    apply();
+  })();
+
+  function render(data){
+    metaCard.style.display = 'block';
+    document.getElementById('metaTitle').textContent = data.title || data.id || '(제목 없음)';
+    document.getElementById('metaUnit').textContent = [data.unit, data.source].filter(Boolean).join(' · ');
+
+    const problems = data.problems || [];
+    if (problems.length === 0) {
+      problemList.innerHTML = '<div class="empty">problems 배열이 비어있어요</div>';
+      return;
+    }
+
+    problemList.innerHTML = problems.map((p, idx) => {
+      const num = p.number ?? p.num ?? '?';
+      const diff = p.difficulty || p.diff || '';
+      const question = renderQuestionWithSourceTag(p.question);
+      const figure = p.figure
+        ? `<div class="p-figure">${p.figure}${p.figure_note ? `<div class="p-figure-note">${esc(p.figure_note)}</div>` : ''}</div>`
+        : '';
+      const imgs = getProblemImages(p);
+      const imgManage = `<div class="p-img-manage">${imgs.map((src, i) => {
+        const savedPct = p.imageWidths && p.imageWidths[i];
+        const wrapStyle = savedPct ? ` style="width:${savedPct}%"` : '';
+        return `
+          <div class="thumb-wrap"${wrapStyle} data-idx="${idx}" data-imgidx="${i}">
+            <div class="thumb-drag" title="눌러서 끌면 순서를 옮길 수 있어요">⠿⠿</div>
+            <img src="${esc(src)}" alt="문제 ${num} 첨부 이미지 ${i+1}">
+            <div class="thumb-actions">
+              ${cropUndoStore[idx+':'+i] ? `<button type="button" class="thumb-undo" data-idx="${idx}" data-imgidx="${i}">↩ 되돌리기</button>` : ''}
+              <button type="button" class="thumb-crop" data-idx="${idx}" data-imgidx="${i}">✂ 자르기</button>
+              <button type="button" class="thumb-del" data-idx="${idx}" data-imgidx="${i}">×</button>
+            </div>
+            <div class="thumb-size-label">${savedPct || 100}%</div>
+            <div class="thumb-resize" data-idx="${idx}" data-imgidx="${i}" title="드래그해서 크기 조절">⤡</div>
+          </div>`;
+      }).join('')}
+          <button type="button" class="add-img-btn" data-idx="${idx}">+ 이미지 추가</button>
+        </div>`;
+      const choices = (p.choices || []).map((c, ci) => `<div>${CIRCLE[ci] || (ci+1)+'.'} ${renderMathText(c)}</div>`).join('');
+      // 정답 표시: correct(또는 숫자형 answer)가 있으면 원문자(①②③...)를 먼저 붙이고,
+      // answer가 텍스트면 그 뒤에 이어서 보여준다. (2026-08-18: 원호 숫자 누락 버그 수정)
+      const correctIdx = (typeof p.answer === 'number') ? p.answer : p.correct;
+      const correctMark = (correctIdx !== undefined) ? (CIRCLE[correctIdx] || (correctIdx + 1) + '.') : '';
+      const answerText = (p.answer !== undefined && typeof p.answer !== 'number') ? renderMathText(p.answer) : '';
+      const answer = (correctMark || answerText)
+        ? `정답: ${correctMark}${correctMark && answerText ? ' ' : ''}${answerText}`
+        : '';
+      const explanationRaw = p.explanation
+        || (Array.isArray(p.solution) ? p.solution.join(' ')
+        : (typeof p.solution === 'string' ? p.solution : ''));
+      const explanation = renderMathText(explanationRaw);
+
+      const flags = (lastAnalysis && lastAnalysis.perProblem[num]) || {};
+      const badges = [];
+      if (flags.diff) badges.push('<span class="p-badge b-diff">diff</span>');
+      if (flags.struct) badges.push('<span class="p-badge b-struct">구조</span>');
+      if (flags.latex) badges.push('<span class="p-badge b-latex">LaTeX</span>');
+      const badgesHtml = badges.length ? `<span class="p-badges">${badges.join('')}</span>` : '';
+
+      return `<div class="problem" data-pidx="${idx}">
+        <div class="p-head">
+          <span class="p-num">${num}번</span>
+          ${diff ? `<span class="p-diff">${esc(DIFF_LABEL[diff] || diff)}</span>` : ''}
+          ${badgesHtml}
+        </div>
+        <div class="p-question">${question}</div>
+        ${imgManage}
+        ${figure}
+        ${choices ? `<div class="p-choices">${choices}</div>` : ''}
+        ${answer ? `<div class="p-answer">${answer}</div>` : ''}
+        ${explanation ? `<div class="p-explanation"><span class="label">해설</span>${explanation}</div>` : ''}
+      </div>`;
+    }).join('');
+
+    problemList.querySelectorAll('.thumb-del').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = +btn.dataset.idx, imgidx = +btn.dataset.imgidx;
+        data.problems[idx].images.splice(imgidx, 1);
+        // 삭제로 인덱스가 밀리면 기존 되돌리기 기록이 엉뚱한 이미지를 가리키게 되므로,
+        // 이 문제(idx)에 대한 되돌리기 기록은 전부 비운다.
+        Object.keys(cropUndoStore).forEach(k => { if (k.startsWith(idx+':')) delete cropUndoStore[k]; });
+        render(data);
+      });
+    });
+    problemList.querySelectorAll('.thumb-undo').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = +btn.dataset.idx, imgidx = +btn.dataset.imgidx;
+        const key = idx+':'+imgidx;
+        if (!(key in cropUndoStore)) return;
+        if (!data.problems[idx] || !Array.isArray(data.problems[idx].images)) return;
+        data.problems[idx].images[imgidx] = cropUndoStore[key];
+        delete cropUndoStore[key];
+        render(data);
+      });
+    });
+    problemList.querySelectorAll('.thumb-crop').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = +btn.dataset.idx, imgidx = +btn.dataset.imgidx;
+        const src = data.problems[idx].images[imgidx];
+        if (!src) return;
+        const img = new Image();
+        img.onload = () => {
+          cropImg = img;
+          const maxW = 560;
+          cropScale = img.width > maxW ? maxW / img.width : 1;
+          cropCanvas.width = img.width * cropScale;
+          cropCanvas.height = img.height * cropScale;
+          cropCanvas.style.display = 'block';
+          cropRect = null;
+          redrawCropCanvas();
+          replaceTarget = { idx, imgidx };
+          document.getElementById('imgCropAttachBtn').textContent = '잘라서 이 이미지 교체하기';
+          document.getElementById('imgCropAttachBtn').disabled = true;
+          document.getElementById('imgCropClearBtn').disabled = true;
+          document.getElementById('imgTool').scrollIntoView({ behavior:'smooth', block:'start' });
+        };
+        img.src = src;
+      });
+    });
+    problemList.querySelectorAll('.add-img-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        quickAttachIdx = +btn.dataset.idx;
+        quickAttachInput.click();
+      });
+    });
+
+    // 이미지 우하단 손잡이를 마우스/터치로 끌어서 크기 조절 (썸네일 폭을 % 단위로 저장)
+    problemList.querySelectorAll('.thumb-resize').forEach(handle => {
+      handle.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        const idx = +handle.dataset.idx, imgidx = +handle.dataset.imgidx;
+        const wrap = handle.closest('.thumb-wrap');
+        const container = wrap.parentElement; // .p-img-manage, 퍼센트 기준
+        const containerW = container.getBoundingClientRect().width;
+        const startX = e.clientX;
+        const startW = wrap.getBoundingClientRect().width;
+        const label = wrap.querySelector('.thumb-size-label');
+        wrap.classList.add('resizing');
+        handle.setPointerCapture(e.pointerId);
+
+        const onMove = (ev) => {
+          const deltaX = ev.clientX - startX;
+          let newW = startW + deltaX;
+          let pct = Math.round((newW / containerW) * 100);
+          pct = Math.max(20, Math.min(100, pct)); // 너무 작거나 컨테이너보다 커지지 않도록 제한
+          wrap.style.width = pct + '%';
+          if (label) label.textContent = pct + '%';
+        };
+        const onUp = (ev) => {
+          handle.releasePointerCapture(ev.pointerId);
+          handle.removeEventListener('pointermove', onMove);
+          handle.removeEventListener('pointerup', onUp);
+          wrap.classList.remove('resizing');
+          const finalPct = parseInt(wrap.style.width, 10) || 100;
+          // data.problems 안에 바로 저장 → JSON 다운로드에도 함께 포함됨
+          const prob = data.problems[idx];
+          if (!prob) return;
+          if (finalPct >= 100) {
+            if (prob.imageWidths) delete prob.imageWidths[imgidx];
+          } else {
+            if (!prob.imageWidths) prob.imageWidths = {};
+            prob.imageWidths[imgidx] = finalPct;
+          }
+        };
+        handle.addEventListener('pointermove', onMove);
+        handle.addEventListener('pointerup', onUp);
+      });
+      // 더블클릭하면 원래 크기(100%)로 즉시 복원
+      handle.addEventListener('dblclick', () => {
+        const idx = +handle.dataset.idx, imgidx = +handle.dataset.imgidx;
+        if (data.problems[idx] && data.problems[idx].imageWidths) {
+          delete data.problems[idx].imageWidths[imgidx];
+        }
+        render(data);
+      });
+    });
+
+    // 같은 문제 안에서 이미지 순서를 마우스/터치로 끌어서 바꾸기 (⠿⠿ 손잡이)
+    problemList.querySelectorAll('.thumb-drag').forEach(handle => {
+      handle.addEventListener('pointerdown', (e) => {
+        const wrap = handle.closest('.thumb-wrap');
+        const container = wrap.parentElement; // 같은 문제의 .p-img-manage 안에서만 이동
+        const idx = +wrap.dataset.idx;
+        e.preventDefault();
+        wrap.classList.add('dragging');
+        try { handle.setPointerCapture(e.pointerId); } catch(err){}
+
+        function onMove(ev){
+          // 이제 이미지가 가로로도 나란히 놓일 수 있으므로(줄바꿈 레이아웃),
+          // 세로 위치만 보던 방식 대신 "가장 가까운 썸네일"을 찾아 그 좌우 중 어느 쪽에 커서가
+          // 있는지로 삽입 위치를 정한다 — 같은 줄에서 옆으로 옮기는 것도, 다른 줄로 옮기는 것도 지원.
+          const others = Array.from(container.querySelectorAll('.thumb-wrap')).filter(w => w !== wrap);
+          if (others.length === 0) return;
+          let closest = null, closestDist = Infinity, insertBeforeTarget = true;
+          others.forEach(w => {
+            const r = w.getBoundingClientRect();
+            const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+            const dist = Math.hypot(ev.clientX - cx, ev.clientY - cy);
+            if (dist < closestDist) {
+              closestDist = dist;
+              closest = w;
+              insertBeforeTarget = ev.clientX < cx;
+            }
+          });
+          if (closest) {
+            container.insertBefore(wrap, insertBeforeTarget ? closest : closest.nextSibling);
+          }
+        }
+        function onUp(ev){
+          document.removeEventListener('pointermove', onMove);
+          document.removeEventListener('pointerup', onUp);
+          try { handle.releasePointerCapture(e.pointerId); } catch(err){}
+          wrap.classList.remove('dragging');
+
+          // 바뀐 DOM 순서를 실제 데이터(images, imageWidths)에 반영
+          const prob = data.problems[idx];
+          if (!prob) return;
+          const newOrder = Array.from(container.querySelectorAll('.thumb-wrap')).map(w => +w.dataset.imgidx);
+          const oldImages = prob.images || [];
+          const oldWidths = prob.imageWidths || {};
+          prob.images = newOrder.map(oi => oldImages[oi]);
+          const newWidths = {};
+          newOrder.forEach((oi, ni) => {
+            if (oldWidths[oi] !== undefined) newWidths[ni] = oldWidths[oi];
+          });
+          prob.imageWidths = Object.keys(newWidths).length ? newWidths : undefined;
+          if (!prob.imageWidths) delete prob.imageWidths;
+
+          render(data);
+        }
+        document.addEventListener('pointermove', onMove, { passive:false });
+        document.addEventListener('pointerup', onUp);
+      });
+    });
+  }
+
+  /* ===== 인쇄용 문제지 생성 (A4, 2열, 페이지당 5~6문제, 풀이/정답 noshow) ===== */
+  function buildPrintProblemHTML(p){
+    const num = p.number ?? p.num ?? '?';
+    const diff = p.difficulty || p.diff || '';
+    const question = renderQuestionWithSourceTag(p.question);
+    const figure = p.figure
+      ? `<div class="p-figure">${p.figure}${p.figure_note ? `<div class="p-figure-note">${esc(p.figure_note)}</div>` : ''}</div>`
+      : '';
+    const printImgs = getProblemImages(p);
+    // 관리 화면에서 마우스로 조절한 이미지 크기(%, p.imageWidths에 저장됨)를 인쇄/미리보기에도 그대로 반영
+    const images = printImgs.length
+      ? `<div class="p-images">${printImgs.map((src, i) => {
+          const pct = p.imageWidths && p.imageWidths[i];
+          const style = pct ? ` style="max-width:${pct}%"` : '';
+          return `<img src="${esc(src)}" alt="문제 ${num} 첨부 이미지"${style}>`;
+        }).join('')}</div>`
+      : '';
+    const choices = (p.choices || []).map((c, ci) => `<div>${CIRCLE[ci] || (ci+1)+'.'} ${renderMathText(c)}</div>`).join('');
+
+    return `<div class="problem">
+      <div class="p-head">
+        <span class="p-num">${num}번</span>
+        ${diff ? `<span class="p-diff">${esc(DIFF_LABEL[diff] || diff)}</span>` : ''}
+      </div>
+      <div class="p-question">${question}</div>
+      ${images}
+      ${figure}
+      ${choices ? `<div class="p-choices">${choices}</div>` : ''}
+    </div>`;
+  }
+
+  // 미리보기 전용: 문제 카드에 열 이동(⇄) / 같은 열 내 위·아래 이동(▲▼) 버튼을 얹은 버전.
+  function buildPreviewProblemHTML(p, gindex){
+    let html = buildPrintProblemHTML(p, gindex);
+    html = html.replace(
+      '<div class="problem">',
+      `<div class="problem" data-gindex="${gindex}">`
+    );
+    const handle = `<span class="drag-handle" aria-label="드래그해서 위치 이동" title="눌러서 끌면 이동돼요">⠿⠿</span>`;
+    return html.replace(
+      /(<div class="p-head">[\s\S]*?)(<\/div>)/,
+      (m, headInner) => `${headInner}${handle}</div>`
+    );
+  }
+
+  // 열 배치가 없을 때(=실제 인쇄, 배치 커스터마이징 전) 기본값: 앞쪽 절반을 1열, 나머지를 2열에 배치
+  function defaultPlan(problems, perPage){
+    const pages = [];
+    for (let idx = 0; idx < problems.length; idx += perPage) {
+      const end = Math.min(idx + perPage, problems.length);
+      const chunkIdx = [];
+      for (let i = idx; i < end; i++) chunkIdx.push(i);
+      const half = Math.ceil(chunkIdx.length / 2);
+      pages.push({ col1: chunkIdx.slice(0, half), col2: chunkIdx.slice(half) });
+    }
+    return pages;
+  }
+
+  function buildPrintHTML(data, perPage, plan){
+    const problems = data.problems || [];
+    const title = data.title || data.id || '';
+    const pages = plan || defaultPlan(problems, perPage);
+    let out = '';
+    pages.forEach((page, idx) => {
+      const titleHtml = idx === 0 && title ? `<div class="print-title">${esc(title)}</div>` : '';
+      const col1Html = page.col1.map(gi => buildPrintProblemHTML(problems[gi], gi)).join('');
+      const col2Html = page.col2.map(gi => buildPrintProblemHTML(problems[gi], gi)).join('');
+      out += `<div class="print-page">${titleHtml}<div class="print-cols-row"><div class="print-col">${col1Html}</div><div class="print-col">${col2Html}</div></div></div>`;
+    });
+    return out || '<div class="print-page"><div class="print-title">출력할 문제가 없어요</div></div>';
+  }
+
+  const printBtn = document.getElementById('printBtn');
+  const perPageSelect = document.getElementById('perPageSelect');
+  const printArea = document.getElementById('printArea');
+
+  printBtn.addEventListener('click', () => {
+    if (!activeName || !loadedFiles[activeName] || loadedFiles[activeName].__error) {
+      alert('먼저 왼쪽 목록에서 문제지 파일을 선택해주세요.');
+      return;
+    }
+    const perPage = parseInt(perPageSelect.value, 10) || 6;
+    printArea.innerHTML = buildPrintHTML(loadedFiles[activeName], perPage, window.__previewPlan || null);
+    window.print();
+  });
+
+  /* ===== 인쇄 미리보기 모달: 화면에서 실제 인쇄 결과(1열/2열, 페이지 분할, 정답/풀이 숨김)를 확인하고
+     문제를 1열↔2열, 같은 열 안에서 위/아래로 직접 재배치할 수 있음. 배치는 이 미리보기 세션에만
+     적용되고(문제 자체의 순서·번호는 그대로), 인쇄할 때 그 배치가 그대로 반영됨. ===== */
+  (function(){
+    const overlay = document.getElementById('previewOverlay');
+    const scaleWrap = document.getElementById('previewScaleWrap');
+    const previewBtn = document.getElementById('previewBtn');
+    const closeBtn = document.getElementById('previewCloseBtn');
+    const previewPrintBtn = document.getElementById('previewPrintBtn');
+    const previewTitle = document.getElementById('previewTitle');
+    const SHEET_WIDTH = 780;
+    let plan = null;       // [{col1:[gidx,...], col2:[gidx,...]}, ...]
+    let curData = null;
+    let curTitle = '';
+
+    function fitScale(){
+      const pad = 20;
+      const avail = window.innerWidth - pad;
+      const scale = Math.min(1, avail / SHEET_WIDTH);
+      scaleWrap.querySelectorAll('.preview-sheet').forEach(sheet => {
+        sheet.style.zoom = scale;
+      });
+    }
+
+    function renderPlan(){
+      const problems = curData.problems || [];
+      let html = '';
+      const totalPages = plan.length;
+      plan.forEach((page, pageIdx) => {
+        const titleHtml = pageIdx === 0 && curTitle ? `<div class="print-title">${esc(curTitle)}</div>` : '';
+        const col1Html = page.col1.map(gi => buildPreviewProblemHTML(problems[gi], gi)).join('');
+        const col2Html = page.col2.map(gi => buildPreviewProblemHTML(problems[gi], gi)).join('');
+        html += `<div class="preview-page-label">페이지 ${pageIdx+1} / ${totalPages}</div>`;
+        html += `<div class="preview-sheet"><div class="print-page" data-page-idx="${pageIdx}">${titleHtml}<div class="print-cols-row"><div class="print-col">${col1Html}</div><div class="print-col">${col2Html}</div></div></div></div>`;
+      });
+      scaleWrap.innerHTML = html || '<div class="preview-page-label">표시할 문제가 없어요</div>';
+      window.__previewPlan = plan;
+      fitScale();
+    }
+
+    function openPreview(){
+      if (!activeName || !loadedFiles[activeName] || loadedFiles[activeName].__error) {
+        alert('먼저 왼쪽 목록에서 문제지 파일을 선택해주세요.');
+        return;
+      }
+      curData = loadedFiles[activeName];
+      const perPage = parseInt(perPageSelect.value, 10) || 6;
+      curTitle = curData.title || curData.id || '';
+      previewTitle.textContent = curTitle ? `인쇄 미리보기 — ${curTitle}` : '인쇄 미리보기';
+      plan = defaultPlan(curData.problems || [], perPage);
+      renderPlan();
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePreview(){
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // 페이지의 실제 DOM 순서(드래그 결과)를 plan 배열에 반영
+    function syncPlanFromDOM(pageIdx){
+      const pageEl = scaleWrap.querySelector(`.print-page[data-page-idx="${pageIdx}"]`);
+      if (!pageEl) return;
+      const cols = pageEl.querySelectorAll('.print-col');
+      const col1 = Array.from(cols[0].querySelectorAll('.problem')).map(el => +el.dataset.gindex);
+      const col2 = Array.from(cols[1].querySelectorAll('.problem')).map(el => +el.dataset.gindex);
+      plan[pageIdx] = { col1, col2 };
+    }
+
+    // 손가락(포인터)으로 카드를 끌어서 1열/2열, 같은 열 안 어디든 자유롭게 옮기기.
+    // 카드 상단 그립바(p-head, ⠿⠿ 표시) 전체가 드래그 시작 영역 — 아이콘만 누를 필요 없음.
+    // 손을 떼는 순간(pointerup) 그 위치로 확정됨 — 별도의 "위치확정" 버튼 없이 드롭이 곧 확정.
+    scaleWrap.addEventListener('pointerdown', (e) => {
+      const handle = e.target.closest('.p-head');
+      if (!handle) return;
+      const card = handle.closest('.problem');
+      const pageEl = handle.closest('.print-page');
+      if (!card || !pageEl) return;
+      e.preventDefault();
+      card.classList.add('dragging');
+      try { handle.setPointerCapture(e.pointerId); } catch(err){}
+
+      function onMove(ev){
+        ev.preventDefault();
+        card.style.pointerEvents = 'none';
+        const elemBelow = document.elementFromPoint(ev.clientX, ev.clientY);
+        card.style.pointerEvents = '';
+        if (!elemBelow) return;
+        const targetCol = elemBelow.closest('.print-col');
+        if (!targetCol || !pageEl.contains(targetCol)) return;
+        const targetCard = elemBelow.closest('.problem');
+        if (targetCard && targetCard !== card && pageEl.contains(targetCard)) {
+          const rect = targetCard.getBoundingClientRect();
+          const before = (ev.clientY - rect.top) < rect.height / 2;
+          targetCol.insertBefore(card, before ? targetCard : targetCard.nextSibling);
+        } else if (!targetCard && targetCol !== card.parentNode) {
+          targetCol.appendChild(card);
+        }
+      }
+      function onUp(ev){
+        document.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerup', onUp);
+        try { handle.releasePointerCapture(e.pointerId); } catch(err){}
+        card.classList.remove('dragging');
+        const pageIdx = +pageEl.dataset.pageIdx;
+        syncPlanFromDOM(pageIdx);
+        const scrollBefore = overlay.scrollTop;
+        renderPlan();
+        overlay.scrollTop = scrollBefore;
+      }
+      document.addEventListener('pointermove', onMove, { passive: false });
+      document.addEventListener('pointerup', onUp);
+    });
+
+    previewBtn.addEventListener('click', openPreview);
+    closeBtn.addEventListener('click', closePreview);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closePreview(); });
+    previewPrintBtn.addEventListener('click', () => {
+      if (!curData) return;
+      printArea.innerHTML = buildPrintHTML(curData, null, plan);
+      window.print();
+    });
+    window.addEventListener('resize', () => { if (overlay.classList.contains('open')) fitScale(); });
+    perPageSelect.addEventListener('change', () => { if (overlay.classList.contains('open')) openPreview(); });
+  })();
+
+  // ---- 맨 위로 / 맨 아래로 이동 버튼 ----
+  (function(){
+    const topBtn = document.getElementById('scrollTopBtn');
+    const bottomBtn = document.getElementById('scrollBottomBtn');
+    const THRESHOLD = 320;
+    function onScroll(){
+      const scrollY = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      topBtn.classList.toggle('visible', scrollY > THRESHOLD);
+      // 남은 스크롤 거리가 THRESHOLD보다 많이 남아있을 때만(=이미 바닥 근처가 아닐 때) 노출
+      bottomBtn.classList.toggle('visible', (maxScroll - scrollY) > THRESHOLD);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+    window.__updateScrollFabs = onScroll;
+    topBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    bottomBtn.addEventListener('click', () => {
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+    });
+  })();
+</script>
+
+</div>
+</body>
+</html>
