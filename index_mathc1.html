@@ -788,7 +788,7 @@
   function applyWorksheetTabsVisibility(){
     const counts = { tb:0, peq:0, me:0 };
     const panels = { tb:'', peq:'', me:'' };
-    const SOURCE_LABELS = { senmath: '📐 쎈수학', self: '📖 자체 복습' };
+    const SOURCE_LABELS = { senmath: '📐 쎈수학', self: '📖 자체 복습', hongcheon: '🏫 홍천중' };
 
     WS_CATEGORIES.forEach(cat => {
       const sets = MANIFEST_SETS.filter(s => s.category === cat && isMiddleGrade(s.grade) === (currentLevel === 'middleschool'));
