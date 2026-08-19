@@ -489,6 +489,45 @@
     border-bottom:2px solid var(--ink);
   }
   .ws-source-label:first-child{ margin-top:0; }
+  .ws-source-tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    background:#efece2;
+    border-radius:999px;
+    padding:4px;
+    margin-bottom:18px;
+  }
+  .ws-source-tab-btn{
+    font-family:inherit;
+    font-size:13px;
+    font-weight:800;
+    background:transparent;
+    border:none;
+    border-radius:999px;
+    padding:8px 14px;
+    cursor:pointer;
+    color:var(--num);
+  }
+  .ws-source-tab-btn .count{
+    font-size:11px;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    background:#e7e3d6;
+    color:#6b6558;
+    margin-left:4px;
+  }
+  .ws-source-tab-btn.active{
+    background:var(--ink);
+    color:#fff;
+  }
+  .ws-source-tab-btn.active .count{
+    background:#fff;
+    color:var(--ink);
+  }
+  .ws-source-panel{ display:none; }
+  .ws-source-panel.active{ display:block; }
   .ws-loading{
     padding:24px 4px;
     font-size:13px;
@@ -785,29 +824,62 @@
 
   // 레벨(중학교/고등학교)에 맞는 문제지만 걸러서 3개 탭(교과문제/기출·내신/모의고사)을 다시 그린다.
   // tb/peq/me 분류는 학년과 무관하게 항상 같은 3탭이고, 그 안의 "내용"만 학년별로 달라진다.
+  // 한 분류 안에 출처(source)가 여러 개면, 인라인 라벨이 아니라 클릭 가능한 출처 서브탭으로 보여준다.
+  const SOURCE_LABELS = { senmath: '📐 쎈수학', self: '📖 자체 복습', hongcheon: '🏫 홍천중' };
+
   function applyWorksheetTabsVisibility(){
     const counts = { tb:0, peq:0, me:0 };
-    const panels = { tb:'', peq:'', me:'' };
-    const SOURCE_LABELS = { senmath: '📐 쎈수학', self: '📖 자체 복습', hongcheon: '🏫 홍천중' };
 
     WS_CATEGORIES.forEach(cat => {
       const sets = MANIFEST_SETS.filter(s => s.category === cat && isMiddleGrade(s.grade) === (currentLevel === 'middleschool'));
       counts[cat] = sets.length;
-      let lastSource = null;
-      let lastGroup = null;
+
+      // source별로 순서 유지하며 그룹화
+      const sourceOrder = [];
+      const bySource = {};
       sets.forEach(s => {
-        if(s.source && s.source !== lastSource){
-          panels[cat] += `<div class="ws-source-label">${SOURCE_LABELS[s.source] || s.source}</div>`;
-          lastSource = s.source;
-          lastGroup = null; // 출처가 바뀌면 그 아래 단원 구분도 새로 시작
-        }
-        if(s.group && s.group !== lastGroup){
-          panels[cat] += `<div class="ws-unit-label">${s.group}</div>`;
-          lastGroup = s.group;
-        }
-        panels[cat] += cardHtml(s);
+        const key = s.source || '';
+        if(!bySource[key]){ bySource[key] = []; sourceOrder.push(key); }
+        bySource[key].push(s);
       });
-      document.getElementById('wsPanel-' + cat).innerHTML = panels[cat] || '<div class="ws-loading">등록된 문제지가 없어요</div>';
+
+      const buildGroupHtml = list => {
+        let html = '';
+        let lastGroup = null;
+        list.forEach(s => {
+          if(s.group && s.group !== lastGroup){
+            html += `<div class="ws-unit-label">${s.group}</div>`;
+            lastGroup = s.group;
+          }
+          html += cardHtml(s);
+        });
+        return html;
+      };
+
+      const panelEl = document.getElementById('wsPanel-' + cat);
+
+      if(sets.length === 0){
+        panelEl.innerHTML = '<div class="ws-loading">등록된 문제지가 없어요</div>';
+      } else if(sourceOrder.length <= 1){
+        // 출처가 하나뿐이면 서브탭 없이 바로 목록만 표시
+        panelEl.innerHTML = buildGroupHtml(sets);
+      } else {
+        // 출처가 여러 개면 클릭 가능한 서브탭으로 표시 (기본: 첫 출처 활성화)
+        let tabsHtml = '<div class="ws-source-tabs">';
+        sourceOrder.forEach((key, i) => {
+          const label = SOURCE_LABELS[key] || key || '기타';
+          tabsHtml += `<button class="ws-source-tab-btn${i===0?' active':''}" id="wsSourceTab-${cat}-${i}" onclick="switchSourceTab('${cat}', ${i})">${label} <span class="count">${bySource[key].length}</span></button>`;
+        });
+        tabsHtml += '</div>';
+
+        let contentHtml = '';
+        sourceOrder.forEach((key, i) => {
+          contentHtml += `<div class="ws-source-panel${i===0?' active':''}" id="wsSourcePanel-${cat}-${i}">${buildGroupHtml(bySource[key])}</div>`;
+        });
+
+        panelEl.innerHTML = tabsHtml + contentHtml;
+      }
+
       document.getElementById('wsCount-' + cat).textContent = counts[cat];
     });
 
@@ -1116,6 +1188,17 @@
       document.getElementById('wsTab-' + c).classList.toggle('active', c === cat);
       document.getElementById('wsPanel-' + c).classList.toggle('active', c === cat);
     });
+  }
+
+  // 교과문제 등 한 분류 안에서 출처(쎈수학/홍천중 등) 서브탭 전환
+  function switchSourceTab(cat, idx){
+    let i = 0;
+    while(document.getElementById(`wsSourceTab-${cat}-${i}`)){
+      const isActive = (i === idx);
+      document.getElementById(`wsSourceTab-${cat}-${i}`).classList.toggle('active', isActive);
+      document.getElementById(`wsSourcePanel-${cat}-${i}`).classList.toggle('active', isActive);
+      i++;
+    }
   }
 
   function switchRangeTab(kind){
