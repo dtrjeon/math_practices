@@ -2335,9 +2335,19 @@
       correct = p.answer - 1;
     }
 
+    // v1.4: solution이 배열이 아니라(문자열 등) 들어오는 구버전/변환 데이터가 있어
+    // 항상 배열 형태로 정규화한다. 그렇지 않으면 렌더링 시 (p.solution||[]).map()에서
+    // "is not a function" 에러가 난다.
     let solution = p.solution;
-    if(!solution && p.explanation){
-      solution = [p.explanation];
+    if(Array.isArray(solution)){
+      // 이미 배열이면 그대로 둔다.
+    } else if(typeof solution === 'string' && solution.trim()){
+      // 문자열이면 줄바꿈 기준으로 나눠 배열화(줄바꿈이 없으면 통째로 한 줄).
+      solution = solution.split(/\n+/).map(s => s.trim()).filter(Boolean);
+    } else if(p.explanation){
+      solution = Array.isArray(p.explanation) ? p.explanation : [p.explanation];
+    } else {
+      solution = [];
     }
 
     return Object.assign({}, p, { num, diff, type, choices, correct, solution });
