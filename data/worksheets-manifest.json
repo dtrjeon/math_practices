@@ -667,6 +667,61 @@
       "unit": "삼각비 ~ 원의 접선과 현이 이루는 각",
       "count": 100,
       "group": "DRE수학 내신대비"
+    },
+    {
+      "id": "m0_26_s2_tb_hongcheon_41sam_p154-167",
+      "file": "m0_26_s2_tb_hongcheon_41sam_p154-167.json",
+      "category": "tb",
+      "title": "배우고 익히는 수학 - 1. 삼각비",
+      "unit": "ⅳ.기하 - 1. 삼각비 (154~167쪽)",
+      "count": 16,
+      "group": "ⅳ.기하 - 1. 삼각비",
+      "grade": "m0",
+      "source": "hongcheon"
+    },
+    {
+      "id": "m0_26_s2_tb_hongcheon_41sam_p154-173",
+      "file": "m0_26_s2_tb_hongcheon_41sam_p154-173.json",
+      "category": "tb",
+      "title": "중단원 마무리 - 1. 삼각비",
+      "unit": "ⅳ.기하 - 1. 삼각비 (154~173쪽)",
+      "count": 16,
+      "group": "ⅳ.기하 - 1. 삼각비",
+      "grade": "m0",
+      "source": "hongcheon"
+    },
+    {
+      "id": "m0_26_s2_tb_hongcheon_42won_p177-193",
+      "file": "m0_26_s2_tb_hongcheon_42won_p177-193.json",
+      "category": "tb",
+      "title": "배우고 익히는 수학 - 2. 원의 성질",
+      "unit": "ⅳ.기하 - 2. 원의 성질 (177~193쪽)",
+      "count": 18,
+      "group": "ⅳ.기하 - 2. 원의 성질",
+      "grade": "m0",
+      "source": "hongcheon"
+    },
+    {
+      "id": "m0_26_s2_tb_hongcheon_42won_p176-199",
+      "file": "m0_26_s2_tb_hongcheon_42won_p176-199.json",
+      "category": "tb",
+      "title": "중단원 마무리 - 2. 원의 성질",
+      "unit": "ⅳ.기하 - 2. 원의 성질 (176~199쪽)",
+      "count": 16,
+      "group": "ⅳ.기하 - 2. 원의 성질",
+      "grade": "m0",
+      "source": "hongcheon"
+    },
+    {
+      "id": "m0_26_s2_tb_hongcheon_43daedan_p201-203",
+      "file": "m0_26_s2_tb_hongcheon_43daedan_p201-203.json",
+      "category": "tb",
+      "title": "대단원 마무리 - ⅳ. 기하",
+      "unit": "ⅳ.기하 - 대단원 마무리 (201~203쪽)",
+      "count": 18,
+      "group": "ⅳ.기하",
+      "grade": "m0",
+      "source": "hongcheon"
     }
   ],
   "categories": {
