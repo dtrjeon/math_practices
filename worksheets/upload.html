@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<!-- v1.0 (2026-08-21): 신규 생성 — 학생이 오답 사진을 찍으면 AI가 문제(JSON)로 변환하고,
+     그 자리에서 검수·수정한 뒤 확정하면 GAS 백엔드가 GitHub에 자동 커밋 + worksheets-manifest.json에
+     자동 등록하는 학생용 업로드 페이지. 이미 등록된 문제지를 불러와 텍스트/이미지 수정하는 기능도 포함.
+     백엔드(apps-script-backend.gs)에는 action:'visionExtract'와 action:'submitWorksheet' 두 개를
+     새로 추가해야 이 페이지가 동작함(별도 gas 애드온 파일 참고). -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>오답 등록</title>
+<meta name="robots" content="noindex, nofollow">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root{
+    --paper:#f6f4ee;
+    --ink:#20242b;
+    --rule:#d9d3c4;
+    --accent:#1f6f5c;
+    --accent-soft:#e3efe9;
+    --wrong:#b23a2e;
+    --wrong-soft:#f7e6e3;
+    --num:#8a8474;
+    --sheet:#fffdf8;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans KR', -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:90px;
+  }
+  header{
+    padding:20px 18px 14px;
+    border-bottom:2px solid var(--ink);
+  }
+  h1{ font-size:19px; margin:0 0 4px; }
+  .sub{ font-size:12.5px; color:var(--num); }
+
+  .mode-switch{
+    display:flex;
+    gap:8px;
+    margin:16px 18px 0;
+  }
+  .mode-btn{
+    flex:1;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:800;
+    padding:11px 8px;
+    border-radius:12px;
+    border:1.5px solid var(--rule);
+    background:#fff;
+    color:var(--num);
+    cursor:pointer;
+  }
+  .mode-btn.active{ background:var(--ink); border-color:var(--ink); color:#fff; }
+
+  main{ padding:16px 18px 40px; max-width:640px; margin:0 auto; }
+
+  .step{
+    background:var(--sheet);
+    border:1px solid var(--rule);
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(32,36,43,0.04);
+  }
+  .step.disabled{ opacity:0.45; pointer-events:none; }
+  .step-title{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:15px;
+    font-weight:800;
+    margin-bottom:12px;
+  }
+  .step-num{
+    width:22px; height:22px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#fff;
+    font-size:12px;
+    font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+    flex:0 0 auto;
+  }
+  .step-hint{ font-size:12px; color:var(--num); margin:-6px 0 12px; }
+
+  /* ===== 사진 촬영 ===== */
+  .photo-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .photo-thumb{
+    position:relative;
+    aspect-ratio:3/4;
+    border-radius:10px;
+    overflow:hidden;
+    border:1.5px solid var(--rule);
+    background:#efece2;
+  }
+  .photo-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .photo-thumb .rm-btn{
+    position:absolute; top:4px; right:4px;
+    width:22px; height:22px; border-radius:50%;
+    background:rgba(32,36,43,0.75); color:#fff;
+    border:none; font-size:13px; line-height:1; cursor:pointer;
+  }
+  .photo-add{
+    aspect-ratio:3/4;
+    border-radius:10px;
+    border:2px dashed var(--rule);
+    background:#fff;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:4px;
+    cursor:pointer;
+    color:var(--num);
+    font-size:11.5px;
+    font-weight:700;
+  }
+  .photo-add .plus{ font-size:22px; color:var(--accent); }
+  .photo-add input{ display:none; }
+
+  /* ===== 폼 ===== */
+  .field{ margin-bottom:12px; }
+  .field label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    color:var(--num);
+    margin-bottom:5px;
+  }
+  .field select, .field input[type="text"], .field textarea{
+    width:100%;
+    font-family:inherit;
+    font-size:14.5px;
+    padding:10px 12px;
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    background:#fff;
+    color:var(--ink);
+  }
+  .field textarea{ resize:vertical; min-height:64px; line-height:1.5; }
+  .field-row{ display:flex; gap:8px; }
+  .field-row .field{ flex:1; }
+  .id-preview{
+    font-family:'SFMono-Regular', Consolas, monospace;
+    font-size:12.5px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    padding:9px 12px;
+    border-radius:10px;
+    word-break:break-all;
+  }
+
+  .btn{
+    font-family:inherit;
+    font-size:14px;
+    font-weight:800;
+    border:none;
+    border-radius:999px;
+    padding:12px 20px;
+    cursor:pointer;
+    width:100%;
+  }
+  .btn.primary{ background:var(--accent); color:#fff; }
+  .btn.primary:disabled{ background:#d9d3c4; color:#8a8474; cursor:not-allowed; }
+  .btn.ghost{ background:#efece2; color:var(--ink); border:1.5px solid var(--rule); }
+  .btn.danger-ghost{ background:var(--wrong-soft); color:var(--wrong); }
+  .btn.small{ width:auto; padding:8px 14px; font-size:12.5px; }
+
+  .status-msg{ font-size:12.5px; margin-top:8px; text-align:center; }
+  .status-msg.ok{ color:var(--accent); font-weight:700; }
+  .status-msg.fail{ color:var(--wrong); font-weight:700; }
+  .status-msg.busy{ color:var(--num); }
+
+  .spinner{
+    width:16px; height:16px;
+    border:2.5px solid var(--rule);
+    border-top-color:var(--accent);
+    border-radius:50%;
+    display:inline-block;
+    animation:spin 0.7s linear infinite;
+    vertical-align:-3px;
+    margin-right:6px;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  /* ===== 문제 카드 ===== */
+  .pcard{
+    background:#fff;
+    border:1.5px solid var(--rule);
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:12px;
+  }
+  .pcard-head{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .pcard-head .num-input{
+    width:52px;
+    font-weight:800;
+    text-align:center;
+    padding:6px 4px;
+  }
+  .pcard-head select{ padding:6px 8px; font-size:12.5px; width:auto; }
+  .pcard-head .rm-pcard{
+    margin-left:auto;
+    background:none; border:none; color:var(--wrong);
+    font-size:18px; cursor:pointer; padding:2px 6px;
+  }
+  .preview-toggle{
+    font-size:11.5px; font-weight:700;
+    background:var(--accent-soft); color:var(--accent);
+    border:none; border-radius:999px; padding:4px 10px;
+    cursor:pointer; margin-bottom:8px;
+  }
+  .katex-preview{
+    display:none;
+    font-size:14.5px;
+    line-height:1.6;
+    background:var(--accent-soft);
+    border-radius:10px;
+    padding:10px 12px;
+    margin-bottom:8px;
+  }
+  .katex-preview.shown{ display:block; }
+  .choices-edit{ display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
+  .choice-row{ display:flex; align-items:center; gap:8px; }
+  .choice-row input[type="radio"]{ width:18px; height:18px; flex:0 0 auto; }
+  .choice-row input[type="text"]{ flex:1; }
+  .choice-row .circle{ font-size:13px; font-weight:800; width:16px; flex:0 0 auto; }
+
+  .img-attach-strip{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px; }
+  .img-attach-thumb{
+    position:relative;
+    width:56px; height:56px;
+    border-radius:8px;
+    overflow:hidden;
+    border:1.5px solid var(--rule);
+  }
+  .img-attach-thumb img{ width:100%; height:100%; object-fit:cover; }
+  .img-attach-thumb .rm-btn{
+    position:absolute; top:1px; right:1px;
+    width:18px; height:18px; border-radius:50%;
+    background:rgba(32,36,43,0.75); color:#fff;
+    border:none; font-size:11px; line-height:1; cursor:pointer;
+  }
+  .img-picker-btn{
+    font-size:11.5px; font-weight:700; color:var(--accent);
+    background:none; border:1.5px dashed var(--accent); border-radius:8px;
+    padding:6px 10px; cursor:pointer; margin-bottom:8px;
+  }
+
+  .add-pcard-btn{
+    width:100%;
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:700;
+    padding:12px;
+    border-radius:12px;
+    border:1.5px dashed var(--rule);
+    background:#fff;
+    color:var(--num);
+    cursor:pointer;
+  }
+
+  /* ===== 수정 모드: 기존 문제지 검색 ===== */
+  .search-list{ max-height:280px; overflow-y:auto; margin-top:8px; }
+  .search-item{
+    padding:10px 12px;
+    border-bottom:1px solid var(--rule);
+    cursor:pointer;
+    font-size:13.5px;
+  }
+  .search-item:last-child{ border-bottom:none; }
+  .search-item .si-title{ font-weight:700; }
+  .search-item .si-sub{ font-size:11.5px; color:var(--num); margin-top:2px; }
+  .search-item:active{ background:var(--accent-soft); }
+
+  .home-btn{
+    position:fixed;
+    bottom:18px;
+    right:18px;
+    z-index:150;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background:#20242b;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:20px;
+    box-shadow:0 3px 10px rgba(32,36,43,0.3);
+    border:none;
+  }
+
+  .result-card{
+    background:var(--accent-soft);
+    border-radius:14px;
+    padding:16px;
+    text-align:center;
+    font-size:13.5px;
+  }
+  .result-card a{ color:var(--accent); font-weight:700; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📷 오답 등록</h1>
+  <div class="sub">시험에서 틀린 문제를 사진으로 찍으면 자동으로 문제지에 등록돼요</div>
+  <div class="sub" id="sessionGreeting" style="margin-top:4px;"></div>
+</header>
+
+<div id="loginGate" style="display:none; padding:40px 18px; text-align:center;">
+  <div style="font-size:32px; margin-bottom:10px;">🔒</div>
+  <div style="font-size:14.5px; font-weight:700; margin-bottom:14px;">먼저 로그인해주세요</div>
+  <a class="btn primary" style="display:inline-block; width:auto; padding:12px 28px; text-decoration:none;" href="login.html?redirect=upload.html">로그인 / 회원가입</a>
+</div>
+
+<div class="mode-switch" id="modeSwitchBar">
+  <button class="mode-btn active" id="modeBtn-new" onclick="switchMode('new')">✍️ 새로 등록</button>
+  <button class="mode-btn" id="modeBtn-edit" onclick="switchMode('edit')">🔧 등록된 문제 수정</button>
+</div>
+
+<main id="mainContent">
+
+  <!-- ===================== 새로 등록 모드 ===================== -->
+  <section id="panel-new">
+
+    <div class="step" id="stepPhoto">
+      <div class="step-title"><span class="step-num">1</span>사진 찍기</div>
+      <div class="step-hint">틀린 문제 · 보기 · 풀이가 잘 보이게 찍어주세요 (여러 장 가능)</div>
+      <div class="photo-grid" id="photoGrid">
+        <label class="photo-add">
+          <span class="plus">＋</span>사진 추가
+          <input type="file" accept="image/*" capture="environment" id="photoInput">
+        </label>
+      </div>
+    </div>
+
+    <div class="step" id="stepMeta">
+      <div class="step-title"><span class="step-num">2</span>어떤 문제지인가요?</div>
+      <div class="field-row">
+        <div class="field">
+          <label>학년</label>
+          <select id="metaGrade" onchange="updateComposedId()">
+            <option value="m0">중3-2</option>
+            <option value="m1" selected>고등수학1</option>
+            <option value="m2">고등수학2</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>분류</label>
+          <select id="metaCategory" onchange="onCategoryChange()">
+            <option value="peq" selected>기출·내신</option>
+            <option value="tb">교과문제</option>
+            <option value="me">모의고사</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row" id="examTypeRow">
+        <div class="field">
+          <label>시험 종류</label>
+          <select id="metaExamType" onchange="updateComposedId()">
+            <option value="mid">중간고사</option>
+            <option value="final">기말고사</option>
+            <option value="">없음(기타)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>학기</label>
+          <select id="metaSemester" onchange="updateComposedId()">
+            <option value="s1">1학기</option>
+            <option value="s2">2학기</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>학교 이름 또는 문제집 이름 (영문/숫자, 예: hongcheon)</label>
+        <input type="text" id="metaIdentifier" placeholder="예: hongcheon" oninput="sanitizeIdentifier(); updateComposedId()">
+      </div>
+      <div class="field">
+        <label>문제지 제목</label>
+        <input type="text" id="metaTitle" placeholder="예: 홍천고 1학년 2학기 중간고사">
+      </div>
+      <div class="field">
+        <label>단원 (선택)</label>
+        <input type="text" id="metaUnit" placeholder="예: 삼각비 ~ 이차함수">
+      </div>
+      <div class="field">
+        <label>등록될 파일명 (자동 생성 — 필요하면 직접 수정 가능)</label>
+        <input type="text" id="composedId" class="id-preview" style="font-family:inherit;">
+      </div>
+    </div>
+
+    <div class="step" id="stepConvert">
+      <div class="step-title"><span class="step-num">3</span>사진을 문제로 변환</div>
+      <div class="step-hint">AI가 사진을 읽어 문제·보기·정답을 자동으로 만들어요. 변환 후 아래에서 꼭 확인해주세요.</div>
+      <button class="btn primary" id="convertBtn" onclick="runVisionExtract()" disabled>🤖 사진으로 문제 만들기</button>
+      <div class="status-msg" id="convertStatus"></div>
+    </div>
+
+    <div class="step disabled" id="stepReview">
+      <div class="step-title"><span class="step-num">4</span>확인하고 수정하기</div>
+      <div class="step-hint">문제·정답·해설이 정확한지 확인하고, 틀린 부분은 직접 고쳐주세요</div>
+      <div id="pcardList"></div>
+      <button class="add-pcard-btn" onclick="addProblemManually()">＋ 문제 직접 추가</button>
+    </div>
+
+    <div class="step disabled" id="stepSubmit">
+      <div class="step-title"><span class="step-num">5</span>제출하기</div>
+      <button class="btn primary" id="submitBtn" onclick="submitWorksheet()">📤 제출하기 (선생님 확인 후 등록)</button>
+      <div class="status-msg" id="submitStatus"></div>
+      <div id="submitResult"></div>
+    </div>
+
+  </section>
+
+  <!-- ===================== 수정 모드 ===================== -->
+  <section id="panel-edit" style="display:none;">
+    <div class="step">
+      <div class="step-title"><span class="step-num">🔍</span>수정할 문제지 찾기</div>
+      <div class="field">
+        <input type="text" id="editSearchInput" placeholder="문제지 이름으로 검색" oninput="renderEditSearchList()">
+      </div>
+      <div class="search-list" id="editSearchList"></div>
+    </div>
+
+    <div class="step disabled" id="stepEditPhoto">
+      <div class="step-title"><span class="step-num">📷</span>사진 추가(선택)</div>
+      <div class="step-hint">이 문제지에 새 문제를 더 추가하고 싶으면 사진을 찍어 "🤖 사진으로 문제 추가"를 눌러주세요</div>
+      <div class="photo-grid" id="editPhotoGrid">
+        <label class="photo-add">
+          <span class="plus">＋</span>사진 추가
+          <input type="file" accept="image/*" capture="environment" id="editPhotoInput">
+        </label>
+      </div>
+      <button class="btn ghost" id="editConvertBtn" onclick="runVisionExtract(true)" style="margin-top:8px;">🤖 사진으로 문제 추가</button>
+      <div class="status-msg" id="editConvertStatus"></div>
+    </div>
+
+    <div class="step disabled" id="stepEditReview">
+      <div class="step-title"><span class="step-num">✏️</span>문제 수정</div>
+      <div id="editPcardList"></div>
+      <button class="add-pcard-btn" onclick="addProblemManually(true)">＋ 문제 직접 추가</button>
+    </div>
+
+    <div class="step disabled" id="stepEditSubmit">
+      <div class="step-title"><span class="step-num">💾</span>저장하기</div>
+      <button class="btn primary" id="editSubmitBtn" onclick="submitWorksheet(true)">💾 수정 제출 (선생님 확인 후 반영)</button>
+      <div class="status-msg" id="editSubmitStatus"></div>
+      <div id="editSubmitResult"></div>
+    </div>
+  </section>
+
+</main>
+
+<a class="home-btn" href="../index.html" title="홈으로">🏠</a>
+
+<script>
+  // 구글 시트/깃허브 저장 백엔드 — 다른 페이지(player.html, index.html)와 동일한 배포 URL 사용
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzqgkELv7cxD3UZlVj1XfvNiFtR4o6nI5uyDOLiMme6hx5eCcaVkNc_cUZ3JawAafKc/exec';
+  const SESSION_KEY = 'mathapp_session';
+
+  function loadSession(){
+    try{ return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); }
+    catch(e){ return null; }
+  }
+  function logoutSession(){
+    localStorage.removeItem(SESSION_KEY);
+    window.location.reload();
+  }
+  const currentSession = loadSession();
+  (function checkLoginGate(){
+    if(currentSession && currentSession.studentId){
+      document.getElementById('sessionGreeting').innerHTML =
+        `${currentSession.name}님(${currentSession.school}) · <a href="#" onclick="logoutSession();return false;" style="color:var(--accent);">로그아웃</a>`;
+    } else {
+      document.getElementById('loginGate').style.display = 'block';
+      document.getElementById('modeSwitchBar').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'none';
+    }
+  })();
+
+  const CIRCLE = ['①','②','③','④','⑤'];
+  const DIFF_LABEL = { low:'하', mid:'중', midhigh:'중상', high:'상', top:'최상' };
+
+  // ===== 상태 =====
+  let state = {
+    mode: 'new',
+    photos: [],       // 새 등록용 촬영 사진 [{id, dataUrl}]
+    editPhotos: [],    // 수정 모드에서 추가 촬영한 사진
+    problems: [],      // 검수 중인 문제 배열
+    manifest: null,    // data/worksheets-manifest.json 캐시
+    editing: null      // 수정 모드에서 불러온 기존 세트 정보 {id,file,category,title,unit,grade,group,source,count}
+  };
+  let photoSeq = 0;
+
+  function switchMode(mode){
+    state.mode = mode;
+    document.getElementById('modeBtn-new').classList.toggle('active', mode==='new');
+    document.getElementById('modeBtn-edit').classList.toggle('active', mode==='edit');
+    document.getElementById('panel-new').style.display = mode==='new' ? 'block' : 'none';
+    document.getElementById('panel-edit').style.display = mode==='edit' ? 'block' : 'none';
+    if(mode === 'edit' && !state.manifest){
+      loadManifestForEdit();
+    }
+  }
+
+  // ===== 이미지 리사이즈(용량 절약) =====
+  function resizeImageFile(file, maxW){
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const scale = img.width > maxW ? maxW / img.width : 1;
+          const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', 0.85));
+        };
+        img.onerror = () => resolve(reader.result);
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // ===== 사진 촬영 (새 등록) =====
+  document.getElementById('photoInput').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const dataUrl = await resizeImageFile(file, 1400);
+    photoSeq++;
+    state.photos.push({ id:'p'+photoSeq, dataUrl });
+    renderPhotoGrid();
+    e.target.value = '';
+    updateConvertBtnState();
+  });
+
+  function renderPhotoGrid(){
+    const grid = document.getElementById('photoGrid');
+    const addTile = grid.querySelector('.photo-add');
+    grid.querySelectorAll('.photo-thumb').forEach(el => el.remove());
+    state.photos.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'photo-thumb';
+      div.innerHTML = `<img src="${p.dataUrl}"><button class="rm-btn" onclick="removePhoto('${p.id}')">×</button>`;
+      grid.insertBefore(div, addTile);
+    });
+  }
+  function removePhoto(id){
+    state.photos = state.photos.filter(p => p.id !== id);
+    renderPhotoGrid();
+    updateConvertBtnState();
+  }
+
+  // ===== 사진 촬영 (수정 모드에서 추가) =====
+  document.getElementById('editPhotoInput').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const dataUrl = await resizeImageFile(file, 1400);
+    photoSeq++;
+    state.editPhotos.push({ id:'ep'+photoSeq, dataUrl });
+    renderEditPhotoGrid();
+    e.target.value = '';
+  });
+  function renderEditPhotoGrid(){
+    const grid = document.getElementById('editPhotoGrid');
+    const addTile = grid.querySelector('.photo-add');
+    grid.querySelectorAll('.photo-thumb').forEach(el => el.remove());
+    state.editPhotos.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'photo-thumb';
+      div.innerHTML = `<img src="${p.dataUrl}"><button class="rm-btn" onclick="removeEditPhoto('${p.id}')">×</button>`;
+      grid.insertBefore(div, addTile);
+    });
+  }
+  function removeEditPhoto(id){
+    state.editPhotos = state.editPhotos.filter(p => p.id !== id);
+    renderEditPhotoGrid();
+  }
+
+  // ===== 분류 폼 → 파일명 자동 조합 =====
+  function onCategoryChange(){
+    const cat = document.getElementById('metaCategory').value;
+    document.getElementById('examTypeRow').style.display = (cat === 'peq') ? 'flex' : 'none';
+    updateComposedId();
+  }
+  function sanitizeIdentifier(){
+    const el = document.getElementById('metaIdentifier');
+    el.value = el.value.toLowerCase().replace(/[^a-z0-9가-힣-]/g, '').replace(/\s+/g, '-');
+  }
+  function todayYYMM(){
+    const d = new Date();
+    const yy = String(d.getFullYear()).slice(2);
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    return { yy, mm, autoSemester: (d.getMonth()+1 >= 3 && d.getMonth()+1 <= 8) ? 's1' : 's2' };
+  }
+  function updateComposedId(){
+    const grade = document.getElementById('metaGrade').value;
+    const cat = document.getElementById('metaCategory').value;
+    const examType = document.getElementById('metaExamType').value;
+    const semester = document.getElementById('metaSemester').value;
+    const identifier = document.getElementById('metaIdentifier').value.trim() || 'set';
+    const { yy, mm } = todayYYMM();
+    let id = `${grade}_${yy}${mm}_${semester}_${cat}`;
+    if(cat === 'peq' && examType) id += `_${examType}`;
+    id += `_${identifier}`;
+    document.getElementById('composedId').value = id;
+    updateConvertBtnState();
+  }
+  (function initMetaDefaults(){
+    const { autoSemester } = todayYYMM();
+    document.getElementById('metaSemester').value = autoSemester;
+    updateComposedId();
+  })();
+
+  function updateConvertBtnState(){
+    const hasPhotos = state.photos.length > 0;
+    const hasId = document.getElementById('composedId').value.trim().length > 0;
+    document.getElementById('convertBtn').disabled = !(hasPhotos && hasId);
+  }
+  document.getElementById('metaIdentifier').addEventListener('input', updateConvertBtnState);
+
+  // ===== AI 사진→문제 변환 =====
+  async function runVisionExtract(isEdit){
+    const photos = isEdit ? state.editPhotos : state.photos;
+    if(photos.length === 0){ alert('사진을 먼저 찍어주세요.'); return; }
+
+    const statusEl = document.getElementById(isEdit ? 'editConvertStatus' : 'convertStatus');
+    const btn = document.getElementById(isEdit ? 'editConvertBtn' : 'convertBtn');
+    btn.disabled = true;
+    statusEl.className = 'status-msg busy';
+    statusEl.innerHTML = '<span class="spinner"></span>사진을 읽고 문제로 만드는 중... (10~30초 정도 걸려요)';
+
+    const meta = isEdit
+      ? { grade: state.editing && state.editing.grade, unit: state.editing && state.editing.unit, title: state.editing && state.editing.title }
+      : {
+          grade: document.getElementById('metaGrade').value,
+          category: document.getElementById('metaCategory').value,
+          unit: document.getElementById('metaUnit').value,
+          title: document.getElementById('metaTitle').value
+        };
+
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'visionExtract',
+          images: photos.map(p => p.dataUrl),
+          meta
+        })
+      });
+      const json = await res.json();
+      if(json.status !== 'ok' || !Array.isArray(json.problems)){
+        throw new Error(json.message || '변환 결과를 받지 못했어요');
+      }
+      const startNum = state.problems.length
+        ? Math.max(...state.problems.map(p => p.num || 0)) + 1
+        : 1;
+      json.problems.forEach((p, i) => {
+        state.problems.push(normalizeIncomingProblem(p, startNum + i));
+      });
+      statusEl.className = 'status-msg ok';
+      statusEl.textContent = `✓ 문제 ${json.problems.length}개를 만들었어요. 아래에서 꼭 확인해주세요.`;
+      if(isEdit){
+        state.editPhotos = [];
+        renderEditPhotoGrid();
+        document.getElementById('stepEditReview').classList.remove('disabled');
+        document.getElementById('stepEditSubmit').classList.remove('disabled');
+        renderProblemCards(true);
+      } else {
+        document.getElementById('stepReview').classList.remove('disabled');
+        document.getElementById('stepSubmit').classList.remove('disabled');
+        renderProblemCards(false);
+      }
+    } catch(err){
+      statusEl.className = 'status-msg fail';
+      statusEl.textContent = '✕ 변환 실패: ' + (err.message || '알 수 없는 오류') + ' — 다시 시도하거나 "문제 직접 추가"로 입력해주세요.';
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function normalizeIncomingProblem(p, fallbackNum){
+    return {
+      _uid: 'u' + (++photoSeq),
+      num: p.num || fallbackNum,
+      diff: p.diff || 'mid',
+      type: (p.type === 'fillin') ? 'fillin' : 'mc',
+      question: p.question || '',
+      choices: Array.isArray(p.choices) && p.choices.length === 5 ? p.choices.slice() : ['', '', '', '', ''],
+      correct: typeof p.correct === 'number' ? p.correct : 0,
+      answer: p.answer || '',
+      solution: Array.isArray(p.solution) ? p.solution.slice() : (p.solution ? [String(p.solution)] : []),
+      images: Array.isArray(p.images) ? p.images.slice() : []
+    };
+  }
+
+  function addProblemManually(isEdit){
+    const nextNum = state.problems.length
+      ? Math.max(...state.problems.map(p => p.num || 0)) + 1
+      : 1;
+    state.problems.push(normalizeIncomingProblem({ type:'mc' }, nextNum));
+    if(isEdit){
+      document.getElementById('stepEditReview').classList.remove('disabled');
+      document.getElementById('stepEditSubmit').classList.remove('disabled');
+    } else {
+      document.getElementById('stepReview').classList.remove('disabled');
+      document.getElementById('stepSubmit').classList.remove('disabled');
+    }
+    renderProblemCards(isEdit);
+  }
+
+  function removeProblem(uid, isEdit){
+    state.problems = state.problems.filter(p => p._uid !== uid);
+    renderProblemCards(isEdit);
+  }
+
+  // ===== 문제 카드 렌더링 =====
+  function escapeHtml(s){
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function escapeAttr(s){ return String(s || '').replace(/"/g,'&quot;'); }
+
+  function renderProblemCards(isEdit){
+    const listEl = document.getElementById(isEdit ? 'editPcardList' : 'pcardList');
+    const availablePhotos = isEdit ? state.editPhotos : state.photos;
+    listEl.innerHTML = state.problems.map(p => buildPcardHTML(p, isEdit, availablePhotos)).join('');
+    renderMathInElement(listEl, {
+      delimiters: [
+        {left: "\\(", right: "\\)", display: false},
+        {left: "\\[", right: "\\]", display: true}
+      ]
+    });
+  }
+
+  function buildPcardHTML(p, isEdit, availablePhotos){
+    const attachedThumbs = (p.images || []).map((img, i) =>
+      `<div class="img-attach-thumb"><img src="${img}"><button class="rm-btn" onclick="removeAttachedImage('${p._uid}', ${i}, ${isEdit})">×</button></div>`
+    ).join('');
+
+    const choicesHTML = p.choices.map((c, i) => `
+      <div class="choice-row">
+        <input type="radio" name="correct-${p._uid}" ${p.correct===i ? 'checked' : ''} onchange="updateField('${p._uid}','correct',${i})">
+        <span class="circle">${CIRCLE[i]}</span>
+        <input type="text" value="${escapeAttr(c)}" oninput="updateChoice('${p._uid}', ${i}, this.value)">
+      </div>`).join('');
+
+    return `
+    <div class="pcard" data-uid="${p._uid}">
+      <div class="pcard-head">
+        <input type="text" class="num-input" value="${p.num}" oninput="updateField('${p._uid}','num', parseInt(this.value)||0)">
+        <select onchange="updateField('${p._uid}','diff', this.value)">
+          ${Object.keys(DIFF_LABEL).map(k => `<option value="${k}" ${p.diff===k?'selected':''}>${DIFF_LABEL[k]}</option>`).join('')}
+        </select>
+        <select onchange="updateField('${p._uid}','type', this.value); renderProblemCards(${isEdit})">
+          <option value="mc" ${p.type==='mc'?'selected':''}>객관식</option>
+          <option value="fillin" ${p.type==='fillin'?'selected':''}>단답형</option>
+        </select>
+        <button class="rm-pcard" onclick="removeProblem('${p._uid}', ${isEdit})">🗑</button>
+      </div>
+
+      <button class="preview-toggle" onclick="togglePreview(this)">👁 수식 미리보기</button>
+      <div class="katex-preview">${escapeHtml(p.question)}</div>
+
+      <div class="field">
+        <label>문제</label>
+        <textarea oninput="updateField('${p._uid}','question', this.value)">${escapeHtml(p.question)}</textarea>
+      </div>
+
+      ${p.type === 'mc' ? `
+        <div class="field"><label>보기 (정답에 ⚪ 체크)</label></div>
+        <div class="choices-edit">${choicesHTML}</div>
+      ` : `
+        <div class="field">
+          <label>정답</label>
+          <input type="text" value="${escapeAttr(p.answer)}" oninput="updateField('${p._uid}','answer', this.value)">
+        </div>
+      `}
+
+      <div class="field">
+        <label>해설 (줄바꿈으로 여러 줄 가능)</label>
+        <textarea oninput="updateField('${p._uid}','solution', this.value.split(String.fromCharCode(10)))">${escapeHtml((p.solution||[]).join('\n'))}</textarea>
+      </div>
+
+      <div class="field">
+        <label>첨부 사진</label>
+        <div class="img-attach-strip">${attachedThumbs}</div>
+        ${availablePhotos.length ? `<button class="img-picker-btn" onclick="pickPhotoFor('${p._uid}', ${isEdit})">＋ 찍은 사진에서 첨부</button>` : ''}
+      </div>
+    </div>`;
+  }
+
+  function togglePreview(btn){
+    const box = btn.nextElementSibling;
+    box.classList.toggle('shown');
+    if(box.classList.contains('shown')){
+      renderMathInElement(box, {
+        delimiters: [
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true}
+        ]
+      });
+    }
+  }
+
+  function findProblem(uid){ return state.problems.find(p => p._uid === uid); }
+
+  function updateField(uid, field, value){
+    const p = findProblem(uid);
+    if(!p) return;
+    p[field] = value;
+  }
+  function updateChoice(uid, idx, value){
+    const p = findProblem(uid);
+    if(!p) return;
+    p.choices[idx] = value;
+  }
+  function removeAttachedImage(uid, idx, isEdit){
+    const p = findProblem(uid);
+    if(!p) return;
+    p.images.splice(idx, 1);
+    renderProblemCards(isEdit);
+  }
+  function pickPhotoFor(uid, isEdit){
+    const photos = isEdit ? state.editPhotos : state.photos;
+    if(photos.length === 0) return;
+    const options = photos.map((ph, i) => `${i+1}번 사진`).join(', ');
+    const pick = prompt(`첨부할 사진 번호를 입력하세요 (${options})`, '1');
+    const idx = parseInt(pick, 10) - 1;
+    if(isNaN(idx) || !photos[idx]) return;
+    const p = findProblem(uid);
+    if(!p) return;
+    if(!Array.isArray(p.images)) p.images = [];
+    p.images.push(photos[idx].dataUrl);
+    renderProblemCards(isEdit);
+  }
+
+  // ===== 등록/수정 최종 제출 =====
+  function validateProblems(){
+    for(const p of state.problems){
+      if(!p.question || !p.question.trim()) return `${p.num}번 문제의 질문을 입력해주세요.`;
+      if(p.type === 'mc' && p.choices.some(c => !c.trim())) return `${p.num}번 문제의 보기를 모두 입력해주세요.`;
+      if(p.type === 'fillin' && !p.answer.trim()) return `${p.num}번 문제의 정답을 입력해주세요.`;
+    }
+    return null;
+  }
+
+  async function submitWorksheet(isEdit){
+    if(!currentSession || !currentSession.studentId){ alert('로그인이 필요해요.'); return; }
+    if(state.problems.length === 0){ alert('등록할 문제가 없어요.'); return; }
+    const err = validateProblems();
+    if(err){ alert(err); return; }
+
+    const statusEl = document.getElementById(isEdit ? 'editSubmitStatus' : 'submitStatus');
+    const resultEl = document.getElementById(isEdit ? 'editSubmitResult' : 'submitResult');
+    const btn = document.getElementById(isEdit ? 'editSubmitBtn' : 'submitBtn');
+    btn.disabled = true;
+    statusEl.className = 'status-msg busy';
+    statusEl.innerHTML = '<span class="spinner"></span>제출하는 중...';
+
+    let payload;
+    if(isEdit){
+      const e = state.editing;
+      payload = {
+        action: 'pendingSubmitWorksheet',
+        isUpdate: true,
+        id: e.id,
+        file: e.file,
+        category: e.category,
+        grade: e.grade,
+        title: e.title,
+        unit: e.unit,
+        group: e.group,
+        source: e.source || '학생 오답 등록',
+        problems: state.problems.map(stripUid)
+      };
+    } else {
+      const id = document.getElementById('composedId').value.trim();
+      payload = {
+        action: 'pendingSubmitWorksheet',
+        isUpdate: false,
+        id,
+        file: id + '.json',
+        category: document.getElementById('metaCategory').value,
+        grade: document.getElementById('metaGrade').value,
+        title: document.getElementById('metaTitle').value || id,
+        unit: document.getElementById('metaUnit').value,
+        group: document.getElementById('metaTitle').value || id,
+        source: '학생 오답 등록',
+        problems: state.problems.map(stripUid)
+      };
+    }
+    payload.count = payload.problems.length;
+    payload.studentId = currentSession.studentId;
+    payload.studentName = currentSession.name;
+    payload.school = currentSession.school;
+
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+      if(json.status !== 'ok') throw new Error(json.message || '제출에 실패했어요');
+      statusEl.className = 'status-msg ok';
+      statusEl.textContent = '✓ 제출 완료! 선생님 확인 후 문제집에 반영돼요.';
+      resultEl.innerHTML = `<div class="result-card">📮 <b>${escapeHtml(payload.title)}</b> 검토 대기 중<br>
+        선생님이 확인하면 문제집 모음에 자동으로 올라가요.</div>`;
+    } catch(err){
+      statusEl.className = 'status-msg fail';
+      statusEl.textContent = '✕ 등록 실패: ' + (err.message || '알 수 없는 오류');
+    } finally {
+      btn.disabled = false;
+    }
+  }
+  function stripUid(p){
+    const copy = Object.assign({}, p);
+    delete copy._uid;
+    return copy;
+  }
+
+  // ===== 수정 모드: 기존 문제지 검색/불러오기 =====
+  async function loadManifestForEdit(){
+    const listEl = document.getElementById('editSearchList');
+    listEl.innerHTML = '<div class="step-hint">불러오는 중...</div>';
+    try{
+      const res = await fetch('../data/worksheets-manifest.json');
+      const data = await res.json();
+      state.manifest = data.sets || [];
+      renderEditSearchList();
+    } catch(err){
+      listEl.innerHTML = '<div class="step-hint">문제지 목록을 불러오지 못했어요.</div>';
+    }
+  }
+  function renderEditSearchList(){
+    const listEl = document.getElementById('editSearchList');
+    if(!state.manifest) return;
+    const q = document.getElementById('editSearchInput').value.trim().toLowerCase();
+    const filtered = state.manifest.filter(s =>
+      !q || (s.title||'').toLowerCase().includes(q) || (s.id||'').toLowerCase().includes(q)
+    ).slice(0, 30);
+    listEl.innerHTML = filtered.map(s => `
+      <div class="search-item" onclick="loadWorksheetForEdit('${escapeAttr(s.id)}')">
+        <div class="si-title">${escapeHtml(s.title || s.id)}</div>
+        <div class="si-sub">${escapeHtml(s.unit || '')} · ${s.count||'?'}문제</div>
+      </div>`).join('') || '<div class="step-hint">검색 결과가 없어요</div>';
+  }
+
+  async function loadWorksheetForEdit(id){
+    const entry = state.manifest.find(s => s.id === id);
+    if(!entry) return;
+    document.getElementById('editSearchList').innerHTML = '<div class="step-hint">불러오는 중...</div>';
+    try{
+      const res = await fetch('../data/' + entry.file);
+      const data = await res.json();
+      state.editing = {
+        id: entry.id, file: entry.file, category: entry.category,
+        grade: entry.grade, title: data.title || entry.title,
+        unit: data.unit || entry.unit, group: entry.group, source: entry.source
+      };
+      state.problems = (data.problems || []).map((p, i) => normalizeIncomingProblem(p, i+1));
+      document.getElementById('editSearchList').innerHTML =
+        `<div class="step-hint">✓ "${escapeHtml(entry.title||entry.id)}" 불러옴 (${state.problems.length}문제)</div>`;
+      document.getElementById('stepEditPhoto').classList.remove('disabled');
+      document.getElementById('stepEditReview').classList.remove('disabled');
+      document.getElementById('stepEditSubmit').classList.remove('disabled');
+      renderProblemCards(true);
+      document.getElementById('stepEditReview').scrollIntoView({ behavior:'smooth', block:'start' });
+    } catch(err){
+      document.getElementById('editSearchList').innerHTML = '<div class="step-hint">불러오지 못했어요: ' + escapeHtml(err.message) + '</div>';
+    }
+  }
+</script>
+</body>
+</html>
