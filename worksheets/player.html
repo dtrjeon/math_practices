@@ -16,9 +16,20 @@
 <!-- v2.5 (2026-08-17): 문제 하나 채점하는 즉시(pick/checkAnswer) 바로 서버에 저장하도록 변경(logSingleAttempt, backend action:'logAttempt' 재사용) — 종료 버튼 안 누르고 중간에 나가도 그때까지 푼 건 안전하게 남음. 퀴즈 종료 시 일괄 전송하던 logProblemAttempts 호출은 중복 저장 방지를 위해 제거(함수 자체는 남겨둠) -->
 <!-- v2.6 (2026-08-17): 네트워크 끊긴 상태에서 저장 실패하면 조용히 버려지던 문제 수정 — localStorage 기반 재시도 큐(pendingLogAttempts) 추가. 저장 실패 시 큐에 쌓아두고, 네트워크 복구(online 이벤트)나 앱 재실행 시 순서대로 자동 재전송. logAttempt/updateReason 둘 다 적용됨 -->
 <!-- v2.7 (2026-08-19): 중학교(m0) 문제지가 제목/부제만 뜨고 문제 카드·페이지 번호가 아예 안 뜨던 버그 수정 — problems 배열에 null/깨진 항목이 있으면 normalizeProblem() 단계에서 잡히지 않는 예외가 나서 renderAllPages() 전에 스크립트가 멈췄던 것. (1) 빈/깨진 problems 항목 필터링 (2) num/number 없는 항목 콘솔 경고 (3) 정규화~렌더링 전체를 try-catch로 감싸 실패 시 빈 화면 대신 화면에 에러 원인을 직접 표시 -->
+<!-- v2.8 (2026-08-21): 버그 2건 수정 — (1) retrySelectedWrong()의 오답 재도전 페이지 계산이 하드코딩된 /6을 써서 실제 PAGE_SIZE(5)와 안 맞아 엉뚱한 페이지로 이동하던 문제, /PAGE_SIZE로 수정 (2) saveResultsToSheet()에서 단답형 정답 캔버스(id="canvas-ans5")의 문제번호를 c.id.split('-')[1]로 뽑아 "ans5"로 잘못 저장되던 문제, 끝자리 숫자만 정규식으로 추출하도록 수정 -->
+<!-- v2.9 (2026-08-21): 앱 전체 로그인 게이트 적용 — mathapp_session이 없으면 즉시 login.html로 리다이렉트(원래 보던 페이지는 ?redirect=로 넘겨 로그인 후 자동 복귀). 홈 버튼 옆에 로그인한 학생 이름/로그아웃 표시 추가. -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<script>
+  (function(){
+    var session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    if(!session || !session.studentId){
+      window.location.replace('login.html?redirect=' + encodeURIComponent(window.location.href));
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>휘문고 공통수학1 기말 기출유사 — 학생용</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
@@ -632,6 +643,17 @@
 </head>
 <body>
 <a class="home-btn" href="../index.html" title="홈으로">🏠</a>
+<div id="sessionBadge" style="position:fixed; bottom:20px; right:74px; z-index:150; font-size:11.5px; background:#fff; border:1.5px solid var(--rule); border-radius:999px; padding:6px 12px; color:var(--num); box-shadow:0 3px 10px rgba(32,36,43,0.12);"></div>
+<script>
+  (function(){
+    let session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    const el = document.getElementById('sessionBadge');
+    if(session && session.studentId && el){
+      el.innerHTML = `${session.name}님 · <a href="#" onclick="localStorage.removeItem('mathapp_session'); window.location.href='login.html'; return false;" style="color:var(--accent);">로그아웃</a>`;
+    }
+  })();
+</script>
 
 
 <div class="quiz-bar" id="quizBar">

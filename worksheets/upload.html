@@ -4,9 +4,22 @@
      자동 등록하는 학생용 업로드 페이지. 이미 등록된 문제지를 불러와 텍스트/이미지 수정하는 기능도 포함.
      백엔드(apps-script-backend.gs)에는 action:'visionExtract'와 action:'submitWorksheet' 두 개를
      새로 추가해야 이 페이지가 동작함(별도 gas 애드온 파일 참고). -->
+<!-- v1.1 (2026-08-21): 로그인 필수화 — 제출 액션을 submitWorksheet(즉시반영)에서 pendingSubmitWorksheet(검토대기)로 전환,
+     로그인 안 하면 촬영 화면을 가리는 오버레이 게이트 추가. -->
+<!-- v1.2 (2026-08-21): 앱 전체 로그인 게이트 통일 — head 최상단에서 세션 없으면 즉시 login.html로 리다이렉트하도록
+     다른 페이지(index.html, player.html)와 동일한 방식 추가(기존 오버레이는 안전망으로 유지). -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<script>
+  (function(){
+    var session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    if(!session || !session.studentId){
+      window.location.replace('login.html?redirect=' + encodeURIComponent(window.location.href));
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>오답 등록</title>
 <meta name="robots" content="noindex, nofollow">
