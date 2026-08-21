@@ -768,17 +768,6 @@
       "source": "hongcheon"
     },
     {
-      "id": "m0_26_s2_tb_hongcheon_stats_daedanwon",
-      "file": "m0_26_s2_tb_hongcheon_stats_daedanwon.json",
-      "category": "tb",
-      "title": "대단원 마무리 - ⅴ. 통계",
-      "unit": "ⅴ.통계 - 대단원 마무리 (230~243쪽)",
-      "count": 16,
-      "group": "ⅴ.통계",
-      "grade": "m0",
-      "source": "hongcheon"
-    },
-    {
       "id": "m0_26_s2_tb_hongcheon_stats_jungdanwon2",
       "file": "m0_26_s2_tb_hongcheon_stats_jungdanwon2.json",
       "category": "tb",
@@ -786,6 +775,17 @@
       "unit": "ⅴ.통계 - 2. 상관관계 중단원 마무리 (230~243쪽)",
       "count": 5,
       "group": "ⅴ.통계 - 2. 상관관계",
+      "grade": "m0",
+      "source": "hongcheon"
+    },
+    {
+      "id": "m0_26_s2_tb_hongcheon_stats_daedanwon",
+      "file": "m0_26_s2_tb_hongcheon_stats_daedanwon.json",
+      "category": "tb",
+      "title": "대단원 마무리 - ⅴ. 통계",
+      "unit": "ⅴ.통계 - 대단원 마무리 (230~243쪽)",
+      "count": 16,
+      "group": "ⅴ.통계",
       "grade": "m0",
       "source": "hongcheon"
     }
