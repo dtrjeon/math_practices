@@ -12,6 +12,7 @@
 <!-- v2.3 (2026-08-17): 학교별 교재출판사를 고등학교/중학교 레벨별로 분리 표시(각각 별도 표), 첨부자료(PDF) 열 추가 — 홍천중학교 3-2 천재교육(이준열) + PDF 3개 연동 -->
 <!-- v2.4 (2026-08-18): 문제지 분류를 새 명명규칙(tb/peq/me)에 맞춰 개편 — 기존 textbook/exam/pastexam/senmath32 4탭을 tb(교과문제)/peq(기출·내신)/me(모의고사) 3탭으로 통합. 학년(중학교/고등학교) 판별을 category 기반(senmath32 여부)에서 manifest 각 세트의 grade 필드(m0/m1/m2) 기반으로 변경 — tb/peq/me가 이제 학년과 무관하게 양쪽에 다 쓰이기 때문. 범위요약 중간·기말 구분 정규식도 mid1/mid2/final1/final2 → _mid_/_final_로 변경(학기가 이미 id 접두어 s1/s2에 포함되므로 회차 번호 불필요) -->
 <!-- v2.5 (2026-08-18): publishers.json·exam-ranges.json도 "level":"middleschool" 방식에서 "grade":"m0" 방식으로 통일 (worksheets-manifest.json과 동일 규칙). exam-ranges.json의 기존 "grade"(사람이 읽는 학년도 텍스트, 예: "2025학년도 3학년")는 필드명 충돌을 피하려고 "gradeLabel"로 이름 변경 -->
+<!-- v2.6 (2026-08-21): 홈 대시보드 바로가기 맨 앞에 "📷 오답 등록" 카드 추가 — worksheets/upload.html(신규, 사진 촬영→AI 변환→검수→GitHub 자동 등록) 링크 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -637,7 +638,7 @@
     </nav>
 
     <div class="sidebar-footer">
-      <span class="version-tag-side">v2.0 · 2026-08-17 업데이트</span>
+      <span class="version-tag-side">v2.6 · 2026-08-21 업데이트</span>
     </div>
   </aside>
 
@@ -654,6 +655,11 @@
 
       <div class="unit-label">바로가기</div>
       <div class="quick-grid">
+        <a class="quick-card" href="worksheets/upload.html" style="border-color:var(--accent); background:var(--accent-soft);">
+          <div class="quick-icon">📷</div>
+          <div class="quick-title">오답 등록</div>
+          <div class="quick-sub">틀린 문제 사진 찍고 바로 등록하기</div>
+        </a>
         <div class="quick-card" onclick="switchMainTab('worksheets')">
           <div class="quick-icon">🗂️</div>
           <div class="quick-title">문제집 모음</div>

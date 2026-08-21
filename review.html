@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<!-- v1.0 (2026-08-21): 신규 생성 — 학생이 upload.html로 등록 요청한 문제지(검토 대기 상태)를
+     목록으로 보여주고, 문제별로 확인한 뒤 승인(→실제 등록)/반려(→삭제)할 수 있는 선생님용 페이지.
+     공개 내비게이션에는 링크를 걸지 않는 비공개 경로 방식(json_viewer_edit.html과 동일 원칙). -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>검토 대기 - 오답 등록</title>
+<meta name="robots" content="noindex, nofollow">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root{
+    --paper:#f6f4ee; --ink:#20242b; --rule:#d9d3c4; --accent:#1f6f5c;
+    --accent-soft:#e3efe9; --wrong:#b23a2e; --wrong-soft:#f7e6e3; --num:#8a8474; --sheet:#fffdf8;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Noto Sans KR', -apple-system, sans-serif; padding-bottom:60px;
+  }
+  header{ padding:20px 18px 14px; border-bottom:2px solid var(--ink); display:flex; align-items:center; justify-content:space-between; }
+  h1{ font-size:18px; margin:0; }
+  .refresh-btn{
+    width:32px; height:32px; border-radius:50%; border:1.5px solid var(--rule);
+    background:#fff; cursor:pointer; font-size:14px;
+  }
+  main{ padding:16px 18px; max-width:640px; margin:0 auto; }
+
+  .list-item{
+    background:var(--sheet); border:1.5px solid var(--rule); border-radius:14px;
+    padding:14px 16px; margin-bottom:10px; cursor:pointer;
+  }
+  .list-item .title{ font-size:14.5px; font-weight:800; }
+  .list-item .meta{ font-size:12px; color:var(--num); margin-top:4px; }
+  .badge{
+    display:inline-block; font-size:10.5px; font-weight:800; padding:2px 8px;
+    border-radius:999px; background:var(--accent-soft); color:var(--accent); margin-left:6px;
+  }
+  .badge.update{ background:#fdecd8; color:#a3620f; }
+
+  .empty{ text-align:center; color:var(--num); font-size:13px; padding:40px 0; }
+
+  .detail-back{
+    font-size:12.5px; font-weight:700; color:var(--num); background:none; border:none;
+    cursor:pointer; margin-bottom:12px; padding:0;
+  }
+  .pcard{
+    background:#fff; border:1.5px solid var(--rule); border-radius:14px;
+    padding:14px; margin-bottom:12px;
+  }
+  .pcard-head{ display:flex; align-items:center; gap:8px; margin-bottom:8px; font-size:13px; font-weight:800; }
+  .diff-badge{ font-size:10.5px; font-weight:800; padding:2px 8px; border-radius:999px; background:#efece2; color:var(--num); }
+  .pquestion{ font-size:14.5px; line-height:1.6; margin-bottom:10px; }
+  .pimg{ max-width:100%; border-radius:8px; margin-bottom:8px; display:block; }
+  .choices div{ font-size:13.5px; line-height:1.9; }
+  .choices div.correct{ color:var(--accent); font-weight:800; }
+  .p-answer{ font-size:13px; color:var(--accent); font-weight:700; margin-top:6px; }
+  .p-solution{ font-size:12.5px; color:#555; background:var(--accent-soft); border-radius:8px; padding:8px 10px; margin-top:8px; }
+
+  .action-bar{
+    position:sticky; bottom:0; background:var(--paper); padding:14px 0 4px;
+    display:flex; gap:10px; margin-top:8px;
+  }
+  .btn{ flex:1; font-family:inherit; font-size:14px; font-weight:800; border:none; border-radius:999px; padding:13px; cursor:pointer; }
+  .btn.approve{ background:var(--accent); color:#fff; }
+  .btn.reject{ background:var(--wrong-soft); color:var(--wrong); }
+  .btn:disabled{ opacity:0.5; cursor:not-allowed; }
+
+  .status-msg{ font-size:12.5px; margin-top:8px; text-align:center; }
+  .status-msg.ok{ color:var(--accent); font-weight:700; }
+  .status-msg.fail{ color:var(--wrong); font-weight:700; }
+  .spinner{
+    width:14px; height:14px; border:2.5px solid var(--rule); border-top-color:var(--accent);
+    border-radius:50%; display:inline-block; animation:spin 0.7s linear infinite; vertical-align:-2px; margin-right:6px;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔍 검토 대기</h1>
+  <button class="refresh-btn" onclick="loadPending()">🔄</button>
+</header>
+
+<main>
+  <div id="listView">
+    <div id="pendingList" class="empty">불러오는 중...</div>
+  </div>
+
+  <div id="detailView" style="display:none;">
+    <button class="detail-back" onclick="backToList()">← 목록으로</button>
+    <div id="detailMeta"></div>
+    <div id="detailCards"></div>
+    <div class="action-bar">
+      <button class="btn reject" id="rejectBtn" onclick="rejectCurrent()">반려</button>
+      <button class="btn approve" id="approveBtn" onclick="approveCurrent()">✓ 승인 (문제집에 등록)</button>
+    </div>
+    <div class="status-msg" id="actionStatus"></div>
+  </div>
+</main>
+
+<script>
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzqgkELv7cxD3UZlVj1XfvNiFtR4o6nI5uyDOLiMme6hx5eCcaVkNc_cUZ3JawAafKc/exec';
+  // GAS 스크립트 속성 GITHUB_REPO/GITHUB_BRANCH와 동일한 값으로 맞춰주세요 (예: 'dtrjeon/math_practices', 'main')
+  const GH_REPO = 'dtrjeon/math_practices';
+  const GH_BRANCH = 'main';
+  const DIFF_LABEL = { low:'하', mid:'중', midhigh:'중상', high:'상', top:'최상' };
+  const CIRCLE = ['①','②','③','④','⑤'];
+
+  let pendingItems = [];
+  let currentEntry = null;
+  let currentWorksheet = null;
+
+  async function loadPending(){
+    const listEl = document.getElementById('pendingList');
+    listEl.className = 'empty';
+    listEl.textContent = '불러오는 중...';
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({ action:'listPending' })
+      });
+      const json = await res.json();
+      if(json.status !== 'ok') throw new Error(json.message || '목록을 불러오지 못했어요');
+      pendingItems = json.items || [];
+      renderList();
+    } catch(err){
+      listEl.className = 'empty';
+      listEl.textContent = '불러오기 실패: ' + err.message;
+    }
+  }
+
+  function renderList(){
+    const listEl = document.getElementById('pendingList');
+    if(pendingItems.length === 0){
+      listEl.className = 'empty';
+      listEl.textContent = '대기 중인 항목이 없어요';
+      return;
+    }
+    listEl.className = '';
+    listEl.innerHTML = pendingItems.map((it, i) => `
+      <div class="list-item" onclick="openDetail(${i})">
+        <div class="title">${escapeHtml(it.title)}${it.isUpdate ? '<span class="badge update">수정</span>' : '<span class="badge">신규</span>'}</div>
+        <div class="meta">${escapeHtml(it.studentName||'?')} · ${escapeHtml(it.school||'')} · ${it.count}문제 · ${formatDate(it.submittedAt)}</div>
+      </div>
+    `).join('');
+  }
+
+  function formatDate(iso){
+    if(!iso) return '';
+    const d = new Date(iso);
+    return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+  }
+  function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  async function openDetail(idx){
+    currentEntry = pendingItems[idx];
+    document.getElementById('listView').style.display = 'none';
+    document.getElementById('detailView').style.display = 'block';
+    document.getElementById('detailMeta').innerHTML = '<div class="status-msg">불러오는 중...</div>';
+    document.getElementById('detailCards').innerHTML = '';
+    document.getElementById('actionStatus').textContent = '';
+
+    try{
+      const rawUrl = `https://raw.githubusercontent.com/${GH_REPO}/${GH_BRANCH}/data/_pending/${encodeURIComponent(currentEntry.file)}`;
+      let data;
+      try{
+        const rawRes = await fetch(rawUrl);
+        if(!rawRes.ok) throw new Error('raw fetch 실패');
+        data = await rawRes.json();
+      } catch(rawErr){
+        throw new Error('문제 원문을 불러오지 못했어요. GH_REPO/GH_BRANCH 설정을 확인해주세요.');
+      }
+      currentWorksheet = data;
+      renderDetail(currentEntry, data);
+    } catch(err){
+      document.getElementById('detailMeta').innerHTML = `<div class="status-msg fail">불러오기 실패: ${escapeHtml(err.message)}</div>`;
+    }
+  }
+
+  function renderDetail(entry, data){
+    document.getElementById('detailMeta').innerHTML = `
+      <div class="list-item" style="cursor:default;">
+        <div class="title">${escapeHtml(data.title || entry.title)}</div>
+        <div class="meta">${escapeHtml(entry.studentName||'?')} · ${escapeHtml(entry.school||'')} · ${(data.problems||[]).length}문제 · ${formatDate(entry.submittedAt)}</div>
+      </div>`;
+
+    const cardsEl = document.getElementById('detailCards');
+    cardsEl.innerHTML = (data.problems || []).map(p => {
+      const diffLabel = DIFF_LABEL[p.diff] || p.diff || '';
+      const imgs = (p.images || []).map(src => `<img class="pimg" src="${src}">`).join('');
+      let body = '';
+      if(p.type === 'mc'){
+        body = '<div class="choices">' + (p.choices||[]).map((c,i) =>
+          `<div class="${p.correct===i?'correct':''}">${CIRCLE[i]||('#'+(i+1))} ${escapeHtml(c)}</div>`
+        ).join('') + '</div>';
+      } else {
+        body = `<div class="p-answer">정답: ${escapeHtml(p.answer)}</div>`;
+      }
+      const solHtml = (p.solution||[]).length
+        ? `<div class="p-solution">${(p.solution||[]).map(s=>escapeHtml(s)).join('<br>')}</div>` : '';
+      return `<div class="pcard">
+        <div class="pcard-head">${p.num}번 <span class="diff-badge">${diffLabel}</span></div>
+        <div class="pquestion">${escapeHtml(p.question)}</div>
+        ${imgs}
+        ${body}
+        ${solHtml}
+      </div>`;
+    }).join('');
+
+    renderMathInElement(cardsEl, {
+      delimiters: [
+        {left: "\\(", right: "\\)", display: false},
+        {left: "\\[", right: "\\]", display: true}
+      ]
+    });
+  }
+
+  function backToList(){
+    document.getElementById('listView').style.display = 'block';
+    document.getElementById('detailView').style.display = 'none';
+    currentEntry = null;
+    currentWorksheet = null;
+  }
+
+  async function approveCurrent(){
+    if(!currentEntry) return;
+    await runAction('approveWorksheet', '승인');
+  }
+  async function rejectCurrent(){
+    if(!currentEntry) return;
+    if(!confirm('정말 반려할까요? 학생이 등록한 내용이 삭제됩니다.')) return;
+    await runAction('rejectWorksheet', '반려');
+  }
+
+  async function runAction(action, label){
+    const statusEl = document.getElementById('actionStatus');
+    document.getElementById('approveBtn').disabled = true;
+    document.getElementById('rejectBtn').disabled = true;
+    statusEl.className = 'status-msg';
+    statusEl.innerHTML = `<span class="spinner"></span>${label} 처리 중...`;
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({ action, id: currentEntry.id })
+      });
+      const json = await res.json();
+      if(json.status !== 'ok') throw new Error(json.message || (label+' 처리에 실패했어요'));
+      statusEl.className = 'status-msg ok';
+      statusEl.textContent = `✓ ${label} 완료`;
+      pendingItems = pendingItems.filter(it => it.id !== currentEntry.id);
+      setTimeout(backToList, 700);
+    } catch(err){
+      statusEl.className = 'status-msg fail';
+      statusEl.textContent = '✕ ' + err.message;
+    } finally {
+      document.getElementById('approveBtn').disabled = false;
+      document.getElementById('rejectBtn').disabled = false;
+    }
+  }
+
+  loadPending();
+</script>
+</body>
+</html>
