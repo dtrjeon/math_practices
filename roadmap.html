@@ -1,7 +1,18 @@
 <!DOCTYPE html>
+<!-- v1.1 (2026-08-21): 앱 전체 로그인 게이트 통일(index.html/player.html/compose.html/upload.html과 동일) —
+     mathapp_session이 없으면 즉시 worksheets/login.html로 리다이렉트. 우측하단 고정 홈 버튼(🏠)도 추가. -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<script>
+  (function(){
+    var session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    if(!session || !session.studentId){
+      window.location.replace('worksheets/login.html?redirect=' + encodeURIComponent(window.location.href));
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>MATH-PFD · 화학공학과 진학 수학 공정흐름도</title>
 
@@ -1186,6 +1197,19 @@
   </div>
 
 </div>
+
+<a href="index.html" title="홈으로" style="position:fixed; bottom:18px; right:18px; z-index:150; width:46px; height:46px; border-radius:50%; background:#20242b; color:#fff; display:flex; align-items:center; justify-content:center; text-decoration:none; font-size:20px; box-shadow:0 3px 10px rgba(0,0,0,0.35); border:none;">🏠</a>
+<div id="sessionBadge" style="position:fixed; bottom:20px; right:74px; z-index:150; font-size:11.5px; background:rgba(20,24,30,0.9); border:1px solid rgba(255,255,255,0.15); border-radius:999px; padding:6px 12px; color:#c8ccd6; box-shadow:0 3px 10px rgba(0,0,0,0.3);"></div>
+<script>
+  (function(){
+    let session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    const el = document.getElementById('sessionBadge');
+    if(session && session.studentId && el){
+      el.innerHTML = `${session.name}님 · <a href="#" onclick="localStorage.removeItem('mathapp_session'); window.location.href='worksheets/login.html'; return false;" style="color:#4fd1c5;">로그아웃</a>`;
+    }
+  })();
+</script>
 
 </body>
 </html>
