@@ -67,6 +67,22 @@
   }
   .remember-row input{ width:16px; height:16px; flex:0 0 auto; }
 
+  .find-account-toggle{
+    display:block; width:100%; text-align:center;
+    font-size:12.5px; color:var(--num); background:none; border:none;
+    text-decoration:underline; cursor:pointer; margin-top:14px; padding:4px;
+  }
+  #findAccountForm{
+    margin-top:12px; padding-top:14px; border-top:1px solid var(--rule);
+  }
+  .candidate-list{ margin-top:10px; }
+  .candidate-item{
+    font-family:'SFMono-Regular', Consolas, monospace;
+    font-size:13.5px; font-weight:700;
+    background:var(--accent-soft); color:var(--accent);
+    padding:9px 12px; border-radius:10px; margin-bottom:6px;
+  }
+
   .btn{
     width:100%; font-family:inherit; font-size:14.5px; font-weight:800;
     border:none; border-radius:999px; padding:13px; cursor:pointer;
@@ -184,6 +200,31 @@
       </label>
       <button class="btn" id="loginBtn" onclick="doLogin()">로그인</button>
       <div class="status-msg" id="loginStatus"></div>
+
+      <button type="button" class="find-account-toggle" onclick="toggleFindAccount()">전화번호가 기억 안 나요</button>
+
+      <div id="findAccountForm" style="display:none;">
+        <div class="field">
+          <label>이름</label>
+          <input type="text" id="findName" placeholder="홍길동">
+        </div>
+        <div class="field">
+          <label>학교</label>
+          <input type="text" id="findSchool" placeholder="예: 홍천고등학교">
+        </div>
+        <div class="field">
+          <label>학년</label>
+          <select id="findGrade">
+            <option value="중3">중학교 3학년</option>
+            <option value="고1" selected>고등학교 1학년</option>
+            <option value="고2">고등학교 2학년</option>
+            <option value="고3">고등학교 3학년</option>
+          </select>
+        </div>
+        <button class="btn" id="findAccountBtn" onclick="doFindAccount()">전화번호 찾기</button>
+        <div class="status-msg" id="findAccountStatus"></div>
+        <div id="findAccountResult"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -344,6 +385,47 @@
       statusEl.className = 'status-msg ok';
       statusEl.textContent = '✓ 로그인 성공!';
       setTimeout(goToRedirect, 500);
+    } catch(err){
+      statusEl.className = 'status-msg fail';
+      statusEl.textContent = '✕ ' + (err.message || '알 수 없는 오류');
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  function toggleFindAccount(){
+    const form = document.getElementById('findAccountForm');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  }
+
+  async function doFindAccount(){
+    const name = document.getElementById('findName').value.trim();
+    const school = document.getElementById('findSchool').value.trim();
+    const grade = document.getElementById('findGrade').value;
+    const statusEl = document.getElementById('findAccountStatus');
+    const resultEl = document.getElementById('findAccountResult');
+    const btn = document.getElementById('findAccountBtn');
+
+    if(!name || !school){ statusEl.className='status-msg fail'; statusEl.textContent='이름과 학교를 입력해주세요.'; return; }
+
+    btn.disabled = true;
+    statusEl.className = 'status-msg busy';
+    statusEl.innerHTML = '<span class="spinner"></span>찾는 중...';
+    resultEl.innerHTML = '';
+
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({ action:'findAccountByName', name, school, grade })
+      });
+      const json = await res.json();
+      if(json.status !== 'ok') throw new Error(json.message || '찾지 못했어요');
+      statusEl.className = 'status-msg ok';
+      statusEl.textContent = `✓ ${json.candidates.length}개 찾았어요. 아래 번호로 로그인해보세요.`;
+      resultEl.innerHTML = '<div class="candidate-list">' +
+        json.candidates.map(c => `<div class="candidate-item">${c.maskedPhone}</div>`).join('') +
+        '</div>';
     } catch(err){
       statusEl.className = 'status-msg fail';
       statusEl.textContent = '✕ ' + (err.message || '알 수 없는 오류');
