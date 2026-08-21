@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <!-- v1.2 (2026-08-12): 문제지용 manifest.json → data/worksheets-manifest.json으로 파일명 변경 (PWA용 root manifest.json과 혼동 방지) -->
 <!-- v1.3 (2026-08-18): 새 파일명 규칙(tb/peq/me + grade 필드) 반영 — CATEGORY_LABEL을 tb/peq/me로 교체, 학년 판별을 category 기반에서 grade 필드 기반(isMiddleGrade)으로 변경, 중간·기말 정규식을 mid1/mid2/final1/final2 → _mid_/_final_로 변경, 오래된(재배포 이전) SHEET_WEBHOOK_URL을 최신 URL로 교체 -->
+<!-- v1.4 (2026-08-21): 앱 전체 로그인 게이트 통일(index.html/player.html/upload.html과 동일) — mathapp_session이
+     없으면 즉시 login.html로 리다이렉트. 또한 problemId 조합에 setId+'-'+p.num(하이픈 구분자)를 쓰고 있었는데,
+     이번에 등록된 통계 문제지들의 num 값 자체가 "1-1-1", "V-16"처럼 하이픈을 포함하고 있어서
+     startCustomSet()에서 key를 도로 분리할 때 lastIndexOf('-')가 엉뚱한 위치에서 잘라 setId/num이 깨지고
+     "선택한 문제로 풀이 시작" 클릭 시 그대로 오류가 나던 버그 수정 — 구분자를 '::'로 교체 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<script>
+  (function(){
+    var session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    if(!session || !session.studentId){
+      window.location.replace('login.html?redirect=' + encodeURIComponent(window.location.href));
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>문제 재구성 — 맞춤 세트 만들기</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
@@ -235,6 +249,17 @@
 <body>
 
 <a class="home-btn" href="../index.html" title="홈으로">🏠</a>
+<div id="sessionBadge" style="position:fixed; bottom:20px; right:74px; z-index:150; font-size:11.5px; background:#fff; border:1.5px solid var(--rule); border-radius:999px; padding:6px 12px; color:var(--num); box-shadow:0 3px 10px rgba(32,36,43,0.12);"></div>
+<script>
+  (function(){
+    let session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    const el = document.getElementById('sessionBadge');
+    if(session && session.studentId && el){
+      el.innerHTML = `${session.name}님 · <a href="#" onclick="localStorage.removeItem('mathapp_session'); window.location.href='login.html'; return false;" style="color:var(--accent);">로그아웃</a>`;
+    }
+  })();
+</script>
 
 <header>
   <h1>🧩 문제 재구성</h1>
@@ -370,7 +395,7 @@
           const wsId = String(r.worksheetId || '').replace(/-student$|-review$/, '');
           (String(r.wrongNums || '').split(',')).forEach(numStr => {
             const num = parseInt(numStr.trim(), 10);
-            if(!isNaN(num)) wrongMap[wsId + '-' + num] = true;
+            if(!isNaN(num)) wrongMap[wsId + '::' + num] = true;
           });
         });
       } catch(e){
@@ -428,7 +453,7 @@
   }
 
   function problemPasses(setId, p){
-    const key = setId + '-' + p.num;
+    const key = setId + '::' + p.num;
     if(quickFilter === 'wrong' && !wrongMap[key]) return false;
     if(activeDiffs.size > 0 && !activeDiffs.has(p.diff)) return false;
     return true;
@@ -457,7 +482,7 @@
         <div class="problem-grid">`;
 
       visible.forEach(p => {
-        const key = s.id + '-' + p.num;
+        const key = s.id + '::' + p.num;
         const isSel = selection.has(key);
         const wasWrong = !!wrongMap[key];
         html += `<label class="problem-chip${isSel?' selected':''}${wasWrong?' was-wrong':''}" onclick="toggleProblem(event,'${key}')">
@@ -496,7 +521,7 @@
   function selectAllInSet(setId){
     const data = setsData[setId];
     data.problems.filter(p => problemPasses(setId, p)).forEach(p => {
-      selection.add(setId + '-' + p.num);
+      selection.add(setId + '::' + p.num);
     });
     renderGroups();
     updateBottomBar();
@@ -517,14 +542,16 @@
     const wantVariant = document.getElementById('variantToggle').checked;
     const problems = [];
     selection.forEach(key => {
-      const idx = key.lastIndexOf('-');
+      const idx = key.indexOf('::');
       const setId = key.slice(0, idx);
-      const num = parseInt(key.slice(idx+1), 10);
+      const numStr = key.slice(idx + 2);
       const data = setsData[setId];
-      const p = data.problems.find(pp => pp.num === num);
+      if(!data) return;
+      // num은 원래 문자열("1-1-1" 등)일 수도, 숫자일 수도 있어 둘 다 매칭해본다.
+      const p = data.problems.find(pp => String(pp.num) === numStr);
       if(p){
         const useVariant = wantVariant && !!p.family;
-        problems.push(Object.assign({}, p, { num: problems.length + 1, sourceSet: setId, sourceNum: num, useVariant }));
+        problems.push(Object.assign({}, p, { num: problems.length + 1, sourceSet: setId, sourceNum: p.num, useVariant }));
       }
     });
     if(problems.length === 0) return;
