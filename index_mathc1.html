@@ -838,7 +838,13 @@
     try{
       const res = await fetch('data/worksheets-manifest.json');
       const manifest = await res.json();
-      MANIFEST_SETS = manifest.sets || [];
+      // visibility:'owner'(등록자만 공개)인 문제지는 본인이 등록한 게 아니면 목록에서 제외.
+      // visibility 필드가 없거나 'all'이면 기존처럼 전체 공개(선생님이 직접 등록한 공식 문제지 등).
+      let mySession = null;
+      try { mySession = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+      MANIFEST_SETS = (manifest.sets || []).filter(s =>
+        s.visibility !== 'owner' || (mySession && s.studentId === mySession.studentId)
+      );
 
       MANIFEST_SETS.forEach(s => {
         WORKSHEET_META[s.id + '-student'] = { label: s.title + ' · 학생풀이', group: s.id };
@@ -1128,7 +1134,7 @@
       ${r.note ? `<div style="font-size:12.5px; color:var(--num); margin-top:4px;">${r.note}</div>` : ''}
     `).join('');
     return `<div class="card">
-      <div class="card-title">${s.school} ${s.grade || ''} ${s.subject || ''}</div>
+      <div class="card-title">${s.school} ${s.gradeLabel || ''} ${s.subject || ''}</div>
       ${roundsHtml}
       ${s.summary ? `<p style="font-size:13px; color:var(--num); margin-top:12px; border-top:1px solid var(--rule); padding-top:10px;">${s.summary}</p>` : ''}
     </div>`;
