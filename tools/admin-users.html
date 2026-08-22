@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!-- v1.0 (2026-08-22): 신규 생성 — Users 시트를 직접 열어 H열(role)을 손으로 고치던 것을 대체하는
+     관리자 전용 화면. 이름/학교로 검색해서 학생 ⇄ 관리자 role을 버튼 하나로 토글할 수 있다.
+     review.html과 동일하게 로그인+admin 게이트, 비공개 경로(noindex) 원칙 적용. -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<script>
+  (function(){
+    var session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    if(!session || !session.studentId){
+      window.location.replace('../worksheets/login.html?redirect=' + encodeURIComponent(window.location.href));
+    } else if(session.role !== 'admin'){
+      alert('이 페이지는 선생님/관리자만 볼 수 있어요.');
+      window.location.replace('../index.html');
+    }
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사용자 권한 관리</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --paper:#f6f4ee; --ink:#20242b; --rule:#d9d3c4; --accent:#1f6f5c;
+    --accent-soft:#e3efe9; --wrong:#b23a2e; --wrong-soft:#f7e6e3; --num:#8a8474; --sheet:#fffdf8;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Noto Sans KR', -apple-system, sans-serif; padding-bottom:60px;
+  }
+  header{ padding:20px 18px 14px; border-bottom:2px solid var(--ink); display:flex; align-items:center; justify-content:space-between; }
+  h1{ font-size:18px; margin:0; }
+  .refresh-btn{
+    width:32px; height:32px; border-radius:50%; border:1.5px solid var(--rule);
+    background:#fff; cursor:pointer; font-size:14px;
+  }
+  main{ padding:16px 18px; max-width:640px; margin:0 auto; }
+
+  .search-field{
+    width:100%; font-family:inherit; font-size:14.5px;
+    padding:11px 12px; border:1.5px solid var(--rule); border-radius:10px;
+    background:#fff; color:var(--ink); margin-bottom:14px;
+  }
+
+  .user-item{
+    background:var(--sheet); border:1.5px solid var(--rule); border-radius:14px;
+    padding:12px 16px; margin-bottom:8px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .user-info{ flex:1; min-width:0; }
+  .user-name{ font-size:14.5px; font-weight:800; }
+  .user-sub{ font-size:12px; color:var(--num); margin-top:2px; }
+  .role-badge{
+    font-size:10.5px; font-weight:800; padding:3px 9px; border-radius:999px;
+    background:#efece2; color:var(--num); margin-left:6px;
+  }
+  .role-badge.admin{ background:var(--accent-soft); color:var(--accent); }
+
+  .toggle-btn{
+    font-family:inherit; font-size:12px; font-weight:800;
+    border:1.5px solid var(--rule); border-radius:999px;
+    padding:8px 14px; background:#fff; color:var(--ink); cursor:pointer;
+    white-space:nowrap; flex:0 0 auto;
+  }
+  .toggle-btn:disabled{ opacity:0.5; cursor:not-allowed; }
+  .toggle-btn.to-admin{ border-color:var(--accent); color:var(--accent); }
+  .toggle-btn.to-student{ border-color:var(--wrong); color:var(--wrong); }
+
+  .empty{ text-align:center; color:var(--num); font-size:13px; padding:40px 0; }
+  .status-msg{ font-size:12.5px; margin-top:8px; text-align:center; }
+  .status-msg.ok{ color:var(--accent); font-weight:700; }
+  .status-msg.fail{ color:var(--wrong); font-weight:700; }
+  .spinner{
+    width:14px; height:14px; border:2.5px solid var(--rule); border-top-color:var(--accent);
+    border-radius:50%; display:inline-block; animation:spin 0.7s linear infinite; vertical-align:-2px; margin-right:6px;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>👤 사용자 권한 관리</h1>
+  <button class="refresh-btn" onclick="loadUsers()">🔄</button>
+</header>
+
+<main>
+  <input type="text" class="search-field" id="searchInput" placeholder="이름 또는 학교로 검색" oninput="renderUserList()">
+  <div id="userList" class="empty">불러오는 중...</div>
+  <div class="status-msg" id="actionStatus"></div>
+</main>
+
+<script>
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzqgkELv7cxD3UZlVj1XfvNiFtR4o6nI5uyDOLiMme6hx5eCcaVkNc_cUZ3JawAafKc/exec';
+
+  let mySession = null;
+  try { mySession = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+
+  let allUsers = [];
+
+  function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  async function loadUsers(){
+    const listEl = document.getElementById('userList');
+    listEl.className = 'empty';
+    listEl.textContent = '불러오는 중...';
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({ action:'listUsers', requesterId: mySession && mySession.studentId })
+      });
+      const json = await res.json();
+      if(json.status !== 'ok') throw new Error(json.message || '목록을 불러오지 못했어요');
+      allUsers = json.users || [];
+      renderUserList();
+    } catch(err){
+      listEl.className = 'empty';
+      listEl.textContent = '불러오기 실패: ' + err.message;
+    }
+  }
+
+  function renderUserList(){
+    const listEl = document.getElementById('userList');
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    const filtered = allUsers.filter(u =>
+      !q || (u.name||'').toLowerCase().includes(q) || (u.school||'').toLowerCase().includes(q)
+    );
+
+    if(filtered.length === 0){
+      listEl.className = 'empty';
+      listEl.textContent = '검색 결과가 없어요';
+      return;
+    }
+
+    listEl.className = '';
+    listEl.innerHTML = filtered.map(u => {
+      const isAdmin = u.role === 'admin';
+      const isMe = mySession && u.studentId === mySession.studentId;
+      const btnLabel = isAdmin ? '학생으로 변경' : '관리자로 지정';
+      const btnClass = isAdmin ? 'to-student' : 'to-admin';
+      const disabledAttr = (isMe && isAdmin) ? 'disabled title="본인 권한은 스스로 못 내려요"' : '';
+      return `
+      <div class="user-item">
+        <div class="user-info">
+          <div class="user-name">${escapeHtml(u.name)}${isMe ? ' (나)' : ''}<span class="role-badge ${isAdmin?'admin':''}">${isAdmin?'관리자':'학생'}</span></div>
+          <div class="user-sub">${escapeHtml(u.school)} · ${escapeHtml(u.grade)}</div>
+        </div>
+        <button class="toggle-btn ${btnClass}" ${disabledAttr} onclick="toggleRole('${u.studentId}', '${isAdmin ? 'student' : 'admin'}', this)">${btnLabel}</button>
+      </div>`;
+    }).join('');
+  }
+
+  async function toggleRole(targetId, newRole, btn){
+    const label = newRole === 'admin' ? '관리자로 지정' : '학생으로 변경';
+    if(!confirm(`${label}하시겠어요?`)) return;
+
+    const statusEl = document.getElementById('actionStatus');
+    btn.disabled = true;
+    statusEl.className = 'status-msg';
+    statusEl.innerHTML = '<span class="spinner"></span>처리 중...';
+
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({ action:'setUserRole', requesterId: mySession && mySession.studentId, targetId, role: newRole })
+      });
+      const json = await res.json();
+      if(json.status !== 'ok') throw new Error(json.message || '처리에 실패했어요');
+      statusEl.className = 'status-msg ok';
+      statusEl.textContent = '✓ 변경 완료';
+      const u = allUsers.find(u => u.studentId === targetId);
+      if(u) u.role = newRole;
+      renderUserList();
+    } catch(err){
+      statusEl.className = 'status-msg fail';
+      statusEl.textContent = '✕ ' + err.message;
+      btn.disabled = false;
+    }
+  }
+
+  loadUsers();
+</script>
+</body>
+</html>

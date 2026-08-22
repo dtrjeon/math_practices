@@ -2,9 +2,25 @@
 <!-- v1.0 (2026-08-21): 신규 생성 — 학생이 upload.html로 등록 요청한 문제지(검토 대기 상태)를
      목록으로 보여주고, 문제별로 확인한 뒤 승인(→실제 등록)/반려(→삭제)할 수 있는 선생님용 페이지.
      공개 내비게이션에는 링크를 걸지 않는 비공개 경로 방식(json_viewer_edit.html과 동일 원칙). -->
+<!-- v1.1 (2026-08-22): 역할(role) 기반 권한 도입 — 로그인 게이트 추가하고, listPending/
+     approveWorksheet/rejectWorksheet 호출마다 requesterId(로그인한 studentId)를 같이 보내서
+     서버(gas-review-and-users-addon.gs의 requireAdmin_)가 role==='admin'인지 실제로 검증하도록 함.
+     비공개 경로("URL 아는 사람만")에만 의존하던 것에서 진짜 서버 인증으로 강화. -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<script>
+  (function(){
+    var session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    if(!session || !session.studentId){
+      window.location.replace('../worksheets/login.html?redirect=' + encodeURIComponent(window.location.href));
+    } else if(session.role !== 'admin'){
+      alert('이 페이지는 선생님/관리자만 볼 수 있어요.');
+      window.location.replace('../index.html');
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>검토 대기 - 오답 등록</title>
 <meta name="robots" content="noindex, nofollow">
@@ -60,6 +76,16 @@
   .p-answer{ font-size:13px; color:var(--accent); font-weight:700; margin-top:6px; }
   .p-solution{ font-size:12.5px; color:#555; background:var(--accent-soft); border-radius:8px; padding:8px 10px; margin-top:8px; }
 
+  .visibility-picker{
+    background:var(--sheet); border:1.5px solid var(--rule); border-radius:14px;
+    padding:14px 16px; margin-top:10px;
+  }
+  .vp-label{ font-size:12.5px; font-weight:800; color:var(--num); margin-bottom:8px; }
+  .vp-option{
+    display:flex; align-items:center; gap:8px; font-size:13.5px;
+    padding:6px 0; cursor:pointer;
+  }
+  .vp-option input{ width:17px; height:17px; flex:0 0 auto; }
   .action-bar{
     position:sticky; bottom:0; background:var(--paper); padding:14px 0 4px;
     display:flex; gap:10px; margin-top:8px;
@@ -95,6 +121,17 @@
     <button class="detail-back" onclick="backToList()">← 목록으로</button>
     <div id="detailMeta"></div>
     <div id="detailCards"></div>
+    <div class="visibility-picker">
+      <div class="vp-label">승인 시 공개 범위</div>
+      <label class="vp-option">
+        <input type="radio" name="visibility" value="all" checked>
+        <span>전체 공개 — 모든 학생에게 바로 노출</span>
+      </label>
+      <label class="vp-option">
+        <input type="radio" name="visibility" value="owner">
+        <span>등록자만 공개 — 올린 학생 본인에게만 보임</span>
+      </label>
+    </div>
     <div class="action-bar">
       <button class="btn reject" id="rejectBtn" onclick="rejectCurrent()">반려</button>
       <button class="btn approve" id="approveBtn" onclick="approveCurrent()">✓ 승인 (문제집에 등록)</button>
@@ -111,6 +148,9 @@
   const DIFF_LABEL = { low:'하', mid:'중', midhigh:'중상', high:'상', top:'최상' };
   const CIRCLE = ['①','②','③','④','⑤'];
 
+  let currentAdminSession = null;
+  try { currentAdminSession = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+
   let pendingItems = [];
   let currentEntry = null;
   let currentWorksheet = null;
@@ -123,7 +163,7 @@
       const res = await fetch(SHEET_WEBHOOK_URL, {
         method:'POST',
         headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body: JSON.stringify({ action:'listPending' })
+        body: JSON.stringify({ action:'listPending', requesterId: currentAdminSession && currentAdminSession.studentId })
       });
       const json = await res.json();
       if(json.status !== 'ok') throw new Error(json.message || '목록을 불러오지 못했어요');
@@ -164,6 +204,7 @@
     document.getElementById('detailView').style.display = 'block';
     document.getElementById('detailMeta').innerHTML = '<div class="status-msg">불러오는 중...</div>';
     document.getElementById('detailCards').innerHTML = '';
+    document.querySelector('input[name="visibility"][value="all"]').checked = true;
     document.getElementById('actionStatus').textContent = '';
 
     try{
@@ -230,7 +271,8 @@
 
   async function approveCurrent(){
     if(!currentEntry) return;
-    await runAction('approveWorksheet', '승인');
+    const visibility = document.querySelector('input[name="visibility"]:checked').value;
+    await runAction('approveWorksheet', '승인', { visibility });
   }
   async function rejectCurrent(){
     if(!currentEntry) return;
@@ -238,7 +280,7 @@
     await runAction('rejectWorksheet', '반려');
   }
 
-  async function runAction(action, label){
+  async function runAction(action, label, extra){
     const statusEl = document.getElementById('actionStatus');
     document.getElementById('approveBtn').disabled = true;
     document.getElementById('rejectBtn').disabled = true;
@@ -248,7 +290,7 @@
       const res = await fetch(SHEET_WEBHOOK_URL, {
         method:'POST',
         headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body: JSON.stringify({ action, id: currentEntry.id })
+        body: JSON.stringify(Object.assign({ action, id: currentEntry.id, requesterId: currentAdminSession && currentAdminSession.studentId }, extra || {}))
       });
       const json = await res.json();
       if(json.status !== 'ok') throw new Error(json.message || (label+' 처리에 실패했어요'));
