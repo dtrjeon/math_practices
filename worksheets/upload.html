@@ -140,6 +140,15 @@
   }
   .photo-add .plus{ font-size:22px; color:var(--accent); }
   .photo-add input{ display:none; }
+  .json-upload-divider{
+    text-align:center; font-size:11.5px; color:var(--num); font-weight:700;
+    margin:14px 0 10px; position:relative;
+  }
+  .json-upload-divider::before, .json-upload-divider::after{
+    content:''; position:absolute; top:50%; width:40%; height:1px; background:var(--rule);
+  }
+  .json-upload-divider::before{ left:0; }
+  .json-upload-divider::after{ right:0; }
 
   /* ===== 폼 ===== */
   .field{ margin-bottom:12px; }
@@ -362,12 +371,16 @@
   <section id="panel-new">
 
     <div class="step" id="stepPhoto">
-      <div class="step-title"><span class="step-num">1</span>사진 찍기</div>
-      <div class="step-hint">틀린 문제 · 보기 · 풀이가 잘 보이게 찍어주세요 (여러 장 가능)</div>
+      <div class="step-title"><span class="step-num">1</span>사진 준비</div>
+      <div class="step-hint">틀린 문제 · 보기 · 풀이가 잘 보이게 찍거나 골라주세요 (여러 장 가능)</div>
       <div class="photo-grid" id="photoGrid">
         <label class="photo-add">
-          <span class="plus">＋</span>사진 추가
+          <span class="plus">📷</span>사진 촬영
           <input type="file" accept="image/*" capture="environment" id="photoInput">
+        </label>
+        <label class="photo-add">
+          <span class="plus">🖼</span>앨범에서 선택
+          <input type="file" accept="image/*" multiple id="photoInputGallery">
         </label>
       </div>
     </div>
@@ -432,6 +445,12 @@
       <div class="step-hint">AI가 사진을 읽어 문제·보기·정답을 자동으로 만들어요. 변환 후 아래에서 꼭 확인해주세요.</div>
       <button class="btn primary" id="convertBtn" onclick="runVisionExtract()" disabled>🤖 사진으로 문제 만들기</button>
       <div class="status-msg" id="convertStatus"></div>
+
+      <div class="json-upload-divider">또는</div>
+      <label>이미 만들어둔 JSON 파일이 있으면 바로 불러오기</label>
+      <input type="file" accept=".json,application/json" id="jsonFileInput">
+      <div class="step-hint" style="margin:4px 0 0;">JSON 안에 "problems" 배열(또는 배열 자체)이 있어야 해요. 문제 형식이 맞는지는 다음 단계에서 확인할 수 있어요.</div>
+      <div class="status-msg" id="jsonUploadStatus"></div>
     </div>
 
     <div class="step disabled" id="stepReview">
@@ -462,15 +481,24 @@
 
     <div class="step disabled" id="stepEditPhoto">
       <div class="step-title"><span class="step-num">📷</span>사진 추가(선택)</div>
-      <div class="step-hint">이 문제지에 새 문제를 더 추가하고 싶으면 사진을 찍어 "🤖 사진으로 문제 추가"를 눌러주세요</div>
+      <div class="step-hint">이 문제지에 새 문제를 더 추가하고 싶으면 사진을 찍거나 골라서 "🤖 사진으로 문제 추가"를 눌러주세요</div>
       <div class="photo-grid" id="editPhotoGrid">
         <label class="photo-add">
-          <span class="plus">＋</span>사진 추가
+          <span class="plus">📷</span>사진 촬영
           <input type="file" accept="image/*" capture="environment" id="editPhotoInput">
+        </label>
+        <label class="photo-add">
+          <span class="plus">🖼</span>앨범에서 선택
+          <input type="file" accept="image/*" multiple id="editPhotoInputGallery">
         </label>
       </div>
       <button class="btn ghost" id="editConvertBtn" onclick="runVisionExtract(true)" style="margin-top:8px;">🤖 사진으로 문제 추가</button>
       <div class="status-msg" id="editConvertStatus"></div>
+
+      <div class="json-upload-divider">또는</div>
+      <label>JSON 파일로 문제 추가</label>
+      <input type="file" accept=".json,application/json" id="editJsonFileInput">
+      <div class="status-msg" id="editJsonUploadStatus"></div>
     </div>
 
     <div class="step disabled" id="stepEditReview">
@@ -574,6 +602,19 @@
     updateConvertBtnState();
   });
 
+  document.getElementById('photoInputGallery').addEventListener('change', async (e) => {
+    const files = Array.from(e.target.files || []);
+    if(files.length === 0) return;
+    for(const file of files){
+      const dataUrl = await resizeImageFile(file, 1400);
+      photoSeq++;
+      state.photos.push({ id:'p'+photoSeq, dataUrl });
+    }
+    renderPhotoGrid();
+    e.target.value = '';
+    updateConvertBtnState();
+  });
+
   function renderPhotoGrid(){
     const grid = document.getElementById('photoGrid');
     const addTile = grid.querySelector('.photo-add');
@@ -598,6 +639,17 @@
     const dataUrl = await resizeImageFile(file, 1400);
     photoSeq++;
     state.editPhotos.push({ id:'ep'+photoSeq, dataUrl });
+    renderEditPhotoGrid();
+    e.target.value = '';
+  });
+  document.getElementById('editPhotoInputGallery').addEventListener('change', async (e) => {
+    const files = Array.from(e.target.files || []);
+    if(files.length === 0) return;
+    for(const file of files){
+      const dataUrl = await resizeImageFile(file, 1400);
+      photoSeq++;
+      state.editPhotos.push({ id:'ep'+photoSeq, dataUrl });
+    }
     renderEditPhotoGrid();
     e.target.value = '';
   });
@@ -749,6 +801,57 @@
     }
     renderProblemCards(isEdit);
   }
+
+  async function loadJsonFile(file, isEdit){
+    const statusEl = document.getElementById(isEdit ? 'editJsonUploadStatus' : 'jsonUploadStatus');
+    statusEl.className = 'status-msg busy';
+    statusEl.innerHTML = '<span class="spinner"></span>JSON 파일을 읽는 중...';
+    try{
+      const text = await file.text();
+      const data = JSON.parse(text);
+      const rawProblems = Array.isArray(data) ? data : data.problems;
+      if(!Array.isArray(rawProblems) || rawProblems.length === 0){
+        throw new Error('JSON 안에 "problems" 배열을 찾지 못했어요.');
+      }
+      const startNum = state.problems.length
+        ? Math.max(...state.problems.map(p => p.num || 0)) + 1
+        : 1;
+      rawProblems.forEach((p, i) => {
+        state.problems.push(normalizeIncomingProblem(p, startNum + i));
+      });
+
+      // JSON에 제목/단원 정보가 있으면(새 등록일 때만) 폼에 채워준다 — 이미 입력한 값은 덮어쓰지 않음
+      if(!isEdit){
+        if(data.title && !document.getElementById('metaTitle').value) document.getElementById('metaTitle').value = data.title;
+        if(data.unit && !document.getElementById('metaUnit').value) document.getElementById('metaUnit').value = data.unit;
+      }
+
+      statusEl.className = 'status-msg ok';
+      statusEl.textContent = `✓ 문제 ${rawProblems.length}개를 불러왔어요. 아래에서 꼭 확인해주세요.`;
+
+      if(isEdit){
+        document.getElementById('stepEditReview').classList.remove('disabled');
+        document.getElementById('stepEditSubmit').classList.remove('disabled');
+      } else {
+        document.getElementById('stepReview').classList.remove('disabled');
+        document.getElementById('stepSubmit').classList.remove('disabled');
+      }
+      renderProblemCards(isEdit);
+    } catch(err){
+      statusEl.className = 'status-msg fail';
+      statusEl.textContent = '✕ 불러오기 실패: ' + (err.message || 'JSON 형식을 확인해주세요');
+    }
+  }
+  document.getElementById('jsonFileInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(file) loadJsonFile(file, false);
+    e.target.value = '';
+  });
+  document.getElementById('editJsonFileInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(file) loadJsonFile(file, true);
+    e.target.value = '';
+  });
 
   function removeProblem(uid, isEdit){
     state.problems = state.problems.filter(p => p._uid !== uid);

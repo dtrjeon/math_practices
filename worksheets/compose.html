@@ -373,6 +373,12 @@
       const manifestRes = await fetch('../data/worksheets-manifest.json');
       if(!manifestRes.ok) throw new Error(`worksheets-manifest.json 요청 실패 (status ${manifestRes.status})`);
       manifest = await manifestRes.json();
+      // visibility:'owner'(등록자만 공개)인 문제지는 본인이 등록한 게 아니면 재구성 목록에서 제외
+      let mySession = null;
+      try { mySession = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+      manifest.sets = (manifest.sets || []).filter(s =>
+        s.visibility !== 'owner' || (mySession && s.studentId === mySession.studentId)
+      );
 
       const failed = [];
       await Promise.all(manifest.sets.map(async s => {

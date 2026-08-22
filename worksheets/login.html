@@ -348,7 +348,7 @@
       const json = await res.json();
       if(json.status !== 'ok') throw new Error(json.message || '가입에 실패했어요');
       const remember = document.getElementById('regRemember').checked;
-      saveSession({ studentId: json.studentId, name: json.name, school: json.school, grade: json.grade, autoLogin: remember });
+      saveSession({ studentId: json.studentId, name: json.name, school: json.school, grade: json.grade, role: json.role || 'student', autoLogin: remember });
       statusEl.className = 'status-msg ok';
       statusEl.textContent = '✓ 가입 완료! 비밀번호는 전화번호 뒷자리 4개예요.';
       setTimeout(goToRedirect, 900);
@@ -381,7 +381,7 @@
       const json = await res.json();
       if(json.status !== 'ok') throw new Error(json.message || '로그인에 실패했어요');
       const remember = document.getElementById('loginRemember').checked;
-      saveSession({ studentId: json.studentId, name: json.name, school: json.school, grade: json.grade, autoLogin: remember });
+      saveSession({ studentId: json.studentId, name: json.name, school: json.school, grade: json.grade, role: json.role || 'student', autoLogin: remember });
       statusEl.className = 'status-msg ok';
       statusEl.textContent = '✓ 로그인 성공!';
       setTimeout(goToRedirect, 500);
