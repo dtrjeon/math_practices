@@ -15,6 +15,10 @@
 <!-- v2.6 (2026-08-21): 홈 대시보드 바로가기 맨 앞에 "📷 오답 등록" 카드 추가 — worksheets/upload.html(신규, 사진 촬영→AI 변환→검수→GitHub 자동 등록) 링크 -->
 <!-- v2.7 (2026-08-21): 앱 전체 로그인 게이트 적용 — mathapp_session이 없으면 즉시 worksheets/login.html로
      리다이렉트(원래 가려던 주소는 ?redirect=로 넘겨 로그인 후 자동 복귀). 사이드바에 로그인한 학생 이름/로그아웃 표시 추가. -->
+<!-- v2.8 (2026-08-22): 관리자가 admin-examrange.html에서 시험범위 공지를 저장해도 학생 화면에 한참 안 뜨던
+     문제 수정 — data/*.json을 fetch할 때 캐시 옵션을 안 줘서 브라우저/CDN이 예전 파일을 계속 재사용하고
+     있었음. worksheets-manifest.json/publishers.json/exam-ranges.json/개별 문제지 파일 fetch 5곳 전부
+     { cache: 'no-store' } 추가해서 항상 최신 데이터를 받아오도록 수정 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -861,7 +865,7 @@
 
   async function renderWorksheetCards(){
     try{
-      const res = await fetch('data/worksheets-manifest.json');
+      const res = await fetch('data/worksheets-manifest.json', { cache: 'no-store' });
       const manifest = await res.json();
       // visibility:'owner'(등록자만 공개)인 문제지는 본인이 등록한 게 아니면 목록에서 제외.
       // visibility 필드가 없거나 'all'이면 기존처럼 전체 공개(선생님이 직접 등록한 공식 문제지 등).
@@ -1031,7 +1035,7 @@
   async function renderPublisherTable(){
     const card = document.getElementById('publisherCard');
     try{
-      const res = await fetch('data/publishers.json');
+      const res = await fetch('data/publishers.json', { cache: 'no-store' });
       const data = await res.json();
       const schools = data.schools || [];
 
@@ -1141,7 +1145,7 @@
 
   async function renderExamRanges(){
     try{
-      const res = await fetch('data/exam-ranges.json');
+      const res = await fetch('data/exam-ranges.json', { cache: 'no-store' });
       const data = await res.json();
       EXAM_RANGE_SCHOOLS = data.schools || [];
       applyExamRangeFilter();
@@ -1291,7 +1295,7 @@
   async function renderRangeSummary(){
     RANGE_ROWS = []; // 새로고침 시 중복 누적 방지
     try{
-      const manifestRes = await fetch('data/worksheets-manifest.json');
+      const manifestRes = await fetch('data/worksheets-manifest.json', { cache: 'no-store' });
       const manifest = await manifestRes.json();
       const targets = manifest.sets.filter(s => s.category !== 'tb');
 
@@ -1308,7 +1312,7 @@
       await Promise.all(targets.map(async s => {
         let diffText = '-';
         try{
-          const res = await fetch('data/' + s.file);
+          const res = await fetch('data/' + s.file, { cache: 'no-store' });
           if(res.ok){
             const data = await res.json();
             diffText = diffSummary(data.problems);
