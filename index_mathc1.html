@@ -688,6 +688,25 @@
         </a>
       </div>
 
+      <div class="unit-label" id="adminSectionLabel" style="display:none;">⚙️ 관리자</div>
+      <div class="quick-grid" id="adminQuickGrid" style="display:none;">
+        <a class="quick-card" href="tools/review.html" style="border-color:#3d4ea8; background:#eef1fb;">
+          <div class="quick-icon">🔍</div>
+          <div class="quick-title">검토 대기</div>
+          <div class="quick-sub">학생이 올린 오답 승인/반려</div>
+        </a>
+        <a class="quick-card" href="tools/admin-users.html" style="border-color:#3d4ea8; background:#eef1fb;">
+          <div class="quick-icon">👤</div>
+          <div class="quick-title">사용자 권한 관리</div>
+          <div class="quick-sub">학생 ⇄ 관리자 권한 설정</div>
+        </a>
+        <a class="quick-card" href="tools/admin-examrange.html" style="border-color:#3d4ea8; background:#eef1fb;">
+          <div class="quick-icon">📢</div>
+          <div class="quick-title">시험범위 공지 관리</div>
+          <div class="quick-sub">학교별 시험범위 입력/수정</div>
+        </a>
+      </div>
+
       <div class="unit-label">오답노트 작성 원칙</div>
       <div class="card principle-card">
         <img src="wrong-answer-strategy.jpg" alt="수학 성적을 바꾸는 오답 분석 & 시간 필승 전략" style="width:100%; border-radius:10px; display:block;">
@@ -779,13 +798,19 @@
 </footer>
 
 <script>
-  // 로그인한 학생 정보 표시 + 로그아웃 (index_mathc1.html은 head 상단 가드에서 이미 세션 존재를 확인함)
+  // 로그인한 학생 정보 표시 + 로그아웃 (이 파일은 head 상단 가드에서 이미 세션 존재를 확인함)
   function renderSessionBrand(){
     let session = null;
     try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
     const el = document.getElementById('sessionBrandSub');
     if(session && session.studentId && el){
       el.innerHTML = `${session.name}님 · <a href="#" onclick="logoutMathApp();return false;" style="color:inherit; text-decoration:underline;">로그아웃</a>`;
+    }
+    if(session && session.role === 'admin'){
+      const label = document.getElementById('adminSectionLabel');
+      const grid = document.getElementById('adminQuickGrid');
+      if(label) label.style.display = 'block';
+      if(grid) grid.style.display = 'grid';
     }
   }
   function logoutMathApp(){
