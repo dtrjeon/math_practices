@@ -238,6 +238,13 @@
     border:none; border-radius:999px; padding:4px 10px;
     cursor:pointer; margin-bottom:8px;
   }
+  .latex-btn{
+    font-size:11.5px; font-weight:700;
+    background:#eef1fb; color:#3d4ea8;
+    border:none; border-radius:999px; padding:4px 10px;
+    cursor:pointer; margin-top:6px;
+  }
+  .latex-btn:disabled{ opacity:0.5; cursor:not-allowed; }
   .katex-preview{
     display:none;
     font-size:14.5px;
@@ -797,7 +804,8 @@
 
       <div class="field">
         <label>문제</label>
-        <textarea oninput="updateField('${p._uid}','question', this.value)">${escapeHtml(p.question)}</textarea>
+        <textarea id="qtext-${p._uid}" oninput="updateField('${p._uid}','question', this.value)">${escapeHtml(p.question)}</textarea>
+        <button class="latex-btn" onclick="convertFieldToLatex('${p._uid}', 'question', ${isEdit})">🔤 LaTeX 변환</button>
       </div>
 
       ${p.type === 'mc' ? `
@@ -812,8 +820,11 @@
 
       <div class="field">
         <label>해설 (줄바꿈으로 여러 줄 가능)</label>
-        <textarea oninput="updateField('${p._uid}','solution', this.value.split(String.fromCharCode(10)))">${escapeHtml((p.solution||[]).join('\n'))}</textarea>
+        <textarea id="soltext-${p._uid}" oninput="updateField('${p._uid}','solution', this.value.split(String.fromCharCode(10)))">${escapeHtml((p.solution||[]).join('\n'))}</textarea>
+        <button class="latex-btn" onclick="convertFieldToLatex('${p._uid}', 'solution', ${isEdit})">🔤 LaTeX 변환</button>
       </div>
+      <div class="status-msg" id="latexStatus-${p._uid}" style="text-align:left;"></div>
+
 
       <div class="field">
         <label>첨부 사진</label>
@@ -833,6 +844,50 @@
           {left: "\\[", right: "\\]", display: true}
         ]
       });
+    }
+  }
+
+  async function convertFieldToLatex(uid, field, isEdit){
+    const p = findProblem(uid);
+    if(!p) return;
+
+    const isQuestion = field === 'question';
+    const textareaEl = document.getElementById((isQuestion ? 'qtext-' : 'soltext-') + uid);
+    const statusEl = document.getElementById('latexStatus-' + uid);
+    const rawText = isQuestion ? p.question : (p.solution || []).join('\n');
+    if(!rawText || !rawText.trim()){
+      statusEl.className = 'status-msg fail';
+      statusEl.textContent = '변환할 내용이 없어요.';
+      return;
+    }
+
+    const btn = event.target;
+    btn.disabled = true;
+    statusEl.className = 'status-msg busy';
+    statusEl.innerHTML = '<span class="spinner"></span>LaTeX로 변환하는 중...';
+
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'convertToLatex', text: rawText })
+      });
+      const json = await res.json();
+      if(json.status !== 'ok') throw new Error(json.message || '변환에 실패했어요');
+
+      if(isQuestion){
+        p.question = json.text;
+      } else {
+        p.solution = json.text.split('\n');
+      }
+      textareaEl.value = json.text;
+      statusEl.className = 'status-msg ok';
+      statusEl.textContent = '✓ 변환 완료! "👁 수식 미리보기"로 확인해보세요.';
+    } catch(err){
+      statusEl.className = 'status-msg fail';
+      statusEl.textContent = '✕ ' + (err.message || '알 수 없는 오류');
+    } finally {
+      btn.disabled = false;
     }
   }
 
@@ -960,7 +1015,9 @@
     try{
       const res = await fetch('../data/worksheets-manifest.json');
       const data = await res.json();
-      state.manifest = data.sets || [];
+      // 본인이 등록한 문제지만 수정 가능 — 다른 학생이나 선생님이 올린(직접등록) 문제지는
+      // studentId가 없거나 내 studentId와 달라서 이 필터를 통과 못 하고 목록에서 제외된다.
+      state.manifest = (data.sets || []).filter(s => s.studentId && s.studentId === currentSession.studentId);
       renderEditSearchList();
     } catch(err){
       listEl.innerHTML = '<div class="step-hint">문제지 목록을 불러오지 못했어요.</div>';
@@ -969,6 +1026,10 @@
   function renderEditSearchList(){
     const listEl = document.getElementById('editSearchList');
     if(!state.manifest) return;
+    if(state.manifest.length === 0){
+      listEl.innerHTML = '<div class="step-hint">직접 등록한 문제지가 아직 없어요. "새로 등록" 탭에서 먼저 등록해보세요.</div>';
+      return;
+    }
     const q = document.getElementById('editSearchInput').value.trim().toLowerCase();
     const filtered = state.manifest.filter(s =>
       !q || (s.title||'').toLowerCase().includes(q) || (s.id||'').toLowerCase().includes(q)
