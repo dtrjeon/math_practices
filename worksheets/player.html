@@ -23,6 +23,9 @@
      TypeError로 죽어 그 뒤의 타이머 시작 코드까지 실행이 안 됐던 것. setPenMode/clearCanvas에 null 체크
      추가. 정답 전용 캔버스가 있는 문제지(단답형+손글씨 채점)에서만 재현됐던 이유가 이것 — 그런 캔버스가
      없는 문제지는 애초에 이 코드 경로를 안 타서 멀쩡했음 -->
+<!-- v2.10 (2026-08-25): 필기 캔버스에서 pointerType이 'touch'(손가락/손바닥)인 입력은 무시하도록
+     palm rejection 적용 — S펜(pointerType='pen')으로만 선이 그어지고, 필기 중 손등이 화면에
+     닿아도 그려지지 않음. 마우스는 PC 테스트를 위해 계속 허용. -->
 <!-- v2.9 (2026-08-21): 앱 전체 로그인 게이트 적용 — mathapp_session이 없으면 즉시 login.html로 리다이렉트(원래 보던 페이지는 ?redirect=로 넘겨 로그인 후 자동 복귀). 홈 버튼 옆에 로그인한 학생 이름/로그아웃 표시 추가. -->
 <html lang="ko">
 <head>
@@ -1446,8 +1449,15 @@
         ctx.lineWidth = width;
       }
     }
+    // v2.10: S펜(pointerType==='pen')이 아닌 입력(손가락/손바닥 등 'touch')은 무시해서
+    // 필기 중 손등이 화면에 닿아도 선이 그어지지 않도록 palm rejection 적용.
+    // 마우스('mouse')는 PC 테스트 편의를 위해 계속 허용.
+    function isAllowedPointer(e){
+      return e.pointerType !== 'touch';
+    }
     canvas.addEventListener('pointerdown', e => {
       if(scrollModeOn) return; // 스크롤 모드일 때는 그리지 않음
+      if(!isAllowedPointer(e)) return; // 손가락/손바닥 터치는 무시(S펜만 필기)
       drawing = true;
       canvas.setPointerCapture(e.pointerId);
       const p = pos(e); lastX = p.x; lastY = p.y;
@@ -1459,6 +1469,7 @@
     });
     canvas.addEventListener('pointermove', e => {
       if(!drawing) return;
+      if(!isAllowedPointer(e)) return; // 필기 중 손바닥이 닿아도 무시
       const p = pos(e);
       strokeStyleFor(canvas.dataset.mode, e.pressure);
       ctx.beginPath();
