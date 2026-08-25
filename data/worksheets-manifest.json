@@ -788,6 +788,18 @@
       "group": "ⅴ.통계",
       "grade": "m0",
       "source": "hongcheon"
+    },
+    {
+      "id": "m0_26_s2_tb_senmath_btype_q039-125",
+      "file": "m0_26_s2_tb_senmath_btype_q039-125.json",
+      "category": "tb",
+      "title": "B단계 유형뽀개기 (0039~0125)",
+      "unit": "삼각비",
+      "count": 87,
+      "pages": 15,
+      "group": "02. 삼각비",
+      "grade": "m0",
+      "source": "senmath"
     }
   ],
   "categories": {
