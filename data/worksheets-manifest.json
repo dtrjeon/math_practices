@@ -517,7 +517,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_p001-008",
-      "file": "m0_26_s2_tb_senmath_p001-008.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_p001-008.json",
       "category": "tb",
       "title": "삼각비의 뜻 (0001~0008)",
       "unit": "01. 삼각비의 뜻 (0001~0008)",
@@ -528,7 +528,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_p009-046",
-      "file": "m0_26_s2_tb_senmath_p009-046.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_p009-046.json",
       "category": "tb",
       "title": "삼각비의 뜻 ~ 유형02 (0009~0046)",
       "unit": "01. 삼각비의 뜻 ~ 유형02 (0009~0046, 진행중)",
@@ -540,7 +540,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_p085-107",
-      "file": "m0_26_s2_tb_senmath_p085-107.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_p085-107.json",
       "category": "tb",
       "title": "유형09 ~ 유형14 (0085~0107)",
       "unit": "유형09 ~ 유형14 (0085~0107, 완료)",
@@ -552,7 +552,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_q108-125",
-      "file": "m0_26_s2_tb_senmath_q108-125.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_q108-125.json",
       "category": "tb",
       "title": "중·상위권 보충문제 (0108~0125)",
       "unit": "삼각비",
@@ -564,7 +564,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_q126-137",
-      "file": "m0_26_s2_tb_senmath_q126-137.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_q126-137.json",
       "category": "tb",
       "title": "만점도전 (0126~0137)",
       "unit": "삼각비",
@@ -576,7 +576,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_q138-149",
-      "file": "m0_26_s2_tb_senmath_q138-149.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_q138-149.json",
       "category": "tb",
       "title": "만점도전 (0138~0149)",
       "unit": "삼각비",
@@ -588,7 +588,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_q150-182",
-      "file": "m0_26_s2_tb_senmath_q150-182.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_q150-182.json",
       "category": "tb",
       "title": "삼각비의 활용 (0150~0182)",
       "unit": "삼각비의 활용",
@@ -600,7 +600,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_q183-194",
-      "file": "m0_26_s2_tb_senmath_q183-194.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_q183-194.json",
       "category": "tb",
       "title": "삼각비의 활용 (0183~0194)",
       "unit": "삼각비의 활용",
@@ -612,7 +612,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_q195-218",
-      "file": "m0_26_s2_tb_senmath_q195-218.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_q195-218.json",
       "category": "tb",
       "title": "삼각비의 활용 (0195~0218)",
       "unit": "삼각비의 활용",
@@ -624,7 +624,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_q219-230",
-      "file": "m0_26_s2_tb_senmath_q219-230.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_q219-230.json",
       "category": "tb",
       "title": "삼각형/다각형의 넓이 (0219~0230)",
       "unit": "삼각비의 활용 - 삼각형/다각형의 넓이",
@@ -636,7 +636,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_q231-242",
-      "file": "m0_26_s2_tb_senmath_q231-242.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_q231-242.json",
       "category": "tb",
       "title": "삼각비의 활용 (0231~0242)",
       "unit": "삼각비의 활용",
@@ -648,7 +648,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_q243-248",
-      "file": "m0_26_s2_tb_senmath_q243-248.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_q243-248.json",
       "category": "tb",
       "title": "만점도전 (0243~0248)",
       "unit": "삼각비의 활용",
@@ -791,7 +791,7 @@
     },
     {
       "id": "m0_26_s2_tb_senmath_btype_q039-125",
-      "file": "m0_26_s2_tb_senmath_btype_q039-125.json",
+      "file": "seanmath32/m0_26_s2_tb_senmath_btype_q039-125.json",
       "category": "tb",
       "title": "B단계 유형뽀개기 (0039~0125)",
       "unit": "삼각비",
