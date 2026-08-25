@@ -2432,7 +2432,7 @@
     if(p.type === 'mc'){
       html += '<div class="choices">';
       p.choices.forEach((ch, i) => {
-        const isCorrect = (p.correct === i) ? 'true' : 'false';
+        const isCorrect = (Array.isArray(p.correct) ? p.correct.includes(i) : p.correct === i) ? 'true' : 'false';
         html += `<button class="choice-btn" onclick="pick(this,${isCorrect})">${CIRCLE[i]} ${escapeHtml(ch)}</button>`;
       });
       html += '</div>';
