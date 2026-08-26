@@ -23,6 +23,12 @@
      "중학교 3-2"를 눌러 바꿔야 하던 문제 개선 — 별도 설정 화면 없이, 로그인 시 이미 입력한 학년
      정보(session.grade === '중3')를 기준으로 초기 탭을 자동으로 맞춤. 중3으로 가입한 학생은 열자마자
      중학교 3-2, 그 외(고1/고2/고3)는 고등학교로 시작 -->
+<!-- v2.10 (2026-08-25): "오늘의 요약" 4칸 숫자판 제거 — 학생 입장에서 그냥 숫자만 보여줄 뿐 눌러도
+     아무 반응 없는 정보였음. 그중 "오답노트 대기"·"시험범위 공지"는 실제로 학생이 알아야 할 정보라
+     없애지 않고, 할 일이 있을 때만 나타나 누르면 바로 해당 화면으로 이동하는 알림 배너(homeAlerts)로
+     전환. "문제지 수"·"누적 풀이 기록"은 참고용 숫자일 뿐이라 홈에서 빼고 원래 통계가 있어야 할
+     "학습 기록판" 탭 상단으로 이전. renderHomeStats()를 renderHomeAlerts()/renderBoardStats() 두
+     함수로 분리 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -185,6 +191,15 @@
   }
   .stat-card .stat-label{ font-size:12px; color:var(--num); font-weight:700; margin-bottom:8px; }
   .stat-card .stat-value{ font-size:26px; font-weight:800; }
+  .home-alert{
+    display:flex; align-items:center; gap:12px;
+    background:var(--accent-soft, #e3efe9); border:1.5px solid var(--accent, #1f6f5c);
+    border-radius:14px; padding:14px 16px; margin-bottom:10px; cursor:pointer;
+  }
+  .home-alert .alert-icon{ font-size:22px; flex:0 0 auto; }
+  .home-alert .alert-text{ flex:1; font-size:14px; font-weight:700; color:var(--ink); }
+  .home-alert .alert-arrow{ font-size:16px; color:var(--num); flex:0 0 auto; }
+  .home-alert.exam{ background:#fdecd8; border-color:#c9860f; }
   .quick-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
@@ -664,16 +679,10 @@
   <main class="content">
 
     <section class="page active" id="mainPanel-home">
+      <div id="homeAlerts"></div>
+
       <div class="unit-label" id="recentSectionLabel" style="display:none;">이어서 풀기</div>
       <div class="quick-grid" id="recentWorksheetGrid" style="display:none;"></div>
-
-      <div class="unit-label">오늘의 요약</div>
-      <div class="stat-grid" id="homeStats">
-        <div class="stat-card"><div class="stat-label">문제지 수</div><div class="stat-value" id="statWorksheets">-</div></div>
-        <div class="stat-card"><div class="stat-label">오답노트 대기</div><div class="stat-value" id="statWrong">-</div></div>
-        <div class="stat-card"><div class="stat-label">누적 풀이 기록</div><div class="stat-value" id="statBoard">-</div></div>
-        <div class="stat-card"><div class="stat-label">시험범위 공지</div><div class="stat-value" id="statExamRange">-</div></div>
-      </div>
 
       <div class="unit-label">바로가기</div>
       <div class="quick-grid">
@@ -782,6 +791,10 @@
 
     <section class="page" id="mainPanel-board">
       <div class="unit-label">학습 기록판</div>
+      <div class="stat-grid" id="boardStatsGrid" style="margin-bottom:16px;">
+        <div class="stat-card"><div class="stat-label">문제지 수</div><div class="stat-value" id="statWorksheets">-</div></div>
+        <div class="stat-card"><div class="stat-label">누적 풀이 기록</div><div class="stat-value" id="statBoard">-</div></div>
+      </div>
       <div class="board-section">
         <div class="board-card">
           <div class="board-status" id="boardStatus">기록 불러오는 중...</div>
@@ -1040,7 +1053,7 @@
       const res = await fetch(SHEET_WEBHOOK_URL + '?action=list');
       const records = await res.json();
       BOARD_RECORD_COUNT = (records || []).length;
-      renderHomeStats();
+      renderBoardStats();
       if(!records || records.length === 0){
         statusEl.textContent = '아직 풀이 기록이 없어요. 문제지를 풀고 종료하면 여기 쌓여요.';
         return;
@@ -1165,7 +1178,7 @@
     });
 
     document.getElementById('wrongRepeatCount').textContent = list.length;
-    renderHomeStats();
+    renderHomeAlerts();
     if(list.length === 0){
       panel.innerHTML = '<div class="ws-loading">아직 반복할 오답이 없어요. 잘하고 있어요! 🎉</div>';
       return;
@@ -1235,24 +1248,43 @@
   }
 
   // ===== 홈 대시보드 통계 =====
-  function renderHomeStats(){
+  // 오답노트 대기·시험범위 공지는 "할 일이 있을 때만" 배너로 보여주고, 누르면 바로 그 화면으로 이동.
+  // 문제지 수/누적 풀이 기록처럼 그냥 참고용 숫자는 여기서 빼고 학습 기록판 탭으로 옮김(renderBoardStats).
+  function renderHomeAlerts(){
+    const el = document.getElementById('homeAlerts');
+    if(!el) return;
+
+    const wrongCountEl = document.getElementById('wrongRepeatCount');
+    const wrongCount = wrongCountEl ? parseInt(wrongCountEl.textContent, 10) || 0 : 0;
+    const examCount = (EXAM_RANGE_SCHOOLS || []).filter(s => isMiddleGrade(s.grade) === (currentLevel === 'middleschool')).length;
+
+    let html = '';
+    if(wrongCount > 0){
+      html += `<div class="home-alert" onclick="switchMainTab('wrongrepeat')">
+        <div class="alert-icon">🔁</div>
+        <div class="alert-text">아직 복습 안 한 오답 ${wrongCount}개가 있어요</div>
+        <div class="alert-arrow">›</div>
+      </div>`;
+    }
+    if(examCount > 0){
+      html += `<div class="home-alert exam" onclick="switchMainTab('examrange')">
+        <div class="alert-icon">📢</div>
+        <div class="alert-text">시험범위 공지가 올라와 있어요</div>
+        <div class="alert-arrow">›</div>
+      </div>`;
+    }
+    el.innerHTML = html;
+  }
+
+  function renderBoardStats(){
     const wsEl = document.getElementById('statWorksheets');
-    const wrongEl = document.getElementById('statWrong');
     const boardEl = document.getElementById('statBoard');
-    const examEl = document.getElementById('statExamRange');
-    if(!wsEl) return; // 홈 패널이 아직 렌더링 전이면 조용히 무시
+    if(!wsEl) return; // 학습 기록판 탭이 아직 렌더링 전이면 조용히 무시
 
     // WORKSHEET_COUNTS는 이미 현재 레벨 기준으로 필터링된 값이라 그대로 합산하면 됨
     const wsTotal = WS_CATEGORIES.reduce((sum, c) => sum + (WORKSHEET_COUNTS[c] || 0), 0);
     wsEl.textContent = wsTotal;
-
-    const wrongCountEl = document.getElementById('wrongRepeatCount');
-    wrongEl.textContent = wrongCountEl ? wrongCountEl.textContent : '-';
-
     boardEl.textContent = BOARD_RECORD_COUNT;
-
-    const examCount = (EXAM_RANGE_SCHOOLS || []).filter(s => isMiddleGrade(s.grade) === (currentLevel === 'middleschool')).length;
-    examEl.textContent = examCount;
   }
 
   function switchLevel(level){
@@ -1264,7 +1296,8 @@
     applyPublisherFilter();
     applyWrongRepeatFilter();
     applyExamRangeFilter();
-    renderHomeStats();
+    renderHomeAlerts();
+    renderBoardStats();
   }
 
   async function loadAllData(){
@@ -1277,7 +1310,8 @@
     renderWrongRepeat();
     // (각 render* 함수가 끝에서 자기 자신의 apply*Filter를 이미 호출하므로
     //  여기서 다시 호출할 필요는 없음 — 지금 보고 있던 레벨 상태 그대로 반영됨)
-    renderHomeStats();
+    renderHomeAlerts();
+    renderBoardStats();
   }
 
   function refreshAllData(){
