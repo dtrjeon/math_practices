@@ -563,30 +563,6 @@
       "source": "senmath"
     },
     {
-      "id": "m0_26_s2_tb_senmath_q126-137",
-      "file": "seanmath32/m0_26_s2_tb_senmath_q126-137.json",
-      "category": "tb",
-      "title": "만점도전 (0126~0137)",
-      "unit": "삼각비",
-      "count": 12,
-      "group": "02. 삼각비",
-      "pages": 2,
-      "grade": "m0",
-      "source": "senmath"
-    },
-    {
-      "id": "m0_26_s2_tb_senmath_q138-149",
-      "file": "seanmath32/m0_26_s2_tb_senmath_q138-149.json",
-      "category": "tb",
-      "title": "만점도전 (0138~0149)",
-      "unit": "삼각비",
-      "count": 12,
-      "group": "02. 삼각비",
-      "pages": 2,
-      "grade": "m0",
-      "source": "senmath"
-    },
-    {
       "id": "m0_26_s2_tb_senmath_q150-182",
       "file": "seanmath32/m0_26_s2_tb_senmath_q150-182.json",
       "category": "tb",
@@ -797,6 +773,18 @@
       "unit": "삼각비",
       "count": 87,
       "pages": 15,
+      "group": "02. 삼각비",
+      "grade": "m0",
+      "source": "senmath"
+    },
+    {
+      "id": "m0_26_s2_tb_senmath_ctype_q126-149",
+      "file": "seanmath32/m0_26_s2_tb_senmath_ctype_q126-149.json",
+      "category": "tb",
+      "title": "C단계 만점 도전하기 (0126~0149)",
+      "unit": "삼각비",
+      "count": 24,
+      "pages": 4,
       "group": "02. 삼각비",
       "grade": "m0",
       "source": "senmath"
