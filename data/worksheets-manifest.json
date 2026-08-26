@@ -516,29 +516,6 @@
       "grade": "m1"
     },
     {
-      "id": "m0_26_s2_tb_senmath_p001-008",
-      "file": "seanmath32/m0_26_s2_tb_senmath_p001-008.json",
-      "category": "tb",
-      "title": "삼각비의 뜻 (0001~0008)",
-      "unit": "01. 삼각비의 뜻 (0001~0008)",
-      "count": 8,
-      "group": "01. 삼각비의 뜻",
-      "grade": "m0",
-      "source": "senmath"
-    },
-    {
-      "id": "m0_26_s2_tb_senmath_p009-046",
-      "file": "seanmath32/m0_26_s2_tb_senmath_p009-046.json",
-      "category": "tb",
-      "title": "삼각비의 뜻 ~ 유형02 (0009~0046)",
-      "unit": "01. 삼각비의 뜻 ~ 유형02 (0009~0046, 진행중)",
-      "count": 38,
-      "group": "01. 삼각비의 뜻",
-      "pages": 5,
-      "grade": "m0",
-      "source": "senmath"
-    },
-    {
       "id": "m0_26_s2_tb_senmath_p085-107",
       "file": "seanmath32/m0_26_s2_tb_senmath_p085-107.json",
       "category": "tb",
@@ -548,7 +525,8 @@
       "group": "02. 삼각비",
       "pages": 4,
       "grade": "m0",
-      "source": "senmath"
+      "source": "senmath",
+      "hidden": true
     },
     {
       "id": "m0_26_s2_tb_senmath_q108-125",
@@ -560,7 +538,8 @@
       "group": "02. 삼각비",
       "pages": 3,
       "grade": "m0",
-      "source": "senmath"
+      "source": "senmath",
+      "hidden": true
     },
     {
       "id": "m0_26_s2_tb_senmath_q150-182",
@@ -764,6 +743,18 @@
       "group": "ⅴ.통계",
       "grade": "m0",
       "source": "hongcheon"
+    },
+    {
+      "id": "m0_26_s2_tb_senmath_atype_q001-038",
+      "file": "seanmath32/m0_26_s2_tb_senmath_atype_q001-038.json",
+      "category": "tb",
+      "title": "A단계 개념 다지기 (0001~0038)",
+      "unit": "삼각비",
+      "count": 38,
+      "pages": 7,
+      "group": "02. 삼각비",
+      "grade": "m0",
+      "source": "senmath"
     },
     {
       "id": "m0_26_s2_tb_senmath_btype_q039-125",
