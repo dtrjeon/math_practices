@@ -19,6 +19,10 @@
      문제 수정 — data/*.json을 fetch할 때 캐시 옵션을 안 줘서 브라우저/CDN이 예전 파일을 계속 재사용하고
      있었음. worksheets-manifest.json/publishers.json/exam-ranges.json/개별 문제지 파일 fetch 5곳 전부
      { cache: 'no-store' } 추가해서 항상 최신 데이터를 받아오도록 수정 -->
+<!-- v2.9 (2026-08-25): 홈 화면 첫 진입 시 고등학교 탭이 항상 기본으로 켜져 있어서 중학생은 매번
+     "중학교 3-2"를 눌러 바꿔야 하던 문제 개선 — 별도 설정 화면 없이, 로그인 시 이미 입력한 학년
+     정보(session.grade === '중3')를 기준으로 초기 탭을 자동으로 맞춤. 중3으로 가입한 학생은 열자마자
+     중학교 3-2, 그 외(고1/고2/고3)는 고등학교로 시작 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -1290,7 +1294,20 @@
     });
   }
 
+  // 로그인 시 등록한 학년(중3/고1/고2/고3)을 기준으로 홈 화면 진입 탭을 자동으로 맞춘다.
+  // 학생마다 매번 "고등학교 ↔ 중학교 3-2"를 눌러 바꾸지 않아도 되도록, 별도 설정 없이
+  // 이미 갖고 있는 로그인 정보(session.grade)만으로 알아서 맞는 쪽이 켜지게 한다.
+  function applyInitialLevelFromSession(){
+    let session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    const initialLevel = (session && session.grade === '중3') ? 'middleschool' : 'highschool';
+    currentLevel = initialLevel;
+    document.getElementById('levelBtn-highschool').classList.toggle('active', initialLevel === 'highschool');
+    document.getElementById('levelBtn-middleschool').classList.toggle('active', initialLevel === 'middleschool');
+  }
+
   (async function init(){
+    applyInitialLevelFromSession();
     await loadAllData();
   })();
 
