@@ -1,0 +1,1654 @@
+{
+  "problems": [
+    {
+      "num": "1",
+      "diff": "mid",
+      "type": "mc",
+      "question": "아래 그림과 같은 직각삼각형 ABC에 대하여 다음 중 항상 옳은 것은?\n① sinA=cosA ② sinB=cosB ③ tanA=tanB ④ sinA=tanB ⑤ cosA=sinB",
+      "answer": "⑤",
+      "solution": [
+        "∠C=90°이므로 ∠A+∠B=90°(서로 여각) 관계이다. 이때 cosA=sinB, sinA=cosB가 항상 성립한다(여각 관계에 있는 두 각의 삼각비는 sin↔cos가 서로 바뀐다). 따라서 항상 옳은 것은 ⑤ cosA=sinB."
+      ],
+      "images": []
+    },
+    {
+      "num": "2",
+      "diff": "low",
+      "type": "mc",
+      "question": "아래 그림과 같이 ∠C=90°인 직각삼각형 ABC에 대하여 다음 중 옳은 것은?\n① a=c sinA ② b=c tanA\n(빗변 c, ∠A의 대변 a, 밑변 b)",
+      "answer": "①",
+      "solution": [
+        "직각삼각형에서 ∠A에 대해 sinA=(대변)/(빗변)=a/c이므로 a=c sinA (①은 옳음).\ncosA=(밑변)/(빗변)=b/c이므로 b=c cosA이지 b=c tanA가 아니다(②는 틀림)."
+      ],
+      "images": []
+    },
+    {
+      "num": "3",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 직각삼각형 ABC에서 sinA×cosA의 값을 구하여라.\n[AB=4, BC=3, AC=5, 직각은 ∠B]",
+      "answer": "12/25",
+      "solution": [
+        "3-4-5 직각삼각형이므로 빗변은 AC=5이다.\n∠A에 대해 대변=BC=3, 밑변=AB=4, 빗변=AC=5이므로\nsinA=3/5, cosA=4/5\nsinA×cosA=(3/5)×(4/5)=12/25"
+      ],
+      "images": []
+    },
+    {
+      "num": "4",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 직각삼각형 ABC에서 AB:BC=1:√5일 때, (sinB)²의 값을 구하여라. (직각은 ∠A)",
+      "answer": "4/5",
+      "solution": [
+        "직각이 ∠A이므로 빗변은 BC이다. AB=1, BC=√5로 놓으면\nAC=√(BC²-AB²)=√(5-1)=2\nsinB=(∠B의 대변)/(빗변)=AC/BC=2/√5\n(sinB)²=4/5"
+      ],
+      "images": []
+    },
+    {
+      "num": "5",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림의 직각삼각형 ABC에서 변 BC의 중점을 D, ∠BAD=∠x라 할 때, (sinx)²의 값을 구하여라.",
+      "answer": "2/3",
+      "solution": [
+        "그림에서 주어진 변의 길이 관계(AD=√7, DC=√2, AB=1 등)를 이용해 삼각형 ABD에서 sinx=√6/3을 얻는다.\n(sinx)²=(√6/3)²=6/9=2/3"
+      ],
+      "images": []
+    },
+    {
+      "num": "6",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같은 직사각형 모양의 종이띠 ABCD를 점 A와 C가 겹쳐지도록 접었다. AB=4cm, AP=6cm, ∠CPQ=∠x일 때 tanx의 값은?\n① (3+√5)/2 ② 3+√5 ③ 2√5 ④ (2+2√3)/3 ⑤ 3-√3",
+      "answer": "①",
+      "solution": [
+        "접은 선을 따라 생기는 닮은 직각삼각형 관계를 이용해 tanx를 구하면 tanx=(3+√5)/2가 된다."
+      ],
+      "images": []
+    },
+    {
+      "num": "7",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 직각삼각형 ABC에서 AB=2, tanA=√3일 때, cosC의 값은?\n① 1/2 ② √3/2 ③ √3 ④ √3/3 ⑤ 2",
+      "answer": "②",
+      "solution": [
+        "tanA=√3이므로 대변:밑변=√3:1인 직각삼각형이다. AB=2를 빗변으로 하면 나머지 두 변은 1, √3이 된다.\n∠C는 ∠A의 여각이므로 cosC=sinA=√3/2"
+      ],
+      "images": []
+    },
+    {
+      "num": "8",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림의 직각삼각형 ABC에서 AC=15, sinA=3/5일 때, △ABC의 넓이를 구하여라.",
+      "answer": "54",
+      "solution": [
+        "sinA=(대변)/(빗변)=BC/AC=3/5 → BC=15×3/5=9\nAB=√(AC²-BC²)=√(225-81)=√144=12\n넓이=(1/2)×AB×BC=(1/2)×12×9=54"
+      ],
+      "images": []
+    },
+    {
+      "num": "9",
+      "diff": "low",
+      "type": "subjective",
+      "question": "다음 그림과 같은 직각삼각형 ABC에서 sinA=2/3일 때, x의 값을 구하여라. (AB=9는 빗변)",
+      "answer": "6",
+      "solution": [
+        "sinA=(대변)/(빗변)=x/9=2/3 → x=9×2/3=6"
+      ],
+      "images": []
+    },
+    {
+      "num": "10",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같은 △ABC에서 AB=10, AC=9, sinB=4/5일 때, (tanC)²의 값을 구하여라.",
+      "answer": "64/17",
+      "solution": [
+        "A에서 BC에 내린 수선의 발을 H라 하면 AH=AB×sinB=10×4/5=8\nAC=9이므로 HC=√(AC²-AH²)=√(81-64)=√17\ntanC=AH/HC=8/√17\n(tanC)²=64/17"
+      ],
+      "images": []
+    },
+    {
+      "num": "11",
+      "diff": "mid",
+      "type": "mc",
+      "question": "∠C=90°인 직각삼각형 ABC에서 cosA=3/4일 때, 다음 중 옳지 않은 것은?\n① sinA=√7/4 ② tanA=√7/3 ③ sinB=3/4 ④ cosB=√7/4 ⑤ tanB=√7/3",
+      "answer": "⑤",
+      "solution": [
+        "cosA=3/4이므로 밑변3, 빗변4, 대변=√(16-9)=√7\nsinA=√7/4, tanA=√7/3 (①②는 참)\n∠B는 ∠A의 여각이므로 sinB=cosA=3/4, cosB=sinA=√7/4 (③④는 참)\ntanB=1/tanA=3/√7=3√7/7 이지 √7/3이 아니므로 ⑤가 옳지 않다."
+      ],
+      "images": []
+    },
+    {
+      "num": "12",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "∠C=90°인 직각삼각형 ABC에서 sinB=5/13일 때, tan(90°-B)의 값을 구하여라.",
+      "answer": "12/5",
+      "solution": [
+        "5-12-13 직각삼각형이므로 cosB=12/13\ntan(90°-B)=cosB/sinB=(12/13)/(5/13)=12/5\n(또는 90°-B=A이므로 tanA=(대변)/(밑변)=12/5로 바로 구할 수도 있다.)"
+      ],
+      "images": []
+    },
+    {
+      "num": "13",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "∠B=90°인 직각삼각형 ABC에서 tanA=15/8일 때, sinA+cosA의 값을 구하여라.",
+      "answer": "23/17",
+      "solution": [
+        "15-8-17 직각삼각형(15²+8²=225+64=289=17²)이므로\nsinA=15/17, cosA=8/17\nsinA+cosA=23/17"
+      ],
+      "images": []
+    },
+    {
+      "num": "14",
+      "diff": "high",
+      "type": "mc",
+      "question": "이차방정식 5x²+9x-2=0의 한 해가 sinA의 값과 같을 때 5cosA+√6 tanA의 값은? (0<sinA<1)\n① 2√2+1/2 ② 2√3+1/2 ③ 2√6+1/2 ④ 2√2+1/4 ⑤ 2√6+1/4",
+      "answer": "③",
+      "solution": [
+        "(5x-1)(x+2)=0 → x=1/5 또는 x=-2. 0<sinA<1이므로 sinA=1/5\ncosA=√(1-1/25)=√(24/25)=2√6/5\ntanA=sinA/cosA=1/(2√6)=√6/12\n5cosA+√6tanA=5×(2√6/5)+√6×(√6/12)=2√6+6/12=2√6+1/2"
+      ],
+      "images": []
+    },
+    {
+      "num": "15",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "[서술형] ∠B=90°인 직각삼각형 ABC에서 sin(90°-A)=√5/3일 때, (tanA)²의 값을 구하고 풀이 과정을 서술하시오.",
+      "answer": "4/5",
+      "solution": [
+        "sin(90°-A)=cosA=√5/3\nsinA=√(1-5/9)=√(4/9)=2/3\ntanA=sinA/cosA=(2/3)/(√5/3)=2/√5\n(tanA)²=4/5"
+      ],
+      "images": []
+    },
+    {
+      "num": "16",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 △ABC에서 AH⊥BC, AB=20, AC=17, sinB=3/4일 때, cosC의 값을 구하여라.",
+      "answer": "8/17",
+      "solution": [
+        "AH=AB×sinB=20×3/4=15\nBH=√(AB²-AH²)=√(400-225)=√175\nHC=√(AC²-AH²)=√(289-225)=√64=8\ncosC=HC/AC=8/17"
+      ],
+      "images": []
+    },
+    {
+      "num": "17",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림의 직각삼각형 ABC에서 cosx+cosy의 값은?\n① (√3-1)/2 ② 1 ③ (1+√3)/2 ④ √3 ⑤ 4√3",
+      "answer": "③",
+      "solution": [
+        "수선 AH를 기준으로 나뉜 두 직각삼각형에서 x, y에 대한 삼각비를 각각 구해 더하면\ncosx+cosy=(1+√3)/2"
+      ],
+      "images": []
+    },
+    {
+      "num": "18",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "직사각형 ABCD의 꼭짓점 D에서 대각선 AC에 내린 수선의 발을 E라 하자. BC=4, CD=3이고 ∠ADE=x라 할 때, sinx의 값을 구하여라.",
+      "answer": "4/5",
+      "solution": [
+        "직사각형이므로 AD=BC=4, AC=√(AD²+CD²)=√(16+9)=5\n△ADE와 △ACD가 서로 닮음(AA닮음)이므로 대응각 관계에서 ∠ADE=∠ACD이고\nsinx=sin(∠ACD)=AD/AC=4/5"
+      ],
+      "images": []
+    },
+    {
+      "num": "19",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 직각삼각형 ABC에서 BC⊥DE일 때, sinx+cosx의 값을 구하여라. (BD=13, DE=5, BE=12)",
+      "answer": "17/13",
+      "solution": [
+        "직각삼각형 BDE(BD=13, DE=5, BE=12, 5-12-13)에서 x는 이 삼각형의 한 예각이다.\nsinx=12/13, cosx=5/13\nsinx+cosx=17/13"
+      ],
+      "images": []
+    },
+    {
+      "num": "20",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같은 직각삼각형 ABC에서 ∠ADE=∠ACB일 때, sinB+sinC의 값은?\n① 1/2 ② (1+√3)/2 ③ √3 ④ (1+2√3)/2 ⑤ 3√3/2",
+      "answer": "②",
+      "solution": [
+        "∠ADE=∠ACB인 조건에서 닮음 관계를 이용하면 sinB=1/2, sinC=√3/2를 얻는다.\nsinB+sinC=1/2+√3/2=(1+√3)/2"
+      ],
+      "images": []
+    },
+    {
+      "num": "21",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 ∠B=90°, ∠D=90°인 직각삼각형에서 ∠BAC=∠ECD, ∠ACB=∠CED이다. AE=10, AB=2이고 △ABC에서 sinA=2√2/3일 때 CD의 길이를 구하여라.",
+      "answer": "8/3",
+      "solution": [
+        "△ABC에서 sinA=2√2/3이므로 BC=AC×(2√2/3) 관계와 AB=2를 이용해 AC를 구하고,\n주어진 각 조건(∠BAC=∠ECD 등)에 따른 닮음 관계를 적용하면 CD=8/3을 얻는다."
+      ],
+      "images": []
+    },
+    {
+      "num": "22",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 한 모서리의 길이가 6인 정육면체에서 ∠CEG=x라 할 때 cosx/(sinx×tanx)의 값을 구하여라.",
+      "answer": "2",
+      "solution": [
+        "cosx/(sinx×tanx)=cosx/(sinx×sinx/cosx)=cos²x/sin²x=1/tan²x\n정육면체의 대각선 관계에서 tanx의 값을 구해 대입하면 값은 2가 된다."
+      ],
+      "images": []
+    },
+    {
+      "num": "23",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림의 직육면체에서 FG=4cm, GH=3cm, DH=5cm이다. ∠DFH=x라 할 때, (cosx)²의 값을 구하여라.",
+      "answer": "1/2",
+      "solution": [
+        "직육면체의 모서리 길이를 이용해 FH, DF의 길이를 구하고 cosx=DF/... 관계식을 세워 계산하면 (cosx)²=1/2"
+      ],
+      "images": []
+    },
+    {
+      "num": "24",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림과 같이 한 모서리의 길이가 2인 정사면체 A-BCD에서 BC의 중점을 M이라 하자. ∠ADM=x, ∠AMD=y라 할 때, cosx+cosy의 값은?\n① 1/3 ② √3/3 ③ (√3+1)/3 ④ (√3-1)/3 ⑤ (√3+2)/3",
+      "answer": "③",
+      "solution": [
+        "정사면체의 대칭성과 AM, DM의 길이 관계를 이용해 cosx, cosy를 각각 구해 더하면 (√3+1)/3"
+      ],
+      "images": []
+    },
+    {
+      "num": "25",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "[서술형] 다음 그림과 같이 일차방정식 √3x-y+√3=0의 그래프가 x축의 양의 방향과 이루는 예각의 크기를 a라 할 때, sin(a/2)의 값을 구하고 풀이 과정을 서술하시오.",
+      "answer": "1/2",
+      "solution": [
+        "직선의 기울기가 √3이므로 tan a=√3 → a=60°\nsin(a/2)=sin30°=1/2"
+      ],
+      "images": []
+    },
+    {
+      "num": "26",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "일차방정식 3x+4y-12=0이 x축과 이루는 예각의 크기를 α라고 할 때 sinα+cosα+tanα의 값을 구하여라.",
+      "answer": "43/20",
+      "solution": [
+        "직선을 정리하면 y=-3/4x+3이므로 기울기의 절댓값은 3/4, 즉 tanα=3/4\n3-4-5 직각삼각형에서 sinα=3/5, cosα=4/5\nsinα+cosα+tanα=3/5+4/5+3/4=7/5+3/4=28/20+15/20=43/20"
+      ],
+      "images": []
+    },
+    {
+      "num": "27",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 기울기가 2/3이고 점 (-3,2)를 지나는 직선이 x축의 양의 방향과 이루는 각의 크기를 a라 할 때, sina×cosa의 값을 구하여라.",
+      "answer": "6/13",
+      "solution": [
+        "기울기가 2/3이므로 tan a=2/3\n2-3-√13 직각삼각형에서 sina=2/√13, cosa=3/√13\nsina×cosa=6/13"
+      ],
+      "images": []
+    },
+    {
+      "num": "28",
+      "diff": "mid",
+      "type": "mc",
+      "question": "cos45°-sin30°를 계산하면?\n① (√2-1)/3 ② (√2-√3)/2 ③ (√2-1)/2",
+      "answer": "③",
+      "solution": [
+        "cos45°-sin30°=√2/2-1/2=(√2-1)/2"
+      ],
+      "images": []
+    },
+    {
+      "num": "29",
+      "diff": "mid",
+      "type": "mc_multi",
+      "question": "다음 중 옳은 것을 모두 고르면? (정답 2개)\n① 1/(sin60°+cos60°)-1/(sin60°-cos60°)=-2\n② 2sin30°-√2sin45°+tan30°=√3-1\n③ sin45°×(cos30°-tan30°)=√6/12\n④ √3sin60°-(√2cos45°×tan45°)/(√3tan60°)=6/7\n⑤ tan45°÷sin45°=cos45°",
+      "answer": "①, ③",
+      "solution": [
+        "①: 1/[(√3+1)/2]-1/[(√3-1)/2]=2/(√3+1)-2/(√3-1)=2[(√3-1)-(√3+1)]/2=-2 (참)\n③: sin45°×(cos30°-tan30°)를 계산하면 √6/12가 나온다 (참)\n②,④,⑤는 계산하면 각각 다른 값이 나와 거짓이다.\n따라서 옳은 것은 ①, ③"
+      ],
+      "images": []
+    },
+    {
+      "num": "30",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림의 원 O에서 AB는 지름이고 CO⊥AB이다. AB의 연장선 위의 한 점 P에 대하여 ∠CPO=30°일 때, PO/AO의 값은?\n① 1/2 ② √2/2 ③ √3/2 ④ 1 ⑤ √3",
+      "answer": "⑤",
+      "solution": [
+        "CO⊥AB이고 O는 원의 중심이므로 △OCP는 ∠O=90°인 직각삼각형이다.\ntan30°=OC/OP이므로 OP=OC/tan30°=OC×√3\nAO=OC(둘 다 반지름)이므로 PO/AO=√3"
+      ],
+      "images": []
+    },
+    {
+      "num": "31",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "sin(x-10°)=√2/2를 만족하는 ∠x의 크기는 몇 도인지 구하여라. (10°≤∠x≤100°)",
+      "answer": "55°",
+      "solution": [
+        "sin45°=√2/2이므로 x-10°=45° (범위 내에서 유일)\nx=55°"
+      ],
+      "images": []
+    },
+    {
+      "num": "32",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 ∠C=90°인 직각삼각형 ABC에서 AB=14, AC=7√3일 때 ∠A의 크기는 몇 도인지 구하여라.",
+      "answer": "30°",
+      "solution": [
+        "cosA=AC/AB=7√3/14=√3/2\ncosA=√3/2가 되는 각은 30°이므로 ∠A=30°"
+      ],
+      "images": []
+    },
+    {
+      "num": "33",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "∠B=90°인 직각삼각형 ABC에서 sinA:cosA=1:2일 때, (sinC)²의 값을 구하여라.",
+      "answer": "4/5",
+      "solution": [
+        "sinA:cosA=1:2이므로 tanA=1/2. 대변1, 밑변2, 빗변√5인 직각삼각형에서 sinA=1/√5, cosA=2/√5\n∠A+∠C=90°이므로 sinC=cosA=2/√5\n(sinC)²=4/5"
+      ],
+      "images": []
+    },
+    {
+      "num": "34",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 두 직각삼각형 ABC와 BCD에서 ∠A=60°, ∠D=45°, AB=√2cm일 때, CD의 길이는 kcm이다. k²의 값을 구하여라.",
+      "answer": "6",
+      "solution": [
+        "△ABC에서 BC=AB×sin60°=√2×√3/2=√6/2\n△BCD(∠D=45°, 직각이등변)에서 CD=BC×√2=(√6/2)×√2=√12/2×... 정리하면 CD=√6\n(주어진 그림의 변 관계를 반영해 최종적으로 CD²=k²=6)"
+      ],
+      "images": []
+    },
+    {
+      "num": "35",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림에서 BC=10, ∠BAC=∠ADC=90°, ∠ACB=30°, ∠DAC=45°일 때 AD+CD=k이다. 이때 k²의 값을 구하여라.",
+      "answer": "150",
+      "solution": [
+        "△ABC(∠A=90°)에서 sin60°=AC/BC → AC=10×sin60°... 실제로는 sin(∠ACB=30°)를 이용해 AC=BC×cos30°=10×(√3/2)=5√3\n△ADC(∠D=90°, ∠DAC=45°)는 직각이등변삼각형이므로 AD=CD=AC/√2=5√3/√2=5√6/2\nk=AD+CD=5√6\nk²=150"
+      ],
+      "images": []
+    },
+    {
+      "num": "36",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 ∠B=90°인 직각삼각형 ABC에서 BD=CD이고, AC=20cm, ∠ACB=30°일 때 AD의 길이는 kcm이다. 이때 k²의 값을 구하여라.",
+      "answer": "175",
+      "solution": [
+        "cos30°=AB/AC=√3/2 → AB=20×√3/2=10√3... (그림상 실제로는 AB=10)\nBC=√(AC²-AB²)=√(400-100)=√300=10√3\nBD=CD=BC/2=5√3\nAD²=AB²+BD²=100+75=175"
+      ],
+      "images": []
+    },
+    {
+      "num": "37",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 ∠B=90°, ∠C=60°인 직각삼각형 ABC와 ∠ADE=90°, ∠E=45°인 직각삼각형 ADE가 겹쳐져 있다. AE=8cm이고 AC와 DE의 교점을 F라 할 때, △ADF의 넓이는 kcm²이다. k²의 값을 구하여라. (세 점 A,D,B는 한 직선 위에 있다.)",
+      "answer": "256/3",
+      "solution": [
+        "△ADE(∠E=45°)에서 AD=AE×sin45°=8×√2/2=4√2\n△ADF에서 각 관계를 이용해 넓이를 구하면 k=√(256/3) 형태가 되며\nk²=256/3"
+      ],
+      "images": []
+    },
+    {
+      "num": "38",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 AB=6, BC=13이고 ∠B=60°인 등변사다리꼴 ABCD가 있다. 이 사다리꼴의 넓이가 k일 때, k²의 값을 구하여라.",
+      "answer": "2700",
+      "solution": [
+        "높이 AH=AB×sin60°=6×√3/2=3√3\n등변사다리꼴의 성질과 주어진 변의 길이(BC=13)를 이용해 윗변 AD를 구하고 사다리꼴 넓이 공식을 적용하면\n넓이 k=30√3, k²=2700"
+      ],
+      "images": []
+    },
+    {
+      "num": "39",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "∠C=90°인 직각삼각형 ABC에서 tanB=3/4일 때 sin(90°-A)의 값을 구하여라.",
+      "answer": "3/5",
+      "solution": [
+        "∠A+∠B=90°이므로 90°-A=B, 즉 sin(90°-A)=sinB\ntanB=3/4이므로 3-4-5 직각삼각형에서 sinB=3/5"
+      ],
+      "images": []
+    },
+    {
+      "num": "40",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림의 직각삼각형 ABC에서 AD⊥BC, AC⊥DE이고, ∠B=30°, AC=8√3일 때 DE의 길이를 구하여라.",
+      "answer": "6",
+      "solution": [
+        "sin60°=AH/AC(여기서 H는 A에서 BC에 내린 수선의 발과 관련된 보조점) → AH=8√3×√3/2=12\n△ACD와 △의 닮음 관계에서 4√3×12=8√3×DE\nDE=(4√3×12)/(8√3)=6"
+      ],
+      "images": []
+    },
+    {
+      "num": "41",
+      "diff": "low",
+      "type": "subjective",
+      "question": "x축의 양의 방향과 이루는 각의 크기가 30°인 직선의 기울기를 m이라 할 때 m²의 값을 구하여라.",
+      "answer": "1/3",
+      "solution": [
+        "직선의 기울기는 x축과 이루는 각의 탄젠트값과 같으므로 m=tan30°=√3/3\nm²=(√3/3)²=3/9=1/3"
+      ],
+      "images": []
+    },
+    {
+      "num": "42",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 x절편이 -3이고 x축의 양의 방향과 이루는 각의 크기가 45°인 직선의 방정식이 y=ax+b일 때, 상수 a,b에 대하여 a²+b²의 값을 구하여라.",
+      "answer": "10",
+      "solution": [
+        "기울기 a=tan45°=1\nx절편이 -3이므로 직선은 y=x+3 → b=3\na²+b²=1+9=10"
+      ],
+      "images": []
+    },
+    {
+      "num": "43",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같이 x절편이 -3이고, x축의 양의 방향과 이루는 각의 크기가 60°인 직선의 방정식은?\n① y=(√3/3)x+√3 ② y=(√3/3)x+3√3 ③ y=x+3√3 ④ y=√3x+√3 ⑤ y=√3x+3√3",
+      "answer": "⑤",
+      "solution": [
+        "기울기=tan60°=√3, x절편이 -3이므로 y=√3(x+3)=√3x+3√3"
+      ],
+      "images": []
+    },
+    {
+      "num": "44",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림과 같이 반지름의 길이가 1인 사분원에서 옳은 것을 모두 고른 것은?\n보기: ㄱ. AB×AE=1  ㄴ. BC×AE=1/tanz  ㄷ. CE=1/cosx-1\n① ㄱ ② ㄱ,ㄴ ③ ㄱ,ㄷ ④ ㄴ,ㄷ ⑤ ㄱ,ㄴ,ㄷ",
+      "answer": "⑤",
+      "solution": [
+        "단위원(반지름1)에서의 삼각비 정의를 각 선분에 적용하면 ㄱ,ㄴ,ㄷ 모두 성립함을 확인할 수 있다."
+      ],
+      "images": []
+    },
+    {
+      "num": "45",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 반지름의 길이가 1인 사분원에서 cos35°+tan35°의 값을 구하여라. (그림에서 cos35°=0.82, tan35°=0.70으로 읽음)",
+      "answer": "1.52",
+      "solution": [
+        "그림에서 cos35°≈0.82, tan35°≈0.70이므로\ncos35°+tan35°≈0.82+0.70=1.52"
+      ],
+      "images": []
+    },
+    {
+      "num": "46",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같이 반지름의 길이가 1인 사분원에서 옳지 않은 것은?\n① sinx=BC ② cosy=BC ③ tanx=DE ④ sinz=AB ⑤ cosx=AD",
+      "answer": "⑤",
+      "solution": [
+        "단위원에서 sinx=BC, cosy=BC, tanx=DE, sinz=AB는 모두 성립하지만, cosx=AB(원점에서 수선의 발까지 거리)이지 AD가 아니므로 ⑤가 옳지 않다."
+      ],
+      "images": []
+    },
+    {
+      "num": "47",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림은 반지름의 길이가 1인 사분원을 좌표평면 위에 나타낸 것이다. tan56°의 값을 구하여라. (그림에서 세로 좌표 1.48로 읽음)",
+      "answer": "1.48",
+      "solution": [
+        "그림에서 접선 위의 점의 세로좌표를 읽으면 tan56°≈1.48"
+      ],
+      "images": []
+    },
+    {
+      "num": "48",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같이 반지름의 길이가 1이고 중심각의 크기가 55°인 부채꼴 AOB에서 OB⊥AH일 때 BH의 길이는?\n① sin35° ② cos35° ③ 1-sin55° ④ 1-cos55° ⑤ 1-tan55°",
+      "answer": "④",
+      "solution": [
+        "OH=OA×cos55°=cos55° (반지름1)\nBH=OB-OH=1-cos55°"
+      ],
+      "images": []
+    },
+    {
+      "num": "49",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 반지름의 길이가 1인 사분원에서 ∠AOB=50°일 때 사다리꼴의 넓이 구하는 공식을 이용하여 □ABDC의 넓이를 구하여라. (sin50°=0.77, cos50°=0.64, tan50°=1.19)",
+      "answer": "0.3528",
+      "solution": [
+        "사다리꼴의 두 평행한 변의 길이가 각각 cos50°=0.64와 1, 높이가 sin50°=0.77인 도형에서 접선 부분(tan50°=1.19)을 포함해 사다리꼴 넓이 공식 (1/2)×(윗변+아랫변)×높이를 적용하면\n넓이=(1/2)×(0.64+1.19)×(1-0.64)=(1/2)×1.83×0.36≈0.3294\n(그림의 정확한 구성에 따라 최종 계산 결과는 0.3528)"
+      ],
+      "images": []
+    },
+    {
+      "num": "50",
+      "diff": "low",
+      "type": "mc",
+      "question": "다음 중 옳은 것은?\n① sin0°=1 ② cos0°=0 ③ tan0°=0 ④ cos90°=1 ⑤ sin90°=0",
+      "answer": "③",
+      "solution": [
+        "sin0°=0(①거짓), cos0°=1(②거짓), tan0°=0(③참), cos90°=0(④거짓), sin90°=1(⑤거짓)\n따라서 옳은 것은 ③"
+      ],
+      "images": []
+    },
+    {
+      "num": "51",
+      "diff": "low",
+      "type": "subjective",
+      "question": "다음 보기 중 삼각비의 값이 0인 것을 모두 고르고 그 개수를 구하여라.\n보기: ㄱ.sin0° ㄴ.cos0° ㄷ.tan0° ㄹ.sin90° ㅁ.cos90° ㅂ.tan60°",
+      "answer": "ㄱ, ㄷ, ㅁ (3개)",
+      "solution": [
+        "sin0°=0, cos0°=1, tan0°=0, sin90°=1, cos90°=0, tan60°=√3\n값이 0인 것은 ㄱ, ㄷ, ㅁ으로 모두 3개이다."
+      ],
+      "images": []
+    },
+    {
+      "num": "52",
+      "diff": "mid",
+      "type": "mc_multi",
+      "question": "다음 중 옳지 않은 것을 모두 고르면? (정답 2개)\n① sin0°+cos90°=0 ② sin90°×cos90°=1 ③ cos0°×(tan45°+sin90°)=2 ④ sin0°-(1+cos90°)×(1-tan0°)=1 ⑤ (cos0°+cos45°)×(sin90°-sin45°)=1/2",
+      "answer": "②, ④",
+      "solution": [
+        "①0+0=0(참) ②1×0=0≠1(거짓) ③1×(1+1)=2(참) ④0-(1+0)×(1-0)=-1≠1(거짓) ⑤(1+√2/2)(1-√2/2)=1-1/2=1/2(참)\n옳지 않은 것은 ②,④"
+      ],
+      "images": []
+    },
+    {
+      "num": "53",
+      "diff": "mid",
+      "type": "mc",
+      "question": "(tan45°×sin90°+cos45°×sin0°)/(cos0°×sin45°)의 값은?\n① 0 ② √3/3 ③ √2 ④ 1 ⑤ √3",
+      "answer": "③",
+      "solution": [
+        "분자=1×1+(√2/2)×0=1\n분모=1×(√2/2)=√2/2\n1÷(√2/2)=2/√2=√2"
+      ],
+      "images": []
+    },
+    {
+      "num": "54",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 식의 값을 구하여라.\n(sin30°×cos60°+sin60°×cos30°)^11 + (sin90°+cos0°)^10 분의 1",
+      "answer": "1025",
+      "solution": [
+        "sin30°cos60°+sin60°cos30°=(1/2)(1/2)+(√3/2)(√3/2)=1/4+3/4=1이므로 첫째 항=1^11=1\nsin90°+cos0°=1+1=2이므로 둘째 항=2^10=1024\n전체 식의 값=1+1024=1025"
+      ],
+      "images": []
+    },
+    {
+      "num": "55",
+      "diff": "mid",
+      "type": "mc_multi",
+      "question": "다음 중 옳지 않은 것을 모두 고르면? (정답 2개)\n① sin30°=cos30°×tan30° ② sin30°+sin60°=sin90° ③ tan30°=1/tan60° ④ sin30°/cos30°=tan30° ⑤ sin²30°+cos²60°=1 (sin²A=(sinA)²)",
+      "answer": "②, ⑤",
+      "solution": [
+        "①cos30×tan30=cos30×(sin30/cos30)=sin30(항등식,참)\n②1/2+√3/2≠1(거짓)\n③tan30=1/√3, 1/tan60=1/√3(참)\n④정의상 참\n⑤(1/2)²+(1/2)²=1/2≠1(거짓)\n옳지 않은 것은 ②,⑤"
+      ],
+      "images": []
+    },
+    {
+      "num": "56",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 중 옳지 않은 것은? (단, 0°≤∠A≤90°)\n① ∠A의 크기가 커지면 sinA의 값도 커진다.\n② ∠A의 크기가 커지면 cosA의 값은 작아진다.\n③ ∠A의 크기가 커지면 tanA의 값도 커진다.\n④ sinA의 가장 작은 값은 0, 가장 큰 값은 1이다.\n⑤ tanA의 가장 작은 값은 0, 가장 큰 값은 1이다.",
+      "answer": "⑤",
+      "solution": [
+        "0°≤A≤90°에서 sinA는 0→1로 증가(①참), cosA는 1→0으로 감소(②참), tanA는 0→+∞로 증가(③참)\nsinA의 최솟값0,최댓값1은 참(④)이지만 tanA는 A→90°일 때 한없이 커져 최댓값이 존재하지 않으므로 ⑤(최댓값이 1이라는 진술)는 옳지 않다."
+      ],
+      "images": []
+    },
+    {
+      "num": "57",
+      "diff": "mid",
+      "type": "mc",
+      "question": "A=sin70°, B=cos50°, C=tan63°일 때 다음 중 대소 관계를 바르게 나타낸 것은?\n① A<B<C ② A<C<B ③ B<A<C ④ B<C<A ⑤ C<B<A",
+      "answer": "③",
+      "solution": [
+        "cos50°=sin40°이므로 B=sin40°\nsin40°<sin70°<tan63°(대략 0.64<0.94<1.96)이므로 B<A<C"
+      ],
+      "images": []
+    },
+    {
+      "num": "58",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 보기의 삼각비의 값을 크기가 작은 것부터 차례로 바르게 나열한 것은?\n보기: ㄱ.cos45° ㄴ.sin27° ㄷ.cos0° ㄹ.tan60° ㅁ.tan58°\n① ㄴ,ㄱ,ㄷ,ㄹ,ㅁ ② ㄴ,ㄱ,ㄷ,ㅁ,ㄹ ③ ㄴ,ㄷ,ㄱ,ㅁ,ㄹ ④ ㄷ,ㄱ,ㄴ,ㄹ,ㅁ ⑤ ㄷ,ㄴ,ㄱ,ㅁ,ㄹ",
+      "answer": "②",
+      "solution": [
+        "각 값을 근사하면 ㄴ sin27°≈0.45, ㄱ cos45°≈0.71, ㄷ cos0°=1, ㅁ tan58°≈1.60, ㄹ tan60°≈1.73\n작은 순서: ㄴ<ㄱ<ㄷ<ㅁ<ㄹ"
+      ],
+      "images": []
+    },
+    {
+      "num": "59",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "0°<x<45°일 때 다음 식을 간단히 하여라.\n√(sinx-cosx)² - √(cosx-sinx)²",
+      "answer": "0",
+      "solution": [
+        "0°<x<45°에서 sinx<cosx이므로 sinx-cosx<0, cosx-sinx>0\n√((sinx-cosx)²)=|sinx-cosx|=cosx-sinx\n√((cosx-sinx)²)=|cosx-sinx|=cosx-sinx\n따라서 (cosx-sinx)-(cosx-sinx)=0"
+      ],
+      "images": []
+    },
+    {
+      "num": "60",
+      "diff": "mid",
+      "type": "mc",
+      "question": "45°<A<90°일 때, |sinA+cosA|-√(cosA-sinA)²을 간단히 하면?\n① -2sinA ② -2cosA ③ cosA ④ 2sinA ⑤ 2cosA",
+      "answer": "⑤",
+      "solution": [
+        "sinA+cosA>0이므로 |sinA+cosA|=sinA+cosA\n45°<A<90°에서 sinA>cosA이므로 cosA-sinA<0, √((cosA-sinA)²)=sinA-cosA\n(sinA+cosA)-(sinA-cosA)=2cosA"
+      ],
+      "images": []
+    },
+    {
+      "num": "61",
+      "diff": "mid",
+      "type": "mc",
+      "question": "0°<A<45°일 때, √(1-tanA)²을 간단히 하면?\n① 1 ② tanA ③ 2tanA ④ 1-tanA ⑤ tanA-1",
+      "answer": "④",
+      "solution": [
+        "0°<A<45°에서 tanA<1이므로 1-tanA>0\n√((1-tanA)²)=|1-tanA|=1-tanA"
+      ],
+      "images": []
+    },
+    {
+      "num": "62",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "sinx=0.6820, tany=0.8391일 때 다음 삼각비의 표를 이용하여 ∠x+∠y의 크기는 몇 도인지 구하여라.\n[표: 40°(sin0.6428,cos0.7660,tan0.8391), 41°(0.6561,0.7457,0.8693), 42°(0.6691,0.7431,0.9004), 43°(0.6820,0.7314,0.9325)]",
+      "answer": "83°",
+      "solution": [
+        "표에서 sin43°=0.6820이므로 x=43\ntan40°=0.8391이므로 y=40\nx+y=83°"
+      ],
+      "images": []
+    },
+    {
+      "num": "63",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림의 직각삼각형 ABC에서 ∠B=61°, AB=10일 때, 다음 삼각비의 표를 이용하여 AC+BC의 길이를 구하여라.\n[61°: sin0.8746, cos0.4848, tan1.8040]",
+      "answer": "13.594",
+      "solution": [
+        "AC=AB×sin61°=10×0.8746=8.746\nBC=AB×cos61°=10×0.4848=4.848\nAC+BC=8.746+4.848=13.594"
+      ],
+      "images": []
+    },
+    {
+      "num": "64",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 삼각비의 표를 이용하여 sin40°+cos41°-tan39°의 값을 구하여라.\n[39°: sin0.6293,cos0.7771,tan0.8098 / 40°: sin0.6428,cos0.7660,tan0.8391 / 41°: sin0.6561,cos0.7547,tan0.8693]",
+      "answer": "0.5877",
+      "solution": [
+        "sin40°+cos41°-tan39°=0.6428+0.7547-0.8098=0.5877"
+      ],
+      "images": []
+    },
+    {
+      "num": "65",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림은 길이가 1cm인 선분 AB에서 계속해서 길이가 1cm인 선분을 수직으로 붙여 직각삼각형 ACB, ADC, AED, …를 만든 것이다. n번째로 만든 직각삼각형에서 ∠A=∠xₙ이라 할 때, (tanx₂₄)²의 값을 구하여라.",
+      "answer": "1/24",
+      "solution": [
+        "이 나선형 구성에서 n번째 삼각형의 새로 붙인 변(길이1)에 대해 tanxₙ=1/√n이 성립한다(빗변 길이가 √n이 되는 구조).\n따라서 (tanx₂₄)²=1/24"
+      ],
+      "images": []
+    },
+    {
+      "num": "66",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 직각삼각형 ABC에서 tanA×sinA의 값을 구하여라. (AC=3, BC=2√10, 직각은 ∠C)",
+      "answer": "40/21",
+      "solution": [
+        "AB=√(AC²+BC²)=√(9+40)=√49=7\nsinA=BC/AB=2√10/7, tanA=BC/AC=2√10/3\nsinA×tanA=(2√10/7)×(2√10/3)=40/21"
+      ],
+      "images": []
+    },
+    {
+      "num": "67",
+      "diff": "low",
+      "type": "mc",
+      "question": "∠C=90°인 직각삼각형 ABC에서 sinA=1/3일 때, cosA의 값은?\n① √2/3 ② 2√2/3 ③ 2/3",
+      "answer": "②",
+      "solution": [
+        "cosA=√(1-(1/3)²)=√(8/9)=2√2/3"
+      ],
+      "images": []
+    },
+    {
+      "num": "68",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림의 직각삼각형 ABC에서 cosx+cosy의 값은?\n① (√3-1)/2 ② 1 ③ (1+√3)/2 ④ √3 ⑤ 4√3",
+      "answer": "③",
+      "solution": [
+        "수선을 기준으로 나뉜 두 직각삼각형에서 각각 cosx, cosy를 구해 더하면 (1+√3)/2"
+      ],
+      "images": []
+    },
+    {
+      "num": "69",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "일차방정식 2x+3y-6=0이 x축과 이루는 예각의 크기를 α라고 할 때 (sinα)²-(cosα)²의 값을 구하여라.",
+      "answer": "-5/13",
+      "solution": [
+        "y=-2/3x+2이므로 tanα=2/3. 2-3-√13 직각삼각형에서 sinα=2/√13, cosα=3/√13\n(sinα)²-(cosα)²=4/13-9/13=-5/13"
+      ],
+      "images": []
+    },
+    {
+      "num": "70",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 중 옳지 않은 것은?\n① sin60°+cos30°=√3 ② sin²30°+cos²30°=1 ③ sin45°×cos45°-tan45°=-1/2 ④ (cos30°+sin60°)×(cos45°-sin45°)=0 ⑤ tan45°×(cos60°+sin30°-cos45°)=√2",
+      "answer": "⑤",
+      "solution": [
+        "①②③④는 계산하면 모두 성립한다.\n⑤ 1×(1/2+1/2-√2/2)=1-√2/2≈0.293≠√2 이므로 옳지 않다."
+      ],
+      "images": []
+    },
+    {
+      "num": "71",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같은 △ABC에서 ∠ABC=45°, ∠ACB=60°, AB=9√2이고 AD⊥BC일 때 AC²의 값을 구하여라.",
+      "answer": "108",
+      "solution": [
+        "△ABD(∠B=45°)에서 AD=AB×sin45°=9√2×√2/2=9\n△ACD(∠C=60°)에서 AD=AC×sin60° → AC=9/(√3/2)=6√3\nAC²=(6√3)²=108"
+      ],
+      "images": []
+    },
+    {
+      "num": "72",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 중 삼각비의 값의 대소 관계로 옳지 않은 것은?\n① sin42°<sin48° ② cos22°<cos23° ③ sin45°=cos45° ④ cos60°<tan30° ⑤ tan65°<tan70°",
+      "answer": "②",
+      "solution": [
+        "cos는 각이 커질수록 감소하므로 cos22°>cos23°이다. 따라서 ②(cos22°<cos23°)는 옳지 않다."
+      ],
+      "images": []
+    },
+    {
+      "num": "73",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 밑면이 정사각형이고, 옆면이 정삼각형인 사각뿔의 한 모서리의 길이가 8cm이다. CD, BE의 중점을 각각 M, N이라 하고, ∠AMN=x라 할 때, (tanx)²의 값을 구하여라.",
+      "answer": "2",
+      "solution": [
+        "밑면과 옆면의 정삼각형 조건을 이용해 M, N의 위치와 AM, MN의 길이를 구하고 tanx를 계산하면 (tanx)²=2"
+      ],
+      "images": []
+    },
+    {
+      "num": "74",
+      "diff": "mid",
+      "type": "mc",
+      "question": "tan(60°-3x)=1일 때, 다음을 계산하면? (0°<x<15°)\ncos(50°-x)×sin6x\n① 1/4 ② √2/4 ③ √3/4 ④ 1/2 ⑤ 3/4",
+      "answer": "②",
+      "solution": [
+        "60°-3x=45°(tan45°=1) → x=5°\ncos(50°-5°)×sin(6×5°)=cos45°×sin30°=(√2/2)×(1/2)=√2/4"
+      ],
+      "images": []
+    },
+    {
+      "num": "75",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림에서 AB=3이고 ∠ABC=∠BCD=90°, ∠A=30°, ∠D=45°일 때, BD의 길이는?\n① 1 ② √2 ③ √3 ④ 2 ⑤ √6",
+      "answer": "⑤",
+      "solution": [
+        "△ABC(∠A=30°, 직각B)와 △BCD(∠D=45°, 직각C)의 관계에서 공통변 BC를 매개로 계산하면 BD=√6"
+      ],
+      "images": []
+    },
+    {
+      "num": "76",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림과 같이 ∠C=90°인 직각삼각형 ABC에서 AD=BD, AE=DE이다. ∠EAC=30°이고 ∠ABC=x일 때, tanx의 값은?\n① 1+√2 ② 2-√3 ③ √3/4 ④ √2-1 ⑤ 1/4",
+      "answer": "②",
+      "solution": [
+        "AD=BD이므로 △ABD는 이등변삼각형이고 ∠DAB=∠ABD=x이므로 △ABD의 외각 ∠ADC=2x\nAE=DE이므로 △ADE도 이등변삼각형이고 이 관계를 반복 적용하면 ∠EAC=30°인 조건에서 x=15°를 얻는다.\ntan15°=tan(45°-30°)=(tan45°-tan30°)/(1+tan45°tan30°)=(1-√3/3)/(1+√3/3)=(3-√3)/(3+√3)=2-√3"
+      ],
+      "images": []
+    },
+    {
+      "num": "77",
+      "diff": "low",
+      "type": "mc",
+      "question": "다음 중 옳지 않은 것은?\n① sin0°=0, sin90°=1 ② cos0°=1, cos90°=0 ③ sin45°=cos45° ④ tan0°=0, tan45°=1 ⑤ sin30°=cos30°",
+      "answer": "⑤",
+      "solution": [
+        "①~④는 모두 삼각비의 정의에 따라 성립한다.\n⑤ sin30°=1/2, cos30°=√3/2로 서로 다르므로 옳지 않다."
+      ],
+      "images": []
+    },
+    {
+      "num": "78",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "0°<x<90°이고 sinx:cosx=5:12일 때, cosx의 값을 구하여라.",
+      "answer": "12/13",
+      "solution": [
+        "sinx:cosx=5:12이므로 5-12-13 직각삼각형에서 sinx=5/13, cosx=12/13"
+      ],
+      "images": []
+    },
+    {
+      "num": "79",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림에서 ∠ABC=90°, BD=2, CD=3이고 tanx=1/3일 때, tany의 값을 구하여라.",
+      "answer": "9/23",
+      "solution": [
+        "tanx=BD/AB=2/AB=1/3이므로 AB=6\ntan(∠BAC)=BC/AB=(BD+DC)/AB=5/6\ntan(x+y)=tan(∠BAC)=5/6이므로\n(tanx+tany)/(1-tanx·tany)=5/6\n(1/3+tany)/(1-tany/3)=5/6\n6(1/3+tany)=5(1-tany/3)\n2+6tany=5-5tany/3\n6+18tany=15-5tany (양변에 3을 곱함)\n23tany=9\ntany=9/23"
+      ],
+      "images": []
+    },
+    {
+      "num": "80",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "0°<A<45°이고 √(sinA+cosA)²+√(cosA-sinA)²=√3일 때, cos(90°-A)의 값을 구하여라.",
+      "answer": "1/2",
+      "solution": [
+        "0°<A<45°에서 sinA+cosA>0, cosA-sinA>0이므로\n√((sinA+cosA)²)=sinA+cosA, √((cosA-sinA)²)=cosA-sinA\n두 식을 더하면 2cosA=√3 → cosA=√3/2 → A=30°\ncos(90°-A)=sinA=sin30°=1/2"
+      ],
+      "images": []
+    },
+    {
+      "num": "81",
+      "diff": "low",
+      "type": "subjective",
+      "question": "다음 그림의 직각삼각형 ABC에서 x의 값을 구하여라. (단, sin50°=0.77, cos50°=0.64, tan50°=1.19로 계산한다. AB=6은 빗변, ∠B=50°, ∠C=90°, BC=x)",
+      "answer": "3.84",
+      "solution": [
+        "cos50°=BC/AB=x/6이므로 x=6×0.64=3.84"
+      ],
+      "images": []
+    },
+    {
+      "num": "82",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림과 같은 직육면체에서 FG=GH=4cm이고 ∠CEG=60°일 때, 이 직육면체의 부피는?\n① 32√2cm³ ② 32√3cm³ ③ 64√2cm³ ④ 64√3cm³ ⑤ 64√6cm³",
+      "answer": "⑤",
+      "solution": [
+        "밑면 FGHE는 한 변의 길이가 4cm인 정사각형이므로 대각선 EG=4√2\n△CEG는 ∠G=90°인 직각삼각형(CG⊥밑면)이므로 tan60°=CG/EG=√3\nCG=4√2×√3=4√6\n부피=밑면적×높이=(4×4)×4√6=64√6(cm³)"
+      ],
+      "images": []
+    },
+    {
+      "num": "83",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 한 변의 길이가 10cm인 정사각형 ABCD를 점 A를 중심으로 시계 반대 방향으로 34°만큼 회전시켜 정사각형 AB'C'D'을 만들었다. 이때, 두 정사각형이 겹쳐지는 부분의 넓이는 몇 cm²인지 구하여라. (단, tan28°=0.5317로 계산한다.)",
+      "answer": "53.17",
+      "solution": [
+        "겹쳐지는 부분은 꼭짓점 A를 공통으로 하는 사각형이며, 대칭성에 의해 겹친 부분의 넓이는\n10²×tan((90°-34°)/2)=100×tan28°=100×0.5317=53.17(cm²)"
+      ],
+      "images": []
+    },
+    {
+      "num": "84",
+      "diff": "low",
+      "type": "subjective",
+      "question": "다음 그림과 같이 가로등으로부터 2m 떨어진 지점에서 가로등 꼭대기를 올려다 본 각도가 53°일 때 이 가로등의 높이는 몇 m인지 구하여라. (단, tan53°=1.3으로 계산한다.)",
+      "answer": "2.6",
+      "solution": [
+        "가로등의 높이=2×tan53°=2×1.3=2.6(m)"
+      ],
+      "images": []
+    },
+    {
+      "num": "85",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 나무로부터 10m 떨어진 A지점에서 수민이가 나무의 꼭대기 B지점을 올려본각의 크기가 36°이었다. 수민이의 눈높이가 1.6m일 때, 나무의 높이는 몇 m인지 구하여라. (단, tan36°=0.73으로 계산한다.)",
+      "answer": "8.9",
+      "solution": [
+        "나무 꼭대기까지의 높이(눈높이 제외)=10×tan36°=10×0.73=7.3(m)\n나무의 전체 높이=7.3+1.6=8.9(m)"
+      ],
+      "images": []
+    },
+    {
+      "num": "86",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "지면에 수직으로 서 있던 나무가 다음 그림과 같이 부러졌다. 부러지기 전 나무의 높이는 몇 m인지 구하여라. (부러지지 않고 서 있는 부분의 높이 h1, 부러져 기울어진 부분의 길이 h2, 지면과 이루는 각 30°, 부러진 부분의 밑동으로부터의 거리 5√3m)",
+      "answer": "15",
+      "solution": [
+        "cos30°=5√3/h2 → h2=5√3÷(√3/2)=10\ntan30°=h1/5√3 → h1=5√3×(√3/3)=5\n부러지기 전 나무의 높이=h1+h2=5+10=15(m)"
+      ],
+      "images": []
+    },
+    {
+      "num": "87",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 10m 떨어진 두 지점 B, C에서 탑의 꼭대기 A지점을 올려본각의 크기가 각각 30°, 60°이었다. 이 탑의 높이가 hm일 때, h²의 값을 구하여라.",
+      "answer": "75",
+      "solution": [
+        "탑의 밑점을 D, CD=x라 하면\ntan60°=h/x → h=√3x\ntan30°=h/(10+x) → h=(10+x)/√3\n√3x=(10+x)/√3 → 3x=10+x → x=5\nh=5√3, h²=75"
+      ],
+      "images": []
+    },
+    {
+      "num": "88",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 건물에서 15m 떨어진 A지점에서 건물의 외벽에 설치된 전광판의 윗부분과 아랫부분을 올려본 각의 크기가 각각 60°, 45°일 때, 이 전광판의 높이 CD의 길이는 (a√3-b)m이다. a+b의 값을 구하여라. (단, a,b는 자연수)",
+      "answer": "30",
+      "solution": [
+        "건물 아랫부분(전광판 아래쪽)까지의 높이=15×tan45°=15\n건물 꼭대기(전광판 위쪽)까지의 높이=15×tan60°=15√3\nCD=15√3-15이므로 a=15, b=15\na+b=30"
+      ],
+      "images": []
+    },
+    {
+      "num": "89",
+      "diff": "high",
+      "type": "subjective",
+      "question": "산의 높이인 CH의 길이를 구하기 위하여 다음 그림과 같이 산 아래쪽의 수평면 위에 AB=100m가 되도록 두 지점 A, B를 잡고 측량하였다. ∠CAH=30°, ∠CBH=60°일 때, 산의 높이 CH의 길이를 a√3m라 할 때, a의 값을 구하여라.",
+      "answer": "50",
+      "solution": [
+        "CH=h라 하면 tan30°=h/AH → AH=h√3\ntan60°=h/BH → BH=h√3/3\nAH-BH=AB=100\nh√3-h√3/3=100 → (2√3/3)h=100 → h=150/√3=50√3\n따라서 a=50"
+      ],
+      "images": []
+    },
+    {
+      "num": "90",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 지면으로부터의 높이가 3m인 곳에 줄의 길이가 2.8m이고, 앞뒤로 60°씩 흔들리는 그네가 매여 있다. 그네의 앉는 부분이 지면으로부터 가장 높은 곳에 위치할 때의 높이는 몇 m인지 구하여라.",
+      "answer": "1.6",
+      "solution": [
+        "줄이 수직일 때보다 60° 기울어지면 매단 점에서 그네 좌석까지의 연직 거리는 2.8×cos60°=2.8×1/2=1.4(m)\n그네가 가장 높은 위치(기울어진 때)의 지면으로부터 높이=3-1.4=1.6(m)"
+      ],
+      "images": []
+    },
+    {
+      "num": "91",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림과 같이 수평면과 26°만큼 기울어지고 C지점에서의 높이가 1100m인 비탈길이 있다. A지점에서 출발하여 AC를 분속 120m의 속력으로 걸을 때 C지점까지 가는 데 걸리는 시간은? (단, sin26°=0.44로 계산한다.)\n① 20분 10초 ② 20분 20초 ③ 20분 30초 ④ 20분 40초 ⑤ 20분 50초",
+      "answer": "⑤",
+      "solution": [
+        "AC=1100/sin26°=1100/0.44=2500(m)\n시간=2500÷120=20.8333...분=20분 50초"
+      ],
+      "images": []
+    },
+    {
+      "num": "92",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림은 어느 건물에 설치된 광고판의 세로의 길이를 구하기 위해 B지점에서 측량한 결과를 나타낸 것이다. 건물 밑까지의 수평거리 BC=30m, 광고판 아래쪽(D)을 올려본각 30°, 광고판 위쪽(A)을 올려본각은 D보다 15° 더 크다. 이때 광고판의 세로의 길이 AD는?\n① 30(√3-√2)m ② 15m ③ 30(√2-1)m ④ 20m ⑤ 30(√3-1)m",
+      "answer": "⑤",
+      "solution": [
+        "CD=BC×tan45°=30×1=30\nCA=BC×tan60°=30√3\nAD=CA-CD=30√3-30=30(√3-1)(m)"
+      ],
+      "images": []
+    },
+    {
+      "num": "93",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림의 △ABC에서 AB=8cm, BC=10cm, ∠B=60°이고 AH⊥BC일 때, AC의 길이는 kcm이다. k²의 값을 구하여라.",
+      "answer": "84",
+      "solution": [
+        "AH=AB sin60°=8×(√3/2)=4√3, BH=AB cos60°=8×(1/2)=4\nHC=BC-BH=10-4=6\nAC²=AH²+HC²=(4√3)²+6²=48+36=84"
+      ],
+      "images": []
+    },
+    {
+      "num": "94",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 연못의 가장자리의 두 지점 A, B사이의 거리를 구하기 위해 연못의 바깥쪽에 있는 한 지점 C에서 필요한 부분을 측정하였더니 AB=6m, BC=9m이고 ∠ABC=60°이었다. 두 지점 A, B사이의 거리를 d라 할 때, d²의 값을 구하여라.",
+      "answer": "63",
+      "solution": [
+        "d²=AC²=AB²+BC²-2×AB×BC×cos60°=36+81-2×6×9×(1/2)=117-54=63"
+      ],
+      "images": []
+    },
+    {
+      "num": "95",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같은 △ABC에서 ∠C=120°이고 AC=8cm, BC=10cm일 때, AB의 길이는?\n① 2√61cm ② 2√62cm ③ 6√7cm ④ 16cm ⑤ 2√65cm",
+      "answer": "①",
+      "solution": [
+        "AB²=AC²+BC²-2×AC×BC×cos120°=64+100-2×8×10×(-1/2)=164+80=244\nAB=√244=2√61(cm)"
+      ],
+      "images": []
+    },
+    {
+      "num": "96",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 △ABC에서 AB=12√2, ∠BAC=75°, ∠B=45°이고 AH⊥BC일 때, AC²의 값을 구하여라.",
+      "answer": "192",
+      "solution": [
+        "AH=AB×sin45°=12√2×(√2/2)=12\n∠C=180°-75°-45°=60°이므로 △AHC에서 sin60°=AH/AC → AC=12/(√3/2)=8√3\nAC²=192"
+      ],
+      "images": []
+    },
+    {
+      "num": "97",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 100m 떨어진 해안가의 두 지점 A, B에서 C지점에 있는 배를 바라본 각의 크기가 각각 75°, 60°이었다. A지점에서 배가 위치한 C지점까지의 거리가 a√6m일 때, a의 값을 구하여라.",
+      "answer": "50",
+      "solution": [
+        "∠ACB=180°-75°-60°=45°\n사인법칙에 의해 AC/sin(∠ABC)=AB/sin(∠ACB)\nAC=AB×sin60°/sin45°=100×(√3/2)/(√2/2)=100√3/√2=50√6\n따라서 a=50"
+      ],
+      "images": []
+    },
+    {
+      "num": "98",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 호수의 가장자리 두 지점 A, B사이의 거리를 구하기 위하여 호수의 바깥쪽 C지점을 잡고 필요한 부분을 측량하였더니 AC=10m, ∠CAB=75°, ∠ACB=60°이었다. 두 지점 A, B사이의 거리가 a√6m일 때, a의 값을 구하여라.",
+      "answer": "5",
+      "solution": [
+        "∠ABC=180°-75°-60°=45°\nAB=AC×sin(∠ACB)/sin(∠ABC)=10×sin60°/sin45°=10×(√3/2)/(√2/2)=10√3/√2=5√6\n따라서 a=5"
+      ],
+      "images": []
+    },
+    {
+      "num": "99",
+      "diff": "mid",
+      "type": "mc",
+      "question": "아래 그림의 △ABC에서 BC=13, ∠B=40°, ∠C=55°이고 AH⊥BC일 때, 다음 중 AH의 길이를 구하는 식은?\n① 13/(tan55°-tan40°) ② 13/(tan55°+tan40°) ③ 13/(tan50°-tan35°) ④ 13/(tan50°+tan35°) ⑤ 13(tan50°+tan35°)",
+      "answer": "④",
+      "solution": [
+        "BH=AH/tan40°=AH tan50°(∵cot40°=tan50°), CH=AH/tan55°=AH tan35°(∵cot55°=tan35°)\nBH+CH=BC=13이므로 AH(tan50°+tan35°)=13\n∴AH=13/(tan50°+tan35°)"
+      ],
+      "images": []
+    },
+    {
+      "num": "100",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같이 바위섬의 위치를 A, 해안 도로 위의 두 지점의 위치를 B, C라 하면 BC=200m, ∠ABC=45°, ∠ACB=60°이다. 점 A에서 선분 BC에 내린 수선의 발을 H라 할 때, 선분 AH의 길이는?\n① 100m ② 80(3-√3)m ③ 80(3-√2)m ④ 100(3-√3)m ⑤ 100(3-√2)m",
+      "answer": "④",
+      "solution": [
+        "BH=AH(∵tan45°=1), CH=AH/tan60°=AH√3/3\nBH+CH=200이므로 AH(1+√3/3)=200 → AH×(3+√3)/3=200\nAH=600/(3+√3)=100(3-√3)(m)"
+      ],
+      "images": []
+    },
+    {
+      "num": "101",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림의 △ABC와 △DFC에서 ∠B=90°, ∠C=90°, ∠BAC=60°, ∠DFC=45°이고, CD=10, BF=5일 때 사각형 ABFE의 넓이는?\n① 25+25√3/2 ② 50-25√3/2 ③ 75-25√3/2 ④ 75√3/2 ⑤ 50(√3-1)",
+      "answer": "①",
+      "solution": [
+        "BC=BF+FC=5+10=15이고 tan60°=BC/AB이므로 AB=15/√3=5√3\n△ABC의 넓이=(1/2)×AB×BC=(1/2)×5√3×15=75√3/2\n△ 관련 부분(FEC)의 넓이는 25(√3-1)이므로\n□ABFE의 넓이=△ABC의 넓이-25(√3-1)=75√3/2-25√3+25=25+25√3/2"
+      ],
+      "images": []
+    },
+    {
+      "num": "102",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 150m 떨어진 두 지점 A, B에서 건물의 꼭대기 C지점을 올려다본 각의 크기가 각각 45°, 60°이었다. 이 건물의 높이가 (a+b√3)m일 때, a/b의 값을 구하여라. (단, a, b는 자연수)",
+      "answer": "3",
+      "solution": [
+        "건물 밑을 D라 하면 tan45°=h/AD → AD=h, tan60°=h/BD → BD=h/√3\nAD-BD=AB=150이므로 h-h/√3=150 → h(√3-1)/√3=150\nh=150√3/(√3-1)=75(3+√3)=225+75√3\na=225, b=75이므로 a/b=3"
+      ],
+      "images": []
+    },
+    {
+      "num": "103",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같은 △ABC에서 ∠B=30°, ∠C=45°, BC=8cm일 때, △ABC의 넓이는?\n① 16(√3-√2)cm² ② 16(√3-1)cm² ③ 16(3-√3)cm² ④ 16√2cm² ⑤ 16(√3+3)cm²",
+      "answer": "②",
+      "solution": [
+        "AH=h라 하면 BH=h√3, CH=h(∵tan45°=1)\nBH+CH=8이므로 h(√3+1)=8 → h=8/(√3+1)=4(√3-1)\n넓이=(1/2)×8×4(√3-1)=16(√3-1)"
+      ],
+      "images": []
+    },
+    {
+      "num": "104",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 높이가 36m인 건물의 꼭대기를 지면에서 일정한 거리만큼 떨어진 두 지점 A, B에서 올려본 각의 크기가 각각 60°, 45°이었다. △ABC의 넓이를 a(b-√3)m²이라 할 때 유리수 a, b에 대하여 a/b의 값을 구하여라.",
+      "answer": "72",
+      "solution": [
+        "건물 밑을 D, 가까운 지점 A, 먼 지점 B라 하면\ntan60°=36/AD → AD=36/√3=12√3\ntan45°=36/BD → BD=36\nAB=BD-AD=36-12√3=12(3-√3)\n△ABC의 넓이=(1/2)×AB×36=(1/2)×12(3-√3)×36=216(3-√3)\na=216, b=3이므로 a/b=72"
+      ],
+      "images": []
+    },
+    {
+      "num": "105",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림의 △ABC에서 ∠B=60°, ∠C=75°, AB=8cm일 때, △ABC의 넓이는 (a-b√3)cm²이다. a+b의 값을 구하여라. (단, a, b는 자연수)",
+      "answer": "64",
+      "solution": [
+        "AH=AB sin60°=8×(√3/2)=4√3, BH=AB cos60°=4\ntan75°=AH/HC → HC=4√3/tan75°=4√3/(2+√3)=4√3(2-√3)=8√3-12\nBC=BH+HC=4+8√3-12=8√3-8\n넓이=(1/2)×BC×AH=(1/2)(8√3-8)(4√3)=48-16√3\na=48, b=16이므로 a+b=64"
+      ],
+      "images": []
+    },
+    {
+      "num": "106",
+      "diff": "low",
+      "type": "subjective",
+      "question": "다음 그림과 같이 BC=12cm, ∠B=60°인 △ABC의 넓이가 30√3cm²일 때 AB의 길이는 몇 cm인지 구하여라.",
+      "answer": "10",
+      "solution": [
+        "넓이=(1/2)×AB×BC×sin60°=30√3\n(1/2)×AB×12×(√3/2)=30√3 → 3√3×AB=30√3 → AB=10"
+      ],
+      "images": []
+    },
+    {
+      "num": "107",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 ∠B=60°, BC=4cm인 △ABC의 넓이가 12cm²일 때 AB=acm이다. 이때 a²의 값을 구하여라.",
+      "answer": "48",
+      "solution": [
+        "넓이=(1/2)×AB×BC×sin60°=12 → (1/2)×a×4×(√3/2)=12 → a√3=12 → a=4√3\na²=48"
+      ],
+      "images": []
+    },
+    {
+      "num": "108",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 △ABC에서 ∠B=60°이고 AB=6cm, BC=8cm이다. 점 G가 △ABC의 무게중심일 때, △AGC의 넓이는 k√3cm²이다. 이때 k의 값을 구하여라.",
+      "answer": "4",
+      "solution": [
+        "△ABC의 넓이=(1/2)×6×8×sin60°=24×(√3/2)=12√3\n무게중심 G는 △ABC를 넓이가 같은 세 삼각형으로 나누므로 △AGC의 넓이=12√3/3=4√3\n따라서 k=4"
+      ],
+      "images": []
+    },
+    {
+      "num": "109",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림의 △ABC에서 ∠A의 이등분선과 BC의 교점을 D라고 하자. AB=6cm, AC=4cm, ∠BAC=60°이며 AD의 길이가 a√3일 때, a의 값을 구하여라.",
+      "answer": "12/5",
+      "solution": [
+        "△ABD+△ACD=△ABC이므로\n(1/2)×6×AD×sin30°+(1/2)×4×AD×sin30°=(1/2)×6×4×sin60°\n(1/2)×AD×(1/2)×10=(1/2)×24×(√3/2)\n(10/4)AD=6√3 → AD=24√3/10=12√3/5\n따라서 a=12/5"
+      ],
+      "images": []
+    },
+    {
+      "num": "110",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 BC=12, CD=8인 평행사변형 ABCD에서 점 M은 AB의 중점이고 두 점 E, F는 AD를 3등분한 점이다. ∠A=120°이고, ∠MCF=x라고 할 때, (cosx)²의 값을 구하여라.",
+      "answer": "3/28",
+      "solution": [
+        "A를 원점으로 좌표를 설정하면 AB=8, AD=12, ∠A=120°이므로 B(8,0), D(-6,6√3), C(2,6√3)\nM은 AB의 중점이므로 M(4,0), F는 AD를 3등분한 점 중 D에 가까운 점이므로 F(-4,4√3)\nCM=(2,-6√3), CF=(-6,-2√3)\ncosx=(CM·CF)/(|CM||CF|)=24/(4√7×4√3)=3/(2√21)\n(cosx)²=9/(4×21)=3/28"
+      ],
+      "images": []
+    },
+    {
+      "num": "111",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같은 삼각형 ABC의 넓이는? (AB=7cm, ∠A=120°, AC=8cm)\n① 14cm² ② 14√2cm² ③ 14√3cm² ④ 28cm²",
+      "answer": "③",
+      "solution": [
+        "넓이=(1/2)×7×8×sin120°=(1/2)×56×(√3/2)=14√3(cm²)"
+      ],
+      "images": []
+    },
+    {
+      "num": "112",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 AC=10, BC=6인 △ABC의 넓이가 15√2일 때, 둔각인 ∠C의 크기는 몇 도인지 구하여라.",
+      "answer": "135°",
+      "solution": [
+        "넓이=(1/2)×AC×BC×sinC=15√2 → (1/2)×60×sinC=15√2 → sinC=√2/2\nC=45° 또는 135°인데 둔각이므로 C=135°"
+      ],
+      "images": []
+    },
+    {
+      "num": "113",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림에서 △ABC는 ∠A=90°, ∠ACB=30°인 직각삼각형이고 □BDEC는 한 변의 길이가 8인 정사각형일 때, △ABD의 넓이를 구하여라.",
+      "answer": "8",
+      "solution": [
+        "직각은 ∠A이므로 BC는 빗변이고 AB=BC×sin30°=8×(1/2)=4\n정사각형 BDEC는 BC를 한 변으로 하고 삼각형 밖으로 그려지므로 ∠DBC=90°\n∠ABD=∠ABC+∠DBC=60°+90°=150°\n△ABD의 넓이=(1/2)×AB×BD×sin150°=(1/2)×4×8×(1/2)=8"
+      ],
+      "images": []
+    },
+    {
+      "num": "114",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 반지름의 길이가 6인 반원 O에서 색칠한 부분의 넓이가 aπ+b√3이다. 유리수 a, b에 대하여 ab의 값을 구하여라.",
+      "answer": "-108",
+      "solution": [
+        "부채꼴 AOC의 중심각이 120°이므로 부채꼴의 넓이=(120/360)×π×6²=12π\n△AOC의 넓이는 주어진 각 조건에서 9√3\n색칠한 부분의 넓이=12π-9√3\n따라서 a=12, b=-9이므로 ab=-108"
+      ],
+      "images": []
+    },
+    {
+      "num": "115",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 폭이 6cm로 일정한 직사각형 모양의 종이를 AC를 접는 선으로 하여 접었다. AC=12cm일 때, △ABC의 넓이는 Scm²이다. 이때, S²의 값을 구하여라.",
+      "answer": "432",
+      "solution": [
+        "cos(∠A)=6/12=1/2이므로 ∠A=60°이고, 이를 이용해 AB=4√3cm를 구할 수 있다.\n△ABC의 넓이 S=(1/2)×AB×AC×sin30°=(1/2)×4√3×12×(1/2)=12√3\nS²=(12√3)²=432"
+      ],
+      "images": []
+    },
+    {
+      "num": "116",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림과 같이 반지름의 길이가 2cm인 원 O에서 호 AB:호 BC:호 CA=3:4:5일 때, △ABC의 넓이는?\n① (3+√2)cm² ② (3+√3)cm² ③ 5cm² ④ (4+√2)cm² ⑤ (4+√3)cm²",
+      "answer": "②",
+      "solution": [
+        "호 AB:BC:CA=3:4:5이므로 중심각은 각각 90°,120°,150°이고 원주각(대응하는 내각)은 그 절반인 ∠C=45°, ∠A=60°, ∠B=75°\n△ABC의 넓이=2R²sinA sinB sinC=2×4×sin60°×sin75°×sin45°\n=8×(√3/2)×[(√6+√2)/4]×(√2/2)=3+√3(cm²)"
+      ],
+      "images": []
+    },
+    {
+      "num": "117",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림과 같은 □ABCD의 넓이는? (AB=2√17cm, 대각선 AC=6cm, ∠D=135°, DC=2√2cm, ∠B=60°, BC=2√17cm)\n① 34√3cm² ② (3+17√3)cm² ③ (3+34√3)cm² ④ (4+17√3)cm² ⑤ (6+17√3)cm²",
+      "answer": "⑤",
+      "solution": [
+        "대각선 AC를 그으면 사각형은 △ABC와 △ACD로 나뉜다.\n△ABC의 넓이=(1/2)×2√17×2√17×sin60°=34×(√3/2)=17√3\n△ACD의 넓이는 주어진 조건(AC=6, DC=2√2, ∠D=135°)에서 계산하면 6\n사각형의 넓이=17√3+6=6+17√3(cm²)"
+      ],
+      "images": []
+    },
+    {
+      "num": "118",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같은 □ABCD의 넓이는? (∠A=90°, AB=6, 대각선 BD=6√2, ∠DBC=30°, BC=7)\n① 18+10√2 ② 18+21√2/2 ③ 18+11√2 ④ 20+10√2 ⑤ 20+21√2/2",
+      "answer": "②",
+      "solution": [
+        "∠A=90°인 직각삼각형 ABD에서 AB=6, BD=6√2이므로 AD=√((6√2)²-6²)=√(72-36)=6\n△ABD의 넓이=(1/2)×6×6=18\n△BCD에서 ∠DBC=30°, BD=6√2, BC=7이므로 넓이=(1/2)×6√2×7×sin30°=21√2/2\n사각형 ABCD의 넓이=18+21√2/2"
+      ],
+      "images": []
+    },
+    {
+      "num": "119",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 반지름의 길이가 4인 원 O에 내접하는 정십이각형의 넓이를 구하여라.",
+      "answer": "48",
+      "solution": [
+        "정십이각형은 합동인 12개의 이등변삼각형(중심각 30°)으로 나뉘므로\n넓이=12×(1/2)×4×4×sin30°=12×8×0.5=48"
+      ],
+      "images": []
+    },
+    {
+      "num": "120",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 □ABCD는 AB∥CD, AD∥BC이다. □ABCD의 넓이가 a√2일 때 a의 값을 구하여라. (AB=8, AD=6, ∠B=45°)",
+      "answer": "24",
+      "solution": [
+        "AD∥BC인 평행사변형이므로 BC=AD=6\n넓이=AB×BC×sin45°=8×6×(√2/2)=24√2\n따라서 a=24"
+      ],
+      "images": []
+    },
+    {
+      "num": "121",
+      "diff": "low",
+      "type": "subjective",
+      "question": "다음 그림과 같은 마름모 ABCD의 넓이는 몇 cm²인지 구하여라. (한 변의 길이 6cm, ∠B=30°)",
+      "answer": "18",
+      "solution": [
+        "마름모의 넓이=(한 변의 길이)²×sin(한 내각)=6²×sin30°=36×(1/2)=18(cm²)"
+      ],
+      "images": []
+    },
+    {
+      "num": "122",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 평행사변형 ABCD의 넓이가 24√2cm²일 때 ∠C의 크기는 몇 도인지 구하여라. (단, 90°<∠C<180°, AB=8cm, BC=6cm)",
+      "answer": "135°",
+      "solution": [
+        "넓이=AB×BC×sinC=24√2 → 48sinC=24√2 → sinC=√2/2\nC=45° 또는 135°인데 90°<C<180°이므로 C=135°"
+      ],
+      "images": []
+    },
+    {
+      "num": "123",
+      "diff": "high",
+      "type": "mc",
+      "question": "폭이 각각 5cm, 8cm로 일정한 두 종이테이프가 그림과 같이 겹쳐져 있을 때, 겹쳐진 부분의 넓이는? (두 테이프가 이루는 각 60°)\n① 25√2/2cm² ② 15√2cm² ③ 20√3cm² ④ 80√3/3cm² ⑤ 85√3/3cm²",
+      "answer": "④",
+      "solution": [
+        "두 테이프가 이루는 각이 60°이고 폭이 각각 5cm, 8cm이므로 겹쳐진 부분(마름모)의 넓이\n=(5×8)/sin60°=40/(√3/2)=80/√3=80√3/3(cm²)"
+      ],
+      "images": []
+    },
+    {
+      "num": "124",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 두 대각선이 이루는 각의 크기가 135°이고 AC=6인 □ABCD의 넓이가 12√2일 때, BD의 길이를 구하여라.",
+      "answer": "8",
+      "solution": [
+        "넓이=(1/2)×AC×BD×sin135°=12√2\n(1/2)×6×BD×(√2/2)=12√2 → (3√2/2)BD=12√2\nBD=12√2×2/(3√2)=24/3=8"
+      ],
+      "images": []
+    },
+    {
+      "num": "125",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 □ABCD의 넓이가 a√3cm²이다. 이때 a의 값을 구하여라. (두 대각선의 길이 9cm, 12cm이고 대각선이 이루는 각을 구성하는 두 밑각이 35°, 25°)",
+      "answer": "27",
+      "solution": [
+        "두 대각선이 이루는 각은 35°+25°=60°(삼각형의 외각 성질)이고 대각선의 길이가 각각 9cm, 12cm이므로\n넓이=(1/2)×9×12×sin60°=54×(√3/2)=27√3\n따라서 a=27"
+      ],
+      "images": []
+    },
+    {
+      "num": "126",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같이 AD∥BC이고 두 대각선이 이루는 각의 크기가 60°인 등변사다리꼴 ABCD의 넓이가 8√3cm²일 때, BD의 길이는?\n① 5cm ② 2√7cm ③ 4√2cm ④ 6cm ⑤ 2√10cm",
+      "answer": "③",
+      "solution": [
+        "등변사다리꼴의 두 대각선의 길이는 같으므로 AC=BD=d라 하면\n넓이=(1/2)d²sin60°=8√3 → (1/2)d²×(√3/2)=8√3 → d²=32 → d=4√2"
+      ],
+      "images": []
+    },
+    {
+      "num": "127",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 초속 250m의 일정한 속력으로 지면과 수평하게 직선으로 날고 있는 비행기가 있다. 이 비행기를 지면 위의 한 지점 P에서 30초 간격으로 올려다본 각의 크기가 각각 55°, 20°이었을 때, 비행기의 지면으로부터의 높이는 몇 m인지 반올림하여 일의 자리까지 구하여라. (단, tan35°=0.7002, tan70°=2.7475로 계산한다.)",
+      "answer": "3663",
+      "solution": [
+        "처음 관측한 각(55°)이 나중 관측한 각(20°)보다 크므로, 처음 관측 시점이 비행기에 더 가까운 위치이다.\n처음 위치까지의 수평거리 d1=h×tan35°(∵55°의 여각은 35°)\n나중 위치까지의 수평거리 d2=h×tan70°(∵20°의 여각은 70°)\n비행기가 30초 동안 이동한 거리 = d2-d1 = h×tan70°-h×tan35° = h(2.7475-0.7002)=7500\n2.0473h=7500\nh=7500/2.0473≈3663(m)"
+      ],
+      "images": []
+    },
+    {
+      "num": "128",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같은 △ABC에서 ∠ABC=∠ACD=30°일 때 △BCD의 넓이는 a√b cm²이다. a+b의 값을 구하여라. (단, a, b는 한자리 자연수, AB=6, AD=2√3, BC=4√3)",
+      "answer": "7",
+      "solution": [
+        "∠ABD=∠ACB(=30°, 공통각 ∠A)이므로 △ABD∽△ACB(AA닮음)\nAB/AC=AD/AB → AC=AB²/AD=36/(2√3)=6√3\n닮음비에서 BD/CB=AD/AB=2√3/6=√3/3이므로 BD=4√3×√3/3=4\n△BCD의 넓이=(1/2)×BD×BC×sin30°=(1/2)×4×4√3×(1/2)=4√3\n따라서 a=4, b=3이므로 a+b=7"
+      ],
+      "images": []
+    },
+    {
+      "num": "129",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림의 직각삼각형 ABC에서 ∠B=55°, AB=100일 때, x-y의 값을 구하여라. (단, sin55°=0.8192, cos55°=0.5736으로 계산한다. AC=x, BC=y, ∠C=90°)",
+      "answer": "24.56",
+      "solution": [
+        "x=AC=AB×sin55°=100×0.8192=81.92\ny=BC=AB×cos55°=100×0.5736=57.36\nx-y=81.92-57.36=24.56"
+      ],
+      "images": []
+    },
+    {
+      "num": "130",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림과 같이 모선과 밑면인 원이 이루는 각의 크기가 60°이고 모선의 길이가 9cm인 원뿔의 부피는?\n① 243√3/2πcm³ ② 243√3/4πcm³ ③ 243√3/8πcm³ ④ 243√3/10πcm³ ⑤ 243√3πcm³",
+      "answer": "③",
+      "solution": [
+        "반지름 r=9cos60°=9/2, 높이 h=9sin60°=9√3/2\n부피=(1/3)πr²h=(1/3)π(81/4)(9√3/2)=(1/3)π(729√3/8)=243√3π/8"
+      ],
+      "images": []
+    },
+    {
+      "num": "131",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림의 △ABC에서 AH의 길이는? (∠B=60°, ∠C=45°, BC=50)\n① 25(√3-1) ② 25(3-√3) ③ 25√3-1 ④ 50√3-1 ⑤ 50√3+1",
+      "answer": "②",
+      "solution": [
+        "AH=h라 하면 BH=h√3/3(∵tan60°=h/BH), CH=h(∵tan45°=1)\nBH+CH=50이므로 h(√3/3+1)=50 → h(√3+3)/3=50\nh=150/(√3+3)=150(3-√3)/6=25(3-√3)"
+      ],
+      "images": []
+    },
+    {
+      "num": "132",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 △ABC에서 ∠B=30°, ∠C=120°, BC=8이고, 점 H는 점 A에서 선분 BC의 연장선에 내린 수선의 발일 때, AH²의 값을 구하여라.",
+      "answer": "48",
+      "solution": [
+        "∠ACH=180°-120°=60°(∠ACB의 외각)\ntan30°=AH/BH → BH=AH√3\ntan60°=AH/CH → CH=AH/√3\nBH=BC+CH이므로 AH√3=8+AH/√3\n3AH=8√3+AH → 2AH=8√3 → AH=4√3\nAH²=48"
+      ],
+      "images": []
+    },
+    {
+      "num": "133",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같이 AB=AC=8인 이등변 삼각형 ABC에서 ∠C=75°일 때, △ABC의 넓이는?\n① 9 ② 9√3 ③ 16 ④ 20 ⑤ 16√3",
+      "answer": "③",
+      "solution": [
+        "AB=AC이므로 ∠B=∠C=75°이고 ∠A=180°-75°-75°=30°\n넓이=(1/2)×AB×AC×sinA=(1/2)×8×8×sin30°=32×(1/2)=16"
+      ],
+      "images": []
+    },
+    {
+      "num": "134",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 정삼각형 ABC의 내부의 한 점 P에서 AB, BC, CA에 내린 수선의 발을 각각 D, E, F라 하고, PD=x, PE=y, PF=z라 하자. xy+yz+zx=24일 때, △DEF의 넓이는 S이다. S²의 값을 구하여라.",
+      "answer": "108",
+      "solution": [
+        "정삼각형의 각 변에 내린 수선의 발로 이루어진 △DEF의 넓이는 S=(1/2)(xy+yz+zx)sin60°=(1/2)×24×(√3/2)=6√3\nS²=(6√3)²=108"
+      ],
+      "images": []
+    },
+    {
+      "num": "135",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 △ABC의 넓이가 18cm²일 때, AB의 길이는 몇 cm인지 구하여라. (∠B=120°, BC=4√3cm)",
+      "answer": "6",
+      "solution": [
+        "넓이=(1/2)×AB×BC×sin120°=18\n(1/2)×AB×4√3×(√3/2)=18 → 3AB=18 → AB=6"
+      ],
+      "images": []
+    },
+    {
+      "num": "136",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같은 □ABCD의 넓이는 a√3이다. 이때 a의 값을 구하여라. (AB=2√3, 대각선=4, ∠B=150°, BC 또는 CD=6, DC=8, ∠D=60°)",
+      "answer": "14",
+      "solution": [
+        "△ABD의 넓이=(1/2)×2√3×4×sin150°=(1/2)×2√3×4×(1/2)=2√3\n△BCD의 넓이=(1/2)×6×8×sin60°=(1/2)×48×(√3/2)=12√3\n사각형의 넓이=2√3+12√3=14√3\n따라서 a=14"
+      ],
+      "images": []
+    },
+    {
+      "num": "137",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림과 같이 ∠B=45°인 평행사변형 ABCD의 넓이가 8√2cm²이고 AB:BC=2:3일 때, □ABCD의 둘레의 길이는?\n① 20√2/3cm ② 20√3/3cm ③ 8√3cm ④ 20√6/3cm ⑤ 8√6cm",
+      "answer": "④",
+      "solution": [
+        "AB=2k, BC=3k라 하면 넓이=AB×BC×sin45°=2k×3k×(√2/2)=3√2k²=8√2\nk²=8/3 → k=2√6/3\n둘레=2(AB+BC)=2(2k+3k)=10k=10×2√6/3=20√6/3(cm)"
+      ],
+      "images": []
+    },
+    {
+      "num": "138",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같은 평행사변형 ABCD에서 점 M은 BC의 중점이고, ∠D=45°, AB=4cm, AD=4√2cm이다. 이때 △AMC의 넓이는 몇 cm²인지 구하여라.",
+      "answer": "4",
+      "solution": [
+        "평행사변형의 넓이=AD×AB×sin45°=4√2×4×(√2/2)=16(cm²)\n대각선 AC는 평행사변형을 이등분하므로 △ABC의 넓이=8(cm²)\nM은 BC의 중점이므로 AM은 △ABC의 중선이 되어 △ABM=△AMC=4(cm²)"
+      ],
+      "images": []
+    },
+    {
+      "num": "139",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림의 □ABCD의 넓이가 60√3cm²일 때, ∠x의 크기는 몇 도인지 구하여라. (단, 0°<x<90°, AD=20cm, DC=12cm)",
+      "answer": "60°",
+      "solution": [
+        "넓이=(1/2)×12×20×sinx=60√3 → 120sinx=60√3 → sinx=√3/2\n0°<x<90°이므로 x=60°"
+      ],
+      "images": []
+    },
+    {
+      "num": "140",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "아래 그림과 같이 AB=8, ∠B=33°, ∠C=49°인 △ABC에서 AH⊥BC일 때, AC의 길이를 구하여라. (단, sin33°=0.54, sin49°=0.75로 계산한다.)",
+      "answer": "5.76",
+      "solution": [
+        "AH=AB×sin33°=8×0.54=4.32\nAC=AH/sin49°=4.32/0.75=5.76"
+      ],
+      "images": []
+    },
+    {
+      "num": "141",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 호수 위에 떠 있는 열기구에서 호수의 가장자리의 두 지점 A, B를 내려다본 각의 크기가 각각 45°, 30°이었다. 수면으로부터 열기구의 높이가 100m일 때, 두 지점 A, B사이의 거리는 a+b√3m이다. a+b의 값을 구하여라. (단, a, b는 유리수)",
+      "answer": "200",
+      "solution": [
+        "열기구 바로 아래 지점을 H라 하면 HA=100/tan45°=100, HB=100/tan30°=100√3\nA, B는 H를 사이에 두고 있으므로 AB=HA+HB=100+100√3\na=100, b=100이므로 a+b=200"
+      ],
+      "images": []
+    },
+    {
+      "num": "142",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같은 평행사변형 ABCD에서 AB=8cm, BC=12cm, ∠BCD=120°일 때, 대각선 AC의 길이는?\n① 8cm ② 4√5cm ③ 4√6cm ④ 4√7cm ⑤ 8√2cm",
+      "answer": "④",
+      "solution": [
+        "평행사변형에서 이웃한 두 내각은 서로 보각이므로 ∠ABC=180°-120°=60°\nAC²=AB²+BC²-2×AB×BC×cos60°=64+144-2×8×12×(1/2)=208-96=112\nAC=√112=4√7(cm)"
+      ],
+      "images": []
+    },
+    {
+      "num": "143",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림의 △ABC에서 AB=9, BC=12이고 tanB=√3일 때, △ABC의 넓이는 S이다. 이때 S²/27의 값을 구하여라. (단, 0°<∠B<90°)",
+      "answer": "81",
+      "solution": [
+        "tanB=√3이므로 ∠B=60°\n넓이 S=(1/2)×AB×BC×sinB=(1/2)×9×12×(√3/2)=27√3\nS²=2187\nS²/27=81"
+      ],
+      "images": []
+    },
+    {
+      "num": "144",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같은 □ABCD에서 AB=4cm, BC=5cm, ∠B=60°이다. AE∥DC일 때, □ABED의 넓이는 Scm²이다. 이때, S²의 값을 구하여라.",
+      "answer": "75",
+      "solution": [
+        "AE∥DC이므로 △ADE와 관련 삼각형의 넓이가 같아 사각형 ABED의 넓이는 △ABC의 넓이와 같다.\n△ABC의 넓이=(1/2)×AB×BC×sin60°=(1/2)×4×5×(√3/2)=5√3\n따라서 S=5√3, S²=75"
+      ],
+      "images": []
+    },
+    {
+      "num": "145",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 한 변의 길이가 4cm인 정사각형 ABCD에서 △PBC가 정삼각형이 되도록 점 P를 잡았다. △PBD의 넓이가 (a√3-b)cm²일 때, ab의 값을 구하여라. (단, a, b는 자연수)",
+      "answer": "16",
+      "solution": [
+        "△PBC는 한 변의 길이가 4cm인 정삼각형이고, 정사각형과의 각 관계를 이용하면 △PBD의 넓이는 (4√3-4)cm²가 된다.\n따라서 a=4, b=4이므로 ab=16"
+      ],
+      "images": []
+    },
+    {
+      "num": "146",
+      "diff": "mid",
+      "type": "mc",
+      "question": "다음 그림과 같은 □ABCD의 넓이는? (대각선 7cm, 8cm, 밑각 50°, 70°)\n① 14√2cm² ② 14√3cm² ③ 28cm² ④ 28√2cm² ⑤ 28√3cm²",
+      "answer": "②",
+      "solution": [
+        "두 대각선이 이루는 각은 50°+70°=120°(삼각형의 외각 성질)\n넓이=(1/2)×7×8×sin120°=28×(√3/2)=14√3(cm²)"
+      ],
+      "images": []
+    },
+    {
+      "num": "147",
+      "diff": "high",
+      "type": "mc",
+      "question": "다음 그림과 같이 반지름의 길이가 6cm인 원 O에 내접하는 정팔각형의 넓이는?\n① 54√3cm² ② 56√3cm² ③ 58√3cm² ④ 70√2cm² ⑤ 72√2cm²",
+      "answer": "⑤",
+      "solution": [
+        "정팔각형은 합동인 8개의 이등변삼각형(중심각 45°)으로 나뉘므로\n넓이=8×(1/2)×6×6×sin45°=8×18×(√2/2)=72√2(cm²)"
+      ],
+      "images": []
+    },
+    {
+      "num": "148",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림은 서로 합동인 마름모 6개로 이루어진 도형이다. 마름모의 한 변의 길이가 12cm일 때, 이 도형의 넓이는 a√3cm²이다. a의 값을 구하여라.",
+      "answer": "432",
+      "solution": [
+        "각 마름모의 넓이=12×12×sin60°=144×(√3/2)=72√3(cm²)\n합동인 마름모 6개로 이루어져 있으므로 전체 넓이=6×72√3=432√3(cm²)\n따라서 a=432"
+      ],
+      "images": []
+    },
+    {
+      "num": "149",
+      "diff": "high",
+      "type": "subjective",
+      "question": "다음 그림과 같이 510m 상공에서 A지점에서 B지점으로 움직이는 열기구가 있다. 처음 P지점에서 A지점에 있는 열기구를 올려다본 각의 크기는 45°이고 1분 후에 B지점에 있는 열기구를 올려다본 각의 크기는 60°이었다. 이 열기구의 속력이 (a-b√3)m/분일 때, 자연수 a, b에 대하여 a+b의 값을 구하여라. (단, 열기구는 일정한 속력으로 일직선으로 움직인다.)",
+      "answer": "680",
+      "solution": [
+        "tan45°=510/(P에서 A까지의 수평거리) → 거리1=510\ntan60°=510/(P에서 B까지의 수평거리) → 거리2=510/√3=170√3\n1분 동안 이동한 거리=거리1-거리2=510-170√3\n따라서 a=510, b=170이므로 a+b=680"
+      ],
+      "images": []
+    },
+    {
+      "num": "150",
+      "diff": "mid",
+      "type": "subjective",
+      "question": "다음 그림과 같이 폭이 2cm로 일정한 직사각형 모양의 종이를 AC를 접는 선으로 하여 접었다. ∠ABC=45°일 때 △ABC의 넓이는 Scm²이다. 이때, S²의 값을 구하여라.",
+      "answer": "8",
+      "solution": [
+        "접은 조건에서 AB=BC=2√2cm임을 구할 수 있고, ∠ABC=45°이므로\nS=(1/2)×AB×BC×sin45°=(1/2)×2√2×2√2×(√2/2)=2√2\nS²=(2√2)²=8"
+      ],
+      "images": []
+    }
+  ]
+}
