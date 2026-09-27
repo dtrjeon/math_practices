@@ -648,13 +648,12 @@
     {
       "id": "m0_26_s2_tb_hongcheon_trig150_p001-150",
       "file": "m0_26_s2_tb_hongcheon_trig150_p001-150.json",
-      "category": "tb",
+      "category": "me",
       "title": "삼각비 [150문항]",
       "unit": "ⅳ.기하 - 1. 삼각비 (150문항)",
       "count": 150,
       "group": "ⅳ.기하 - 1. 삼각비",
-      "grade": "m0",
-      "source": "hongcheon"
+      "grade": "m0"
     },
     {
       "id": "m0_26_s2_tb_hongcheon_42won_p177-193",
