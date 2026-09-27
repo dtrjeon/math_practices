@@ -27,6 +27,10 @@
      palm rejection 적용 — S펜(pointerType='pen')으로만 선이 그어지고, 필기 중 손등이 화면에
      닿아도 그려지지 않음. 마우스는 PC 테스트를 위해 계속 허용. -->
 <!-- v2.9 (2026-08-21): 앱 전체 로그인 게이트 적용 — mathapp_session이 없으면 즉시 login.html로 리다이렉트(원래 보던 페이지는 ?redirect=로 넘겨 로그인 후 자동 복귀). 홈 버튼 옆에 로그인한 학생 이름/로그아웃 표시 추가. -->
+<!-- v2.11 (2026-09-27): "N번부터 풀기" 추가 — 상단 바의 시작 번호 선택(또는 URL ?start=문제번호)으로
+     중간 문제부터 시작 가능. 시작 전 문제는 흐리게 표시되고, 채점 결과·기록 저장은 선택한 번호~마지막 문제
+     범위만 기준으로 계산(예: 15번부터 → 15~33번 중 몇 개 정답). 함께 수정: 오답 다시 풀기 페이지 이동이
+     문제 번호/5로 계산돼서 108번처럼 1번부터 시작하지 않는 문제지(쎈수학 등)에서 엉뚱한 페이지로 가던 버그 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -91,6 +95,13 @@
   .quiz-btn.start{ background:var(--accent); color:#fff; }
   .quiz-btn.stop{ background:var(--wrong); color:#fff; }
   .quiz-btn:disabled{ background:#d9d3c4; color:#8a8474; cursor:not-allowed; }
+  .start-select{
+    font-family:inherit; font-size:13.5px; font-weight:800;
+    border:1.5px solid var(--rule); border-radius:999px;
+    padding:8px 10px; background:#fff; color:var(--ink);
+  }
+  .start-select:disabled{ background:#efece2; color:var(--num); }
+  .pcard.before-start{ opacity:0.35; }
   .quiz-btn.scroll-mode{ background:#efece2; color:#20242b; border:1.5px solid #d9d3c4; }
   .quiz-btn.scroll-mode.active{ background:#b23a2e; color:#fff; border-color:#b23a2e; }
   .quiz-bar{ position:relative; }
@@ -666,6 +677,7 @@
 
 
 <div class="quiz-bar" id="quizBar">
+  <select class="start-select" id="startNumSelect" onchange="onStartNumChange()" title="몇 번부터 풀지 선택"></select>
   <button class="quiz-btn start" id="startBtn" onclick="startQuiz()">▶ 시작</button>
   <button class="quiz-btn stop" id="endBtn" onclick="endQuiz()" disabled>■ 종료</button>
   <div class="quiz-timer" id="quizTimer">00:00</div>
@@ -751,6 +763,38 @@
   const TEST_MODE_UNLOCK_SOLUTIONS = true;
   let solutionsUnlocked = TEST_MODE_UNLOCK_SOLUTIONS;
   let currentProblemsData = [];
+  let quizStartIdx = 0; // 몇 번째 문제(0부터)부터 푸는지 — 시작 번호 선택/URL ?start= 로 정해짐
+
+  // 문제 번호 → 그 문제가 있는 페이지 (문제지가 108번처럼 1번이 아닌 번호로 시작해도 정확하게)
+  function pageOfNum(num){
+    const idx = currentProblemsData.findIndex(p => String(p.num) === String(num));
+    return idx < 0 ? 1 : Math.floor(idx / PAGE_SIZE) + 1;
+  }
+  function rangeNums(){
+    return currentProblemsData.slice(quizStartIdx).map(p => String(p.num));
+  }
+  function applyStartHighlight(){
+    const startNums = new Set(rangeNums());
+    document.querySelectorAll('#pagesContainer .pcard').forEach(card => {
+      card.classList.toggle('before-start', !startNums.has(card.dataset.num));
+    });
+  }
+  function populateStartSelect(initialIdx){
+    const sel = document.getElementById('startNumSelect');
+    if(!sel) return;
+    sel.innerHTML = currentProblemsData.map((p, i) =>
+      `<option value="${i}">${i === 0 ? '처음부터' : p.num + '번부터'}</option>`).join('');
+    sel.value = String(initialIdx);
+    quizStartIdx = initialIdx;
+    applyStartHighlight();
+  }
+  function onStartNumChange(){
+    const sel = document.getElementById('startNumSelect');
+    quizStartIdx = parseInt(sel.value, 10) || 0;
+    applyStartHighlight();
+    const p = currentProblemsData[quizStartIdx];
+    if(p) goToPage(pageOfNum(p.num));
+  }
 
   function toggleScrollMode(){
     scrollModeOn = !scrollModeOn;
@@ -1203,7 +1247,8 @@
     quizState.answers = {};
     quizState.wrongReasons = {};
     solutionsUnlocked = TEST_MODE_UNLOCK_SOLUTIONS;
-    goToPage(1);
+    const startProb = currentProblemsData[quizStartIdx];
+    goToPage(startProb ? pageOfNum(startProb.num) : 1);
   }
 
   function startQuiz(){
@@ -1211,6 +1256,7 @@
     quizState.running = true;
     quizState.startTime = Date.now();
     document.getElementById('startBtn').disabled = true;
+    document.getElementById('startNumSelect').disabled = true;
     document.getElementById('endBtn').disabled = false;
     document.getElementById('quizTimer').textContent = '00:00';
     const statusEl = document.getElementById('saveStatus');
@@ -1228,6 +1274,7 @@
     quizState.running = false;
     clearInterval(quizState.timerInt);
     document.getElementById('startBtn').disabled = false;
+    document.getElementById('startNumSelect').disabled = false;
     document.getElementById('endBtn').disabled = true;
     solutionsUnlocked = true;
     revealAllChoiceFeedback();
@@ -1240,7 +1287,10 @@
     const elapsed = Math.floor((Date.now()-quizState.startTime)/1000);
     document.getElementById('resultTime').textContent = '풀이 시간 ' + formatTime(elapsed);
 
-    const answeredNums = Object.keys(quizState.answers);
+    // 시작 번호 이전 문제는 채점에서 제외 (선택한 번호 ~ 마지막 문제만 계산)
+    const inRange = new Set(rangeNums());
+    const rangeTotal = inRange.size;
+    const answeredNums = Object.keys(quizState.answers).filter(n => inRange.has(String(n)));
     let correctCount = 0;
     let wrongNums = [];
     answeredNums.forEach(n => {
@@ -1248,9 +1298,15 @@
       else wrongNums.push(parseInt(n,10));
     });
     wrongNums.sort((a,b)=>a-b);
-    const unanswered = TOTAL_PROBLEMS - answeredNums.length;
+    const unanswered = rangeTotal - answeredNums.length;
 
-    let html = `<p><b>${correctCount} / ${TOTAL_PROBLEMS}</b> 문제 정답`;
+    let html = '';
+    if(quizStartIdx > 0){
+      const firstN = currentProblemsData[quizStartIdx].num;
+      const lastN = currentProblemsData[currentProblemsData.length-1].num;
+      html += `<p style="font-size:13px;color:#6b6558;margin-bottom:4px;">${firstN}~${lastN}번 범위 채점</p>`;
+    }
+    html += `<p><b>${correctCount} / ${rangeTotal}</b> 문제 정답`;
     if(wrongNums.length>0) html += `, <b style="color:#b23a2e;">${wrongNums.length}개 오답</b>`;
     if(unanswered>0) html += `, ${unanswered}개 미응답`;
     html += `</p>`;
@@ -1271,7 +1327,7 @@
     document.getElementById('resultSummary').innerHTML = html;
     document.getElementById('resultModal').style.display = 'flex';
 
-    saveResultsToSheet(correctCount, wrongNums, unanswered, elapsed);
+    saveResultsToSheet(correctCount, wrongNums, unanswered, elapsed, rangeTotal);
     // v2.5: 문제별 정답/오답은 이제 pick()/checkAnswer()에서 채점하는 즉시
     // logSingleAttempt()로 바로바로 서버에 저장되므로, 여기서 한꺼번에 또
     // 보내면 같은 문제가 중복으로 로그된다. 그래서 quiz 종료 시점의 일괄
@@ -1288,7 +1344,7 @@
     return true;
   }
 
-  function saveResultsToSheet(correctCount, wrongNums, unanswered, elapsedSec){
+  function saveResultsToSheet(correctCount, wrongNums, unanswered, elapsedSec, rangeTotal){
     const statusEl = document.getElementById('saveStatus');
     if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0){
       if(statusEl) statusEl.textContent = '⚠️ 저장 서버가 아직 연결되지 않았어요';
@@ -1313,7 +1369,8 @@
       worksheetId: WORKSHEET_ID,
       timeTaken: formatTime(elapsedSec),
       correctCount: correctCount,
-      total: TOTAL_PROBLEMS,
+      total: rangeTotal || TOTAL_PROBLEMS,
+      startNum: quizStartIdx > 0 ? currentProblemsData[quizStartIdx].num : '',
       wrongNums: wrongNums,
       images: images
     };
@@ -1395,7 +1452,7 @@
     });
     // 선택한 문제가 포함된 첫 페이지로 이동, 나머지 페이지도 그대로 둠(스크롤로 접근 가능)
     const firstNum = parseInt(checked.sort((a,b)=>a-b)[0], 10);
-    const targetPage = Math.ceil(firstNum/PAGE_SIZE);
+    const targetPage = pageOfNum(firstNum);
     goToPage(targetPage);
     quizState.answers = {};
     quizState.wrongReasons = {};
@@ -2589,6 +2646,14 @@
       TOTAL_PROBLEMS = data.problems.length;
       WORKSHEET_ID = (data.id || setId || 'custom') + '-student';
 
+      // URL ?start=문제번호 가 있으면 그 문제부터 (예: player.html?set=...&start=15)
+      const startParam = new URLSearchParams(window.location.search).get('start');
+      let initialStartIdx = 0;
+      if(startParam){
+        const found = data.problems.findIndex(p => String(p.num) === String(parseInt(startParam,10)) || String(p.num) === startParam);
+        if(found > 0) initialStartIdx = found;
+      }
+
       const pages = buildPagesFromProblems(data.problems);
       renderAllPages(pages);
 
@@ -2599,6 +2664,9 @@
         ]
       });
       document.querySelectorAll('.write-canvas').forEach(setupCanvas);
+
+      populateStartSelect(initialStartIdx);
+      if(initialStartIdx > 0) goToPage(pageOfNum(data.problems[initialStartIdx].num));
     } catch(renderErr){
       // v1.2: 이 단계에서 나는 에러는 예전엔 그냥 화면이 빈 채로 멈췄다(페이지 번호도
       // 문제 카드도 안 뜸). 원인을 바로 알 수 있도록 화면에 에러를 노출한다.
