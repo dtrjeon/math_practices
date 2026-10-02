@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!-- v1.0 (2026-10-02): 오늘의 과제 — data/study-plan.json의 날짜별 계획을 보여주고, 문제지(player.html?set=&start=)로 바로 연결.
+     완료 체크는 이 기기(localStorage)에만 저장되는 수동 체크이며, 실제 풀이 기록(GAS)과는 연동하지 않음. -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오늘의 과제</title>
+<script>
+  (function(){
+    var s=null;
+    try{ s=JSON.parse(localStorage.getItem('mathapp_session')||'null'); }catch(e){}
+    if(!s || !s.studentId){
+      window.location.replace('worksheets/login.html?redirect='+encodeURIComponent(window.location.href));
+    }
+  })();
+</script>
+<style>
+  :root{
+    --paper:#f6f4ee; --ink:#20242b; --rule:#d9d3c4; --accent:#1f6f5c; --accent-soft:#e3efe9;
+    --num:#8a8474; --sheet:#fffdf8; --warn:#b4531a; --warn-soft:#fbeadc;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Noto Sans KR',-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:980px;margin:0 auto;padding:20px 24px 80px;}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;}
+  .top a.home{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px;border-radius:22px;
+    background:var(--sheet);border:1px solid var(--rule);color:var(--ink);text-decoration:none;font-weight:700;font-size:15px;}
+  .top .who{font-size:14px;color:var(--num);}
+  .hero{background:var(--ink);color:#fff;border-radius:20px;padding:22px 26px;display:flex;align-items:center;
+    justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .hero h1{margin:0 0 4px;font-size:22px;}
+  .hero p{margin:0;font-size:14px;color:#cfd3d9;}
+  .dday{font-size:44px;font-weight:800;line-height:1;letter-spacing:-1px;}
+  .dday small{font-size:15px;font-weight:600;margin-left:6px;color:#cfd3d9;}
+  .bar{margin-top:14px;height:10px;border-radius:5px;background:rgba(255,255,255,.18);overflow:hidden;width:100%;}
+  .bar > i{display:block;height:100%;background:#6fd0b3;width:0;transition:width .3s;}
+  .barlabel{font-size:13px;color:#cfd3d9;margin-top:6px;}
+  .strip{display:flex;gap:8px;overflow-x:auto;padding:16px 2px 6px;scrollbar-width:thin;}
+  .day{flex:0 0 auto;min-width:64px;min-height:68px;border-radius:14px;background:var(--sheet);border:1.5px solid var(--rule);
+    padding:8px 6px;text-align:center;cursor:pointer;font:inherit;color:var(--ink);}
+  .day .d{font-size:18px;font-weight:800;display:block;}
+  .day .w{font-size:12px;color:var(--num);display:block;}
+  .day .s{font-size:12px;display:block;margin-top:2px;height:14px;}
+  .day.sel{border-color:var(--ink);background:var(--ink);color:#fff;}
+  .day.sel .w{color:#cfd3d9;}
+  .day.today:not(.sel){border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft);}
+  .day.done .s{color:var(--accent);} .day.sel.done .s{color:#6fd0b3;}
+  .banner{margin:14px 0 0;padding:12px 16px;border-radius:12px;background:var(--warn-soft);color:var(--warn);font-weight:700;font-size:15px;}
+  h2.date{margin:22px 0 4px;font-size:24px;}
+  .sub{margin:0 0 14px;color:var(--num);font-size:15px;}
+  .task{display:flex;align-items:center;gap:16px;background:var(--sheet);border:1.5px solid var(--rule);border-radius:18px;
+    padding:18px 20px;margin-bottom:12px;}
+  .task.done{opacity:.6;} .task.done .tt{text-decoration:line-through;}
+  .chk{flex:0 0 auto;width:44px;height:44px;border-radius:12px;border:2px solid var(--ink);background:#fff;font-size:24px;line-height:1;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-family:inherit;padding:0;}
+  .task.done .chk{background:var(--accent);border-color:var(--accent);}
+  .body{flex:1 1 auto;min-width:0;}
+  .tt{font-size:19px;font-weight:800;margin:0 0 4px;}
+  .opt{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:10px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:700;vertical-align:middle;}
+  .td{font-size:15px;color:var(--num);}
+  .td b{color:var(--ink);}
+  a.go{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:24px;
+    background:var(--accent);color:#fff;font-weight:800;font-size:16px;text-decoration:none;}
+  a.go.alt{background:var(--sheet);color:var(--ink);border:1.5px solid var(--ink);}
+  .howto{margin-top:26px;background:var(--sheet);border:1px solid var(--rule);border-radius:16px;padding:18px 22px;}
+  .howto h3{margin:0 0 8px;font-size:16px;}
+  .howto ol{margin:0;padding-left:22px;font-size:15px;line-height:1.8;}
+  .howto p{margin:10px 0 0;font-size:14px;color:var(--num);}
+  .empty{padding:40px 10px;text-align:center;color:var(--num);}
+  .unitbox{margin-top:22px;background:var(--warn-soft);border-radius:16px;padding:16px 20px;}
+  .unitbox h3{margin:0 0 4px;font-size:16px;color:var(--warn);}
+  .unitbox p{margin:0 0 10px;font-size:13px;color:var(--num);}
+  .unitbox .set{font-size:13px;font-weight:700;margin:10px 0 6px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  a.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:20px;background:#fff;border:1px solid #e3c4a8;
+    text-decoration:none;color:var(--ink);font-size:14px;font-weight:700;}
+  a.chip.ok{color:var(--accent);} a.chip.no{color:#b23a2e;}
+  @media (max-width:640px){
+    .wrap{padding:14px 14px 70px;} .task{flex-wrap:wrap;} a.go{width:100%;} .dday{font-size:36px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="home" href="index_mathc1.html">← 홈</a>
+    <span class="who" id="who"></span>
+  </div>
+
+  <div class="hero">
+    <div>
+      <h1 id="heroTitle">오늘의 과제</h1>
+      <p id="heroNote"></p>
+    </div>
+    <div class="dday" id="dday"></div>
+    <div style="width:100%">
+      <div class="bar"><i id="barFill"></i></div>
+      <div class="barlabel" id="barLabel"></div>
+    </div>
+  </div>
+
+  <div class="strip" id="strip" aria-label="날짜 선택"></div>
+  <div id="banner"></div>
+  <h2 class="date" id="dateTitle"></h2>
+  <p class="sub" id="dateSub"></p>
+  <div id="tasks"></div>
+  <div id="unitbox"></div>
+
+  <div class="howto">
+    <h3>이렇게 공부해요</h3>
+    <ol>
+      <li>오늘 분량을 풀어요 (시작하기를 누르면 그 번호부터 열려요)</li>
+      <li>채점하고, 틀린 문제는 오답노트에 표시해요</li>
+      <li>틀린 문제는 이틀 뒤 다시 풀어요 (재풀이 날에 몰아서 해도 돼요)</li>
+      <li>풀이 방법을 부모님께 한 문제만 말로 설명해 봐요</li>
+    </ol>
+    <p>못 푼 분량은 다음 날에 더하지 말고 '여유일'에 채워요.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var WD=['일','월','화','수','목','금','토'];
+  var session={}; try{ session=JSON.parse(localStorage.getItem('mathapp_session')||'{}')||{}; }catch(e){}
+  var DONE_KEY='today_done_'+(session.studentId||'anon');
+  var done={}; try{ done=JSON.parse(localStorage.getItem(DONE_KEY)||'{}')||{}; }catch(e){}
+  function saveDone(){ try{ localStorage.setItem(DONE_KEY,JSON.stringify(done)); }catch(e){} }
+
+  function pad(n){ return (n<10?'0':'')+n; }
+  function ymd(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function parse(s){ var p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2]); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  var q=new URLSearchParams(location.search);
+  var todayStr=q.get('date') || ymd(new Date());
+  var plan=null, selected=null;
+
+  document.getElementById('who').textContent=(session.name?session.name+'님':'');
+
+  fetch('data/study-plan.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(p){ plan=p; init(); })
+    .catch(function(){ document.getElementById('tasks').innerHTML='<div class="empty">계획 파일(data/study-plan.json)을 불러오지 못했어요.</div>'; });
+
+  function taskId(day,i){ return day.date+'#'+i; }
+  function dayStatus(day){
+    var req=0,ok=0;
+    day.tasks.forEach(function(t,i){ if(t.optional) return; req++; if(done[taskId(day,i)]) ok++; });
+    return {req:req,ok:ok,all:req>0 && ok===req};
+  }
+
+  function init(){
+    document.getElementById('heroTitle').textContent=plan.title||'오늘의 과제';
+    document.getElementById('heroNote').textContent=plan.note||'';
+    var first=plan.days[0].date, last=plan.days[plan.days.length-1].date;
+    selected = plan.days.some(function(d){return d.date===todayStr;}) ? todayStr : (todayStr<first ? first : last);
+    render();
+  }
+
+  function render(){
+    // D-day
+    var diff=Math.round((parse(plan.examDate)-parse(todayStr))/86400000);
+    var dd=document.getElementById('dday');
+    dd.innerHTML = diff>0 ? 'D-'+diff+'<small>기말고사까지</small>' : diff===0 ? 'D-DAY<small>오늘 시험!</small>' : '시험 끝<small>수고했어요</small>';
+
+    // progress (required tasks only)
+    var req=0,ok=0;
+    plan.days.forEach(function(d){ var s=dayStatus(d); req+=s.req; ok+=s.ok; });
+    document.getElementById('barFill').style.width=(req?Math.round(ok/req*100):0)+'%';
+    document.getElementById('barLabel').textContent='전체 과제 '+ok+' / '+req+' 완료';
+
+    // day strip
+    var strip=document.getElementById('strip'); strip.innerHTML='';
+    plan.days.forEach(function(d){
+      var dt=parse(d.date), st=dayStatus(d);
+      var b=document.createElement('button'); b.type='button';
+      b.className='day'+(d.date===selected?' sel':'')+(d.date===todayStr?' today':'')+(st.all?' done':'');
+      b.innerHTML='<span class="w">'+WD[dt.getDay()]+'</span><span class="d">'+(dt.getMonth()+1)+'/'+dt.getDate()+'</span><span class="s">'+(st.all?'✓':(st.ok>0?st.ok+'/'+st.req:''))+'</span>';
+      b.onclick=function(){ selected=d.date; render(); };
+      strip.appendChild(b);
+    });
+    var selBtn=strip.querySelector('.sel'); if(selBtn && selBtn.scrollIntoView){ try{ selBtn.scrollIntoView({inline:'center',block:'nearest'}); }catch(e){} }
+
+    var day=plan.days.filter(function(d){return d.date===selected;})[0];
+    var dt=parse(day.date);
+    var banner='';
+    if(todayStr<plan.days[0].date) banner='아직 시작 전이에요. '+(parse(plan.days[0].date).getMonth()+1)+'월 '+parse(plan.days[0].date).getDate()+'일부터 시작해요.';
+    else if(todayStr>plan.days[plan.days.length-1].date) banner='계획 기간이 끝났어요.';
+    else if(selected!==todayStr) banner=(selected<todayStr?'지난 날':'앞으로 할 날')+'의 과제를 보고 있어요. 오늘로 돌아가려면 위에서 오늘 날짜를 눌러요.';
+    document.getElementById('banner').innerHTML=banner?'<div class="banner">'+esc(banner)+'</div>':'';
+
+    document.getElementById('dateTitle').textContent=(dt.getMonth()+1)+'월 '+dt.getDate()+'일 ('+WD[dt.getDay()]+') '+(day.date===todayStr?'· 오늘':'');
+    document.getElementById('dateSub').textContent=day.title;
+
+    var wrap=document.getElementById('tasks'); wrap.innerHTML='';
+    day.tasks.forEach(function(t,i){
+      var id=taskId(day,i), isDone=!!done[id];
+      var el=document.createElement('div'); el.className='task'+(isDone?' done':'');
+      var detail='', btn='';
+      if(t.type==='solve'){
+        var n=t.to-t.from+1;
+        detail='쎈수학 <b>'+pad4(t.from)+' ~ '+pad4(t.to)+'번</b> · '+n+'문항';
+        btn='<a class="go" href="worksheets/player.html?set='+encodeURIComponent(t.set)+'&start='+pad4(t.from)+'">시작하기</a>';
+      } else if(t.type==='link'){
+        detail=esc(t.detail||'');
+        btn='<a class="go" href="worksheets/player.html?set='+encodeURIComponent(t.set)+'">열기</a>';
+      } else if(t.type==='review'){
+        detail=esc(t.detail||'');
+        btn='<a class="go alt" href="index_mathc1.html">오답노트 열기</a>';
+      } else { detail=esc(t.detail||''); }
+      el.innerHTML='<button type="button" class="chk" aria-label="완료 표시">'+(isDone?'✓':'')+'</button>'+
+        '<div class="body"><div class="tt">'+esc(t.label)+(t.optional?'<span class="opt">선택</span>':'')+'</div><div class="td">'+detail+'</div></div>'+btn;
+      el.querySelector('.chk').onclick=function(){ if(done[id]) delete done[id]; else done[id]=1; saveDone(); render(); };
+      wrap.appendChild(el);
+    });
+    renderUnitNotes();
+  }
+  var SET_TITLES=null;
+  function renderUnitNotes(){
+    var box=document.getElementById('unitbox'), all={};
+    try{ all=JSON.parse(localStorage.getItem('unit_notes_'+(session.studentId||'anon'))||'{}')||{}; }catch(e){}
+    var ids=Object.keys(all), total=0;
+    ids.forEach(function(id){ total+=Object.keys(all[id]).length; });
+    if(!total){ box.innerHTML=''; return; }
+    function draw(){
+      var html='<div class="unitbox"><h3>💡 단위·기호를 빠뜨린 문제 '+total+'문항</h3><p>숫자만 쓰고 °, cm, % 같은 단위·기호를 안 쓴 문제예요. 정답 처리는 됐고 오답노트에는 들어가지 않아요. 눌러서 다시 확인해 봐요.</p>';
+      ids.forEach(function(id){
+        var nums=Object.keys(all[id]).sort(function(a,b){return parseInt(a,10)-parseInt(b,10);});
+        html+='<div class="set">'+esc((SET_TITLES&&SET_TITLES[id])||id)+' · '+nums.length+'문항</div><div class="chips">';
+        nums.forEach(function(n){ var o=all[id][n]; html+='<a class="chip '+(o.ok?'ok':'no')+'" href="worksheets/player.html?set='+encodeURIComponent(id)+'&start='+encodeURIComponent(n)+'">'+esc(n)+'번 '+(o.ok?'정답':'오답')+' · '+esc((o.m||[]).join('·'))+'</a>'; });
+        html+='</div>';
+      });
+      box.innerHTML=html+'</div>';
+    }
+    if(SET_TITLES){ draw(); return; }
+    draw();
+    fetch('data/worksheets-manifest.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(m){
+      SET_TITLES={}; (m.sets||[]).forEach(function(s){ SET_TITLES[s.id]=s.title; }); draw();
+    }).catch(function(){});
+  }
+  function pad4(n){ n=String(n); while(n.length<4) n='0'+n; return n; }
+})();
+</script>
+</body>
+</html>
