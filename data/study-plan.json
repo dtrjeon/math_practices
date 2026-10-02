@@ -1,0 +1,300 @@
+{
+  "examDate": "2026-10-22",
+  "title": "3-2 기말고사 대비",
+  "note": "기말 범위: 쎈수학 원의 성질 (0261~0594)",
+  "days": [
+    {
+      "date": "2026-10-03",
+      "title": "원과 직선 · A단계 개념",
+      "tasks": [
+        {
+          "type": "solve",
+          "label": "A단계 개념 다지기",
+          "set": "m0_26_s2_tb_senmath_q261-396",
+          "from": 261,
+          "to": 288
+        }
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "title": "원과 직선 · B단계 시작",
+      "tasks": [
+        {
+          "type": "solve",
+          "label": "B단계 유형",
+          "set": "m0_26_s2_tb_senmath_q261-396",
+          "from": 289,
+          "to": 311
+        },
+        {
+          "type": "review",
+          "label": "삼각비·통계 오답 복구",
+          "detail": "중간고사에서 틀린 유형만, 10문항 이내 (쎈 삼각비 A/B에서 고르기)",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "date": "2026-10-05",
+      "title": "원과 직선 · B단계",
+      "tasks": [
+        {
+          "type": "solve",
+          "label": "B단계 유형",
+          "set": "m0_26_s2_tb_senmath_q261-396",
+          "from": 312,
+          "to": 335
+        },
+        {
+          "type": "review",
+          "label": "삼각비·통계 오답 복구",
+          "detail": "중간고사에서 틀린 유형만, 10문항 이내 (쎈 삼각비 A/B에서 고르기)",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "date": "2026-10-06",
+      "title": "원과 직선 · B단계",
+      "tasks": [
+        {
+          "type": "solve",
+          "label": "B단계 유형",
+          "set": "m0_26_s2_tb_senmath_q261-396",
+          "from": 336,
+          "to": 357
+        },
+        {
+          "type": "review",
+          "label": "삼각비·통계 오답 복구",
+          "detail": "중간고사에서 틀린 유형만, 10문항 이내 (쎈 삼각비 A/B에서 고르기)",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "date": "2026-10-07",
+      "title": "원과 직선 · B단계 마무리",
+      "tasks": [
+        {
+          "type": "solve",
+          "label": "B단계 유형",
+          "set": "m0_26_s2_tb_senmath_q261-396",
+          "from": 358,
+          "to": 371
+        },
+        {
+          "type": "review",
+          "label": "이번 주 틀린 문제 재풀이",
+          "detail": "오답노트에서 틀린 문제 다시 풀기"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-08",
+      "title": "재풀이 + 교과서",
+      "tasks": [
+        {
+          "type": "review",
+          "label": "틀린 문제 전부 재풀이",
+          "detail": "원과 직선 단원 오답"
+        },
+        {
+          "type": "link",
+          "label": "교과서 중단원 마무리 · 원의 성질",
+          "set": "m0_26_s2_tb_hongcheon_42won_p176-199",
+          "detail": "교과서 문제로 확인"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-09",
+      "title": "여유일",
+      "tasks": [
+        {
+          "type": "free",
+          "label": "밀린 분량 + 휴식",
+          "detail": "못 한 날의 분량은 여기서 채우기"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-10",
+      "title": "원주각 · A단계 + B단계 시작",
+      "tasks": [
+        {
+          "type": "solve",
+          "label": "원주각 A·B단계",
+          "set": "m0_26_s2_tb_senmath_q397-491",
+          "from": 397,
+          "to": 428
+        }
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "title": "원주각 · B단계",
+      "tasks": [
+        {
+          "type": "solve",
+          "label": "B단계 유형",
+          "set": "m0_26_s2_tb_senmath_q397-491",
+          "from": 429,
+          "to": 450
+        },
+        {
+          "type": "review",
+          "label": "삼각비·통계 오답 복구",
+          "detail": "중간고사에서 틀린 유형만, 10문항 이내 (쎈 삼각비 A/B에서 고르기)",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "date": "2026-10-12",
+      "title": "원주각 · B단계 마무리",
+      "tasks": [
+        {
+          "type": "solve",
+          "label": "B단계 유형",
+          "set": "m0_26_s2_tb_senmath_q397-491",
+          "from": 451,
+          "to": 472
+        },
+        {
+          "type": "review",
+          "label": "삼각비·통계 오답 복구",
+          "detail": "중간고사에서 틀린 유형만, 10문항 이내 (쎈 삼각비 A/B에서 고르기)",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "date": "2026-10-13",
+      "title": "원주각 재풀이",
+      "tasks": [
+        {
+          "type": "review",
+          "label": "틀린 문제 전부 재풀이",
+          "detail": "원주각 단원 오답"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-14",
+      "title": "원주각의 활용 · A단계 + B단계 시작",
+      "tasks": [
+        {
+          "type": "solve",
+          "label": "원주각의 활용 A·B단계",
+          "set": "m0_26_s2_tb_senmath_q492-594",
+          "from": 492,
+          "to": 523
+        }
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "title": "원주각의 활용 · B단계",
+      "tasks": [
+        {
+          "type": "solve",
+          "label": "B단계 유형",
+          "set": "m0_26_s2_tb_senmath_q492-594",
+          "from": 524,
+          "to": 549
+        },
+        {
+          "type": "review",
+          "label": "삼각비·통계 오답 복구",
+          "detail": "중간고사에서 틀린 유형만, 10문항 이내 (쎈 삼각비 A/B에서 고르기)",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "date": "2026-10-16",
+      "title": "원주각의 활용 · B단계 마무리",
+      "tasks": [
+        {
+          "type": "solve",
+          "label": "B단계 유형",
+          "set": "m0_26_s2_tb_senmath_q492-594",
+          "from": 550,
+          "to": 575
+        }
+      ]
+    },
+    {
+      "date": "2026-10-17",
+      "title": "재풀이",
+      "tasks": [
+        {
+          "type": "review",
+          "label": "원주각·내접사각형 틀린 문제 재풀이",
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "date": "2026-10-18",
+      "title": "전범위 재풀이 + C단계 맛보기",
+      "tasks": [
+        {
+          "type": "review",
+          "label": "단원 전체 틀린 문제 재풀이",
+          "detail": ""
+        },
+        {
+          "type": "solve",
+          "label": "C단계 맛보기 (B 정답률 80% 이상일 때만)",
+          "set": "m0_26_s2_tb_senmath_q261-396",
+          "from": 372,
+          "to": 396,
+          "optional": true
+        }
+      ]
+    },
+    {
+      "date": "2026-10-19",
+      "title": "교과서 대단원 + 학교 프린트",
+      "tasks": [
+        {
+          "type": "link",
+          "label": "교과서 대단원 마무리 Ⅳ.기하",
+          "set": "m0_26_s2_tb_hongcheon_43daedan_p201-203",
+          "detail": ""
+        },
+        {
+          "type": "free",
+          "label": "학교 프린트·익힘책",
+          "detail": "수업 시간에 받은 자료 풀기"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-20",
+      "title": "오답노트 마지막 점검",
+      "tasks": [
+        {
+          "type": "review",
+          "label": "오답노트 전체 훑기",
+          "detail": "틀렸던 문제만 다시 보기"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-21",
+      "title": "마무리",
+      "tasks": [
+        {
+          "type": "free",
+          "label": "서술형 몇 문제만 가볍게",
+          "detail": "일찍 쉬기. 새 문제는 풀지 않기"
+        }
+      ]
+    }
+  ],
+  "_memo": "examDate(시험일)는 학교 공지에 맞춰 수정하세요. 날짜별 분량은 days에서 수정."
+}
