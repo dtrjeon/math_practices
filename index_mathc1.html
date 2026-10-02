@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- v2.11 (2026-10-03): 시작 화면을 항상 중학교 3-2로 고정, 홈 바로가기에 "📅 오늘의 과제"(today.html) 카드 추가, manifest의 hidden:true 세트는 문제지 목록에서 제외 -->
 <!-- v1.1 (2026-08-12): 문제지용 manifest.json → data/worksheets-manifest.json으로 파일명 변경 (PWA용 root manifest.json과 혼동 방지) -->
 <!-- v1.2 (2026-08-16): "📐 쎈수학 중3-2" 전용 탭 신설 (기존 3탭 textbook/exam/pastexam → 4탭, senmath32 카테고리 추가) -->
 <!-- v1.3 (2026-08-16): 문제지 모음 / 학교별 교재출판사 / 문제집 범위요약을 상위 탭 3개로 재구성 -->
@@ -686,6 +687,11 @@
 
       <div class="unit-label">바로가기</div>
       <div class="quick-grid">
+        <a class="quick-card" href="today.html" style="border-color:var(--accent); background:var(--accent-soft);">
+          <div class="quick-icon">📅</div>
+          <div class="quick-title">오늘의 과제</div>
+          <div class="quick-sub">기말고사까지 날짜별로 풀 분량 확인</div>
+        </a>
         <a class="quick-card" href="worksheets/upload.html" style="border-color:var(--accent); background:var(--accent-soft);">
           <div class="quick-icon">📷</div>
           <div class="quick-title">오답 등록</div>
@@ -967,7 +973,7 @@
     const counts = { tb:0, peq:0, me:0 };
 
     WS_CATEGORIES.forEach(cat => {
-      const sets = MANIFEST_SETS.filter(s => s.category === cat && isMiddleGrade(s.grade) === (currentLevel === 'middleschool'));
+      const sets = MANIFEST_SETS.filter(s => !s.hidden && s.category === cat && isMiddleGrade(s.grade) === (currentLevel === 'middleschool'));
       counts[cat] = sets.length;
 
       // source별로 순서 유지하며 그룹화
@@ -1168,9 +1174,27 @@
   }
 
   // 레벨(중학교/고등학교)에 맞는 오답 반복 항목만 걸러서 다시 그린다.
+  // 오답노트 초기화: 서버 기록은 지우지 않고 "이 시각 이후 기록만" 보여준다.
+  // WRONG_RESET_AT = 배포 시점 일괄 초기화, 버튼으로 누르면 그 기기에서 추가 초기화(localStorage).
+  const WRONG_RESET_AT = '2026-10-03T00:30:00+09:00';
+  function wrongResetKey(){ let id='anon'; try{ id=(JSON.parse(localStorage.getItem('mathapp_session')||'null')||{}).studentId||'anon'; }catch(e){} return 'wrong_reset_'+id; }
+  function wrongResetTime(){
+    let t = new Date(WRONG_RESET_AT).getTime();
+    try{ const v = parseInt(localStorage.getItem(wrongResetKey())||'0',10); if(v > t) t = v; }catch(e){}
+    return t;
+  }
+  function resetWrongNotes(){
+    if(!confirm('오답노트를 비울까요? (지금까지의 오답 목록이 사라져요)')) return;
+    try{ localStorage.setItem(wrongResetKey(), String(Date.now())); }catch(e){}
+    applyWrongRepeatFilter();
+  }
+
   function applyWrongRepeatFilter(){
     const panel = document.getElementById('mainPanel-wrongrepeat');
+    const resetAt = wrongResetTime();
     const list = WRONG_STATS_RAW.filter(item => {
+      const t = new Date(item.lastDate).getTime();
+      if(!isNaN(t) && t <= resetAt) return false;   // 초기화 시각 이전 기록은 숨김
       const meta = WORKSHEET_META[item.worksheetId];
       const grade = meta ? GROUP_GRADE[meta.group] : undefined;
       const belongsToMiddle = isMiddleGrade(grade);
@@ -1203,7 +1227,8 @@
         <thead><tr><th>문제</th><th>오답/시도</th><th>연속정답</th><th>최근 풀이</th><th></th></tr></thead>
         <tbody>${rows}</tbody>
       </table></div>
-      <p style="font-size:12.5px;color:var(--num);margin-top:10px;">연속 3회 정답이면 이 목록에서 자동으로 빠져요.</p>`;
+      <p style="font-size:12.5px;color:var(--num);margin-top:10px;">연속 3회 정답이면 이 목록에서 자동으로 빠져요.</p>
+      <button class="btn btn-secondary" onclick="resetWrongNotes()">🗑 오답노트 초기화</button>`;
   }
 
   // 상단 "고등학교 / 중학교 3-2" 스위치 — 문제지 모음 서브탭, 범위요약, 교재출판사, 오답 반복을
@@ -1334,7 +1359,8 @@
   function applyInitialLevelFromSession(){
     let session = null;
     try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
-    const initialLevel = (session && session.grade === '중3') ? 'middleschool' : 'highschool';
+    // v2.11: 시작 화면은 항상 중학교 3-2 (고등학교는 상단 스위치로 전환)
+    const initialLevel = 'middleschool';
     currentLevel = initialLevel;
     document.getElementById('levelBtn-highschool').classList.toggle('active', initialLevel === 'highschool');
     document.getElementById('levelBtn-middleschool').classList.toggle('active', initialLevel === 'middleschool');
