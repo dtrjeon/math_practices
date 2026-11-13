@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- v2.69 (2026-11-13): 중학교 3-2 지필고사 대비 문제지(source: school) 라벨 「🏫 학교 시험 대비」 추가 -->
 <!-- v2.69 (2026-11-13): math_practices를 중학교 중심으로 — 문제집 모음의 기본 선택을 「중학교 3-2」로 하고 버튼 순서도 중학교 먼저 -->
 <!-- v2.68 (2026-11-13): 문제집 모음에 「고등학교 / 중학교 3-2」 선택 복원 — 중학교(m0) 문제지(쎈수학·홍천고·DRE)를 홈에서 볼 수 있게 함. math_practices 전용 -->
 <!-- v2.68 (2026-11-13): 요점노트 화면 하단 버전 표기를 현재 버전으로 맞춤(v2.54에 머물러 있었음). 나머지 파일은 동일 버전 표기만 갱신 -->
@@ -1171,7 +1172,7 @@
 
   // 문제지를 3개 탭(교과문제/기출·내신/모의고사)으로 나눠 다시 그린다.
   // 한 분류 안에 출처(source)가 여러 개면, 인라인 라벨이 아니라 클릭 가능한 출처 서브탭으로 보여준다.
-  const SOURCE_LABELS = { self: '📖 자체 복습', hakpyeong: '📝 전국연합학력평가', miraen: '📗 미래엔 교과서', senmath: '📙 쎈수학', hongcheon: '📘 홍천고 교과서' };
+  const SOURCE_LABELS = { self: '📖 자체 복습', hakpyeong: '📝 전국연합학력평가', miraen: '📗 미래엔 교과서', senmath: '📙 쎈수학', hongcheon: '📘 홍천고 교과서', school: '🏫 학교 시험 대비' };
 
   function applyWorksheetTabsVisibility(){
     const counts = { tb:0, peq:0, me:0 };

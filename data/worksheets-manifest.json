@@ -1006,6 +1006,17 @@
       "group": "04. 원의 성질",
       "grade": "m0",
       "source": "senmath"
+    },
+    {
+      "id": "m0_26_s2_peq_circle45",
+      "file": "m0_26_s2_peq_circle45.json",
+      "category": "peq",
+      "title": "3학년 2학기 2차 지필고사 대비 - Ⅵ. 원의 성질 (45문항)",
+      "unit": "Ⅵ. 원의 성질",
+      "count": 45,
+      "group": "Ⅵ. 원의 성질",
+      "grade": "m0",
+      "source": "school"
     }
   ],
   "categories": {
