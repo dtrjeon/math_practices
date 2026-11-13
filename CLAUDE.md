@@ -20,12 +20,12 @@
 | `today.html`, `worksheets/today.html` | 오늘의 과제 — 저장된 학습 계획(`study_plan_<학생ID>`)을 우선 보여 주고, 없으면 `data/study-plan.json`, 둘 다 없으면 계획 만들기 안내. 완료 체크는 이 기기(`today_done_<학생ID>`)에만 저장. **두 파일은 동일 — 고치면 둘 다** |
 | `roadmap.html` | 진학 로드맵 |
 | `tools/*.html` | 선생님/관리자 전용(review·admin-users·admin-examrange·json_viewer_edit). 공개 내비에 링크 걸지 않음 |
-| `data/*.json` | 문제지 (중학교 `m0` 자료와 `data/seanmath32/`는 2026-11-05에 삭제) |
+| `data/*.json` | 문제지. **이 저장소(math_practices)는 중학교 3-2(`m0`) 문제 중심** — `m0_*.json`(DRE·홍천고)와 `data/seanmath32/`(쎈수학)를 보존하고 홈 문제집 모음의 기본 선택이 「중학교 3-2」. 고등학교(`m1`) 자료는 `math` 저장소와 같은 내용을 함께 둠 |
 | `data/hakpyeong/*.json` | 고1 전국연합학력평가 11회분(2024.3~2026.9, `me`·`source: hakpyeong`). 그림은 PDF에서 잘라 `images`에 data URL로 들어 있음 |
 | `data/miraen/*.json` | 미래엔 공통수학1 8개 파일(433문항, `tb`·`source: miraen`). 교과서 번호를 문항 앞에 표시, 소문항·복수 답은 문항 분리 |
 | `data/materials/seowon/*.pdf` | 서원고 교과서 원본 PDF 29개(약 224MB). `data/publishers.json`의 `materials`로 "학교별 교재출판사" 표에 링크. 저장소 용량이 크게 늘었으니 PDF를 더 넣기 전에 GitHub Pages 한도(사이트 1GB)를 확인 |
 | `data/worksheets-manifest.json` | 학생에게 보이는 문제지 목록. **루트 `manifest.json`은 PWA용이라 별개** |
-| `data/study-plan.json`, `data/exam-ranges.json`, `data/publishers.json` | 학습 계획, 시험 범위, 출판사. `study-plan.json`은 중3 기말 계획이라 함께 삭제했고 없으면 `today.html`이 안내 문구만 보여 준다(`/study-plan`으로 새로 만든다). `exam-ranges.json`의 `schools`는 지금 빈 배열 |
+| `data/study-plan.json`, `data/exam-ranges.json`, `data/publishers.json` | 학습 계획, 시험 범위, 출판사. `study-plan.json`(중3 기말 계획)은 이 저장소에 보존돼 있고, 없으면 `today.html`이 안내 문구만 보여 준다(`/study-plan`으로 새로 만든다). `exam-ranges.json`의 `schools`는 지금 빈 배열 |
 | `data/tips.json` | Instagram 학습 팁(링크·요약·단원 태그·학년). `tools/admin-tips.html` → GAS `saveTips`로 저장 |
 | `data/_pending/` | 승인 전 검토 대기(GAS가 GitHub에 직접 씀) |
 | `Code.gs` | GAS 백엔드 전체(이 파일 하나만 Apps Script에 넣는다). 1부: `doGet`/`doPost` 라우터(모든 `action` 목록이 `codeRoute_`에 있음), 풀이 기록(Results·Attempts 탭), GitHub 읽기/쓰기, AI(사진→문제·손글씨·LaTeX), 시험범위, 사용자 관리 / 2부: 가입·로그인·검토 대기열 / 3부: AI 튜터·복습 세트 / 4부: 학습 팁. 예전 주석의 `gas-*.gs`는 2~4부를 뜻한다 |

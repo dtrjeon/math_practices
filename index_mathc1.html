@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- v2.69 (2026-11-13): math_practices를 중학교 중심으로 — 문제집 모음의 기본 선택을 「중학교 3-2」로 하고 버튼 순서도 중학교 먼저 -->
 <!-- v2.68 (2026-11-13): 문제집 모음에 「고등학교 / 중학교 3-2」 선택 복원 — 중학교(m0) 문제지(쎈수학·홍천고·DRE)를 홈에서 볼 수 있게 함. math_practices 전용 -->
 <!-- v2.68 (2026-11-13): 요점노트 화면 하단 버전 표기를 현재 버전으로 맞춤(v2.54에 머물러 있었음). 나머지 파일은 동일 버전 표기만 갱신 -->
 <!-- v2.67 (2026-11-10): 문제집 모음 — MADE Sayno와 같은 문제인 「자체 복습」 문제지 2개(복소수 05/06, 다항식 인수분해 04/30)를 목록과 데이터에서 삭제. 나머지 파일은 동일 버전 표기만 갱신 -->
@@ -806,7 +807,7 @@
       <div class="brand-text">
         <div class="brand-title">수학 학습 기록판</div>
         <div class="brand-sub" id="sessionBrandSub">전주영</div>
-        <div class="brand-sub" style="font-size:11px;opacity:.6;margin-top:2px;">v2.68 · 2026-11-13</div>
+        <div class="brand-sub" style="font-size:11px;opacity:.6;margin-top:2px;">v2.69 · 2026-11-13</div>
       </div>
       <button type="button" class="admin-lock" id="adminLock" onclick="goAdminSection()" aria-label="관리자 메뉴" title="관리자"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button>
       <button class="refresh-btn" id="refreshBtn" onclick="refreshAllData()" title="새로고침">🔄</button>
@@ -896,8 +897,8 @@
     <section class="page" id="mainPanel-worksheets">
       <div class="unit-label">문제집 모음</div>
       <div class="level-switch" id="levelSwitch">
-        <button class="level-btn active" id="levelBtn-highschool" onclick="switchLevel('highschool')">고등학교</button>
-        <button class="level-btn" id="levelBtn-middleschool" onclick="switchLevel('middleschool')">중학교 3-2</button>
+        <button class="level-btn active" id="levelBtn-middleschool" onclick="switchLevel('middleschool')">중학교 3-2</button>
+        <button class="level-btn" id="levelBtn-highschool" onclick="switchLevel('highschool')">고등학교</button>
       </div>
       <div class="worksheet-tabs">
         <button class="ws-tab-btn active" id="wsTab-tb" onclick="switchWsTab('tb')">📘 교과문제 <span class="count" id="wsCount-tb">0</span></button>
@@ -1052,7 +1053,7 @@
 
   // worksheetId → 문제지 이름 / 카드 그룹 (data/worksheets-manifest.json 기반으로 자동 생성됨)
   let WORKSHEET_META = {};
-  let currentLevel = 'highschool'; // 'highschool' | 'middleschool' — 문제집 모음에서만 사용
+  let currentLevel = 'middleschool'; // 'highschool' | 'middleschool' — 문제집 모음에서만 사용. math_practices는 중학교가 기본
   const isMiddleGrade = grade => grade === 'm0';
   function switchLevel(level){
     currentLevel = level;
