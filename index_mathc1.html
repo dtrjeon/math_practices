@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- v2.68 (2026-11-13): 문제집 모음에 「고등학교 / 중학교 3-2」 선택 복원 — 중학교(m0) 문제지(쎈수학·홍천고·DRE)를 홈에서 볼 수 있게 함. math_practices 전용 -->
 <!-- v2.68 (2026-11-13): 요점노트 화면 하단 버전 표기를 현재 버전으로 맞춤(v2.54에 머물러 있었음). 나머지 파일은 동일 버전 표기만 갱신 -->
 <!-- v2.67 (2026-11-10): 문제집 모음 — MADE Sayno와 같은 문제인 「자체 복습」 문제지 2개(복소수 05/06, 다항식 인수분해 04/30)를 목록과 데이터에서 삭제. 나머지 파일은 동일 버전 표기만 갱신 -->
 <!-- v2.66 (2026-11-10): PDF 출력 장수 지정 시 문제 사이 간격 상한(40mm)을 없애 열 높이를 문제 사이·아래 여백으로 끝까지 균등 분배. 나머지 파일은 동일 버전 표기만 갱신 -->
@@ -512,6 +513,30 @@
   .publisher-table td a{ color:var(--accent); font-weight:700; text-decoration:none; }
   .publisher-table td a:hover{ text-decoration:underline; }
 
+  .level-switch{
+    display:inline-flex;
+    gap:4px;
+    background:#efece2;
+    border-radius:999px;
+    padding:4px;
+    margin-bottom:16px;
+  }
+  .level-btn{
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:800;
+    background:transparent;
+    border:none;
+    border-radius:999px;
+    padding:8px 16px;
+    cursor:pointer;
+    color:var(--num);
+  }
+  .level-btn.active{
+    background:var(--ink);
+    color:#fff;
+  }
+
   .card-date{ font-size:11.5px; font-weight:600; color:var(--num); background:var(--rule); border-radius:999px; padding:1px 8px; margin-left:4px; vertical-align:middle; }
   /* v2.54 문제집 범위요약 카드 */
   .rg-list{ display:grid; gap:10px; margin-top:10px; }
@@ -870,6 +895,10 @@
 
     <section class="page" id="mainPanel-worksheets">
       <div class="unit-label">문제집 모음</div>
+      <div class="level-switch" id="levelSwitch">
+        <button class="level-btn active" id="levelBtn-highschool" onclick="switchLevel('highschool')">고등학교</button>
+        <button class="level-btn" id="levelBtn-middleschool" onclick="switchLevel('middleschool')">중학교 3-2</button>
+      </div>
       <div class="worksheet-tabs">
         <button class="ws-tab-btn active" id="wsTab-tb" onclick="switchWsTab('tb')">📘 교과문제 <span class="count" id="wsCount-tb">0</span></button>
         <button class="ws-tab-btn" id="wsTab-peq" onclick="switchWsTab('peq')">📚 중간·기말 <span class="count" id="wsCount-peq">0</span></button>
@@ -1023,6 +1052,16 @@
 
   // worksheetId → 문제지 이름 / 카드 그룹 (data/worksheets-manifest.json 기반으로 자동 생성됨)
   let WORKSHEET_META = {};
+  let currentLevel = 'highschool'; // 'highschool' | 'middleschool' — 문제집 모음에서만 사용
+  const isMiddleGrade = grade => grade === 'm0';
+  function switchLevel(level){
+    currentLevel = level;
+    document.getElementById('levelBtn-highschool').classList.toggle('active', level === 'highschool');
+    document.getElementById('levelBtn-middleschool').classList.toggle('active', level === 'middleschool');
+    applyWorksheetTabsVisibility();
+    switchWsTab('tb');
+    try{ if(typeof loadBoard === 'function') loadBoard(); }catch(e){}
+  }
   let WORKSHEET_COUNTS = { tb:0, peq:0, me:0 }; // 홈 대시보드 통계용
   let BOARD_RECORD_COUNT = 0; // 홈 대시보드 통계용
 
@@ -1131,13 +1170,13 @@
 
   // 문제지를 3개 탭(교과문제/기출·내신/모의고사)으로 나눠 다시 그린다.
   // 한 분류 안에 출처(source)가 여러 개면, 인라인 라벨이 아니라 클릭 가능한 출처 서브탭으로 보여준다.
-  const SOURCE_LABELS = { self: '📖 자체 복습', hakpyeong: '📝 전국연합학력평가', miraen: '📗 미래엔 교과서' };
+  const SOURCE_LABELS = { self: '📖 자체 복습', hakpyeong: '📝 전국연합학력평가', miraen: '📗 미래엔 교과서', senmath: '📙 쎈수학', hongcheon: '📘 홍천고 교과서' };
 
   function applyWorksheetTabsVisibility(){
     const counts = { tb:0, peq:0, me:0 };
 
     WS_CATEGORIES.forEach(cat => {
-      const sets = MANIFEST_SETS.filter(s => !s.hidden && s.category === cat);
+      const sets = MANIFEST_SETS.filter(s => !s.hidden && s.category === cat && isMiddleGrade(s.grade) === (currentLevel === 'middleschool'));
       counts[cat] = sets.length;
 
       // source별로 순서 유지하며 그룹화
@@ -1193,7 +1232,7 @@
       }
 
       // 고등학교 모의고사 탭 맨 위에 문항별 범위·난이도 분석 링크를 둔다(문제지 수에는 포함하지 않음).
-      if(cat === 'me'){
+      if(cat === 'me' && currentLevel === 'highschool'){
         panelEl.insertAdjacentHTML('afterbegin', `<div class="card">
           <div class="card-top">
             <div>
