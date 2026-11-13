@@ -1,0 +1,654 @@
+{
+  "id": "m1_27_s1_tb_miraen_cm1-08_p124-139",
+  "title": "공통수학1 Ⅳ-1. 행렬",
+  "unit": "Ⅳ. 행렬 - 1. 행렬 (124~139쪽)",
+  "category": "tb",
+  "source": "미래엔 공통수학1 (황선욱 외), 정답: 교과서 정답 및 풀이 155~157쪽",
+  "problems": [
+    {
+      "num": 1,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 1 (1)] 다음 행렬에서 행의 개수와 열의 개수를 말하시오.\n\\(\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}\\)\n— 행의 개수를 쓰시오.",
+      "answer": "2",
+      "solution": [
+        "행의 개수: \\(2\\),  열의 개수: \\(2\\)"
+      ]
+    },
+    {
+      "num": 2,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 1 (1)] 다음 행렬에서 행의 개수와 열의 개수를 말하시오.\n\\(\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}\\)\n— 열의 개수를 쓰시오.",
+      "answer": "2",
+      "solution": [
+        "행의 개수: \\(2\\),  열의 개수: \\(2\\)"
+      ]
+    },
+    {
+      "num": 3,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 1 (2)] 다음 행렬에서 행의 개수와 열의 개수를 말하시오.\n\\(\\begin{pmatrix} -1 & 0 \\\\ 3 & -5 \\\\ 2 & 4 \\end{pmatrix}\\)\n— 행의 개수를 쓰시오.",
+      "answer": "3",
+      "solution": [
+        "행의 개수: \\(3\\),  열의 개수: \\(2\\)"
+      ]
+    },
+    {
+      "num": 4,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 1 (2)] 다음 행렬에서 행의 개수와 열의 개수를 말하시오.\n\\(\\begin{pmatrix} -1 & 0 \\\\ 3 & -5 \\\\ 2 & 4 \\end{pmatrix}\\)\n— 열의 개수를 쓰시오.",
+      "answer": "2",
+      "solution": [
+        "행의 개수: \\(3\\),  열의 개수: \\(2\\)"
+      ]
+    },
+    {
+      "num": 5,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 1 (3)] 다음 행렬에서 행의 개수와 열의 개수를 말하시오.\n\\(\\begin{pmatrix} 6 & -8 & 2 & -4 \\end{pmatrix}\\)\n— 행의 개수를 쓰시오.",
+      "answer": "1",
+      "solution": [
+        "행의 개수: \\(1\\),  열의 개수: \\(4\\)"
+      ]
+    },
+    {
+      "num": 6,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 1 (3)] 다음 행렬에서 행의 개수와 열의 개수를 말하시오.\n\\(\\begin{pmatrix} 6 & -8 & 2 & -4 \\end{pmatrix}\\)\n— 열의 개수를 쓰시오.",
+      "answer": "4",
+      "solution": [
+        "행의 개수: \\(1\\),  열의 개수: \\(4\\)"
+      ]
+    },
+    {
+      "num": 7,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 2 (1)] 행렬 \\(\\begin{pmatrix} 4 & 2 \\\\ -3 & -1 \\\\ 0 & 1 \\end{pmatrix}\\)에 대하여 다음을 구하시오.\n\\((1,\\ 2)\\) 성분",
+      "answer": "2",
+      "solution": [
+        "\\(2\\)"
+      ]
+    },
+    {
+      "num": 8,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 2 (2)] 행렬 \\(\\begin{pmatrix} 4 & 2 \\\\ -3 & -1 \\\\ 0 & 1 \\end{pmatrix}\\)에 대하여 다음을 구하시오.\n\\((3,\\ 1)\\) 성분",
+      "answer": "0",
+      "solution": [
+        "\\(0\\)"
+      ]
+    },
+    {
+      "num": 9,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 3] \\(2\\times3\\) 행렬 \\(A\\)의 \\((i,\\ j)\\) 성분 \\(a_{ij}\\)가 \\(a_{ij}=i-j+1\\)일 때, 행렬 \\(A\\)를 구하시오.\n— 성분을 (1행1열,1행2열,1행3열;2행1열,2행2열,2행3열) 꼴로 쓰시오.",
+      "answer": "(1,0,-1;2,1,0)",
+      "solution": [
+        "\\(A=\\begin{pmatrix} 1 & 0 & -1 \\\\ 2 & 1 & 0 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 10,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 4 (1)] 다음 등식이 성립하도록 하는 \\(a\\)와 \\(b\\)의 값을 구하시오.\n\\(\\begin{pmatrix} -a & 2 \\\\ -1 & 3 \\end{pmatrix}=\\begin{pmatrix} 2 & 2 \\\\ b & 3 \\end{pmatrix}\\)\n— \\(a\\)의 값을 쓰시오.",
+      "answer": "-2",
+      "solution": [
+        "\\(a=-2,\\ b=-1\\)"
+      ]
+    },
+    {
+      "num": 11,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 4 (1)] 다음 등식이 성립하도록 하는 \\(a\\)와 \\(b\\)의 값을 구하시오.\n\\(\\begin{pmatrix} -a & 2 \\\\ -1 & 3 \\end{pmatrix}=\\begin{pmatrix} 2 & 2 \\\\ b & 3 \\end{pmatrix}\\)\n— \\(b\\)의 값을 쓰시오.",
+      "answer": "-1",
+      "solution": [
+        "\\(a=-2,\\ b=-1\\)"
+      ]
+    },
+    {
+      "num": 12,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 4 (2)] 다음 등식이 성립하도록 하는 \\(a\\)와 \\(b\\)의 값을 구하시오.\n\\(\\begin{pmatrix} -2 & b-a \\\\ -5 & 7 \\end{pmatrix}=\\begin{pmatrix} -2 & 2 \\\\ a-2b & 7 \\end{pmatrix}\\)\n— \\(a\\)의 값을 쓰시오.",
+      "answer": "1",
+      "solution": [
+        "\\(a=1,\\ b=3\\)"
+      ]
+    },
+    {
+      "num": 13,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 4 (2)] 다음 등식이 성립하도록 하는 \\(a\\)와 \\(b\\)의 값을 구하시오.\n\\(\\begin{pmatrix} -2 & b-a \\\\ -5 & 7 \\end{pmatrix}=\\begin{pmatrix} -2 & 2 \\\\ a-2b & 7 \\end{pmatrix}\\)\n— \\(b\\)의 값을 쓰시오.",
+      "answer": "3",
+      "solution": [
+        "\\(a=1,\\ b=3\\)"
+      ]
+    },
+    {
+      "num": 14,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 1 (1)] 세 행렬 \\(A=\\begin{pmatrix} 1 & 0 \\\\ -3 & 2 \\end{pmatrix},\\ B=\\begin{pmatrix} 2 & -1 \\\\ 1 & -2 \\end{pmatrix},\\ C=\\begin{pmatrix} 4 & 3 \\\\ 5 & 0 \\end{pmatrix}\\)에 대하여 다음을 계산하시오.\n\\(A+B\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(3,-1;-2,0)",
+      "solution": [
+        "\\(\\begin{pmatrix} 3 & -1 \\\\ -2 & 0 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 15,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 1 (2)] 세 행렬 \\(A=\\begin{pmatrix} 1 & 0 \\\\ -3 & 2 \\end{pmatrix},\\ B=\\begin{pmatrix} 2 & -1 \\\\ 1 & -2 \\end{pmatrix},\\ C=\\begin{pmatrix} 4 & 3 \\\\ 5 & 0 \\end{pmatrix}\\)에 대하여 다음을 계산하시오.\n\\(C-A\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(3,3;8,-2)",
+      "solution": [
+        "\\(\\begin{pmatrix} 3 & 3 \\\\ 8 & -2 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 16,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 1 (3)] 세 행렬 \\(A=\\begin{pmatrix} 1 & 0 \\\\ -3 & 2 \\end{pmatrix},\\ B=\\begin{pmatrix} 2 & -1 \\\\ 1 & -2 \\end{pmatrix},\\ C=\\begin{pmatrix} 4 & 3 \\\\ 5 & 0 \\end{pmatrix}\\)에 대하여 다음을 계산하시오.\n\\(A-(B-C)\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(3,4;1,4)",
+      "solution": [
+        "\\(\\begin{pmatrix} 3 & 4 \\\\ 1 & 4 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 17,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 2] 행렬 \\(A=\\begin{pmatrix} -1 & 4 \\\\ 5 & 2 \\end{pmatrix}\\)에 대하여 등식 \\(A+X=O\\)를 만족시키는 행렬 \\(X\\)를 구하시오.\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(1,-4;-5,-2)",
+      "solution": [
+        "\\(X=\\begin{pmatrix} 1 & -4 \\\\ -5 & -2 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 18,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 3 (1)] 두 행렬 \\(A=\\begin{pmatrix} 0 & 1 \\\\ -3 & -1 \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} -4 & 0 \\\\ 1 & -2 \\end{pmatrix}\\)에 대하여 다음을 계산하시오.\n\\(4A-3B\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(12,4;-15,2)",
+      "solution": [
+        "\\(\\begin{pmatrix} 12 & 4 \\\\ -15 & 2 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 19,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 3 (2)] 두 행렬 \\(A=\\begin{pmatrix} 0 & 1 \\\\ -3 & -1 \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} -4 & 0 \\\\ 1 & -2 \\end{pmatrix}\\)에 대하여 다음을 계산하시오.\n\\(-3A+2B\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(-8,-3;11,-1)",
+      "solution": [
+        "\\(\\begin{pmatrix} -8 & -3 \\\\ 11 & -1 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 20,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[03 문제 1 (1)] 다음을 계산하시오.\n\\(\\begin{pmatrix} 5 & -3 \\\\ 2 & 0 \\end{pmatrix}\\begin{pmatrix} 1 & 0 \\\\ 2 & -4 \\end{pmatrix}\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(-1,12;2,0)",
+      "solution": [
+        "\\(\\begin{pmatrix} -1 & 12 \\\\ 2 & 0 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 21,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[03 문제 1 (2)] 다음을 계산하시오.\n\\(\\begin{pmatrix} 4 & 1 \\\\ -2 & 3 \\end{pmatrix}\\begin{pmatrix} 5 \\\\ -1 \\end{pmatrix}\\)\n— 성분을 (1행1열;2행1열) 꼴로 쓰시오.",
+      "answer": "(19;-13)",
+      "solution": [
+        "\\(\\begin{pmatrix} 19 \\\\ -13 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 22,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[03 문제 2] 행렬 \\(A=\\begin{pmatrix} 2 & 1 \\\\ 0 & -3 \\end{pmatrix}\\)에 대하여 다음을 구하시오.\n\\(A^2\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(4,-1;0,9)",
+      "solution": [
+        "\\(A^2=\\begin{pmatrix} 4 & -1 \\\\ 0 & 9 \\end{pmatrix},\\ A^3=\\begin{pmatrix} 8 & 7 \\\\ 0 & -27 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 23,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[03 문제 2] 행렬 \\(A=\\begin{pmatrix} 2 & 1 \\\\ 0 & -3 \\end{pmatrix}\\)에 대하여 다음을 구하시오.\n\\(A^3\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(8,7;0,-27)",
+      "solution": [
+        "\\(A^2=\\begin{pmatrix} 4 & -1 \\\\ 0 & 9 \\end{pmatrix},\\ A^3=\\begin{pmatrix} 8 & 7 \\\\ 0 & -27 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 24,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[03 문제 3] 두 행렬 \\(A=\\begin{pmatrix} 2 & -1 \\\\ -3 & 4 \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} 1 & 0 \\\\ -1 & 2 \\end{pmatrix}\\)에 대하여 \\(AB\\)와 \\(BA\\)를 계산하여 그 결과를 비교하시오.\n— \\(AB\\)를 구하여 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(3,-2;-7,8)",
+      "solution": [
+        "\\(AB=\\begin{pmatrix} 3 & -2 \\\\ -7 & 8 \\end{pmatrix},\\ BA=\\begin{pmatrix} 2 & -1 \\\\ -8 & 9 \\end{pmatrix}\\)이므로 \\(AB\\ne BA\\)"
+      ]
+    },
+    {
+      "num": 25,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[03 문제 3] 두 행렬 \\(A=\\begin{pmatrix} 2 & -1 \\\\ -3 & 4 \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} 1 & 0 \\\\ -1 & 2 \\end{pmatrix}\\)에 대하여 \\(AB\\)와 \\(BA\\)를 계산하여 그 결과를 비교하시오.\n— \\(BA\\)를 구하여 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(2,-1;-8,9)",
+      "solution": [
+        "\\(AB=\\begin{pmatrix} 3 & -2 \\\\ -7 & 8 \\end{pmatrix},\\ BA=\\begin{pmatrix} 2 & -1 \\\\ -8 & 9 \\end{pmatrix}\\)이므로 \\(AB\\ne BA\\)"
+      ]
+    },
+    {
+      "num": 26,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[03 문제 4 (1)] 행렬 \\(A=\\begin{pmatrix} -1 & 1 \\\\ 0 & -3 \\end{pmatrix}\\)에 대하여 다음을 계산하시오. (단, \\(E\\)는 이차 단위행렬)\n\\((A+E)^2\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(0,-2;0,4)",
+      "solution": [
+        "\\(\\begin{pmatrix} 0 & -2 \\\\ 0 & 4 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 27,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[03 문제 4 (2)] 행렬 \\(A=\\begin{pmatrix} -1 & 1 \\\\ 0 & -3 \\end{pmatrix}\\)에 대하여 다음을 계산하시오. (단, \\(E\\)는 이차 단위행렬)\n\\((A+E)(A-E)\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(0,-4;0,8)",
+      "solution": [
+        "\\(\\begin{pmatrix} 0 & -4 \\\\ 0 & 8 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 28,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 01 (1)] 행렬 \\(A=\\begin{pmatrix} 2 & 4 & 8 \\\\ 1 & 3 & -6 \\end{pmatrix}\\)에 대하여 다음을 구하시오.\n\\((1,\\ 2)\\) 성분",
+      "answer": "4",
+      "solution": [
+        "\\(4\\)"
+      ]
+    },
+    {
+      "num": 29,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 01 (2)] 행렬 \\(A=\\begin{pmatrix} 2 & 4 & 8 \\\\ 1 & 3 & -6 \\end{pmatrix}\\)에 대하여 다음을 구하시오.\n\\((2,\\ 3)\\) 성분",
+      "answer": "-6",
+      "solution": [
+        "\\(-6\\)"
+      ]
+    },
+    {
+      "num": 30,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 02] 다음 등식이 성립하도록 하는 \\(a,\\ b,\\ c\\)의 값을 구하시오.\n\\(\\begin{pmatrix} 1-a & 2b-1 \\\\ 3 & 4 \\end{pmatrix}=\\begin{pmatrix} 1 & 5 \\\\ 3 & c+3 \\end{pmatrix}\\)\n— \\(a\\)의 값을 쓰시오.",
+      "answer": "0",
+      "solution": [
+        "\\(a=0,\\ b=3,\\ c=1\\)"
+      ]
+    },
+    {
+      "num": 31,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 02] 다음 등식이 성립하도록 하는 \\(a,\\ b,\\ c\\)의 값을 구하시오.\n\\(\\begin{pmatrix} 1-a & 2b-1 \\\\ 3 & 4 \\end{pmatrix}=\\begin{pmatrix} 1 & 5 \\\\ 3 & c+3 \\end{pmatrix}\\)\n— \\(b\\)의 값을 쓰시오.",
+      "answer": "3",
+      "solution": [
+        "\\(a=0,\\ b=3,\\ c=1\\)"
+      ]
+    },
+    {
+      "num": 32,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 02] 다음 등식이 성립하도록 하는 \\(a,\\ b,\\ c\\)의 값을 구하시오.\n\\(\\begin{pmatrix} 1-a & 2b-1 \\\\ 3 & 4 \\end{pmatrix}=\\begin{pmatrix} 1 & 5 \\\\ 3 & c+3 \\end{pmatrix}\\)\n— \\(c\\)의 값을 쓰시오.",
+      "answer": "1",
+      "solution": [
+        "\\(a=0,\\ b=3,\\ c=1\\)"
+      ]
+    },
+    {
+      "num": 33,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 03 (1)] 두 행렬 \\(A=\\begin{pmatrix} 2 & -3 \\\\ -1 & 5 \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} -1 & 2 \\\\ 3 & -2 \\end{pmatrix}\\)에 대하여 다음을 계산하시오.\n\\(A+B\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(1,-1;2,3)",
+      "solution": [
+        "\\(\\begin{pmatrix} 1 & -1 \\\\ 2 & 3 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 34,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 03 (2)] 두 행렬 \\(A=\\begin{pmatrix} 2 & -3 \\\\ -1 & 5 \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} -1 & 2 \\\\ 3 & -2 \\end{pmatrix}\\)에 대하여 다음을 계산하시오.\n\\(B-A\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(-3,5;4,-7)",
+      "solution": [
+        "\\(\\begin{pmatrix} -3 & 5 \\\\ 4 & -7 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 35,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 03 (3)] 두 행렬 \\(A=\\begin{pmatrix} 2 & -3 \\\\ -1 & 5 \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} -1 & 2 \\\\ 3 & -2 \\end{pmatrix}\\)에 대하여 다음을 계산하시오.\n\\(-2B\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(2,-4;-6,4)",
+      "solution": [
+        "\\(\\begin{pmatrix} 2 & -4 \\\\ -6 & 4 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 36,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 03 (4)] 두 행렬 \\(A=\\begin{pmatrix} 2 & -3 \\\\ -1 & 5 \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} -1 & 2 \\\\ 3 & -2 \\end{pmatrix}\\)에 대하여 다음을 계산하시오.\n\\(3A-B\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(7,-11;-6,17)",
+      "solution": [
+        "\\(\\begin{pmatrix} 7 & -11 \\\\ -6 & 17 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 37,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 04 (1)] 다음을 계산하시오.\n\\(\\begin{pmatrix} 3 & 5 \\end{pmatrix}\\begin{pmatrix} -7 \\\\ 6 \\end{pmatrix}\\)\n— 결과는 \\(1\\times1\\) 행렬이다. 그 성분을 수로 쓰시오.",
+      "answer": "9",
+      "solution": [
+        "\\(\\begin{pmatrix} 9 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 38,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 04 (2)] 다음을 계산하시오.\n\\(\\begin{pmatrix} 2 & -5 \\end{pmatrix}\\begin{pmatrix} -1 & 3 \\\\ -2 & 1 \\end{pmatrix}\\)\n— 성분을 (1행1열,1행2열) 꼴로 쓰시오.",
+      "answer": "(8,1)",
+      "solution": [
+        "\\(\\begin{pmatrix} 8 & 1 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 39,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 04 (3)] 다음을 계산하시오.\n\\(\\begin{pmatrix} 3 & -2 \\\\ 1 & 6 \\end{pmatrix}\\begin{pmatrix} 4 \\\\ 2 \\end{pmatrix}\\)\n— 성분을 (1행1열;2행1열) 꼴로 쓰시오.",
+      "answer": "(8;16)",
+      "solution": [
+        "\\(\\begin{pmatrix} 8 \\\\ 16 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 40,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 04 (4)] 다음을 계산하시오.\n\\(\\begin{pmatrix} 6 & -2 \\\\ 3 & 0 \\end{pmatrix}\\begin{pmatrix} 1 & 0 \\\\ 0 & 2 \\end{pmatrix}\\)\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(6,-4;3,0)",
+      "solution": [
+        "\\(\\begin{pmatrix} 6 & -4 \\\\ 3 & 0 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 41,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 05] 행렬 \\(A=\\begin{pmatrix} -2 & 5 & 7 \\\\ 4 & -1 & 6 \\\\ 8 & 8 & 3 \\end{pmatrix}\\)에 대하여 옳은 것을 보기에서 모두 고르시오.\nㄱ. 제2행은 \\((4\\ \\ -1\\ \\ 6)\\)이다.\nㄴ. 행렬 \\(A\\)의 \\((4,\\ 3)\\) 성분은 없다.\nㄷ. 제3열의 성분의 합은 \\(16\\)이다.\n— 기호를 쉼표로 구분해 쓰시오(예: ㄱ, ㄴ).",
+      "answer": "ㄱ, ㄴ, ㄷ",
+      "solution": [
+        "ㄱ, ㄴ, ㄷ"
+      ]
+    },
+    {
+      "num": 42,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 06] 두 행렬 \\(A=\\begin{pmatrix} a-b & 0 \\\\ 6 & 4 \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} -1 & 0 \\\\ 6 & 2ab \\end{pmatrix}\\)에 대하여 \\(A=B\\)일 때, \\(a^2+b^2\\)의 값을 구하시오.",
+      "answer": "5",
+      "solution": [
+        "\\(5\\)"
+      ]
+    },
+    {
+      "num": 43,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 07] 두 행렬 \\(A\\)와 \\(B\\)에 대하여 \\(B=\\begin{pmatrix} 2 & -1 \\\\ -3 & 5 \\end{pmatrix}\\)이고 \\(A+B=\\begin{pmatrix} 4 & -2 \\\\ 3 & 0 \\end{pmatrix}\\)일 때, \\(2A-B\\)를 구하시오.\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(2,-1;15,-15)",
+      "solution": [
+        "\\(\\begin{pmatrix} 2 & -1 \\\\ 15 & -15 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 44,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 08] \\(2\\times3\\) 행렬 \\(A\\)와 \\(B\\)에 대하여 \\(A\\)의 \\((i,\\ j)\\) 성분은 \\(2i-j+1\\)이고 \\(A+2B\\)의 \\((i,\\ j)\\) 성분은 \\(i+2j\\)일 때, 행렬 \\(B\\)를 구하시오.\n— 성분을 (1행1열,1행2열,1행3열;2행1열,2행2열,2행3열) 꼴로 쓰시오. (분수는 1/2 꼴)",
+      "answer": "(1/2,2,7/2;0,3/2,3)",
+      "solution": [
+        "\\(\\begin{pmatrix} \\dfrac{1}{2} & 2 & \\dfrac{7}{2} \\\\ 0 & \\dfrac{3}{2} & 3 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 45,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 09 (서술형)] 행렬 \\(A=\\begin{pmatrix} k & -1 \\\\ -2 & 1 \\end{pmatrix}\\)에 대하여 \\(A^2\\)의 모든 성분의 합이 \\(0\\)이 되도록 하는 모든 실수 \\(k\\)의 값의 합을 구하는 풀이 과정과 답을 쓰시오.",
+      "answer": "3",
+      "solution": [
+        "[해결 과정] \\(A^2=\\begin{pmatrix} k & -1 \\\\ -2 & 1 \\end{pmatrix}\\begin{pmatrix} k & -1 \\\\ -2 & 1 \\end{pmatrix}=\\begin{pmatrix} k^2+2 & -k-1 \\\\ -2k-2 & 3 \\end{pmatrix}\\)",
+        "\\(A^2\\)의 모든 성분의 합이 \\(0\\)이어야 하므로 \\(k^2+2+(-k-1)+(-2k-2)+3=0\\),",
+        "\\(k^2-3k+2=0,\\quad (k-1)(k-2)=0\\)",
+        "\\(k=1\\) 또는 \\(k=2\\)",
+        "[답 구하기] 따라서 모든 실수 \\(k\\)의 값의 합은 \\(1+2=3\\)"
+      ]
+    },
+    {
+      "num": 46,
+      "diff": "high",
+      "type": "fillin",
+      "question": "[중단원 마무리 10] 그림은 지하철 노선도의 일부를 나타낸 것이다. 이 지하철 노선도를 나타내는 \\(4\\times4\\) 행렬 \\(A\\)의 \\((i,\\ j)\\) 성분 \\(a_{ij}\\)를 다음과 같이 정하려고 한다.\n\\[a_{ij}=\\begin{cases} 1 & (i\\text{에서 한 번에 } j\\text{로 이동할 수 있을 때}) \\\\ 0 & (i\\text{에서 한 번에 } j\\text{로 이동할 수 없을 때}) \\end{cases}\\]\n행렬 \\(A\\)의 제2행의 모든 성분의 합을 구하시오. (단, \\(i\\)와 \\(j\\)는 역의 번호를 나타내며, \\(i=j\\)이면 \\(a_{ij}=0\\))",
+      "answer": "2",
+      "solution": [
+        "여의도(1)와 신길(2)은 한 번에 이동할 수 있으므로 \\(a_{12}=1,\\ a_{21}=1\\)",
+        "신길(2)과 대방(3)은 한 번에 이동할 수 있으므로 \\(a_{23}=1,\\ a_{32}=1\\)",
+        "대방(3)과 샛강(4)은 한 번에 이동할 수 있으므로 \\(a_{34}=1,\\ a_{43}=1\\)",
+        "샛강(4)과 여의도(1)는 한 번에 이동할 수 있으므로 \\(a_{14}=1,\\ a_{41}=1\\)",
+        "나머지 성분은 모두 \\(0\\)이므로 \\(A=\\begin{pmatrix} 0 & 1 & 0 & 1 \\\\ 1 & 0 & 1 & 0 \\\\ 0 & 1 & 0 & 1 \\\\ 1 & 0 & 1 & 0 \\end{pmatrix}\\)",
+        "따라서 행렬 \\(A\\)의 제2행의 모든 성분의 합은 \\(2\\)이다."
+      ],
+      "images": [
+        "data:image/png;base64,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"
+      ]
+    },
+    {
+      "num": 47,
+      "diff": "high",
+      "type": "fillin",
+      "question": "[중단원 마무리 11 (서술형)] 이차 정사각행렬 \\(A\\)에 대하여 \\(A\\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}=\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}\\)이고 \\(A\\begin{pmatrix} 0 \\\\ 1 \\end{pmatrix}=\\begin{pmatrix} -3 \\\\ 4 \\end{pmatrix}\\)일 때, \\(A\\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}\\)를 구하는 풀이 과정과 답을 쓰시오.\n— 성분을 (1행1열;2행1열) 꼴로 쓰시오.",
+      "answer": "(0;10)",
+      "solution": [
+        "[해결 과정] \\(A=\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}\\)라 하면 \\(A\\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}=\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}\\)에서",
+        "\\(\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}\\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix}=\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix},\\ \\begin{pmatrix} a \\\\ c \\end{pmatrix}=\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}\\)",
+        "두 행렬이 서로 같을 조건에 의하여 \\(a=1,\\ c=2\\)",
+        "\\(A\\begin{pmatrix} 0 \\\\ 1 \\end{pmatrix}=\\begin{pmatrix} -3 \\\\ 4 \\end{pmatrix}\\)에서 \\(\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}\\begin{pmatrix} 0 \\\\ 1 \\end{pmatrix}=\\begin{pmatrix} -3 \\\\ 4 \\end{pmatrix},\\ \\begin{pmatrix} b \\\\ d \\end{pmatrix}=\\begin{pmatrix} -3 \\\\ 4 \\end{pmatrix}\\)",
+        "두 행렬이 서로 같을 조건에 의하여 \\(b=-3,\\ d=4\\)",
+        "[답 구하기] 따라서 \\(A=\\begin{pmatrix} 1 & -3 \\\\ 2 & 4 \\end{pmatrix}\\)이므로 \\(A\\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}=\\begin{pmatrix} 1 & -3 \\\\ 2 & 4 \\end{pmatrix}\\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix}=\\begin{pmatrix} 0 \\\\ 10 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 48,
+      "diff": "low",
+      "type": "mc",
+      "question": "[대단원 평가 01] \\(2\\times2\\) 행렬 \\(A\\)의 \\((i,\\ j)\\) 성분 \\(a_{ij}\\)가 \\(a_{ij}=2i-j+4\\)일 때, 행렬 \\(A\\)의 모든 성분의 합은?",
+      "choices": [
+        "20",
+        "21",
+        "22",
+        "23",
+        "24"
+      ],
+      "correct": 2,
+      "solution": [
+        "③"
+      ]
+    },
+    {
+      "num": 49,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[대단원 평가 02] 등식 \\(\\begin{pmatrix} 2a-1 & 2 \\\\ -6 & 2b \\end{pmatrix}=\\begin{pmatrix} b+2 & 2 \\\\ -6 & 5a+2 \\end{pmatrix}\\)가 성립할 때, \\(a+b\\)의 값을 구하시오.",
+      "answer": "-27",
+      "solution": [
+        "\\(-27\\)"
+      ]
+    },
+    {
+      "num": 50,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[대단원 평가 03] 두 행렬 \\(A=\\begin{pmatrix} -2 & 4 \\\\ 6 & 0 \\end{pmatrix}\\)과 \\(B=\\begin{pmatrix} 1 & -5 \\\\ 2 & -4 \\end{pmatrix}\\)에 대하여 \\(2(A-B)-\\dfrac{1}{2}(A+2B)\\)를 계산하시오.\n— 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(-6,21;3,12)",
+      "solution": [
+        "\\(\\begin{pmatrix} -6 & 21 \\\\ 3 & 12 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 51,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[대단원 평가 04] 두 행렬 \\(A=\\begin{pmatrix} 1 & 2 \\\\ 4 & -1 \\end{pmatrix}\\)과 \\(B=\\begin{pmatrix} -3 & 1 \\\\ 1 & 2 \\end{pmatrix}\\)에 대하여 \\(kA+lB=\\begin{pmatrix} 5 & 3 \\\\ 7 & -4 \\end{pmatrix}\\)를 만족시키는 실수 \\(k\\)와 \\(l\\)의 값을 구하시오.\n— \\(k\\)의 값을 쓰시오.",
+      "answer": "2",
+      "solution": [
+        "\\(k=2,\\ l=-1\\)"
+      ]
+    },
+    {
+      "num": 52,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[대단원 평가 04] 두 행렬 \\(A=\\begin{pmatrix} 1 & 2 \\\\ 4 & -1 \\end{pmatrix}\\)과 \\(B=\\begin{pmatrix} -3 & 1 \\\\ 1 & 2 \\end{pmatrix}\\)에 대하여 \\(kA+lB=\\begin{pmatrix} 5 & 3 \\\\ 7 & -4 \\end{pmatrix}\\)를 만족시키는 실수 \\(k\\)와 \\(l\\)의 값을 구하시오.\n— \\(l\\)의 값을 쓰시오.",
+      "answer": "-1",
+      "solution": [
+        "\\(k=2,\\ l=-1\\)"
+      ]
+    },
+    {
+      "num": 53,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[대단원 평가 05] 두 행렬 \\(A=\\begin{pmatrix} a & -1 \\\\ 2 & b \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} 2 & -1 \\\\ -4 & 2 \\end{pmatrix}\\)에 대하여 \\(AB=O\\)일 때, \\(a\\)와 \\(b\\)의 값을 구하시오.\n— \\(a\\)의 값을 쓰시오.",
+      "answer": "-2",
+      "solution": [
+        "\\(a=-2,\\ b=1\\)"
+      ]
+    },
+    {
+      "num": 54,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[대단원 평가 05] 두 행렬 \\(A=\\begin{pmatrix} a & -1 \\\\ 2 & b \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} 2 & -1 \\\\ -4 & 2 \\end{pmatrix}\\)에 대하여 \\(AB=O\\)일 때, \\(a\\)와 \\(b\\)의 값을 구하시오.\n— \\(b\\)의 값을 쓰시오.",
+      "answer": "1",
+      "solution": [
+        "\\(a=-2,\\ b=1\\)"
+      ]
+    },
+    {
+      "num": 55,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[대단원 평가 06] 두 행렬 \\(A=\\begin{pmatrix} 1 & 0 \\\\ 0 & a \\end{pmatrix}\\)와 \\(B=\\begin{pmatrix} 0 & b \\\\ -1 & 0 \\end{pmatrix}\\)에 대하여 \\((A-B)^2=\\begin{pmatrix} -2 & -9 \\\\ 3 & 1 \\end{pmatrix}\\)일 때, \\(ab\\)의 값을 구하시오.",
+      "answer": "6",
+      "solution": [
+        "\\(6\\)"
+      ]
+    },
+    {
+      "num": 56,
+      "diff": "mid",
+      "type": "mc",
+      "question": "[대단원 평가 07] 두 행렬 \\(A=\\begin{pmatrix} 4 & 3 \\\\ 5 & 8 \\end{pmatrix}\\)과 \\(B=\\begin{pmatrix} 0 & 1 \\\\ a & b \\end{pmatrix}\\)에 대하여 \\(AB=BA\\)일 때, \\(a+b\\)의 값은?",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "correct": 2,
+      "solution": [
+        "③"
+      ]
+    },
+    {
+      "num": 57,
+      "diff": "high",
+      "type": "fillin",
+      "question": "[대단원 평가 08 (1)] 성훈이와 미주는 두 편의점 P와 Q에서 빵과 우유를 사려고 한다. [표 1]은 두 편의점의 빵과 우유의 가격(단위: 원)을, [표 2]는 성훈이와 미주가 사려고 하는 빵과 우유의 개수(단위: 개)를 나타낸 것이다.\n[표 1] P: 빵 \\(3000\\), 우유 \\(1200\\) / Q: 빵 \\(3500\\), 우유 \\(1000\\)\n[표 2] 빵: 성훈 \\(3\\), 미주 \\(2\\) / 우유: 성훈 \\(4\\), 미주 \\(5\\)\n성훈이와 미주가 두 편의점 P와 Q에 지불해야 할 금액을 행렬로 나타내시오.\n— 행은 편의점 P, Q, 열은 성훈, 미주 순서로 하여 성분을 (1행1열,1행2열;2행1열,2행2열) 꼴로 쓰시오.",
+      "answer": "(13800,12000;14500,12000)",
+      "solution": [
+        "[표 1]과 [표 2]를 각각 행렬 \\(A\\)와 \\(B\\)로 나타내면 \\(A=\\begin{pmatrix} 3000 & 1200 \\\\ 3500 & 1000 \\end{pmatrix},\\ B=\\begin{pmatrix} 3 & 2 \\\\ 4 & 5 \\end{pmatrix}\\)",
+        "성훈이와 미주가 두 편의점 P와 Q에 지불해야 할 금액을 행렬로 나타내면",
+        "\\(AB=\\begin{pmatrix} 3000 & 1200 \\\\ 3500 & 1000 \\end{pmatrix}\\begin{pmatrix} 3 & 2 \\\\ 4 & 5 \\end{pmatrix}=\\begin{pmatrix} 13800 & 12000 \\\\ 14500 & 12000 \\end{pmatrix}\\)"
+      ]
+    },
+    {
+      "num": 58,
+      "diff": "high",
+      "type": "essay",
+      "question": "[대단원 평가 08 (2)] 성훈이와 미주는 두 편의점 P와 Q에서 빵과 우유를 사려고 한다. [표 1]은 두 편의점의 빵과 우유의 가격(단위: 원)을, [표 2]는 성훈이와 미주가 사려고 하는 빵과 우유의 개수(단위: 개)를 나타낸 것이다.\n[표 1] P: 빵 \\(3000\\), 우유 \\(1200\\) / Q: 빵 \\(3500\\), 우유 \\(1000\\)\n[표 2] 빵: 성훈 \\(3\\), 미주 \\(2\\) / 우유: 성훈 \\(4\\), 미주 \\(5\\)\n성훈이와 미주는 두 편의점 P와 Q 중 어디에서 사야 비용이 더 적게 드는지 말하시오.",
+      "answer": "성훈이는 편의점 P, 미주는 P와 Q의 비용이 같다.",
+      "solution": [
+        "[표 1]과 [표 2]를 각각 행렬 \\(A\\)와 \\(B\\)로 나타내면 \\(A=\\begin{pmatrix} 3000 & 1200 \\\\ 3500 & 1000 \\end{pmatrix},\\ B=\\begin{pmatrix} 3 & 2 \\\\ 4 & 5 \\end{pmatrix}\\)",
+        "성훈이와 미주가 두 편의점 P와 Q에 지불해야 할 금액을 행렬로 나타내면",
+        "\\(AB=\\begin{pmatrix} 3000 & 1200 \\\\ 3500 & 1000 \\end{pmatrix}\\begin{pmatrix} 3 & 2 \\\\ 4 & 5 \\end{pmatrix}=\\begin{pmatrix} 13800 & 12000 \\\\ 14500 & 12000 \\end{pmatrix}\\)",
+        "성훈이는 편의점 P에서 구입해야 비용이 더 적게 들고, 미주는 두 편의점 P와 Q에서 구입하는 비용이 같다."
+      ]
+    },
+    {
+      "num": 59,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[대단원 평가 09 (서술형)] 세 행렬 \\(A=\\begin{pmatrix} 2a & 1 \\\\ -7 & 1 \\end{pmatrix},\\ B=\\begin{pmatrix} -b & 2 \\\\ -2 & 4 \\end{pmatrix},\\ C=\\begin{pmatrix} -8 & -3 \\\\ ab & -7 \\end{pmatrix}\\)에 대하여 \\(A=2B+C\\)일 때, \\(a^2+b^2\\)의 값을 구하시오.",
+      "answer": "22",
+      "solution": [
+        "[해결 과정] \\(\\begin{pmatrix} 2a & 1 \\\\ -7 & 1 \\end{pmatrix}=2\\begin{pmatrix} -b & 2 \\\\ -2 & 4 \\end{pmatrix}+\\begin{pmatrix} -8 & -3 \\\\ ab & -7 \\end{pmatrix}\\)에서 \\(\\begin{pmatrix} 2a & 1 \\\\ -7 & 1 \\end{pmatrix}=\\begin{pmatrix} -2b-8 & 1 \\\\ -4+ab & 1 \\end{pmatrix}\\)",
+        "두 행렬이 서로 같을 조건에 의하여 \\(2a=-2b-8\\) …… ①, \\(-7=-4+ab\\) …… ②",
+        "①에서 \\(2a+2b=-8,\\ a+b=-4\\)",
+        "②에서 \\(ab=-3\\)",
+        "[답 구하기] \\(a^2+b^2=(a+b)^2-2ab=(-4)^2-2\\times(-3)=16+6=22\\)"
+      ]
+    },
+    {
+      "num": 60,
+      "diff": "high",
+      "type": "fillin",
+      "question": "[대단원 평가 10 (서술형)] 행렬 \\(A=\\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\end{pmatrix}\\)에 대하여 \\(A^n=\\begin{pmatrix} 1 & 30 \\\\ 0 & 1 \\end{pmatrix}\\)을 만족시키는 자연수 \\(n\\)의 값을 구하시오.",
+      "answer": "15",
+      "solution": [
+        "[해결 과정] \\(A^2=AA=\\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\end{pmatrix}\\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\end{pmatrix}=\\begin{pmatrix} 1 & 4 \\\\ 0 & 1 \\end{pmatrix}\\)",
+        "\\(A^3=A^2A=\\begin{pmatrix} 1 & 4 \\\\ 0 & 1 \\end{pmatrix}\\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\end{pmatrix}=\\begin{pmatrix} 1 & 6 \\\\ 0 & 1 \\end{pmatrix}\\)",
+        "\\(A^4=A^3A=\\begin{pmatrix} 1 & 6 \\\\ 0 & 1 \\end{pmatrix}\\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\end{pmatrix}=\\begin{pmatrix} 1 & 8 \\\\ 0 & 1 \\end{pmatrix}\\)",
+        "\\(\\vdots\\)",
+        "즉, \\(A^n=\\begin{pmatrix} 1 & 2n \\\\ 0 & 1 \\end{pmatrix}\\)이므로 \\(A^{15}=\\begin{pmatrix} 1 & 2\\times15 \\\\ 0 & 1 \\end{pmatrix}=\\begin{pmatrix} 1 & 30 \\\\ 0 & 1 \\end{pmatrix}\\)",
+        "[답 구하기] 따라서 구하는 자연수 \\(n\\)의 값은 \\(15\\)이다."
+      ]
+    }
+  ]
+}

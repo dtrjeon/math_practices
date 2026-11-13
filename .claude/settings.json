@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python scripts/validate_worksheets.py:*)",
+      "Bash(python -I scripts/validate_worksheets.py:*)",
+      "Bash(python normalize_and_register.py:*)",
+      "Bash(python -I normalize_and_register.py:*)",
+      "Bash(python -m http.server:*)",
+      "Bash(node --check:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Edit(./index_old.html)",
+      "Edit(./index_math.html)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/check_on_edit.py\"",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}

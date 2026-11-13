@@ -1,4 +1,57 @@
 <!DOCTYPE html>
+<!-- v2.67 (2026-11-10): 문제집 모음 — MADE Sayno와 같은 문제인 「자체 복습」 문제지 2개(복소수 05/06, 다항식 인수분해 04/30)를 목록과 데이터에서 삭제. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.66 (2026-11-10): PDF 출력 장수 지정 시 문제 사이 간격 상한(40mm)을 없애 열 높이를 문제 사이·아래 여백으로 끝까지 균등 분배. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.65 (2026-11-10): 문제집 모음 — 날짜별로 흩어진 「MADE Sayno (날짜)」 서브탭 6개를 「MADE Sayno」 하나로 합치고, 자체 복습·MADE Sayno를 단원 번호 순(1.1→2.1→…→3.1)으로 정렬. 카드 제목 옆에 업로드 날짜 표시. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.64 (2026-11-10): PDF 출력 — 「장수」 선택(자동·1~8장) 추가: 문제 순서를 지키며 열 분량을 고르게 나누고 남는 높이는 문제 사이 간격(풀이 여백, 최대 40mm)으로 분배. 장수가 부족하면 필요한 장수로 조정해 안내. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.63 (2026-11-10): PDF 미리보기 막대를 2줄(제목·버전 / 옵션·쪽수·버튼)로 정렬. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.62 (2026-11-10): PDF 미리보기 막대에 버전 표시(옛 캐시 화면과 구분). 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.61 (2026-11-10): PDF 출력 — 문제와 풀이를 같은 열에 묶어 배치(안 들어가면 다음 열 맨 위로, 한 열보다 긴 풀이만 「풀이 계속」으로 이어 씀). 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.60 (2026-11-10): PDF 출력 — 분수 보기 겹침 수정, 정답·풀이가 열 끝에서 잘리던 문제 수정(풀이를 줄 단위로 다음 열·쪽에 이어 배치). 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.59 (2026-11-10): PDF 출력 미리보기 — 문제 사이 간격을 3.5mm → 9mm로 넓힘. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.58 (2026-11-10): 문제 풀기 — 필기감 옆에 「PDF 출력」 칩 추가. A4 2열 미리보기(정답·풀이 포함 선택) 후 인쇄/PDF 저장 -->
+<!-- v2.54 (2026-11-08): 홈 문제집 범위요약 — 좁은 화면에서 깨지던 5열 표를 문제지별 카드(파일명·문제수·단원·난이도 칩·회차 체크)로 변경 -->
+<!-- v2.53 (2026-11-08): 홈 오답노트 — 좁은 화면에서 글자가 세로로 깨지던 5열 표를 문제별 카드 목록(제목·오답/시도·연속정답·최근 풀이·풀기 버튼)으로 바꿔 정리. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.52 (2026-11-08): 문제 풀기 — 종료 시 풀지 않은(미응답) 문제도 틀린 것으로 계산(필기감 옆 표시·결과창·다시 풀 오답 목록). 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.51 (2026-11-08): 문제 풀기 — 「왜 틀렸을까요?」에서 이유를 고른 뒤 「오답체크」 버튼을 눌러야 오답노트에 저장(저장되면 ✓ 표시). 다시 시작하면 선택·저장 표시 초기화. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.50 (2026-11-08): 문제 풀기 — 「시작」을 누르면 「종료」 전까지 정답·정오 표시를 잠그고(테스트 모드 설정과 무관), 종료하면 「필기감」 버튼 옆에 맞은 개수·틀린 개수를 표시. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.49 (2026-11-08): 「나머지정리와 인수분해」 노트의 조립제법 소단원에 계산표와 단계별 설명 추가. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.48 (2026-11-08): 「여러 가지 방정식」 노트에 조립제법으로 인수분해하는 방법(계산표와 단계 설명) 추가. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.47 (2026-11-08): 요점노트 머리말의 설명 문구(안내 문장·정답 가리기 안내·출처 안내·학력평가 소개)를 삭제하고 범례·버튼·월별 풀기 링크만 남김. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.46 (2026-11-07): 공통수학1 「행렬」 요점노트 신설(행렬의 뜻·같을 조건, 덧셈·뺄셈·실수배, 곱셈·거듭제곱, 종합 / 학력평가 14문항 / 추가 문제 16개) 및 교과과정 링크. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.45 (2026-11-07): 공통수학1 「경우의 수」를 경우의 수(합·곱의 법칙) / 순열 / 조합 세 단원으로 분리 — 순열 요점노트 신설, 경우의 수 노트는 합·곱의 법칙만, 교과과정 탭 단원 순서 정리. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.44 (2026-11-07): 공통수학1 「조합」 요점노트 신설(조합의 수·성질, 활용, 종합 / 학력평가 7문항 / 추가 문제 12개) 및 교과과정 링크. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.43 (2026-11-07): 공통수학1 「경우의 수」 요점노트 신설(합·곱의 법칙, 순열, 조합 / 학력평가 출제 15문항 / 추가 문제 16개) 및 교과과정 링크. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.42 (2026-11-07): 동작 변경 없음 — 홈의 요점노트 링크 캐시 방지(?v=) 적용에 맞춰 번호만 올림 -->
+<!-- v2.41 (2026-11-07): 개념 그림(.fig) 최대 폭을 420px로 제한 — PC 넓은 화면에서 그림이 너무 커지던 문제 수정(이차방정식과 이차함수·여러 가지 방정식과 부등식 노트) -->
+<!-- v2.40 (2026-11-07): 동작 변경 없음 — 절댓값 부등식 그림을 「반드시 암기」 상자 안으로 옮긴 것에 맞춰 번호만 올림 -->
+<!-- v2.39 (2026-11-07): 동작 변경 없음 — 절댓값 부등식 그림 교체에 맞춰 번호만 올림 -->
+<!-- v2.38 (2026-11-07): 동작 변경 없음 — 여러 가지 방정식과 부등식 노트의 부등식 그림 추가에 맞춰 번호만 올림 -->
+<!-- v2.37 (2026-11-07): 동작 변경 없음 — 여러 가지 방정식과 부등식 노트의 그림 추가에 맞춰 번호만 올림 -->
+<!-- v2.36 (2026-11-07): 동작 변경 없음 — 새 요점노트(여러 가지 방정식과 부등식) 공개에 맞춰 번호만 올림 -->
+<!-- v2.35 (2026-11-07): 동작 변경 없음 — 이차방정식과 이차함수 노트의 그래프 추가에 맞춰 번호만 올림 -->
+<!-- v2.34 (2026-11-07): 동작 변경 없음 — 새 요점노트(이차방정식과 이차함수) 공개에 맞춰 번호만 올림 -->
+<!-- v2.33 (2026-11-07): 동작 변경 없음 — 다항식의 연산 노트 안내 문구 수정에 맞춰 번호만 올림 -->
+<!-- v2.32 (2026-11-07): 동작 변경 없음 — 새 요점노트(복소수와 이차방정식) 공개에 맞춰 번호만 올림 -->
+<!-- v2.31 (2026-11-07): 홈·플레이어는 동작 변경 없음 — 새 요점노트(나머지정리와 인수분해) 공개에 맞춰 번호만 올림 -->
+<!-- v2.30 (2026-11-07): 동작 변경 없음 — 홈 버전에 맞춰 번호만 올림 -->
+<!-- v2.29 (2026-11-07): 동작 변경 없음 — 요점노트·홈 버전에 맞춰 번호만 올림 -->
+<!-- v2.28 (2026-11-07): 동작 변경 없음 — 요점노트 버전에 맞춰 번호만 올림 -->
+<!-- v2.27 (2026-11-07): 동작 변경 없음 — 홈·요점노트와 버전 번호를 v2.27로 통일 -->
+<!-- v2.26 (2026-11-07): ?back= 에 같은 사이트의 .html 주소(예: note-cm1-polynomial.html)도 허용 — 사이트 안 요점노트로 돌아오기 위함. 아래 v2.25 설명 참고 -->
+<!-- v2.25 (2026-11-07): 요점노트 등 외부 페이지에서 ?back=<claude.ai 아티팩트 주소>를 붙여 열면 왼쪽 아래에 "← 요점노트로" 버튼 표시. 주소는 https://claude.ai/artifact/… 또는 /code/artifact/… 만 허용하고 그 밖의 값은 무시(임의 주소로 보내지 않기 위함). ?back이 없으면 화면은 그대로 -->
+<!-- v2.24 (2026-11-07): 태블릿·PC(760px 이상)에서 "2열 보기" 체크박스 추가 — 기본은 한 열, 선택은 이 기기에 저장(localStorage.player_two_col). 폰에서는 숨김 -->
+<!-- v2.23 (2026-11-07): 문제 카드 단순화 — (1) 문제는 항상 한 열 (2) 풀이 도구는 펜·지우개만 보이고 나머지는 ⋯ (3) 단답형은 "내 답 [ ] ✍️ 확인" 한 줄, ✍️를 누르면 손글씨 답 칸이 펼쳐짐 (4) 폰에서도 답 입력 줄이 한 줄 유지 (5) 흐릿한 정답·풀이 박스 제거, 정답·풀이/AI 튜터 버튼은 한 줄 -->
+<!-- v2.22 (2026-11-07): 객관식 보기를 2열로 표시 — 모든 보기가 짧을 때만(수식 기호 제외 14자 이하), 길면 기존처럼 1열 -->
+<!-- v2.21 (2026-11-07): 폰에서 상단 바(시작/종료/타이머/필기 모드)가 화면 밖으로 밀리고 글자가 세로로 꺾이던 문제 수정 — 줄바꿈 허용, 버튼 글자 한 줄 유지, 크기 축소 -->
+<!-- v2.20 (2026-11-04): 서버 주소(SHEET_WEBHOOK_URL)를 통합 Code.gs가 올라간 새 Apps Script 배포로 교체 — 이전 배포는 AI 튜터 등 새 기능을 처리하지 못했음 -->
+<!-- v2.19 (2026-11-04): AI 튜터가 답 대신 "undefined"를 보여주던 문제 수정 — 서버가 status:'ok'만 주고 reply가 없으면(이전 버전 백엔드가 aiTutor를 모를 때) 대화에 넣지 않고 재배포 확인 안내를 표시. AI 복습 세트의 "undefined문제" 표시도 같은 방식으로 막음 -->
+<!-- v2.18 (2026-11-04): 모의고사 단원별 풀이 모드 추가 — ?mock=월&subject=과목&chapter=단원 으로 열면 그 달 학력평가에서 해당 단원 문항만 모아 보여줌(분석 페이지 종합표에서 연결). 오답 기록은 원래 시험의 문항으로 남겨 오답노트의 "다시 풀기"가 그대로 동작하게 함 -->
+<!-- v2.17 (2026-11-04): 부등식 답 채점 보정 — 키보드에 ≥ ≤ ≠ 키가 없어 학생이 ">=", "<=", "!="로 쓴 맞는 답이 오답 처리되던 문제. 비교 전에 양쪽을 ≥ ≤ ≠로 맞춤(\ge \le \ne 같은 LaTeX 정답도 포함). 마지막 '=' 뒤만 비교하는 예전 방식이 "x>=3"을 "3"으로 읽어 정답 "3"과 같다고 판정하지 않도록, 부등호 변환을 그보다 먼저 적용 -->
+<!-- v2.16 (2026-11-03): 문제지·manifest fetch에 cache:'no-store' 추가 — 문제지 JSON을 고쳐 올려도 브라우저가 예전 파일을 계속 보여주던 문제(홈 화면은 v2.8에서 이미 같은 수정을 했고 플레이어만 빠져 있었음) -->
+<!-- v2.15 (2026-11-03): 넓은 그림이 있는 문제 카드가 화면 오른쪽 밖으로 밀려나던 레이아웃 버그 수정 — 2열 그리드가 1fr이라 가장 넓은 내용(그림 원본 폭) 아래로 줄어들지 못했음. minmax(0,1fr) + .pcard min-width:0으로 열 폭 고정, 한 줄로 긴 블록 수식은 그 자리에서 가로 스크롤 -->
+<!-- v2.14 (2026-11-02): 풀이 기록의 학생 이름 버그 수정 — 기록 저장(logAttempt·updateReason·결과 저장)이 어디서도 설정되지 않는 localStorage 키(complex56_student_name)를 읽어서 항상 '학생'으로 저장되던 문제. 로그인 세션(mathapp_session)의 이름을 쓰도록 currentStudentName()으로 통일 — 홈 '이어서 풀기'가 본인 기록을 찾을 수 있게 됨 -->
+<!-- v2.13 (2026-11-02): 문제지 제목 아래 "💡 관련 학습 팁" 상자 추가 — data/tips.json에서 단원 태그(units)가 문제지 제목·단원에 들어 있고 학년(grades)이 맞는 팁을 최대 3개 보여줌. 임베드 없이 제목·선생님 메모·Instagram 원본 링크만(풀이 화면을 가볍게 유지) -->
+<!-- v2.12 (2026-11-02): AI 튜터 추가 — 문제 카드마다 "🤖 AI 튜터" 패널(힌트만 / 내 답 어디가 틀렸나요 / 자유 질문). backend action:'aiTutor'(gas-ai-agent-addon.gs)가 Claude 에이전트로 답하고, 필요하면 같은 유형 기존 문제를 찾아 링크로 추천. 정답 잠김 상태에선 힌트만 허용. 채점 결과 화면에 "🤖 AI 복습 세트 만들기" 추가 — action:'aiMakeReviewSet'이 오답 기반 변형 문제를 만들고 스키마 검사 후 검토 대기열(data/_pending)에 올림(선생님 승인 후 공개) -->
 <!-- v2.6 (2026-10-03): 주관식 채점 보정 — 정답의 LaTeX·단위(°, cm, %)·근호·분수 표기와 학생 입력("30", "2√5", "루트5", "15/2")을 같은 모양으로 맞춰 비교. 단위·기호를 안 쓴 답은 정답 처리하되 안내 문구를 보여주고 별도 목록(unitNotes, localStorage unit_notes_*)에 모음 -->
 <!-- v1.1 (2026-08-06): normalizeProblem() 어댑터 추가(구 스키마 number/difficulty/mcq/short/answer/explanation 자동 변환), 선택지 이중 LaTeX 래핑 버그 수정 -->
 <!-- v1.2 (2026-08-16): 문제 세트 로딩을 manifest.json의 file 경로 기반으로 변경 — data/ 바로 밑 평평한 구조뿐 아니라 data/senmath32/처럼 하위 폴더에 있는 세트도 로드 가능(compose.html과 동일한 방식으로 통일). manifest를 못 읽으면 기존 방식(data/<id>.json)으로 자동 폴백 -->
@@ -107,6 +160,12 @@
   .quiz-btn.scroll-mode.active{ background:#b23a2e; color:#fff; border-color:#b23a2e; }
   .quiz-bar{ position:relative; }
   .quiz-btn.pen-settings-btn{ background:#efece2; color:#20242b; border:1.5px solid #d9d3c4; }
+  @media (max-width:640px){
+    .quiz-bar{ flex-wrap:wrap; padding:8px 10px; gap:6px 8px; }
+    .quiz-btn{ white-space:nowrap; padding:8px 12px; font-size:13px; }
+    .start-select{ max-width:100%; font-size:13px; padding:7px 8px; }
+    .quiz-timer{ white-space:nowrap; }
+  }
 
   .pen-settings-panel{
     position:absolute;
@@ -158,6 +217,10 @@
     margin-top:4px;
   }
 
+  .quiz-score{ white-space:nowrap; font-size:15px; font-weight:800; background:#fff; border:1.5px solid var(--rule); border-radius:8px; padding:7px 12px; }
+  .quiz-score .ok{ color:#2f7a5b; }
+  .quiz-score .no{ color:#b23a2e; }
+  .quiz-score .na{ color:#6b6558; font-weight:600; }
   .quiz-timer{
     font-variant-numeric:tabular-nums;
     font-size:19px;
@@ -265,34 +328,32 @@
     box-shadow:0 2px 10px rgba(32,36,43,0.05);
     padding:22px;
     display:grid;
-    grid-template-columns:1fr;
+    /* minmax(0,1fr): 넓은 그림·긴 수식이 있어도 열이 내용 폭만큼 늘어나 화면 밖으로 밀리지 않게 한다 */
+    grid-template-columns:minmax(0,1fr);
     gap:0;
   }
+  .page-grid{ max-width:860px; margin-left:auto; margin-right:auto; }
+  .twocol-toggle{ display:none; align-items:center; gap:6px; font-size:13px; font-weight:800; cursor:pointer; white-space:nowrap; }
+  .twocol-toggle input{ width:18px; height:18px; accent-color:var(--accent); }
   @media (min-width:760px){
-    .page-grid{
-      grid-template-columns:1fr 1fr;
-      column-gap:32px;
-      padding:32px;
-    }
+    .twocol-toggle{ display:inline-flex; }
+    body.two-col .page-grid{ max-width:none; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:32px; }
+    body.two-col .page-grid > .pcard:nth-last-child(2){ border-bottom:none; }
+  }
+  @media (min-width:760px){
+    .page-grid{ padding:32px; }
   }
 
   /* ===== 문제 카드 ===== */
   .pcard{
     padding:22px 0;
     border-bottom:1px solid var(--rule);
+    min-width:0;
   }
-  .page-grid > .pcard:nth-last-child(1),
-  .page-grid > .pcard:nth-last-child(2){
+  /* 한 줄로 긴 블록 수식은 카드를 넓히지 않고 그 자리에서 가로 스크롤 */
+  .pquestion .katex-display, .solution-body .katex-display{ overflow-x:auto; overflow-y:hidden; }
+  .page-grid > .pcard:nth-last-child(1){
     border-bottom:none;
-  }
-  @media (min-width:760px){
-    .page-grid > .pcard{
-      border-bottom:1px solid var(--rule);
-    }
-    .page-grid > .pcard:nth-child(5),
-    .page-grid > .pcard:nth-child(6){
-      border-bottom:none;
-    }
   }
   .pcard-head{
     display:flex;
@@ -366,7 +427,23 @@
     gap:6px;
   }
   .wp-label{ font-size:12px; font-weight:700; color:var(--num); }
-  .wp-tools{ display:flex; gap:6px; }
+  .wp-tools{ display:flex; gap:6px; flex-wrap:wrap; }
+  .write-pad:not(.answer-pad) .wp-tools .wp-grow,
+  .write-pad:not(.answer-pad) .wp-tools .wp-shrink,
+  .write-pad:not(.answer-pad) .wp-tools .wp-clear{ display:none; }
+  .write-pad:not(.answer-pad) .wp-tools.open .wp-grow,
+  .write-pad:not(.answer-pad) .wp-tools.open .wp-shrink,
+  .write-pad:not(.answer-pad) .wp-tools.open .wp-clear{ display:inline-block; }
+  .wp-more{ font-family:inherit; font-size:14px; font-weight:800; color:#6b6558; background:#efece2; border:1.5px solid transparent; border-radius:999px; padding:1px 12px; cursor:pointer; line-height:1.4; }
+  .wp-tools.open .wp-more{ background:#fff; border-color:var(--ink); }
+  .answer-pad.collapsed{ display:none; }
+  .answer-check{ flex-wrap:nowrap; }
+  .answer-check .ans-input{ flex:1 1 0; min-width:0; width:auto; max-width:none; }
+  .answer-check .ac-label, .answer-check .ac-btn, .answer-check .ac-hand{ flex:0 0 auto; white-space:nowrap; }
+  .answer-check .ans-feedback{ flex:0 1 auto; }
+  .ans-feedback:empty{ display:none; }
+  .ac-hand{ font-family:inherit; font-size:16px; background:#efece2; border:1.5px solid #d9d3c4; border-radius:8px; padding:4px 10px; cursor:pointer; }
+  .ac-hand.open{ background:#fff; border-color:var(--ink); }
   .wp-mode, .wp-clear, .wp-grow, .wp-shrink{
     font-family:inherit;
     font-size:11.5px;
@@ -408,6 +485,7 @@
     gap:8px;
     margin:10px 0 4px;
   }
+  .choices.two-col{ grid-template-columns:repeat(2, minmax(0,1fr)); }
   .choice-btn{
     font-family:inherit;
     font-size:14.5px;
@@ -489,6 +567,13 @@
     cursor:pointer;
     color:var(--num);
   }
+  .reason-actions{ display:flex; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap; }
+  .reason-save{ font-family:inherit; font-size:14px; font-weight:800; background:var(--wrong); color:#fff; border:1.5px solid var(--wrong); border-radius:999px; padding:8px 18px; cursor:pointer; }
+  .reason-save.done{ background:#2f7a5b; border-color:#2f7a5b; }
+  .reason-save:disabled{ cursor:default; }
+  .reason-status{ font-size:12.5px; font-weight:700; color:#6b6558; }
+  .reason-status.ok{ color:#2f7a5b; }
+  .reason-status.warn{ color:var(--wrong); }
   .reason-chip.active{
     background:var(--wrong);
     border-color:var(--wrong);
@@ -496,7 +581,11 @@
   }
 
   /* ===== 정답/풀이 토글 ===== */
-  .solution-wrap{ margin-top:10px; }
+  .solution-wrap{ margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .solution-wrap .solution-body, .solution-wrap .ai-panel{ flex:1 0 100%; margin-top:0; }
+  .solution-wrap .solution-body{ order:3; }
+  .solution-wrap .ai-panel{ order:4; }
+  .solution-wrap .ai-toggle{ margin-top:0; }
   .solution-toggle{
     font-family:inherit;
     font-size:12.5px;
@@ -518,8 +607,11 @@
     font-size:14px;
     line-height:1.7;
     white-space:pre-line;
+    overflow-wrap:anywhere;
+    overflow-x:auto;   /* 줄바꿈이 안 되는 긴 수식은 카드 안에서 가로 스크롤 */
   }
   .solution-body.hidden-sol{
+    display:none;
     color:transparent;
     text-shadow:0 0 9px rgba(32,36,43,0.55);
     user-select:none;
@@ -665,10 +757,127 @@
     border:none;
   }
   .home-btn:hover{ opacity:0.9; }
+
+  /* ===== v2.25 요점노트로 돌아가기 버튼 (?back= 이 있을 때만 표시) ===== */
+  .back-btn{
+    display:none;
+    position:fixed;
+    left:18px;
+    bottom:calc(18px + env(safe-area-inset-bottom, 0px));
+    z-index:150;
+    align-items:center;
+    gap:6px;
+    min-height:46px;
+    padding:0 18px;
+    border-radius:999px;
+    background:#20242b;
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    box-shadow:0 3px 10px rgba(32,36,43,0.3);
+  }
+  .back-btn.show{ display:flex; }
+  .back-btn:hover{ opacity:0.9; }
+
+  /* ===== v2.13 관련 학습 팁 ===== */
+  .tips-box{ margin-top:10px; padding:10px 14px; background:#fff8e6; border:1px solid #ecd9a6; border-radius:10px; font-size:13.5px; }
+  .tips-box .tips-head{ font-weight:700; margin-bottom:4px; }
+  .tips-box .tip-row{ margin:4px 0; line-height:1.5; }
+  .tips-box .tip-row a{ color:#33578c; font-weight:700; }
+  .tips-box .tip-note{ color:var(--num); font-size:12.5px; }
+
+  /* ===== v2.12 AI 튜터 ===== */
+  .ai-toggle{
+    font-family:inherit; font-size:12.5px; font-weight:700;
+    color:#33578c; background:#e6edf7; border:none; border-radius:999px;
+    padding:6px 14px; cursor:pointer; margin-top:8px;
+  }
+  .ai-panel{
+    display:none; margin-top:8px; padding:12px 14px;
+    background:#fff; border:1px solid #c9d6ea; border-radius:8px;
+    font-size:14px; line-height:1.7;
+  }
+  .ai-modes{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+  .ai-modes button{
+    font-family:inherit; font-size:12.5px; border:1px solid #c9d6ea; background:#f4f7fb;
+    color:#33578c; border-radius:999px; padding:4px 12px; cursor:pointer;
+  }
+  .ai-modes button:disabled{ opacity:0.45; cursor:default; }
+  .ai-log .ai-msg{ margin:6px 0; white-space:pre-line; }
+  .ai-log .ai-msg.me{ color:var(--num); }
+  .ai-log .ai-msg.bot{ color:var(--ink); }
+  .ai-log .ai-rec{ font-size:12.5px; margin-top:4px; }
+  .ai-log .ai-rec a{ color:#33578c; }
+  .ai-ask{ display:flex; gap:6px; margin-top:8px; }
+  .ai-ask input{ flex:1; min-width:0; font-family:inherit; font-size:14px; padding:6px 8px; border:1px solid var(--rule); border-radius:6px; }
+  .ai-ask button{ font-family:inherit; font-size:13px; border:none; background:#33578c; color:#fff; border-radius:6px; padding:6px 12px; cursor:pointer; }
+  .ai-status{ font-size:12.5px; color:var(--num); min-height:16px; }
+  .result-actions .btn-ai{ background:#5b3d8c; color:#fff; }
+
+  /* v2.58 PDF 출력 미리보기 (A4 · 2열) */
+  .pdf-btn{ background:#fff; color:var(--ink); border:1.5px solid var(--rule); }
+  #ppOverlay{ position:fixed; inset:0; z-index:9999; background:#6b6b6b; overflow:auto; display:none; -webkit-overflow-scrolling:touch; }
+  #ppOverlay.show{ display:block; }
+  .pp-toolbar{ position:sticky; top:0; z-index:2; display:flex; flex-direction:column; gap:6px; align-items:center; padding:8px 10px; background:#222; color:#fff; font-size:13px; }
+  .pp-row{ display:flex; align-items:center; justify-content:center; gap:8px; white-space:nowrap; }
+  .pp-ver{ opacity:.6; font-size:11px; }
+  #ppInfo{ font-size:12.5px; }
+  .pp-toolbar button{ border:0; border-radius:8px; padding:7px 11px; font-weight:700; font-size:13px; line-height:1.2; cursor:pointer; background:#fff; color:#222; }
+  .pp-toolbar button.pp-go{ background:#2f7a5b; color:#fff; }
+  .pp-toolbar label{ display:flex; align-items:center; gap:4px; font-size:13px; line-height:1.2; }
+  .pp-pages{ padding:12px 0 40px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .pp-page{ width:210mm; height:297mm; background:#fff; box-sizing:border-box; padding:10mm; position:relative; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.4); color:#000; font-size:10pt; line-height:1.5; }
+  .pp-head{ height:7mm; display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1.5px solid #000; font-size:9pt; font-weight:700; margin-bottom:2mm; }
+  .pp-cols{ display:grid; grid-template-columns:1fr 1fr; column-gap:6mm; height:calc(297mm - 20mm - 9mm); }
+  .pp-col{ position:relative; height:100%; overflow:hidden; }
+  .pp-col + .pp-col{ border-left:1px solid #bbb; padding-left:3mm; margin-left:-3mm; }
+  .pp-item{ margin-bottom:9mm; break-inside:avoid; }
+  .pp-item.pp-more{ margin-bottom:0; }
+  .pp-whole{ margin-bottom:9mm; } .pp-whole > .pp-item{ margin-bottom:0; }
+  .pp-cont{ font-size:8pt; color:#a02a20; margin:0 0 1mm 6mm; }
+  .pp-solu .pp-sol{ margin-top:0; }
+  .pp-ch{ row-gap:1.5mm; } .pp-ch.tall > div{ padding:1.5mm 0; }
+  .pp-q{ display:flex; gap:5px; }
+  .pp-n{ font-weight:800; min-width:6mm; }
+  .pp-d{ font-size:8pt; color:#555; font-weight:400; }
+  .pp-img{ text-align:center; margin:1mm 0; }
+  .pp-img img{ max-width:100%; max-height:60mm; }
+  .pp-ch{ margin:1mm 0 0 6mm; display:grid; gap:0 4mm; }
+  .pp-ch.c1{ grid-template-columns:1fr; } .pp-ch.c2{ grid-template-columns:1fr 1fr; }
+  .pp-sol{ margin:1mm 0 0 6mm; font-size:8.5pt; color:#a02a20; }
+  #ppMeasure{ position:absolute; left:-99999px; top:0; width:86mm; visibility:hidden; font-size:10pt; line-height:1.5; }
+  @media print{
+    @page{ size:A4; margin:0; }
+    html,body{ background:#fff !important; }
+    body > *:not(#ppOverlay){ display:none !important; }
+    #ppOverlay{ position:static; background:#fff; overflow:visible; display:block; }
+    .pp-toolbar{ display:none !important; }
+    .pp-pages{ padding:0; gap:0; display:block; zoom:1 !important; }
+    .pp-page{ box-shadow:none; page-break-after:always; break-after:page; margin:0; }
+  }
 </style>
 </head>
 <body>
 <a class="home-btn" href="../index.html" title="홈으로">🏠</a>
+<a class="back-btn" id="backBtn" href="#" title="요점노트로 돌아가기">← 요점노트로</a>
+<script>
+  /* v2.25: ?back=https://claude.ai/artifact/... 일 때만 돌아가기 버튼을 켠다 */
+  (function(){
+    try {
+      var b = new URLSearchParams(window.location.search).get('back');
+      if(!b) return;
+      var u = new URL(b, window.location.href);
+      var same = (u.origin === window.location.origin && /\.html$/.test(u.pathname));
+      var art = (u.protocol === 'https:' && u.hostname === 'claude.ai' && /^\/(code\/)?artifact\//.test(u.pathname));
+      if(!same && !art) return;
+      var a = document.getElementById('backBtn');
+      if(!a) return;
+      a.href = u.href;
+      a.classList.add('show');
+    } catch(e){}
+  })();
+</script>
 <div id="sessionBadge" style="position:fixed; bottom:20px; right:74px; z-index:150; font-size:11.5px; background:#fff; border:1.5px solid var(--rule); border-radius:999px; padding:6px 12px; color:var(--num); box-shadow:0 3px 10px rgba(32,36,43,0.12);"></div>
 <script>
   (function(){
@@ -689,6 +898,9 @@
   <div class="quiz-timer" id="quizTimer">00:00</div>
   <button class="quiz-btn scroll-mode" id="scrollModeBtn" onclick="toggleScrollMode()">✏️ 필기 모드</button>
   <button class="quiz-btn pen-settings-btn" id="penSettingsBtn" onclick="togglePenSettings()">⚙️ 필기감</button>
+  <button class="quiz-btn pdf-btn" id="pdfBtn" onclick="openPrintPreview()">🖨️ PDF 출력</button>
+  <span class="quiz-score" id="quizScore" hidden></span>
+  <label class="twocol-toggle" title="태블릿·PC에서 문제를 2열로 보기"><input type="checkbox" id="twoColChk" onchange="setTwoCol(this.checked)"> 2열 보기</label>
 
   <div class="pen-settings-panel" id="penSettingsPanel" style="display:none;">
     <div class="ps-title">✏️ S펜 필기감 설정</div>
@@ -723,7 +935,9 @@
     <div class="result-actions">
       <button class="btn-retry" onclick="retrySelectedWrong()">선택한 오답만 다시 풀기</button>
       <button class="btn-gen" onclick="generateSimilarForChecked()">체크한 문제 유사문제 만들기</button>
+      <button class="btn-ai" id="aiReviewBtn" onclick="makeAiReviewSet()">🤖 AI 복습 세트 만들기</button>
     </div>
+    <div class="save-status" id="aiReviewStatus"></div>
     <div class="result-actions">
       <button class="btn-close" onclick="closeResultModal()">닫기</button>
     </div>
@@ -733,6 +947,7 @@
 <header>
   <h1 id="setTitle">불러오는 중...</h1>
   <div class="sub" id="setSub"></div>
+  <div class="tips-box" id="relatedTips" style="display:none;"></div>
 </header>
 
 
@@ -865,7 +1080,7 @@
   })();
 
   // 구글 시트 저장 설정 — Apps Script 배포 후 URL 교체
-  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzqgkELv7cxD3UZlVj1XfvNiFtR4o6nI5uyDOLiMme6hx5eCcaVkNc_cUZ3JawAafKc/exec';
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyC6SkzAtNjW0Bh-2mlkybGLQTMGqXxkwr98KhrZX6HwmCqQoNvVKFarRvs5Vhqn2cM/exec';
 
   // v1.4: 손글씨 답 인식 방식 선택.
   // 'ocrspace' — 브라우저에서 OCR.space로 직접 호출 (백엔드/Anthropic 키 불필요, 지금 사용)
@@ -875,6 +1090,16 @@
   const OCR_SPACE_KEY = 'K83219514388957';
   const STUDENT_NAME_KEY = 'complex56_student_name';
   let WORKSHEET_ID = '';
+
+  // 로그인한 학생 이름(홈 화면 기록 조회가 session.name으로 거르므로 같은 값으로 저장해야 한다)
+  function currentStudentName(){
+    try{
+      const s = JSON.parse(localStorage.getItem('mathapp_session') || 'null');
+      if(s && s.name) return s.name;
+    }catch(e){}
+    return localStorage.getItem(STUDENT_NAME_KEY) || '학생';
+  }
+  let WORKSHEET_UNIT = '';
 
   const WRONG_REASONS = ['계산 실수', '개념 부족', '부호 실수', '조건 누락', '풀이 전략 오류', '시간 부족'];
 
@@ -886,17 +1111,46 @@
     const el = document.getElementById('reason-' + n);
     if(el) el.style.display = 'none';
   }
+  // v2.51: 유형 칩은 고르기만 하고, 「오답체크」 버튼을 눌러야 저장한다
   function pickReason(n, btn, reason){
-    quizState.wrongReasons[n] = reason;
-    const chips = btn.parentElement.querySelectorAll('.reason-chip');
-    chips.forEach(c => c.classList.remove('active'));
+    const box = document.getElementById('reason-' + n);
+    if(!box) return;
+    box.dataset.sel = reason;
+    box.querySelectorAll('.reason-chip').forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
+    const save = box.querySelector('.reason-save');
+    if(save){ save.disabled = false; save.textContent = '오답체크'; save.classList.remove('done'); }
+    const st = document.getElementById('reason-status-' + n);
+    if(st){ st.textContent = ''; st.className = 'reason-status'; }
+  }
+  function resetReasonPickers(){
+    document.querySelectorAll('.reason-picker').forEach(box => {
+      box.style.display = 'none';
+      delete box.dataset.sel;
+      box.querySelectorAll('.reason-chip').forEach(c => c.classList.remove('active'));
+      const save = box.querySelector('.reason-save');
+      if(save){ save.disabled = false; save.textContent = '오답체크'; save.classList.remove('done'); }
+      const st = box.querySelector('.reason-status');
+      if(st){ st.textContent = ''; st.className = 'reason-status'; }
+    });
+  }
+  function saveReason(n, btn){
+    const box = document.getElementById('reason-' + n);
+    const st = document.getElementById('reason-status-' + n);
+    const reason = box && box.dataset.sel;
+    if(!reason){
+      if(st){ st.textContent = '틀린 이유를 먼저 골라 주세요'; st.className = 'reason-status warn'; }
+      return;
+    }
+    quizState.wrongReasons[n] = reason;
+    btn.disabled = true; btn.textContent = '✓ 저장됨'; btn.classList.add('done');
+    if(st){ st.textContent = '오답노트에 「' + reason + '」로 기록했어요'; st.className = 'reason-status ok'; }
 
     // 이미 저장된 오답 로그 행에 유형만 갱신 (새 행을 만들지 않음)
     if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0) return;
     const prob = (currentProblemsData || []).find(pp => String(pp.num) === String(n));
     const problemId = prob && prob.problemId ? prob.problemId : (WORKSHEET_ID + '#' + n);
-    const studentName = localStorage.getItem(STUDENT_NAME_KEY) || '학생';
+    const studentName = currentStudentName();
 
     const payload = { action: 'updateReason', studentName: studentName, problemId: problemId, reason: reason };
 
@@ -993,12 +1247,12 @@
     if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0) return;
     const prob = (currentProblemsData || []).find(pp => String(pp.num) === String(n));
     const problemId = prob && prob.problemId ? prob.problemId : (WORKSHEET_ID + '#' + n);
-    const studentName = localStorage.getItem(STUDENT_NAME_KEY) || '학생';
+    const studentName = currentStudentName();
 
     const payload = {
       action: 'logAttempt',
       studentName: studentName,
-      worksheetId: WORKSHEET_ID,
+      worksheetId: (prob && prob.sourceWorksheetId) || WORKSHEET_ID,
       problemId: problemId,
       correct: correct,
       reason: correct ? '' : (quizState.wrongReasons[n] || '')
@@ -1060,8 +1314,16 @@
   const CIRCLED = { '①':'1','②':'2','③':'3','④':'4','⑤':'5','⑥':'6','⑦':'7','⑧':'8','⑨':'9','⑩':'10' };
   const UNIT_RE = '(?:cm|㎝|mm|㎜|km|㎞|m|㎠|㎡|㎤|㎥)(?:\\^?\\s*[23²³])?(?![A-Za-z])';
 
+  // v2.17: 키보드로 칠 수 없는 부등호를 학생은 >=, <=, != 로 입력한다 — 정답(≥ ≤ ≠, \ge \le \ne)과 같은 기호로 맞춘다.
+  // '=' 를 포함한 기호라서, 마지막 '=' 뒤만 비교하는 단계보다 반드시 먼저 바꿔야 한다.
+  function ansIneq(raw){
+    return String(raw == null ? '' : raw)
+      .replace(/\\(?:geq|ge)(?![A-Za-z])/g, '≥').replace(/\\(?:leq|le)(?![A-Za-z])/g, '≤').replace(/\\(?:neq|ne)(?![A-Za-z])/g, '≠')
+      .replace(/>=|≧/g, '≥').replace(/<=|≦/g, '≤').replace(/!=/g, '≠');
+  }
+
   function ansNorm(raw){
-    let s = String(raw == null ? '' : raw).trim();
+    let s = ansIneq(raw).trim();
     // "③, ⑤"처럼 번호만 있는 답은 숫자로 바꿔 "3,5"와 같게 본다
     if(/^[\s①-⑩,，、]+$/.test(s)) return s.replace(/[①-⑩]/g, c => CIRCLED[c]);
     s = s.replace(/\$/g, '');
@@ -1193,13 +1455,15 @@
     // v2.6: 단위·기호·LaTeX 차이를 무시하고 비교 (예: 정답 \(30^\circ\) ← 학생 입력 "30")
     const res = ansCheck(userVal, correctStr);
     // 예전 방식(숫자/문자열 그대로 비교)으로 맞는 경우도 그대로 정답 처리
-    const uNum = parseNum(extractAnswerValue(userVal));
-    const cNum = parseNum(extractAnswerValue(correctStr));
+    // v2.17: 부등호를 먼저 맞춘다 — 안 그러면 "x>=3"이 마지막 '=' 뒤인 "3"만 남아 정답 "3"과 같다고 잘못 판정된다
+    const uLegacy = extractAnswerValue(ansIneq(userVal)), cLegacy = extractAnswerValue(ansIneq(correctStr));
+    const uNum = parseNum(uLegacy);
+    const cNum = parseNum(cLegacy);
     let legacyOk;
     if(uNum !== null && cNum !== null){
       legacyOk = Math.abs(uNum - cNum) < 1e-9;
     } else {
-      legacyOk = extractAnswerValue(userVal).replace(/\s+/g,'') === extractAnswerValue(correctStr).replace(/\s+/g,'');
+      legacyOk = uLegacy.replace(/\s+/g,'') === cLegacy.replace(/\s+/g,'');
     }
     const isCorrect = res.correct || legacyOk;
     const missing = res.missing;
@@ -1326,6 +1590,30 @@
     });
   }
 
+  // 태블릿·PC: 문제 2열 보기 (선택은 이 기기에 저장)
+  function setTwoCol(on){
+    document.body.classList.toggle('two-col', !!on);
+    try { localStorage.setItem('player_two_col', on ? '1' : '0'); } catch(e){}
+    window.dispatchEvent(new Event('resize'));
+  }
+  (function(){
+    let on = false;
+    try { on = localStorage.getItem('player_two_col') === '1'; } catch(e){}
+    document.body.classList.toggle('two-col', on);
+    const chk = document.getElementById('twoColChk');
+    if(chk) chk.checked = on;
+  })();
+
+  // 단답형: ✍️ 버튼으로 손글씨 답 칸을 펼치고 접는다 (펼칠 때 캔버스 크기를 다시 잰다)
+  function toggleAnsPad(n){
+    const pad = document.getElementById('ans-pad-' + n);
+    const btn = document.getElementById('hand-' + n);
+    if(!pad) return;
+    const open = pad.classList.toggle('collapsed') === false;
+    if(btn) btn.classList.toggle('open', open);
+    if(open) window.dispatchEvent(new Event('resize'));
+  }
+
   function toggleSol(btn){
     if(!solutionsUnlocked){
       alert('정답·풀이는 종료 버튼을 눌러 채점을 마친 후에 볼 수 있어요.');
@@ -1395,15 +1683,23 @@
     document.querySelectorAll('.write-canvas').forEach(c => { clearCanvas(c.id); setPenMode(c.id,'pen'); });
     quizState.answers = {};
     quizState.wrongReasons = {};
+    resetReasonPickers();
     quizState.unitNotes = {};
     solutionsUnlocked = TEST_MODE_UNLOCK_SOLUTIONS;
     const startProb = currentProblemsData[quizStartIdx];
     goToPage(startProb ? pageOfNum(startProb.num) : 1);
   }
 
+  function hideQuizScore(){
+    const el = document.getElementById('quizScore');
+    if(el){ el.hidden = true; el.innerHTML = ''; }
+  }
+
   function startQuiz(){
     resetAll();
     quizState.running = true;
+    solutionsUnlocked = false;   // v2.50: 시작~종료 사이에는 정답·풀이·정오 표시를 잠근다
+    hideQuizScore();
     quizState.startTime = Date.now();
     document.getElementById('startBtn').disabled = true;
     document.getElementById('startNumSelect').disabled = true;
@@ -1466,9 +1762,13 @@
       if(quizState.answers[n] === 'correct') correctCount++;
       else { wrongNums.push(parseInt(n,10)); wrongStrs.push(String(n)); }
     });
+    // v2.52: 풀지 않은(미응답) 문제도 틀린 것으로 센다
+    const unanswered = rangeTotal - answeredNums.length;
+    rangeNums().forEach(n => {
+      if(!quizState.answers[n]){ wrongNums.push(parseInt(n,10)); wrongStrs.push(String(n)); }
+    });
     wrongNums.sort((a,b)=>a-b);
     wrongStrs.sort((a,b)=>parseInt(a,10)-parseInt(b,10));
-    const unanswered = rangeTotal - answeredNums.length;
 
     let html = '';
     if(quizStartIdx > 0){
@@ -1478,7 +1778,7 @@
     }
     html += `<p><b>${correctCount} / ${rangeTotal}</b> 문제 정답`;
     if(wrongNums.length>0) html += `, <b style="color:#b23a2e;">${wrongNums.length}개 오답</b>`;
-    if(unanswered>0) html += `, ${unanswered}개 미응답`;
+    if(unanswered>0) html += ` <span style="font-size:12.5px;color:#6b6558;">(미응답 ${unanswered}개 포함)</span>`;
     html += `</p>`;
 
     if(wrongNums.length>0){
@@ -1507,6 +1807,12 @@
     saveUnitNotes();
 
     document.getElementById('resultSummary').innerHTML = html;
+    // v2.50: 종료하면 필기감 버튼 옆에 맞은/틀린 개수를 계속 표시
+    const scoreEl = document.getElementById('quizScore');
+    if(scoreEl){
+      scoreEl.innerHTML = '<span class="ok">✅ 맞은 ' + correctCount + '</span> · <span class="no">❌ 틀린 ' + wrongNums.length + '</span>' + (unanswered > 0 ? ' <span class="na">(미응답 ' + unanswered + ' 포함)</span>' : '') + ' <span class="na">/ 전체 ' + rangeTotal + '</span>';
+      scoreEl.hidden = false;
+    }
     document.getElementById('resultModal').style.display = 'flex';
 
     saveResultsToSheet(correctCount, wrongNums, unanswered, elapsed, rangeTotal);
@@ -1545,7 +1851,7 @@
       }
     });
 
-    const studentName = localStorage.getItem(STUDENT_NAME_KEY) || '학생';
+    const studentName = currentStudentName();
     const payload = {
       studentName: studentName,
       worksheetId: WORKSHEET_ID,
@@ -1582,13 +1888,13 @@
       const correct = quizState.answers[n] === 'correct';
       return {
         problemId: prob && prob.problemId ? prob.problemId : (WORKSHEET_ID + '#' + n),
-        worksheetId: WORKSHEET_ID,
+        worksheetId: (prob && prob.sourceWorksheetId) || WORKSHEET_ID,
         correct: correct,
         reason: correct ? '' : (quizState.wrongReasons[n] || '')
       };
     });
 
-    const studentName = localStorage.getItem(STUDENT_NAME_KEY) || '학생';
+    const studentName = currentStudentName();
 
     fetch(SHEET_WEBHOOK_URL, {
       method: 'POST',
@@ -1639,6 +1945,7 @@
     goToPage(targetPage);
     quizState.answers = {};
     quizState.wrongReasons = {};
+    resetReasonPickers();
     solutionsUnlocked = TEST_MODE_UNLOCK_SOLUTIONS;
     closeResultModal();
   }
@@ -2518,13 +2825,15 @@
             <button class="wp-grow" onclick="growCanvas('canvas-${gid}')">공간 늘리기</button>
             <button class="wp-shrink" onclick="shrinkCanvas('canvas-${gid}')">공간 줄이기</button>
             <button class="wp-clear" onclick="clearCanvas('canvas-${gid}')">전체 지우기</button>
+            <button class="wp-more" type="button" aria-label="더 보기" onclick="this.parentElement.classList.toggle('open')">⋯</button>
           </div>
         </div>
         <canvas class="write-canvas" id="canvas-${gid}"></canvas>
       </div>`;
 
     if(spec.type === 'mc'){
-      inner += '<div class="choices">';
+      const shortSpec = spec.choices.every(o => String(o.text).replace(/\s/g,'').length <= 14);
+      inner += '<div class="choices' + (shortSpec ? ' two-col' : '') + '">';
       spec.choices.forEach((opt, i) => {
         inner += `<button class="choice-btn" onclick="pick(this,${opt.correct})">${CIRCLE_LABELS[i]} \\(${opt.text}\\)</button>`;
       });
@@ -2532,7 +2841,7 @@
     } else if(spec.type === 'fillin'){
       inner += `
       <div class="answer-check">
-        <span class="ac-label">내 답 입력</span>
+        <span class="ac-label">내 답</span>
         <input type="text" class="ans-input" id="input-${gid}" placeholder="답 입력">
         <button class="ac-btn" data-ans="${attrSafe(spec.answer)}" onclick="checkAnswer(this, this.dataset.ans)">확인</button>
         <span class="ans-feedback" id="feedback-${gid}"></span>
@@ -2576,6 +2885,193 @@
     });
     document.querySelectorAll('#genGrid .write-canvas').forEach(setupCanvas);
     document.getElementById('genSection').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // ============================================================
+  // ===== v2.13 관련 학습 팁 (data/tips.json) =====
+  // 팁의 단원 태그가 문제지 제목/단원에 들어 있으면 보여준다. 실패해도 풀이에는 영향 없음.
+  // ============================================================
+  const TIP_URL_RE = /^https:\/\/www\.instagram\.com\/(p|reel)\/[A-Za-z0-9_-]+\/$/;
+
+  async function renderRelatedTips(data){
+    const box = document.getElementById('relatedTips');
+    if(!box) return;
+    try{
+      const res = await fetch('../data/tips.json', { cache: 'no-store' });
+      const tips = (await res.json()).tips || [];
+      const haystack = [data.title, data.unit].join(' ');
+      const gm = String(WORKSHEET_ID).match(/(?:^|_)(m[0-2])_/);   // m1_2604_… / 2604_m1_… 둘 다
+      const grade = gm ? gm[1] : '';
+      const matched = tips.filter(t => t && TIP_URL_RE.test(t.url || '') && t.title
+        && (t.units || []).some(u => u && haystack.indexOf(u) >= 0)
+        && (!t.grades || t.grades.length === 0 || t.grades.indexOf(grade) >= 0)).slice(0, 3);
+      if(matched.length === 0) return;
+      box.innerHTML = '<div class="tips-head">💡 관련 학습 팁</div>' + matched.map(t =>
+        `<div class="tip-row"><a href="${attrSafe(t.url)}" target="_blank" rel="noopener">${escapeHtml(t.title)} ↗</a>`
+        + (t.account ? ` <span class="tip-note">${escapeHtml(t.account)}</span>` : '')
+        + (t.summary ? `<div class="tip-note">${escapeHtml(t.summary)}</div>` : '') + '</div>').join('');
+      box.style.display = 'block';
+    } catch(e){ /* 팁은 부가 기능 — 조용히 건너뜀 */ }
+  }
+
+  // ============================================================
+  // ===== v2.12 AI 튜터 / AI 복습 세트 (backend action:'aiTutor' / 'aiMakeReviewSet') =====
+  // ============================================================
+
+  const aiHistory = {};   // 문제 번호 → [{role:'user'|'assistant', text}]
+  const aiBusy = {};
+
+  function aiSession(){
+    try{ return JSON.parse(localStorage.getItem('mathapp_session') || 'null') || {}; }
+    catch(e){ return {}; }
+  }
+
+  // WORKSHEET_ID에는 학생용 표시 '-student'가 붙어 있어 manifest id와 맞추려고 떼어낸다(saveUnitNotes와 같은 방식)
+  function aiWorksheetId(){ return String(WORKSHEET_ID).replace(/-student$/, ''); }
+
+  function findProblemByNum(n){
+    return (currentProblemsData || []).find(pp => String(pp.num) === String(n));
+  }
+
+  // 학생이 고른 보기 / 입력한 답을 화면에서 읽어온다
+  function readStudentAnswer(n){
+    const card = document.querySelector(`.pcard[data-num="${CSS.escape(String(n))}"]`);
+    if(!card) return '';
+    const picked = card.querySelector('.choice-btn.picked');
+    if(picked) return picked.textContent.trim();
+    const input = card.querySelector('.ans-input');
+    return input ? input.value.trim() : '';
+  }
+
+  function aiProblemPayload(p){
+    return { num:p.num, type:p.type, diff:p.diff, family:p.family, question:p.question,
+             choices:p.choices, answer:p.answer, correct:p.correct, solution:p.solution };
+  }
+
+  function toggleAiPanel(n){
+    const panel = document.getElementById('ai-panel-' + n);
+    if(!panel) return;
+    const open = panel.style.display !== 'block';
+    panel.style.display = open ? 'block' : 'none';
+    // 정답이 잠긴 동안(시험 진행 중)에는 "어디가 틀렸나요"를 막고 힌트만 허용한다
+    panel.querySelectorAll('.ai-need-unlock').forEach(b => { b.disabled = !solutionsUnlocked; });
+  }
+
+  function appendAiMsg(n, role, text, recs){
+    const log = document.getElementById('ai-log-' + n);
+    if(!log) return;
+    const div = document.createElement('div');
+    div.className = 'ai-msg ' + (role === 'user' ? 'me' : 'bot');
+    div.textContent = (role === 'user' ? '🙋 ' : '🤖 ') + text;
+    log.appendChild(div);
+    if(recs && recs.length){
+      const r = document.createElement('div');
+      r.className = 'ai-rec';
+      r.innerHTML = '📚 더 풀어볼 문제: ' + recs.map(x =>
+        `<a href="${attrSafe(x.link)}">${escapeHtml(x.setTitle || x.set)} ${escapeHtml(x.num)}번</a>`).join(' · ');
+      log.appendChild(r);
+    }
+    renderMathInElement(div, {
+      delimiters: [
+        {left: "\\(", right: "\\)", display: false},
+        {left: "\\[", right: "\\]", display: true}
+      ]
+    });
+  }
+
+  async function askAiTutor(n, mode){
+    if(aiBusy[n]) return;
+    if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0){ alert('서버가 연결되어 있지 않아요'); return; }
+    if(mode === 'explain' && !solutionsUnlocked){
+      alert('채점을 마친 후에 물어볼 수 있어요. 지금은 힌트만 받을 수 있어요.');
+      return;
+    }
+    const p = findProblemByNum(n);
+    if(!p) return;
+    const qInput = document.getElementById('ai-q-' + n);
+    let question = '';
+    if(mode === 'chat'){
+      question = (qInput.value || '').trim();
+      if(!question) return;
+      qInput.value = '';
+    }
+    const shown = mode === 'hint' ? '힌트 주세요' : mode === 'explain' ? '제 답이 어디서 틀렸나요?' : question;
+    appendAiMsg(n, 'user', shown);
+
+    const status = document.getElementById('ai-status-' + n);
+    status.textContent = '생각하는 중… (10~30초)';
+    aiBusy[n] = true;
+    const sess = aiSession();
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'aiTutor',
+          mode: mode,
+          worksheetId: aiWorksheetId(),
+          problem: aiProblemPayload(p),
+          studentAnswer: readStudentAnswer(n),
+          answerRevealed: solutionsUnlocked,
+          question: question,
+          history: aiHistory[n] || [],
+          studentId: sess.studentId || ''
+        })
+      });
+      const json = await res.json();
+      if(json.status !== 'ok') throw new Error(json.message || '알 수 없는 오류');
+      if(!json.reply) throw new Error('AI 답변을 받지 못했어요. 서버(Apps Script)가 최신 버전으로 배포됐는지 확인해 주세요.');
+      (aiHistory[n] = aiHistory[n] || []).push({ role:'user', text: shown }, { role:'assistant', text: json.reply });
+      appendAiMsg(n, 'assistant', json.reply, json.recommendations);
+      status.textContent = '';
+    } catch(e){
+      status.textContent = '⚠ ' + e.message;
+    } finally {
+      aiBusy[n] = false;
+    }
+  }
+
+  // 채점 결과에서 체크한 오답으로 AI가 변형 문제 세트를 만들어 선생님 검토 대기열에 올린다
+  async function makeAiReviewSet(){
+    const checked = Array.from(document.querySelectorAll('.wrong-check:checked')).map(cb => cb.value);
+    const status = document.getElementById('aiReviewStatus');
+    const btn = document.getElementById('aiReviewBtn');
+    if(checked.length === 0){ alert('복습 세트를 만들 오답을 최소 1개 이상 선택해주세요.'); return; }
+    if(checked.length > 6 && !confirm('한 번에 6문제까지만 만들어요. 앞의 6문제로 진행할까요?')) return;
+    if(SHEET_WEBHOOK_URL.indexOf('PASTE_YOUR') === 0){ alert('서버가 연결되어 있지 않아요'); return; }
+
+    const wrong = checked.slice(0, 6).map(n => {
+      const p = findProblemByNum(n);
+      return p ? { problem: aiProblemPayload(p), studentAnswer: readStudentAnswer(n), reason: quizState.wrongReasons[n] || '' } : null;
+    }).filter(Boolean);
+
+    const sess = aiSession();
+    btn.disabled = true;
+    status.className = 'save-status saving';
+    status.textContent = '🤖 AI가 문제를 만들고 스스로 검사하는 중… (1~3분)';
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'aiMakeReviewSet',
+          worksheetId: aiWorksheetId(),
+          grade: sess.grade || '',
+          unit: WORKSHEET_UNIT,
+          wrong: wrong,
+          studentId: sess.studentId || '', studentName: sess.name || '', school: sess.school || ''
+        })
+      });
+      const json = await res.json();
+      if(json.status !== 'ok') throw new Error(json.message || '알 수 없는 오류');
+      if(!json.count) throw new Error('복습 세트를 받지 못했어요. 서버(Apps Script)가 최신 버전으로 배포됐는지 확인해 주세요.');
+      status.className = 'save-status ok';
+      status.textContent = `✅ ${json.count}문제 복습 세트를 만들었어요. 선생님이 확인하면 목록에 나타나요.`;
+    } catch(e){
+      status.className = 'save-status fail';
+      status.textContent = '⚠ ' + e.message;
+      btn.disabled = false;
+    }
   }
 
   // ============================================================
@@ -2670,20 +3166,22 @@
             <button class="wp-grow" onclick="growCanvas('canvas-${n}')">공간 늘리기</button>
             <button class="wp-shrink" onclick="shrinkCanvas('canvas-${n}')">공간 줄이기</button>
             <button class="wp-clear" onclick="clearCanvas('canvas-${n}')">전체 지우기</button>
+            <button class="wp-more" type="button" aria-label="더 보기" onclick="this.parentElement.classList.toggle('open')">⋯</button>
           </div>
         </div>
         <canvas class="write-canvas" id="canvas-${n}"></canvas>
       </div>`;
 
     if(p.type === 'mc'){
-      html += '<div class="choices">';
+      const shortChoices = p.choices.every(ch => String(ch).replace(/\\[()\[\]]|\s/g,'').length <= 14);
+      html += '<div class="choices' + (shortChoices ? ' two-col' : '') + '">';
       p.choices.forEach((ch, i) => {
         const isCorrect = (Array.isArray(p.correct) ? p.correct.includes(i) : p.correct === i) ? 'true' : 'false';
         html += `<button class="choice-btn" onclick="pick(this,${isCorrect})">${CIRCLE[i]} ${escapeHtml(ch)}</button>`;
       });
       html += '</div>';
     } else {
-      html += `<div class="write-pad answer-pad">
+      html += `<div class="write-pad answer-pad collapsed" id="ans-pad-${n}">
         <div class="write-pad-head">
           <span class="wp-label">✍️ S펜으로 정답만 쓰기</span>
           <div class="wp-tools">
@@ -2697,24 +3195,39 @@
         <span class="ocr-status" id="ocr-status-${n}"></span>
       </div>
       <div class="answer-check">
-        <span class="ac-label">내 답 입력</span>
-        <input type="text" class="ans-input" id="input-${n}" placeholder="답 입력 (또는 위에서 손글씨 인식)">
+        <span class="ac-label">내 답</span>
+        <input type="text" class="ans-input" id="input-${n}" placeholder="답 입력">
+        <button class="ac-hand" type="button" id="hand-${n}" aria-label="손글씨로 답 쓰기" onclick="toggleAnsPad('${n}')">✍️</button>
         <button class="ac-btn" data-ans="${attrSafe(p.answer)}" onclick="checkAnswer(this, this.dataset.ans)">확인</button>
         <span class="ans-feedback" id="feedback-${n}"></span>
       </div>`;
     }
 
     html += `<div class="reason-picker" id="reason-${n}" style="display:none;">
-      <span class="reason-label">🤔 왜 틀렸을까요? (선택하면 오답노트에 기록돼요)</span>
+      <span class="reason-label">🤔 왜 틀렸을까요? (이유를 고르고 「오답체크」를 누르면 오답노트에 기록돼요)</span>
       <div class="reason-chips">
         ${WRONG_REASONS.map(r => `<button class="reason-chip" onclick="pickReason(${n}, this, '${r}')">${r}</button>`).join('')}
       </div>
+      <div class="reason-actions"><button class="reason-save" onclick="saveReason(${n}, this)">오답체크</button><span class="reason-status" id="reason-status-${n}"></span></div>
     </div>`;
 
     const solLines = (p.solution || []).map(s => `<div class="sol-line">${escapeHtml(s)}</div>`).join('');
     html += `<div class="solution-wrap">
         <button class="solution-toggle" onclick="toggleSol(this)">정답·풀이 보기</button>
         <div class="solution-body hidden-sol" onclick="toggleSol(this.previousElementSibling)">${solLines}</div>
+        <button class="ai-toggle" onclick="toggleAiPanel('${escapeAttr(n)}')">🤖 AI 튜터</button>
+        <div class="ai-panel" id="ai-panel-${n}">
+          <div class="ai-modes">
+            <button onclick="askAiTutor('${escapeAttr(n)}','hint')">💡 힌트만</button>
+            <button class="ai-need-unlock" onclick="askAiTutor('${escapeAttr(n)}','explain')">🔍 내 답 어디가 틀렸나요?</button>
+          </div>
+          <div class="ai-log" id="ai-log-${n}"></div>
+          <div class="ai-status" id="ai-status-${n}"></div>
+          <div class="ai-ask">
+            <input type="text" id="ai-q-${n}" placeholder="궁금한 점을 물어보세요" onkeydown="if(event.key==='Enter') askAiTutor('${escapeAttr(n)}','chat')">
+            <button onclick="askAiTutor('${escapeAttr(n)}','chat')">보내기</button>
+          </div>
+        </div>
       </div>
     </div>`;
     return html;
@@ -2748,20 +3261,60 @@
     updateFloatNav(1);
   }
 
+  // 모의고사 단원별 풀이: 그 달의 학력평가들에서 subject·chapter가 같은 문항만 모아 세트 하나로 만든다.
+  // 문항 번호는 1부터 다시 매기고, 원래 시험과 번호는 문제 앞에 표시하며 기록용으로 sourceId/sourceNum에 남긴다.
+  async function loadMockUnitSet(month, subject, chapter){
+    const mm = String(month).padStart(2, '0');
+    const manifestRes = await fetch('../data/worksheets-manifest.json', { cache: 'no-store' });
+    if(!manifestRes.ok) throw new Error(`문제지 목록 요청 실패 (status ${manifestRes.status})`);
+    const manifest = await manifestRes.json();
+    const sets = manifest.sets
+      .filter(s => s.source === 'hakpyeong' && !s.hidden && String(s.id).split('_')[1].slice(2) === mm)
+      .sort((a, b) => String(a.id).localeCompare(String(b.id)));
+    const files = await Promise.all(sets.map(async s => {
+      const res = await fetch('../data/' + s.file, { cache: 'no-store' });
+      if(!res.ok) throw new Error(`문제 파일 요청 실패 (status ${res.status}): ../data/${s.file}`);
+      return res.json();
+    }));
+    const problems = [];
+    files.forEach(d => {
+      const yy = String(d.id).split('_')[1].slice(0, 2);
+      d.problems.filter(p => p.subject === subject && p.chapter === chapter).forEach(p => {
+        problems.push(Object.assign({}, p, {
+          num: problems.length + 1,
+          question: `[20${yy}년 ${parseInt(mm, 10)}월 ${p.num}번] ${p.question}`,
+          sourceId: d.id,
+          sourceNum: p.num,
+          sourceWorksheetId: d.id + '-student'
+        }));
+      });
+    });
+    if(problems.length === 0) throw new Error(`${parseInt(mm, 10)}월 모의고사에 해당 단원 문항이 없어요: ${subject} ${chapter}`);
+    return {
+      id: `m1_mock_${mm}_${subject}_${chapter}`.replace(/\s+/g, ''),
+      title: `${parseInt(mm, 10)}월 모의고사 · ${subject} ${chapter}`,
+      unit: `${sets.length}회분 모음`,
+      problems
+    };
+  }
+
   async function loadProblemSet(){
     const params = new URLSearchParams(window.location.search);
     const setId = params.get('set');
+    const mockMonth = params.get('mock');
     let data;
 
     try{
-      if(setId){
+      if(mockMonth){
+        data = await loadMockUnitSet(mockMonth, params.get('subject'), params.get('chapter'));
+      } else if(setId){
         // v1.2: data/ 바로 밑 평평한 구조뿐 아니라 data/senmath32/처럼 하위 폴더에 있는
         // 세트도 찾을 수 있도록, id로 파일명을 직접 조합하는 대신
         // worksheets-manifest.json에서 해당 id의 file 경로를 찾아 그걸로 fetch한다.
         // (compose.html이 이미 쓰고 있는 방식과 통일)
         let filePath = setId + '.json'; // manifest에서 못 찾으면 기존 방식으로 폴백
         try{
-          const manifestRes = await fetch('../data/worksheets-manifest.json');
+          const manifestRes = await fetch('../data/worksheets-manifest.json', { cache: 'no-store' });
           if(manifestRes.ok){
             const manifest = await manifestRes.json();
             const entry = manifest.sets.find(s => s.id === setId);
@@ -2770,7 +3323,7 @@
         } catch(manifestErr){
           // manifest를 못 읽어도 기존 방식(평평한 구조)으로 계속 시도
         }
-        const res = await fetch('../data/' + filePath);
+        const res = await fetch('../data/' + filePath, { cache: 'no-store' });
         if(!res.ok) throw new Error(`문제 파일 요청 실패 (status ${res.status}): ../data/${filePath}`);
         data = await res.json();
       } else {
@@ -2790,6 +3343,8 @@
 
     document.title = (data.title || '문제풀이') + ' — 학생용';
     document.getElementById('setTitle').textContent = data.title || '문제풀이';
+    WORKSHEET_UNIT = data.unit || '';
+    renderRelatedTips(data);
     const pageCount = Math.ceil(data.problems.length / PAGE_SIZE);
     document.getElementById('setSub').textContent =
       (data.unit ? data.unit + ' · ' : '') + `전체 ${data.problems.length}문제 · ${pageCount}페이지(한 페이지당 ${PAGE_SIZE}문항) · 시작을 누르고 풀어보세요`;
@@ -2819,7 +3374,8 @@
       // 없으면 지금 이 세트의 id를 출처로 삼는다.
       const SOURCE_ID = data.id || setId || 'custom';
       data.problems = data.problems.map(p => Object.assign({}, p, {
-        problemId: (p.sourceId || SOURCE_ID) + '#' + p.num
+        // 원래 시험 번호(sourceNum)가 있으면 그 번호로 — 단원별 모음에서 풀어도 원래 시험의 같은 문항으로 기록된다
+        problemId: p.sourceId ? p.sourceId + '#' + (p.sourceNum !== undefined ? p.sourceNum : p.num) : SOURCE_ID + '#' + p.num
       }));
 
       // 재구성 화면에서 "유사문제로 시작"을 선택한 문제는 여기서 실제 변형 문제로 교체
@@ -2870,6 +3426,184 @@
   }
 
   loadProblemSet();
+</script>
+
+<script>
+/* v2.58 PDF 출력 미리보기: 문제를 A4 2열로 나눠 담아 미리 보고, 인쇄(PDF로 저장)한다 */
+(function(){
+  const MM = 96/25.4;
+  const COL_H = (297-20-9-3) * MM;
+  let withSol = false;
+
+  function ensureOverlay(){
+    let o = document.getElementById('ppOverlay');
+    if(o) return o;
+    o = document.createElement('div');
+    o.id = 'ppOverlay';
+    o.innerHTML = '<div class="pp-toolbar"><div class="pp-row"><strong>🖨️ PDF 미리보기 · A4 2열</strong><span class="pp-ver">v2.67</span></div>' +
+      '<div class="pp-row"><label>장수 <select id="ppN"><option value="0">자동</option>' +
+      [1,2,3,4,5,6,7,8].map(n => '<option value="' + n + '">' + n + '장</option>').join('') + '</select></label>' +
+      '<label><input type="checkbox" id="ppSol"> 정답·풀이 포함</label>' +
+      '<span id="ppInfo"></span></div>' +
+      '<div class="pp-row">' +
+      '<button class="pp-go" type="button" onclick="window.print()">인쇄 / PDF 저장</button>' +
+      '<button type="button" onclick="closePrintPreview()">닫기</button></div></div>' +
+      '<div class="pp-pages" id="ppPages"></div><div id="ppMeasure"></div>';
+    document.body.appendChild(o);
+    o.querySelector('#ppSol').addEventListener('change', e => { withSol = e.target.checked; o.querySelector('#ppN').disabled = withSol; buildPreview(); });
+    o.querySelector('#ppN').addEventListener('change', () => buildPreview());
+    return o;
+  }
+
+  function itemHtml(p){
+    const n = p.num;
+    const dl = (typeof DIFF_LABEL !== 'undefined' && DIFF_LABEL[p.diff]) || '';
+    let h = '<div class="pp-q"><span class="pp-n">' + escapeHtml(String(n)) + '.</span><div>' +
+      (dl ? '<span class="pp-d">[' + escapeHtml(dl) + '] </span>' : '') + escapeHtml(p.question) + '</div></div>';
+    if(Array.isArray(p.images) && p.images.length)
+      h += '<div class="pp-img">' + p.images.map(src => '<img src="' + escapeAttr(src) + '" alt="">').join('') + '</div>';
+    if(p.type === 'mc' && Array.isArray(p.choices)){
+      const hasFrac = p.choices.some(ch => /\\[dt]?frac|\\binom/.test(String(ch)));
+      const short = p.choices.every(ch => String(ch).replace(/\\[()\[\]]|\s/g,'').length <= 14);
+      h += '<div class="pp-ch ' + (short ? 'c2' : 'c1') + (hasFrac ? ' tall' : '') + '">' +
+        p.choices.map((ch,i) => '<div>' + CIRCLE[i] + ' ' + escapeHtml(ch) + '</div>').join('') + '</div>';
+    }
+    const units = [];
+    if(!withSol){ units.push('<div class="pp-item">' + h + '</div>'); }
+    else {
+      let ans = '';
+      if(p.type === 'mc'){
+        const c = Array.isArray(p.correct) ? p.correct : [p.correct];
+        ans = c.map(i => CIRCLE[i]).join(' ');
+      } else ans = p.answer == null ? '' : String(p.answer);
+      units.push('<div class="pp-item pp-more">' + h + '<div class="pp-sol"><b>정답</b> ' + escapeHtml(ans) + '</div></div>');
+      (p.solution || []).forEach(l => units.push('<div class="pp-item pp-more pp-solu"><div class="pp-sol">' + escapeHtml(l) + '</div></div>'));
+    }
+    // 풀이 줄은 열을 넘나들 수 있게 따로 쪼개고, 문제 마지막 조각에만 넓은 간격을 둔다
+    units[units.length-1] = units[units.length-1].replace(' pp-more', '');
+    return '<div class="pp-prob">' + units.join('') + '</div>';
+  }
+
+  async function buildPreview(){
+    const o = ensureOverlay();
+    const probs = (typeof currentProblemsData !== 'undefined' ? currentProblemsData : []) || [];
+    const box = o.querySelector('#ppPages'), ms = o.querySelector('#ppMeasure');
+    box.innerHTML = '';
+    ms.innerHTML = probs.map(itemHtml).join('');
+    if(window.renderMathInElement) renderMathInElement(ms, { delimiters:[
+      {left:"\\(", right:"\\)", display:false}, {left:"\\[", right:"\\]", display:true}] });
+    await Promise.all([...ms.querySelectorAll('img')].map(im => im.complete ? 0 :
+      new Promise(r => { im.onload = im.onerror = r; })));
+    const items = [...ms.children];
+    const title = (document.getElementById('setTitle') || {}).textContent || '';
+    // 실제 열에 하나씩 넣어 보고, 넘치면 다음 열(쪽)로 보낸다 — 측정값과 실제 배치가 어긋나지 않도록
+    let pages = [], colIdx = 2, curCol = null;
+    function newPage(){
+      const pg = document.createElement('div'); pg.className = 'pp-page';
+      pg.innerHTML = '<div class="pp-head"><span></span><span></span></div><div class="pp-cols"><div class="pp-col"></div><div class="pp-col"></div></div>';
+      box.appendChild(pg); pages.push(pg); return pg;
+    }
+    function nextCol(){
+      if(colIdx >= 1){ newPage(); colIdx = 0; } else colIdx++;
+      curCol = pages[pages.length-1].querySelectorAll('.pp-col')[colIdx];
+    }
+    function overflows(col, el){
+      return el.getBoundingClientRect().bottom > col.getBoundingClientRect().bottom + 0.5;
+    }
+    let note = '';
+    const selN = withSol ? 0 : (parseInt(o.querySelector('#ppN').value) || 0);
+    if(selN > 0){
+      // 장수 지정: 순서를 지키며 열 분량을 고르게 나누고, 남는 높이는 문제 사이 간격(풀이 여백)으로 나눈다
+      const sp = newPage(); const col0 = sp.querySelectorAll('.pp-col')[0];
+      const colH = col0.getBoundingClientRect().height;
+      const g0 = 9*MM;
+      const wraps = items.map(grp => {
+        const w = document.createElement('div'); w.className = 'pp-whole'; w.style.marginBottom = '0';
+        [...grp.children].forEach(u => w.appendChild(u));
+        col0.appendChild(w); const h = w.getBoundingClientRect().height; col0.removeChild(w);
+        return { w, h };
+      });
+      box.removeChild(sp); pages.pop();
+      const pack = C => {
+        const cs = [[]]; let load = 0;
+        wraps.forEach((x,i) => {
+          const hh = x.h + g0;
+          if(load + hh > C && cs[cs.length-1].length){ cs.push([]); load = 0; }
+          cs[cs.length-1].push(i); load += hh;
+        });
+        return cs;
+      };
+      let cols = pack(colH), N = selN;
+      if(cols.length > 2*N){ N = Math.ceil(cols.length/2); note = selN + '장으로는 부족해 ' + N + '장으로 조정'; }
+      else {
+        let lo = Math.min(colH, Math.max(...wraps.map(x => x.h + g0))), hi = colH;
+        for(let k=0; k<30; k++){ const mid = (lo+hi)/2; if(pack(mid).length <= 2*N) hi = mid; else lo = mid; }
+        cols = pack(hi);
+      }
+      for(let ci=0; ci<2*N; ci++){
+        if(ci % 2 === 0) newPage();
+        const col = pages[pages.length-1].querySelectorAll('.pp-col')[ci % 2];
+        const idxs = cols[ci] || [];
+        const sum = idxs.reduce((a,i) => a + wraps[i].h, 0);
+        const gap = idxs.length ? Math.max(g0, (colH - sum) / idxs.length) : 0;
+        idxs.forEach(i => { wraps[i].w.style.marginBottom = gap + 'px'; col.appendChild(wraps[i].w); });
+      }
+    } else {
+    colIdx = 1; nextCol();
+    function placeUnit(it){
+      curCol.appendChild(it);
+      if(overflows(curCol, it) && curCol.children.length > 1){
+        it.remove(); nextCol();
+        if(it.classList.contains('pp-solu')){
+          const lb = document.createElement('div'); lb.className = 'pp-cont'; lb.textContent = '(풀이 계속)';
+          it.insertBefore(lb, it.firstChild);
+        }
+        curCol.appendChild(it);
+      }
+    }
+    items.forEach(grp => {
+      // 문제+풀이를 한 덩어리로 같은 열에 넣어 보고, 안 들어가면 다음 열 맨 위로 보낸다
+      const units = [...grp.children];
+      const whole = document.createElement('div'); whole.className = 'pp-whole';
+      units.forEach(u => whole.appendChild(u));
+      curCol.appendChild(whole);
+      if(!overflows(curCol, whole)) return;
+      if(curCol.children.length > 1){
+        whole.remove(); nextCol(); curCol.appendChild(whole);
+        if(!overflows(curCol, whole)) return;
+      }
+      // 새 열에서도 한 열을 넘는 문제만 풀이를 줄 단위로 이어 쓴다
+      const kids = [...whole.children]; whole.remove();
+      kids.forEach(placeUnit);
+    });
+    }
+    const pageCount = pages.length;
+    pages.forEach((pg, pi) => {
+      const sp = pg.querySelectorAll('.pp-head span');
+      sp[0].textContent = title; sp[1].textContent = (pi+1) + ' / ' + pageCount;
+    });
+    o.querySelector('#ppInfo').textContent = probs.length + '문제 · ' + pageCount + '쪽' + (note ? ' (' + note + ')' : '');
+    fit();
+  }
+
+  function fit(){
+    const o = document.getElementById('ppOverlay'); if(!o) return;
+    const w = 210*MM, z = Math.min(1, (window.innerWidth - 16) / w);
+    o.querySelector('#ppPages').style.zoom = z;
+  }
+  window.addEventListener('resize', fit);
+
+  window.openPrintPreview = function(){
+    if(!(typeof currentProblemsData !== 'undefined' && currentProblemsData.length)){ alert('문제가 아직 불러와지지 않았어요'); return; }
+    const o = ensureOverlay(); o.classList.add('show'); o.scrollTop = 0;
+    document.documentElement.style.overflow = 'hidden';
+    buildPreview();
+  };
+  window.closePrintPreview = function(){
+    const o = document.getElementById('ppOverlay'); if(o) o.classList.remove('show');
+    document.documentElement.style.overflow = '';
+  };
+})();
 </script>
 </body>
 </html>

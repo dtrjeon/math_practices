@@ -1,0 +1,442 @@
+{
+  "id": "m1_27_s1_tb_miraen_cm1-01_p012-021",
+  "title": "공통수학1 Ⅰ-1. 다항식의 연산",
+  "unit": "Ⅰ. 다항식 - 1. 다항식의 연산 (12~21쪽)",
+  "category": "tb",
+  "source": "미래엔 공통수학1 (황선욱 외), 정답: 교과서 정답 및 풀이 140~141쪽",
+  "problems": [
+    {
+      "num": 1,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 1 (1)] 다항식 \\(-6-2y^2+3x^4-x^2y^3+5xy\\)를 \\(x\\)에 대하여 내림차순으로 정리하시오.",
+      "answer": "3x^4-x^2y^3+5xy-2y^2-6",
+      "solution": [
+        "\\(3x^4-x^2y^3+5xy-2y^2-6\\)"
+      ]
+    },
+    {
+      "num": 2,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 1 (2)] 다항식 \\(-6-2y^2+3x^4-x^2y^3+5xy\\)를 \\(y\\)에 대하여 내림차순으로 정리하시오.",
+      "answer": "-x^2y^3-2y^2+5xy+3x^4-6",
+      "solution": [
+        "\\(-x^2y^3-2y^2+5xy+3x^4-6\\)"
+      ]
+    },
+    {
+      "num": 3,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 2 (1)] 두 다항식 \\(A=3x^3+2x-1,\\ B=2x^3-x^2-x+1\\)에 대하여 \\(A+B\\)를 계산하시오.",
+      "answer": "5x^3-x^2+x",
+      "solution": [
+        "\\(A+B=5x^3-x^2+x\\)"
+      ]
+    },
+    {
+      "num": 4,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 2 (1)] 두 다항식 \\(A=3x^3+2x-1,\\ B=2x^3-x^2-x+1\\)에 대하여 \\(A-B\\)를 계산하시오.",
+      "answer": "x^3+x^2+3x-2",
+      "solution": [
+        "\\(A-B=x^3+x^2+3x-2\\)"
+      ]
+    },
+    {
+      "num": 5,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 2 (2)] 두 다항식 \\(A=x^2+3xy+5y^2,\\ B=6x^2-9xy-y^2\\)에 대하여 \\(A+B\\)를 계산하시오.",
+      "answer": "7x^2-6xy+4y^2",
+      "solution": [
+        "\\(A+B=7x^2-6xy+4y^2\\)"
+      ]
+    },
+    {
+      "num": 6,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 2 (2)] 두 다항식 \\(A=x^2+3xy+5y^2,\\ B=6x^2-9xy-y^2\\)에 대하여 \\(A-B\\)를 계산하시오.",
+      "answer": "-5x^2+12xy+6y^2",
+      "solution": [
+        "\\(A-B=-5x^2+12xy+6y^2\\)"
+      ]
+    },
+    {
+      "num": 7,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 3 (1)] 세 다항식 \\(A=x^3-2x^2+5,\\ B=-x^2+3x+1,\\ C=x^3-5x^2+4x\\)에 대하여 다음을 계산하시오.\n\\(A-(B+C)\\)",
+      "answer": "4x^2-7x+4",
+      "solution": [
+        "\\(4x^2-7x+4\\)"
+      ]
+    },
+    {
+      "num": 8,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 3 (2)] 세 다항식 \\(A=x^3-2x^2+5,\\ B=-x^2+3x+1,\\ C=x^3-5x^2+4x\\)에 대하여 다음을 계산하시오.\n\\((A-2B)-(C+A)\\)",
+      "answer": "-x^3+7x^2-10x-2",
+      "solution": [
+        "\\(-x^3+7x^2-10x-2\\)"
+      ]
+    },
+    {
+      "num": 9,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 4] 어느 공장에서 상품 \\(Q\\)개를 생산할 때 드는 비용 \\(C\\)원과 판매할 때 생기는 수입 \\(R\\)원이 다음과 같다.\n\\[C=0.025Q^2+125Q+15000,\\quad R=-0.1Q^2+300Q\\]\n이때 이 공장이 얻는 이익을 \\(Q\\)에 대한 식으로 나타내시오. (단, (이익)=(수입)−(비용))",
+      "answer": "-0.125Q^2+175Q-15000",
+      "solution": [
+        "\\(-0.125Q^2+175Q-15000\\)"
+      ]
+    },
+    {
+      "num": 10,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 1 (1)] 다음 식을 전개하시오.\n\\((x-1)(x^2-x+1)\\)",
+      "answer": "x^3-2x^2+2x-1",
+      "solution": [
+        "\\(x^3-2x^2+2x-1\\)"
+      ]
+    },
+    {
+      "num": 11,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 1 (2)] 다음 식을 전개하시오.\n\\((x^2+2xy+3y^2)(-x+2y)\\)",
+      "answer": "-x^3+xy^2+6y^3",
+      "solution": [
+        "\\(-x^3+xy^2+6y^3\\)"
+      ]
+    },
+    {
+      "num": 12,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 2 (1)] 다음 식을 전개하시오.\n\\((a-b)^3\\)",
+      "answer": "a^3-3a^2b+3ab^2-b^3",
+      "solution": [
+        "\\(a^3-3a^2b+3ab^2-b^3\\)"
+      ]
+    },
+    {
+      "num": 13,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 2 (2)] 다음 식을 전개하시오.\n\\((a-b)(a^2+ab+b^2)\\)",
+      "answer": "a^3-b^3",
+      "solution": [
+        "\\(a^3-b^3\\)"
+      ]
+    },
+    {
+      "num": 14,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 3 (1)] 다음 식을 전개하시오.\n\\((a-b+2c)^2\\)",
+      "answer": "a^2+b^2+4c^2-2ab-4bc+4ca",
+      "solution": [
+        "\\(a^2+b^2+4c^2-2ab-4bc+4ca\\)"
+      ]
+    },
+    {
+      "num": 15,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 3 (2)] 다음 식을 전개하시오.\n\\((2a-b)^3\\)",
+      "answer": "8a^3-12a^2b+6ab^2-b^3",
+      "solution": [
+        "\\(8a^3-12a^2b+6ab^2-b^3\\)"
+      ]
+    },
+    {
+      "num": 16,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 3 (3)] 다음 식을 전개하시오.\n\\((x-2)(x^2+2x+4)\\)",
+      "answer": "x^3-8",
+      "solution": [
+        "\\(x^3-8\\)"
+      ]
+    },
+    {
+      "num": 17,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 3 (4)] 다음 식을 전개하시오.\n\\((2x+3y)(4x^2-6xy+9y^2)\\)",
+      "answer": "8x^3+27y^3",
+      "solution": [
+        "\\(8x^3+27y^3\\)"
+      ]
+    },
+    {
+      "num": 18,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 4] \\(x-y=-2\\)이고 \\(xy=5\\)일 때, \\(x^3-y^3\\)의 값을 구하시오.",
+      "answer": "-38",
+      "solution": [
+        "\\(-38\\)"
+      ]
+    },
+    {
+      "num": 19,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 5 (1)] 다항식 \\(A\\)를 다항식 \\(B\\)로 나누었을 때의 몫 \\(Q\\)와 나머지 \\(R\\)를 구하고, \\(A=BQ+R\\)의 꼴로 나타내시오.\n\\(A=3x^3-5x^2-2x+1,\\ B=x-2\\)\n— 몫 \\(Q\\)를 쓰시오.",
+      "answer": "3x^2+x",
+      "solution": [
+        "\\(Q=3x^2+x,\\ R=1\\)",
+        "\\(3x^3-5x^2-2x+1=(x-2)(3x^2+x)+1\\)"
+      ]
+    },
+    {
+      "num": 20,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 5 (1)] 다항식 \\(A\\)를 다항식 \\(B\\)로 나누었을 때의 몫 \\(Q\\)와 나머지 \\(R\\)를 구하고, \\(A=BQ+R\\)의 꼴로 나타내시오.\n\\(A=3x^3-5x^2-2x+1,\\ B=x-2\\)\n— 나머지 \\(R\\)를 쓰시오.",
+      "answer": "1",
+      "solution": [
+        "\\(Q=3x^2+x,\\ R=1\\)",
+        "\\(3x^3-5x^2-2x+1=(x-2)(3x^2+x)+1\\)"
+      ]
+    },
+    {
+      "num": 21,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 5 (2)] 다항식 \\(A\\)를 다항식 \\(B\\)로 나누었을 때의 몫 \\(Q\\)와 나머지 \\(R\\)를 구하고, \\(A=BQ+R\\)의 꼴로 나타내시오.\n\\(A=2x^3-5x^2+3,\\ B=x^2-3x-1\\)\n— 몫 \\(Q\\)를 쓰시오.",
+      "answer": "2x+1",
+      "solution": [
+        "\\(Q=2x+1,\\ R=5x+4\\)",
+        "\\(2x^3-5x^2+3=(x^2-3x-1)(2x+1)+5x+4\\)"
+      ]
+    },
+    {
+      "num": 22,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 5 (2)] 다항식 \\(A\\)를 다항식 \\(B\\)로 나누었을 때의 몫 \\(Q\\)와 나머지 \\(R\\)를 구하고, \\(A=BQ+R\\)의 꼴로 나타내시오.\n\\(A=2x^3-5x^2+3,\\ B=x^2-3x-1\\)\n— 나머지 \\(R\\)를 쓰시오.",
+      "answer": "5x+4",
+      "solution": [
+        "\\(Q=2x+1,\\ R=5x+4\\)",
+        "\\(2x^3-5x^2+3=(x^2-3x-1)(2x+1)+5x+4\\)"
+      ]
+    },
+    {
+      "num": 23,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 01 (1)] 다음 다항식을 [ ] 안의 방법으로 정리하시오.\n\\(4x-2+3x^3-x^2\\)  [\\(x\\)에 대한 내림차순]",
+      "answer": "3x^3-x^2+4x-2",
+      "solution": [
+        "\\(3x^3-x^2+4x-2\\)"
+      ]
+    },
+    {
+      "num": 24,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 01 (2)] 다음 다항식을 [ ] 안의 방법으로 정리하시오.\n\\(3y^2-xy-x^2+5y^3+6\\)  [\\(y\\)에 대한 내림차순]",
+      "answer": "5y^3+3y^2-xy-x^2+6",
+      "solution": [
+        "\\(5y^3+3y^2-xy-x^2+6\\)"
+      ]
+    },
+    {
+      "num": 25,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 02 (1)] 두 다항식 \\(A=-x^2+3xy-2y^2,\\ B=2x^2-xy+5y^2\\)에 대하여 다음을 계산하시오.\n\\(2A+3B\\)",
+      "answer": "4x^2+3xy+11y^2",
+      "solution": [
+        "\\(4x^2+3xy+11y^2\\)"
+      ]
+    },
+    {
+      "num": 26,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 02 (2)] 두 다항식 \\(A=-x^2+3xy-2y^2,\\ B=2x^2-xy+5y^2\\)에 대하여 다음을 계산하시오.\n\\(A-(B+4A)\\)",
+      "answer": "x^2-8xy+y^2",
+      "solution": [
+        "\\(x^2-8xy+y^2\\)"
+      ]
+    },
+    {
+      "num": 27,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 03 (1)] 다음 식을 전개하시오.\n\\((x-y+z)^2\\)",
+      "answer": "x^2+y^2+z^2-2xy-2yz+2zx",
+      "solution": [
+        "\\(x^2+y^2+z^2-2xy-2yz+2zx\\)"
+      ]
+    },
+    {
+      "num": 28,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 03 (2)] 다음 식을 전개하시오.\n\\((x-1)^3\\)",
+      "answer": "x^3-3x^2+3x-1",
+      "solution": [
+        "\\(x^3-3x^2+3x-1\\)"
+      ]
+    },
+    {
+      "num": 29,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 03 (3)] 다음 식을 전개하시오.\n\\((2a+1)(4a^2-2a+1)\\)",
+      "answer": "8a^3+1",
+      "solution": [
+        "\\(8a^3+1\\)"
+      ]
+    },
+    {
+      "num": 30,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 04] 다항식 \\(2x^3-3x^2-3x+1\\)을 \\(2x^2-x+1\\)로 나누었을 때의 몫을 구하시오.",
+      "answer": "x-1",
+      "solution": [
+        "몫: \\(x-1\\),  나머지: \\(-5x+2\\)"
+      ]
+    },
+    {
+      "num": 31,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 04] 다항식 \\(2x^3-3x^2-3x+1\\)을 \\(2x^2-x+1\\)로 나누었을 때의 나머지를 구하시오.",
+      "answer": "-5x+2",
+      "solution": [
+        "몫: \\(x-1\\),  나머지: \\(-5x+2\\)"
+      ]
+    },
+    {
+      "num": 32,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 05] 다음을 만족시키는 두 다항식 \\(A\\)와 \\(B\\)를 구하시오.\n\\[\\begin{cases} A+B=x^3-9x^2+4 \\\\ 2A-B=2x^3-6x^2-3x+2 \\end{cases}\\]\n— 다항식 \\(A\\)를 쓰시오.",
+      "answer": "x^3-5x^2-x+2",
+      "solution": [
+        "\\(A=x^3-5x^2-x+2,\\ B=-4x^2+x+2\\)"
+      ]
+    },
+    {
+      "num": 33,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 05] 다음을 만족시키는 두 다항식 \\(A\\)와 \\(B\\)를 구하시오.\n\\[\\begin{cases} A+B=x^3-9x^2+4 \\\\ 2A-B=2x^3-6x^2-3x+2 \\end{cases}\\]\n— 다항식 \\(B\\)를 쓰시오.",
+      "answer": "-4x^2+x+2",
+      "solution": [
+        "\\(A=x^3-5x^2-x+2,\\ B=-4x^2+x+2\\)"
+      ]
+    },
+    {
+      "num": 34,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 06 (1)] 다음 식을 전개하시오.\n\\((x^2-2x-3)(x^2-2x-2)\\)",
+      "answer": "x^4-4x^3-x^2+10x+6",
+      "solution": [
+        "\\(x^4-4x^3-x^2+10x+6\\)"
+      ]
+    },
+    {
+      "num": 35,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 06 (2)] 다음 식을 전개하시오.\n\\((a-1)(a+1)(a^2+1)(a^4+1)\\)",
+      "answer": "a^8-1",
+      "solution": [
+        "\\(a^8-1\\)"
+      ]
+    },
+    {
+      "num": 36,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 07] \\(x=\\sqrt{2}+1\\)이고 \\(y=\\sqrt{2}-1\\)일 때, \\(x^3+y^3\\)의 값을 구하시오.",
+      "answer": "10\\sqrt{2}",
+      "solution": [
+        "\\(10\\sqrt{2}\\)"
+      ]
+    },
+    {
+      "num": 37,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 08] 다항식 \\(2x^3-x^2-x+a\\)가 \\(x^2+x+1\\)로 나누어떨어질 때, 상수 \\(a\\)의 값을 구하시오.",
+      "answer": "-3",
+      "solution": [
+        "\\(-3\\)"
+      ]
+    },
+    {
+      "num": 38,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 09 (서술형)] 다항식 \\(x^3-x^2+3x+2\\)를 다항식 \\(A\\)로 나누었을 때의 몫은 \\(x-1\\)이고 나머지는 \\(2x+3\\)이다. 다항식 \\(A\\)를 구하는 풀이 과정과 답을 쓰시오.",
+      "answer": "x^2+1",
+      "solution": [
+        "[해결 과정] \\(x^3-x^2+3x+2=A(x-1)+2x+3\\)이므로 \\(A(x-1)=x^3-x^2+x-1\\)",
+        "[답 구하기] \\(A=(x^3-x^2+x-1)\\div(x-1)=x^2+1\\)"
+      ]
+    },
+    {
+      "num": 39,
+      "diff": "high",
+      "type": "fillin",
+      "question": "[중단원 마무리 10] 오른쪽 그림과 같이 밑면의 가로와 세로의 길이가 각각 \\(a\\)와 \\(b\\)이고 높이가 \\(c\\)인 직육면체의 겉넓이는 \\(94\\)이다. 대각선 \\(\\mathrm{AG}\\)의 길이가 \\(5\\sqrt{2}\\)일 때, \\(a+b+c\\)의 값을 구하시오.",
+      "answer": "12",
+      "solution": [
+        "직육면체의 겉넓이는 \\(94\\)이므로 \\(2(ab+bc+ca)=94\\)",
+        "\\(\\overline{\\mathrm{AG}}=5\\sqrt{2}\\)이므로 \\(a^2+b^2+c^2=50\\)",
+        "즉, \\((a+b+c)^2=a^2+b^2+c^2+2(ab+bc+ca)=50+94=144\\)",
+        "그런데 \\(a+b+c>0\\)이므로 \\(a+b+c=12\\)"
+      ],
+      "images": [
+        "data:image/png;base64,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"
+      ]
+    },
+    {
+      "num": 40,
+      "diff": "high",
+      "type": "fillin",
+      "question": "[중단원 마무리 11 (1) (서술형)] 다항식 \\(A=x^4-x^3-5x^2-6x+3\\)에 대하여 다음에 답하시오.\n다항식 \\(A\\)를 \\(x^2+x+1\\)로 나누었을 때의 몫을 구하시오.",
+      "answer": "x^2-2x-4",
+      "solution": [
+        "\\(A\\)를 \\(x^2+x+1\\)로 나누면 몫: \\(x^2-2x-4\\), 나머지: \\(7\\)"
+      ]
+    },
+    {
+      "num": 41,
+      "diff": "high",
+      "type": "fillin",
+      "question": "[중단원 마무리 11 (1) (서술형)] 다항식 \\(A=x^4-x^3-5x^2-6x+3\\)에 대하여 다음에 답하시오.\n다항식 \\(A\\)를 \\(x^2+x+1\\)로 나누었을 때의 나머지를 구하시오.",
+      "answer": "7",
+      "solution": [
+        "\\(A\\)를 \\(x^2+x+1\\)로 나누면 몫: \\(x^2-2x-4\\), 나머지: \\(7\\)"
+      ]
+    },
+    {
+      "num": 42,
+      "diff": "high",
+      "type": "fillin",
+      "question": "[중단원 마무리 11 (2) (서술형)] 다항식 \\(A=x^4-x^3-5x^2-6x+3\\)에 대하여 다음에 답하시오.\n\\(x^2+x+1=0\\)일 때, 다항식 \\(A\\)의 값을 구하시오.",
+      "answer": "7",
+      "solution": [
+        "\\(A\\)를 \\(x^2+x+1\\)로 나누었을 때의 몫은 \\(x^2-2x-4\\)이고 나머지는 \\(7\\)이므로",
+        "\\(A=(x^2+x+1)(x^2-2x-4)+7\\)",
+        "따라서 \\(x^2+x+1=0\\)일 때 \\(A=0\\times(x^2-2x-4)+7=7\\)"
+      ]
+    }
+  ]
+}

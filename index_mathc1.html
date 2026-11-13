@@ -1,4 +1,60 @@
 <!DOCTYPE html>
+<!-- v2.67 (2026-11-10): 문제집 모음 — MADE Sayno와 같은 문제인 「자체 복습」 문제지 2개(복소수 05/06, 다항식 인수분해 04/30)를 목록과 데이터에서 삭제. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.66 (2026-11-10): PDF 출력 장수 지정 시 문제 사이 간격 상한(40mm)을 없애 열 높이를 문제 사이·아래 여백으로 끝까지 균등 분배. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.65 (2026-11-10): 문제집 모음 — 날짜별로 흩어진 「MADE Sayno (날짜)」 서브탭 6개를 「MADE Sayno」 하나로 합치고, 자체 복습·MADE Sayno를 단원 번호 순(1.1→2.1→…→3.1)으로 정렬. 카드 제목 옆에 업로드 날짜 표시. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.64 (2026-11-10): PDF 출력 — 「장수」 선택(자동·1~8장) 추가: 문제 순서를 지키며 열 분량을 고르게 나누고 남는 높이는 문제 사이 간격(풀이 여백, 최대 40mm)으로 분배. 장수가 부족하면 필요한 장수로 조정해 안내. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.63 (2026-11-10): PDF 미리보기 막대를 2줄(제목·버전 / 옵션·쪽수·버튼)로 정렬. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.62 (2026-11-10): PDF 미리보기 막대에 버전 표시(옛 캐시 화면과 구분). 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.61 (2026-11-10): PDF 출력 — 문제와 풀이를 같은 열에 묶어 배치(안 들어가면 다음 열 맨 위로, 한 열보다 긴 풀이만 「풀이 계속」으로 이어 씀). 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.60 (2026-11-10): PDF 출력 — 분수 보기 겹침 수정, 정답·풀이가 열 끝에서 잘리던 문제 수정(풀이를 줄 단위로 다음 열·쪽에 이어 배치). 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.59 (2026-11-10): PDF 출력 미리보기 — 문제 사이 간격을 3.5mm → 9mm로 넓힘. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.58 (2026-11-10): 문제 풀기에 「PDF 출력」 칩(A4 2열 미리보기) 추가. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.57 (2026-11-08): 문제집 모음 '기출·내신' 탭 이름을 '중간·기말'로 통일 -->
+<!-- v2.56 (2026-11-08): 문제집 모음·오답노트 탭 이름도 모의로 통일 -->
+<!-- v2.55 (2026-11-08): 문제집 범위요약 탭 이름을 중간·기말·모의로 단축 -->
+<!-- v2.54 (2026-11-08): 홈 문제집 범위요약 — 좁은 화면에서 깨지던 5열 표를 문제지별 카드(파일명·문제수·단원·난이도 칩·회차 체크)로 변경 -->
+<!-- v2.53 (2026-11-08): 홈 오답노트 — 좁은 화면에서 글자가 세로로 깨지던 5열 표를 문제별 카드 목록(제목·오답/시도·연속정답·최근 풀이·풀기 버튼)으로 바꿔 정리. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.52 (2026-11-08): 문제 풀기 — 종료 시 풀지 않은(미응답) 문제도 틀린 것으로 계산(필기감 옆 표시·결과창·다시 풀 오답 목록). 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.51 (2026-11-08): 문제 풀기 — 「왜 틀렸을까요?」에서 이유를 고른 뒤 「오답체크」 버튼을 눌러야 오답노트에 저장(저장되면 ✓ 표시). 다시 시작하면 선택·저장 표시 초기화. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.50 (2026-11-08): 문제 풀기 — 「시작」을 누르면 「종료」 전까지 정답·정오 표시를 잠그고(테스트 모드 설정과 무관), 종료하면 「필기감」 버튼 옆에 맞은 개수·틀린 개수를 표시. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.49 (2026-11-08): 「나머지정리와 인수분해」 노트의 조립제법 소단원에 계산표와 단계별 설명 추가. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.48 (2026-11-08): 「여러 가지 방정식」 노트에 조립제법으로 인수분해하는 방법(계산표와 단계 설명) 추가. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.47 (2026-11-08): 요점노트 머리말의 설명 문구(안내 문장·정답 가리기 안내·출처 안내·학력평가 소개)를 삭제하고 범례·버튼·월별 풀기 링크만 남김. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.46 (2026-11-07): 공통수학1 「행렬」 요점노트 신설(행렬의 뜻·같을 조건, 덧셈·뺄셈·실수배, 곱셈·거듭제곱, 종합 / 학력평가 14문항 / 추가 문제 16개) 및 교과과정 링크. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.45 (2026-11-07): 공통수학1 「경우의 수」를 경우의 수(합·곱의 법칙) / 순열 / 조합 세 단원으로 분리 — 순열 요점노트 신설, 경우의 수 노트는 합·곱의 법칙만, 교과과정 탭 단원 순서 정리. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.44 (2026-11-07): 공통수학1 「조합」 요점노트 신설(조합의 수·성질, 활용, 종합 / 학력평가 7문항 / 추가 문제 12개) 및 교과과정 링크. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.43 (2026-11-07): 공통수학1 「경우의 수」 요점노트 신설(합·곱의 법칙, 순열, 조합 / 학력평가 출제 15문항 / 추가 문제 16개) 및 교과과정 링크. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.42 (2026-11-07): 교과과정의 요점노트 링크에 ?v=<시각>을 붙여 열 때마다 최신 파일을 불러오게 함 — 브라우저가 이전 노트를 보여 주던 문제 방지(그림 폭 제한 v2.41이 안 보이던 경우). 노트·플레이어는 동작 변경 없이 번호만 올림 -->
+<!-- v2.41 (2026-11-07): 개념 그림(.fig) 최대 폭을 420px로 제한 — PC 넓은 화면에서 그림이 너무 커지던 문제 수정(이차방정식과 이차함수·여러 가지 방정식과 부등식 노트) -->
+<!-- v2.40 (2026-11-07): 동작 변경 없음 — 절댓값 부등식 그림을 「반드시 암기」 상자 안으로 옮긴 것에 맞춰 번호만 올림 -->
+<!-- v2.39 (2026-11-07): 동작 변경 없음 — 절댓값 부등식 그림 교체에 맞춰 번호만 올림 -->
+<!-- v2.38 (2026-11-07): 동작 변경 없음 — 여러 가지 방정식과 부등식 노트의 부등식 그림 추가에 맞춰 번호만 올림 -->
+<!-- v2.37 (2026-11-07): 동작 변경 없음 — 여러 가지 방정식과 부등식 노트의 그림 추가에 맞춰 번호만 올림 -->
+<!-- v2.36 (2026-11-07): 동작 변경 없음 — 새 요점노트(여러 가지 방정식과 부등식) 공개에 맞춰 번호만 올림 -->
+<!-- v2.35 (2026-11-07): 동작 변경 없음 — 이차방정식과 이차함수 노트의 그래프 추가에 맞춰 번호만 올림 -->
+<!-- v2.34 (2026-11-07): 동작 변경 없음 — 새 요점노트(이차방정식과 이차함수) 공개에 맞춰 번호만 올림 -->
+<!-- v2.33 (2026-11-07): 동작 변경 없음 — 다항식의 연산 노트 안내 문구 수정에 맞춰 번호만 올림 -->
+<!-- v2.32 (2026-11-07): 동작 변경 없음 — 새 요점노트(복소수와 이차방정식) 공개에 맞춰 번호만 올림 -->
+<!-- v2.31 (2026-11-07): 홈·플레이어는 동작 변경 없음 — 새 요점노트(나머지정리와 인수분해) 공개에 맞춰 번호만 올림 -->
+<!-- v2.30 (2026-11-07): "학교별 교재출판사" 탭을 폰에서 읽기 쉽게 정돈 — 5열 표(학교 글자가 세로로 깨지던 것)를 학교별 카드로 바꾸고, 과목마다 "출판사 · 저자" 한 줄과 첨부 자료를 누르기 쉬운 칩으로 표시 -->
+<!-- v2.29 (2026-11-07): 홈 "바로가기"에 "교과과정" 카드 추가(누르면 교과과정 탭으로 이동) -->
+<!-- v2.28 (2026-11-07): 동작 변경 없음 — 요점노트 버전에 맞춰 번호만 올림 -->
+<!-- v2.27 (2026-11-07): 교과과정 단원 links에 사이트 안 상대 주소(.html)도 허용(같은 탭에서 열기). 「다항식의 연산」 요점노트를 worksheets/note-cm1-polynomial.html로 사이트에 포함 -->
+<!-- v2.26 (2026-11-07): 교과과정 탭의 단원에 "links"(자료 링크)를 표시 — data/curriculum.json 단원에 links:[{title,desc,url}]를 넣으면 요약정리 아래에 버튼으로 나온다. 공통수학1 「다항식의 연산」에 요점노트 링크 연결. https 주소만 허용 -->
+<!-- v2.25 (2026-11-07): "교과과정" 탭 추가 — 공통수학1·2, 대수, 미적분Ⅰ, 기하, 확률과 통계, 미적분Ⅱ 서브탭마다 대단원 목록과 요약정리(data/curriculum.json의 summary, 지금은 비어 있어 "준비 중"으로 표시) -->
+<!-- v2.24 (2026-11-06): 화면에 버전 표시(브랜드 아래 "v2.24") — 어떤 버전이 열려 있는지 확인용. -->
+<!-- v2.23 (2026-11-06): 관리자 계정은 화면 오른쪽 위에 자물쇠 아이콘을 표시 — 누르면 홈의 관리자 바로가기로 이동. 학생 계정에는 보이지 않음. -->
+<!-- v2.22 (2026-11-06): 홈 화면 개편 — (1) 맨 위 "오늘 할 일" 카드(오늘의 학습 계획 → 오답 복습 → 계획 세우기 순으로 가장 할 일을 하나만 크게), (2) 폰(760px 이하)은 아래 탭 메뉴(홈·문제집·오답노트·더보기), 태블릿·PC는 왼쪽 메뉴를 더 크게, (3) 메뉴 이모지를 선 아이콘으로, (4) 바로가기에서 메뉴와 겹치는 카드(문제집 모음·오답노트) 제거. 이번 주 기록·연속 학습일은 서버 집계가 없어 넣지 않음. -->
+<!-- v2.21 (2026-11-06): 홈 "오늘의 과제" 카드 문구를 "날짜별 학습 계획 · 계획 만들기"로 — 학습 계획(plan.html) 추가에 맞춤 -->
+<!-- v2.20 (2026-11-05): 오답노트를 "틀린 문제 → 오답 그룹 → 다시 풀기" 흐름에 맞춤 — (1) wrongStats를 로그인한 학생 이름으로 조회(그동안 모든 학생 오답이 섞여 보였음), (2) 모의고사/교재/중간·기말 그룹으로 나눠 보여주고 "오답 모아 풀기"(startWrongSet)로 오답 문제만 한 세트로 player를 열도록 추가 — 문제마다 sourceId·sourceNum을 달아 원래 문제의 풀이 기록(연속 3회 정답 마스터)으로 쌓임, (3) 문제지 목록에 없는 문제(삭제된 중학교 문제지·예전 재구성 임시 세트)는 오답 목록에서 제외, (4) 행의 "다시 풀기"를 해당 문항부터 여는 링크("문제지에서 풀기", &start=)로 변경 -->
+<!-- v2.19 (2026-11-05): 동작 변경 없는 코드 정리 — 쓰이지 않던 CATEGORY_LABELS 삭제, 오답 반복 필터의 이중 부정 조건을 읽기 쉽게 풀어 씀, tipMatchesLevel → tipIsForHighSchool로 이름 정정(레벨 전환이 없어졌으므로) -->
+<!-- v2.18 (2026-11-05): 쓰이지 않게 된 코드 정리 — 값을 읽는 곳이 없는 GROUP_GRADE, 해당 문제지가 없는 출처 라벨(쎈수학·홍천중) 제거 -->
+<!-- v2.17 (2026-11-05): 중학교 3-2 삭제 — 상단 "고등학교 / 중학교 3-2" 전환 버튼과 레벨(currentLevel) 분기 코드를 모두 제거하고 고등학교 화면만 남김. 중학 문제지·교재·시험범위 데이터를 지운 뒤에도 시작 화면(v2.11에서 중학교 3-2로 고정)이 빈 화면으로 열리던 문제도 함께 해결 -->
+<!-- v2.16 (2026-11-04): 서버 주소(SHEET_WEBHOOK_URL)를 통합 Code.gs가 올라간 새 Apps Script 배포로 교체 — 이전 배포는 AI 튜터 등 새 기능을 처리하지 못했음 -->
+<!-- v2.15 (2026-11-04): 고등학교 > 문제집 모음 > 모의고사 탭 맨 위에 "문항별 범위·난이도 분석"(worksheets/mock-analysis.html) 카드 추가 — 회차별로 어떤 단원이 어느 난이도로 나왔는지 바로 볼 수 있게 함 -->
+<!-- v2.14 (2026-11-04): 미래엔 공통수학1 문제지 8개(data/miraen/) 추가에 맞춰 출처 라벨 miraen(📗 미래엔 교과서) 추가 -->
+<!-- v2.13 (2026-11-03): 고1 전국연합학력평가 11회분(2024년 3월~2026년 9월, data/hakpyeong/) 추가에 맞춰 출처 라벨 hakpyeong(📝 전국연합학력평가) 추가 -->
+<!-- v2.12 (2026-11-02): "💡 학습 팁" 메뉴 신설 — data/tips.json(선생님이 tools/admin-tips.html에서 등록한 Instagram 게시물 링크+요약+단원 태그)을 카드로 보여주고, 원본은 Instagram 공식 임베드(embed.js, 탭을 처음 열 때만 로드)로 표시. 학년(grades)으로 고등학교/중학교 필터링, 관리자 바로가기에 "학습 팁 관리" 카드 추가 -->
 <!-- v2.11 (2026-10-03): 시작 화면을 항상 중학교 3-2로 고정, 홈 바로가기에 "📅 오늘의 과제"(today.html) 카드 추가, manifest의 hidden:true 세트는 문제지 목록에서 제외 -->
 <!-- v1.1 (2026-08-12): 문제지용 manifest.json → data/worksheets-manifest.json으로 파일명 변경 (PWA용 root manifest.json과 혼동 방지) -->
 <!-- v1.2 (2026-08-16): "📐 쎈수학 중3-2" 전용 탭 신설 (기존 3탭 textbook/exam/pastexam → 4탭, senmath32 카테고리 추가) -->
@@ -120,9 +176,6 @@
     width:28px;
     height:28px;
     font-size:13px;
-  }
-  .sidebar .level-switch{
-    margin:14px 18px 6px;
   }
   .sidebar-nav{
     display:flex;
@@ -457,6 +510,32 @@
   .publisher-table td.blank{ color:var(--num); font-style:italic; }
   .publisher-table td a{ color:var(--accent); font-weight:700; text-decoration:none; }
   .publisher-table td a:hover{ text-decoration:underline; }
+
+  .card-date{ font-size:11.5px; font-weight:600; color:var(--num); background:var(--rule); border-radius:999px; padding:1px 8px; margin-left:4px; vertical-align:middle; }
+  /* v2.54 문제집 범위요약 카드 */
+  .rg-list{ display:grid; gap:10px; margin-top:10px; }
+  .rg-item{ background:var(--card,#fff); border:1px solid var(--rule); border-radius:12px; padding:12px 14px; display:grid; gap:6px; }
+  .rg-head{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .rg-title{ font-weight:700; color:var(--accent); text-decoration:none; word-break:break-all; font-size:14px; }
+  .rg-count{ color:var(--num); font-size:12.5px; white-space:nowrap; }
+  .rg-unit{ font-size:13px; color:var(--ink); }
+  .rg-diff{ display:flex; flex-wrap:wrap; gap:4px; }
+  .rg-chip{ font-size:11.5px; background:var(--rule); border-radius:999px; padding:2px 8px; color:var(--ink); }
+  .rg-done{ font-size:12px; color:var(--num); }
+
+  /* v2.30 학교별 교재출판사 카드 */
+  .pub-list{ display:grid; gap:14px; }
+  .pub-school{ border-top:2px solid var(--ink); padding-top:8px; }
+  .pub-sname{ font-size:16px; font-weight:700; margin-bottom:2px; }
+  .pub-item{ padding:9px 0; border-bottom:1px solid var(--rule); }
+  .pub-item:last-child{ border-bottom:none; }
+  .pub-subj{ font-weight:700; font-size:14px; }
+  .pub-who{ font-size:13.5px; color:#5c584b; margin-top:2px; }
+  .pub-who.blank{ color:var(--num); font-style:italic; }
+  .pub-who a{ color:var(--accent); font-weight:700; text-decoration:none; }
+  .pub-mats{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .pub-chip{ display:inline-flex; align-items:center; min-height:34px; padding:0 12px; border:1px solid var(--rule); border-radius:999px; font-size:13px; color:inherit; text-decoration:none; background:#fff; }
+  .pub-chip:hover{ border-color:var(--accent); color:var(--accent); }
   .roadmap-link{
     display:flex;
     align-items:center;
@@ -506,6 +585,22 @@
     background:var(--ink);
     color:#fff;
   }
+  .curr-meta{ font-size:13px; color:#5b636b; margin:4px 0 12px; }
+  .curr-unit{ background:#fff; border:1px solid #e3e1d8; border-radius:14px; margin-bottom:10px; }
+  .curr-unit > summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:12px; min-height:56px; padding:10px 16px; font-size:16px; font-weight:700; }
+  .curr-unit > summary::-webkit-details-marker{ display:none; }
+  .curr-unit > summary::after{ content:''; margin-left:auto; width:9px; height:9px; border-right:2.5px solid #98a1a9; border-top:2.5px solid #98a1a9; transform:rotate(45deg); transition:transform .15s; }
+  .curr-unit[open] > summary::after{ transform:rotate(135deg); }
+  .curr-no{ flex:0 0 auto; width:28px; height:28px; border-radius:50%; background:#16302A; color:#f7f6f2; font-size:13px; display:flex; align-items:center; justify-content:center; }
+  .curr-body{ padding:2px 18px 16px 56px; font-size:14.5px; line-height:1.7; }
+  .curr-body p{ margin:4px 0; }
+  .curr-empty{ color:#98a1a9; }
+  .curr-links{ display:flex; flex-direction:column; gap:8px; margin-top:12px; }
+  .curr-link{ display:flex; align-items:center; gap:10px; min-height:48px; padding:10px 14px; border:1px solid #d6dbe0; border-radius:12px; background:#fff; color:inherit; text-decoration:none; }
+  .curr-link:hover{ border-color:#98a1a9; }
+  .curr-link b{ font-size:14.5px; }
+  .curr-link span{ font-size:12.5px; color:#6b747c; }
+  .curr-link::after{ content:'↗'; margin-left:auto; color:#98a1a9; }
   .ws-tab-panel{ display:none; }
   .ws-tab-panel.active{ display:block; }
   .ws-unit-label{
@@ -564,6 +659,13 @@
   }
   .ws-source-panel{ display:none; }
   .ws-source-panel.active{ display:block; }
+  .tip-meta{ font-size:12px; color:var(--num); margin-top:2px; }
+  .tip-summary{ font-size:13.5px; line-height:1.6; margin:8px 0 0; }
+  .tip-tags{ display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+  .tip-tag{ font-size:11.5px; font-weight:700; padding:2px 8px; border-radius:999px; background:var(--accent-soft); color:var(--accent); }
+  /* embed.js가 처리하면 class가 instagram-media-registered로 바뀌므로 blockquote 자체에 스타일을 건다 */
+  .tip-card blockquote{ margin:12px 0 0 !important; max-width:540px; min-width:0 !important; width:100%; padding:10px 12px; border:1px solid var(--rule); border-radius:10px; background:#fff; font-size:13px; }
+  .tip-card blockquote a{ color:var(--accent); font-weight:700; text-decoration:none; }
   .ws-loading{
     padding:24px 4px;
     font-size:13px;
@@ -571,30 +673,6 @@
     text-align:center;
   }
   .ws-unit-label:not(:first-child){ margin-top:28px; }
-
-  .level-switch{
-    display:inline-flex;
-    gap:4px;
-    background:#efece2;
-    border-radius:999px;
-    padding:4px;
-    margin-bottom:16px;
-  }
-  .level-btn{
-    font-family:inherit;
-    font-size:13.5px;
-    font-weight:800;
-    background:transparent;
-    border:none;
-    border-radius:999px;
-    padding:8px 16px;
-    cursor:pointer;
-    color:var(--num);
-  }
-  .level-btn.active{
-    background:var(--ink);
-    color:#fff;
-  }
 
   .main-tabs{
     display:flex;
@@ -641,6 +719,56 @@
     text-align:center;
   }
 
+
+  /* ===== v2.22 홈 개편 ===== */
+  .nav-item svg, .bn-item svg{ width:22px; height:22px; flex:0 0 auto; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .nav-item{ min-height:48px; font-size:15px; padding:12px 14px; }
+  .nav-item.active{ background:#16302A; }
+  #wrongRepeatCount{ background:#b4402b; }
+  .quick-grid .quick-card:last-child:nth-child(odd){ grid-column:1 / -1; }
+  .hero-card{ background:#16302A; color:#f7f6f2; border-radius:22px; padding:26px 24px; margin:0 0 16px; display:flex; flex-direction:column; gap:10px; }
+  .hero-eyebrow{ font-size:13px; font-weight:700; color:#a9c7bc; }
+  .hero-title{ font-size:26px; font-weight:800; line-height:1.35; }
+  .hero-sub{ font-size:15px; line-height:1.6; color:#c9ddd4; }
+  .hero-btn{ margin-top:8px; align-self:flex-start; min-height:52px; padding:0 30px; border:none; border-radius:16px; background:#f7f6f2; color:#16302a; font:inherit; font-size:17px; font-weight:800; display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; text-decoration:none; }
+  .hero-btn[disabled]{ opacity:.6; cursor:default; }
+  .quick-card .quick-icon svg{ width:26px; height:26px; fill:none; stroke:var(--accent); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .bottom-nav{ display:none; }
+  .more-sheet{ display:none; }
+  @media (max-width:760px){
+    .sidebar-nav{ display:none; }
+    .sidebar-brand{ padding:12px 16px; }
+    .hero-card{ padding:22px 20px; }
+    .hero-title{ font-size:23px; }
+    .hero-btn{ align-self:stretch; }
+    .quick-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+    .content{ padding-bottom:96px; }
+    footer{ padding-bottom:90px; }
+    .bottom-nav{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); position:fixed; left:0; right:0; bottom:0; z-index:300; height:calc(64px + env(safe-area-inset-bottom)); padding:0 6px env(safe-area-inset-bottom); background:#fff; border-top:1px solid var(--rule); }
+    .bn-item{ position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; border:none; background:transparent; font:inherit; font-size:12px; font-weight:700; color:#6b6657; cursor:pointer; min-height:56px; }
+    .bn-item.active{ color:#16302A; }
+    .bn-badge{ position:absolute; top:4px; left:calc(50% + 6px); min-width:18px; height:18px; padding:0 5px; box-sizing:border-box; border-radius:9px; background:#b4402b; color:#fff; font-size:11px; font-weight:800; display:none; align-items:center; justify-content:center; }
+    .more-sheet.open{ display:block; position:fixed; inset:0; z-index:400; background:rgba(32,36,43,.45); }
+    .more-panel{ position:absolute; left:0; right:0; bottom:0; background:#fffdf8; border-radius:22px 22px 0 0; padding:14px 16px calc(20px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:4px; max-height:80vh; overflow-y:auto; }
+    .more-panel h3{ margin:4px 4px 8px; font-size:15px; color:#6b6657; }
+    .more-item{ display:flex; align-items:center; gap:12px; min-height:52px; padding:0 12px; border:none; border-radius:12px; background:transparent; font:inherit; font-size:16px; font-weight:700; color:var(--ink); text-align:left; cursor:pointer; }
+    .more-item:active, .more-item.active{ background:#e3efe9; }
+    .more-item svg{ width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .more-item .nav-count{ margin-left:auto; }
+  }
+
+  /* v2.23 관리자 자물쇠 */
+  .admin-lock{ display:none; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; border:1.5px solid #16302A; background:#16302A; color:#f7f6f2; cursor:pointer; padding:0; }
+  .admin-lock svg{ width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  body.is-admin .admin-lock{ display:flex; position:fixed; top:14px; right:20px; z-index:350; box-shadow:0 2px 8px rgba(32,36,43,.25); }
+  @media (max-width:760px){
+    body.is-admin .admin-lock{ top:10px; right:12px; width:40px; height:40px; }
+  }
+  .wn-item{ display:flex; align-items:center; justify-content:space-between; gap:8px 12px; padding:12px 0; border-top:1px solid var(--rule); }
+  .wn-main{ flex:1 1 auto; min-width:0; }
+  .wn-title{ font-weight:700; font-size:15px; line-height:1.4; }
+  .wn-meta{ display:flex; flex-wrap:wrap; gap:2px 12px; margin-top:4px; font-size:12.5px; color:var(--num); }
+  .wn-item .btn{ flex:0 0 auto; white-space:nowrap; }
 </style>
 </head>
 <body>
@@ -652,24 +780,23 @@
       <div class="brand-text">
         <div class="brand-title">수학 학습 기록판</div>
         <div class="brand-sub" id="sessionBrandSub">전주영</div>
+        <div class="brand-sub" style="font-size:11px;opacity:.6;margin-top:2px;">v2.67 · 2026-11-10</div>
       </div>
+      <button type="button" class="admin-lock" id="adminLock" onclick="goAdminSection()" aria-label="관리자 메뉴" title="관리자"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></button>
       <button class="refresh-btn" id="refreshBtn" onclick="refreshAllData()" title="새로고침">🔄</button>
     </div>
 
-    <div class="level-switch" id="levelSwitch">
-      <button class="level-btn active" id="levelBtn-highschool" onclick="switchLevel('highschool')">고등학교</button>
-      <button class="level-btn" id="levelBtn-middleschool" onclick="switchLevel('middleschool')">중학교 3-2</button>
-    </div>
-
     <nav class="sidebar-nav">
-      <button class="nav-item active" id="mainTab-home" onclick="switchMainTab('home')">🏠 홈</button>
-      <button class="nav-item" id="mainTab-worksheets" onclick="switchMainTab('worksheets')">🗂️ 문제집 모음</button>
-      <button class="nav-item" id="mainTab-publisher" onclick="switchMainTab('publisher')">🏫 학교별 교재출판사</button>
-      <button class="nav-item" id="mainTab-range" onclick="switchMainTab('range')">🧭 문제집 범위요약</button>
-      <button class="nav-item" id="mainTab-wrongrepeat" onclick="switchMainTab('wrongrepeat')">🔁 오답노트 <span class="nav-count" id="wrongRepeatCount">0</span></button>
-      <button class="nav-item" id="mainTab-examrange" onclick="switchMainTab('examrange')">📢 시험범위 공지</button>
-      <button class="nav-item" id="mainTab-roadmap" onclick="switchMainTab('roadmap')">🗺️ 진학 로드맵</button>
-      <button class="nav-item" id="mainTab-board" onclick="switchMainTab('board')">📊 학습 기록판</button>
+      <button class="nav-item active" id="mainTab-home" onclick="switchMainTab('home')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg><span>홈</span></button>
+      <button class="nav-item" id="mainTab-worksheets" onclick="switchMainTab('worksheets')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg><span>문제집 모음</span></button>
+      <button class="nav-item" id="mainTab-curriculum" onclick="switchMainTab('curriculum')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"/></svg><span>교과과정</span></button>
+      <button class="nav-item" id="mainTab-publisher" onclick="switchMainTab('publisher')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/></svg><span>학교별 교재출판사</span></button>
+      <button class="nav-item" id="mainTab-range" onclick="switchMainTab('range')"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><span>문제집 범위요약</span></button>
+      <button class="nav-item" id="mainTab-wrongrepeat" onclick="switchMainTab('wrongrepeat')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/></svg><span>오답노트</span> <span class="nav-count" id="wrongRepeatCount">0</span></button>
+      <button class="nav-item" id="mainTab-examrange" onclick="switchMainTab('examrange')"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span>시험범위 공지</span></button>
+      <button class="nav-item" id="mainTab-tips" onclick="switchMainTab('tips')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg><span>학습 팁</span> <span class="nav-count" id="tipsCount">0</span></button>
+      <button class="nav-item" id="mainTab-roadmap" onclick="switchMainTab('roadmap')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg><span>진학 로드맵</span></button>
+      <button class="nav-item" id="mainTab-board" onclick="switchMainTab('board')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><span>학습 기록판</span></button>
     </nav>
 
     <div class="sidebar-footer">
@@ -680,6 +807,7 @@
   <main class="content">
 
     <section class="page active" id="mainPanel-home">
+      <div id="homeHero"></div>
       <div id="homeAlerts"></div>
 
       <div class="unit-label" id="recentSectionLabel" style="display:none;">이어서 풀기</div>
@@ -687,30 +815,25 @@
 
       <div class="unit-label">바로가기</div>
       <div class="quick-grid">
-        <a class="quick-card" href="today.html" style="border-color:var(--accent); background:var(--accent-soft);">
-          <div class="quick-icon">📅</div>
-          <div class="quick-title">오늘의 과제</div>
-          <div class="quick-sub">기말고사까지 날짜별로 풀 분량 확인</div>
+        <a class="quick-card" href="#" onclick="switchMainTab('curriculum'); return false;">
+          <div class="quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"/></svg></div>
+          <div class="quick-title">교과과정</div>
+          <div class="quick-sub">단원별 요점노트·요약정리</div>
         </a>
-        <a class="quick-card" href="worksheets/upload.html" style="border-color:var(--accent); background:var(--accent-soft);">
-          <div class="quick-icon">📷</div>
+        <a class="quick-card" href="today.html">
+          <div class="quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></div>
+          <div class="quick-title">학습 계획</div>
+          <div class="quick-sub">날짜별 계획 보기·만들기</div>
+        </a>
+        <a class="quick-card" href="worksheets/upload.html">
+          <div class="quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
           <div class="quick-title">오답 등록</div>
-          <div class="quick-sub">틀린 문제 사진 찍고 바로 등록하기</div>
+          <div class="quick-sub">틀린 문제 사진으로 등록</div>
         </a>
-        <div class="quick-card" onclick="switchMainTab('worksheets')">
-          <div class="quick-icon">🗂️</div>
-          <div class="quick-title">문제집 모음</div>
-          <div class="quick-sub">단원별 문제지를 골라 풀어보세요</div>
-        </div>
-        <div class="quick-card" onclick="switchMainTab('wrongrepeat')">
-          <div class="quick-icon">🔁</div>
-          <div class="quick-title">오답노트</div>
-          <div class="quick-sub">아직 마스터 안 된 문제부터 복습</div>
-        </div>
         <a class="quick-card" href="worksheets/compose.html">
-          <div class="quick-icon">🧩</div>
+          <div class="quick-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4h4v3a2 2 0 1 0 0 4v3h-4v-3a2 2 0 1 1 0-4z"/><path d="M4 14h6v6H4zM14 14h6v6h-6z"/></svg></div>
           <div class="quick-title">문제 재구성</div>
-          <div class="quick-sub">오답 이력·난이도 기준 맞춤 세트</div>
+          <div class="quick-sub">오답·난이도 기준 맞춤 세트</div>
         </a>
       </div>
 
@@ -731,6 +854,11 @@
           <div class="quick-title">시험범위 공지 관리</div>
           <div class="quick-sub">학교별 시험범위 입력/수정</div>
         </a>
+        <a class="quick-card" href="tools/admin-tips.html" style="border-color:#3d4ea8; background:#eef1fb;">
+          <div class="quick-icon">💡</div>
+          <div class="quick-title">학습 팁 관리</div>
+          <div class="quick-sub">Instagram 좋은 게시물 등록</div>
+        </a>
       </div>
 
       <div class="unit-label">오답노트 작성 원칙</div>
@@ -743,8 +871,8 @@
       <div class="unit-label">문제집 모음</div>
       <div class="worksheet-tabs">
         <button class="ws-tab-btn active" id="wsTab-tb" onclick="switchWsTab('tb')">📘 교과문제 <span class="count" id="wsCount-tb">0</span></button>
-        <button class="ws-tab-btn" id="wsTab-peq" onclick="switchWsTab('peq')">📚 기출·내신 <span class="count" id="wsCount-peq">0</span></button>
-        <button class="ws-tab-btn" id="wsTab-me" onclick="switchWsTab('me')">📝 모의고사 <span class="count" id="wsCount-me">0</span></button>
+        <button class="ws-tab-btn" id="wsTab-peq" onclick="switchWsTab('peq')">📚 중간·기말 <span class="count" id="wsCount-peq">0</span></button>
+        <button class="ws-tab-btn" id="wsTab-me" onclick="switchWsTab('me')">📝 모의 <span class="count" id="wsCount-me">0</span></button>
       </div>
 
       <div class="ws-tab-panel active" id="wsPanel-tb"><div class="ws-loading">문제지 목록을 불러오는 중...</div></div>
@@ -759,12 +887,18 @@
       </div>
     </section>
 
+    <section class="page" id="mainPanel-curriculum">
+      <div class="unit-label">교과과정</div>
+      <div class="worksheet-tabs" id="currTabs"></div>
+      <div id="currPanels"><div class="ws-loading">교과과정을 불러오는 중...</div></div>
+    </section>
+
     <section class="page" id="mainPanel-range">
       <div class="unit-label">문제집 범위요약</div>
       <div class="worksheet-tabs" id="rangeTabs">
-        <button class="ws-tab-btn active" id="rangeTab-mid" onclick="switchRangeTab('mid')">📗 중간고사 <span class="count" id="rangeCount-mid">0</span></button>
-        <button class="ws-tab-btn" id="rangeTab-final" onclick="switchRangeTab('final')">📕 기말고사 <span class="count" id="rangeCount-final">0</span></button>
-        <button class="ws-tab-btn" id="rangeTab-mock" onclick="switchRangeTab('mock')">🧪 모의고사 <span class="count" id="rangeCount-mock">0</span></button>
+        <button class="ws-tab-btn active" id="rangeTab-mid" onclick="switchRangeTab('mid')">📗 중간 <span class="count" id="rangeCount-mid">0</span></button>
+        <button class="ws-tab-btn" id="rangeTab-final" onclick="switchRangeTab('final')">📕 기말 <span class="count" id="rangeCount-final">0</span></button>
+        <button class="ws-tab-btn" id="rangeTab-mock" onclick="switchRangeTab('mock')">🧪 모의 <span class="count" id="rangeCount-mock">0</span></button>
       </div>
 
       <div class="ws-tab-panel active" id="rangePanel-mid"><div class="ws-loading">범위 요약을 불러오는 중...</div></div>
@@ -780,6 +914,11 @@
     <section class="page" id="mainPanel-examrange">
       <div class="unit-label">시험범위 공지</div>
       <div class="card"><div class="ws-loading">시험범위 공지를 불러오는 중...</div></div>
+    </section>
+
+    <section class="page" id="mainPanel-tips">
+      <div class="unit-label">학습 팁</div>
+      <div id="tipsList"><div class="card"><div class="ws-loading">학습 팁을 불러오는 중...</div></div></div>
     </section>
 
     <section class="page" id="mainPanel-roadmap">
@@ -823,6 +962,26 @@
   </main>
 </div>
 
+<nav class="bottom-nav" aria-label="주요 메뉴">
+  <button type="button" class="bn-item active" id="bn-home" onclick="switchMainTab('home')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg><span>홈</span></button>
+  <button type="button" class="bn-item" id="bn-worksheets" onclick="switchMainTab('worksheets')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg><span>문제집</span></button>
+  <button type="button" class="bn-item" id="bn-wrongrepeat" onclick="switchMainTab('wrongrepeat')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/></svg><span>오답노트</span><span class="bn-badge" id="bnWrongCount">0</span></button>
+  <button type="button" class="bn-item" id="bn-more" aria-haspopup="dialog" aria-expanded="false" onclick="toggleMoreSheet()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"/></svg><span>더보기</span></button>
+</nav>
+<div class="more-sheet" id="moreSheet" onclick="if(event.target===this)toggleMoreSheet(false)">
+  <div class="more-panel" role="dialog" aria-label="더보기">
+    <h3>더보기</h3>
+    <button type="button" class="more-item" id="more-curriculum" onclick="switchMainTab('curriculum')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"/></svg>교과과정</button>
+    <button type="button" class="more-item" id="more-publisher" onclick="switchMainTab('publisher')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/></svg>학교별 교재출판사</button>
+    <button type="button" class="more-item" id="more-range" onclick="switchMainTab('range')"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>문제집 범위요약</button>
+    <button type="button" class="more-item" id="more-examrange" onclick="switchMainTab('examrange')"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>시험범위 공지</button>
+    <button type="button" class="more-item" id="more-tips" onclick="switchMainTab('tips')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>학습 팁</button>
+    <button type="button" class="more-item" id="more-roadmap" onclick="switchMainTab('roadmap')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>진학 로드맵</button>
+    <button type="button" class="more-item" id="more-board" onclick="switchMainTab('board')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>학습 기록판</button>
+    <button type="button" class="more-item" onclick="logoutMathApp()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9"/></svg>로그아웃</button>
+  </div>
+</div>
+
 <footer>
   새 문제지는 채팅에서 사진을 올리면 채점 후 이 목록에 추가돼요
 </footer>
@@ -841,7 +1000,16 @@
       const grid = document.getElementById('adminQuickGrid');
       if(label) label.style.display = 'block';
       if(grid) grid.style.display = 'grid';
+      document.body.classList.add('is-admin');
     }
+  }
+  // 자물쇠(관리자) 버튼: 홈의 관리자 바로가기로 이동
+  function goAdminSection(){
+    switchMainTab('home');
+    setTimeout(() => {
+      const label = document.getElementById('adminSectionLabel');
+      if(label) label.scrollIntoView({ behavior:'smooth', block:'start' });
+    }, 60);
   }
   function logoutMathApp(){
     localStorage.removeItem('mathapp_session');
@@ -850,31 +1018,28 @@
   renderSessionBrand();
 
   // Apps Script 배포 후 나온 웹 앱 URL로 교체하세요 (worksheets 파일들과 동일한 URL)
-  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzqgkELv7cxD3UZlVj1XfvNiFtR4o6nI5uyDOLiMme6hx5eCcaVkNc_cUZ3JawAafKc/exec';
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyC6SkzAtNjW0Bh-2mlkybGLQTMGqXxkwr98KhrZX6HwmCqQoNvVKFarRvs5Vhqn2cM/exec';
 
   // worksheetId → 문제지 이름 / 카드 그룹 (data/worksheets-manifest.json 기반으로 자동 생성됨)
   let WORKSHEET_META = {};
-  // 원본 문제지 id → grade (m0=중3, m1/m2=고등학교) — 레벨 스위치 필터링에 사용
-  let GROUP_GRADE = {};
-  let currentLevel = 'highschool'; // 'highschool' | 'middleschool'
   let WORKSHEET_COUNTS = { tb:0, peq:0, me:0 }; // 홈 대시보드 통계용
   let BOARD_RECORD_COUNT = 0; // 홈 대시보드 통계용
-  const isMiddleGrade = grade => grade === 'm0';
 
-  const CATEGORY_LABELS = { tb:'📘 교과문제', peq:'📚 기출·내신', me:'📝 모의고사' };
   const WS_CATEGORIES = ['tb','peq','me'];
 
   function cardHtml(s){
     const metaLine1 = s.stats ? `전체 ${s.count}문제${s.pages ? ' · ' + s.pages + '페이지' : ''}` : (s.unit || '');
     const metaLine2 = s.stats ? s.stats : `전체 ${s.count || '?'}문제`;
     const pill = s.stats ? '<span class="status-pill status-ok">채점 완료</span>' : '<span class="status-pill status-ok">등록 완료</span>';
+    const dm = /^MADE Sayno \((.+)\)/.exec(s.source || '');
+    const dateTag = dm ? ` <span class="card-date">${dm[1]}</span>` : '';
     const reviewBtn = s.reviewUrl
       ? `<a class="btn btn-secondary" href="${s.reviewUrl}">검토용 보기</a>`
       : `<span class="btn btn-disabled">검토용 (준비 중)</span>`;
     return `<div class="card">
       <div class="card-top">
         <div>
-          <div class="card-title">${s.title}</div>
+          <div class="card-title">${s.title}${dateTag}</div>
           <div class="card-meta"><span>${metaLine1}</span><span>${metaLine2}</span></div>
           <div class="last-run none" id="lastRun-${s.id}">최근 풀이 기록 없음</div>
         </div>
@@ -906,7 +1071,6 @@
         if(s.reviewUrl){
           WORKSHEET_META[s.id + '-review'] = { label: s.title + ' · 검토용', group: s.id };
         }
-        GROUP_GRADE[s.id] = s.grade;
       });
 
       applyWorksheetTabsVisibility();
@@ -964,25 +1128,30 @@
     }
   }
 
-  // 레벨(중학교/고등학교)에 맞는 문제지만 걸러서 3개 탭(교과문제/기출·내신/모의고사)을 다시 그린다.
-  // tb/peq/me 분류는 학년과 무관하게 항상 같은 3탭이고, 그 안의 "내용"만 학년별로 달라진다.
+  // 문제지를 3개 탭(교과문제/기출·내신/모의고사)으로 나눠 다시 그린다.
   // 한 분류 안에 출처(source)가 여러 개면, 인라인 라벨이 아니라 클릭 가능한 출처 서브탭으로 보여준다.
-  const SOURCE_LABELS = { senmath: '📐 쎈수학', self: '📖 자체 복습', hongcheon: '🏫 홍천중' };
+  const SOURCE_LABELS = { self: '📖 자체 복습', hakpyeong: '📝 전국연합학력평가', miraen: '📗 미래엔 교과서' };
 
   function applyWorksheetTabsVisibility(){
     const counts = { tb:0, peq:0, me:0 };
 
     WS_CATEGORIES.forEach(cat => {
-      const sets = MANIFEST_SETS.filter(s => !s.hidden && s.category === cat && isMiddleGrade(s.grade) === (currentLevel === 'middleschool'));
+      const sets = MANIFEST_SETS.filter(s => !s.hidden && s.category === cat);
       counts[cat] = sets.length;
 
       // source별로 순서 유지하며 그룹화
       const sourceOrder = [];
       const bySource = {};
       sets.forEach(s => {
-        const key = s.source || '';
+        let key = s.source || '';
+        if(/^MADE Sayno/.test(key)) key = 'MADE Sayno'; // 날짜별 출처를 하나로 합치고 단원 순으로 정렬
         if(!bySource[key]){ bySource[key] = []; sourceOrder.push(key); }
         bySource[key].push(s);
+      });
+      // 단원 번호(1.1, 2.3, 3.1 …) 순 정렬 — 자체 복습·MADE Sayno만(교과서는 원래 순서 유지)
+      const unitKey = s => { const m = /(\d+)\.(\d+)/.exec(s.group || s.unit || ''); return m ? +m[1]*100 + +m[2] : 9999; };
+      ['self','MADE Sayno'].forEach(k => {
+        if(bySource[k]) bySource[k] = bySource[k].map((x,i) => [x,i]).sort((a,b) => unitKey(a[0]) - unitKey(b[0]) || a[1]-b[1]).map(x => x[0]);
       });
 
       const buildGroupHtml = list => {
@@ -1020,6 +1189,21 @@
         });
 
         panelEl.innerHTML = tabsHtml + contentHtml;
+      }
+
+      // 고등학교 모의고사 탭 맨 위에 문항별 범위·난이도 분석 링크를 둔다(문제지 수에는 포함하지 않음).
+      if(cat === 'me'){
+        panelEl.insertAdjacentHTML('afterbegin', `<div class="card">
+          <div class="card-top">
+            <div>
+              <div class="card-title">📊 문항별 범위·난이도 분석</div>
+              <div class="card-meta"><span>고1 전국연합학력평가 11회분</span><span>330문항</span></div>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="worksheets/mock-analysis.html">분석 보기</a>
+          </div>
+        </div>`);
       }
 
       document.getElementById('wsCount-' + cat).textContent = counts[cat];
@@ -1105,7 +1289,6 @@
   // ===== 학교별 교재출판사 =====
   // data/publishers.json에서 읽어와서 표를 그린다. (다른 탭들처럼 데이터 파일 기반으로 관리)
   let PUBLISHER_TABLE_HTML_HIGH = '';
-  let PUBLISHER_TABLE_HTML_MIDDLE = '';
 
   async function renderPublisherTable(){
     const card = document.getElementById('publisherCard');
@@ -1114,32 +1297,40 @@
       const data = await res.json();
       const schools = data.schools || [];
 
+      // v2.30: 폰에서도 읽기 쉽게 표 대신 "학교 → 과목별 한 줄 + 첨부 자료 칩" 카드로 그린다
       const buildTable = (list) => {
         if(list.length === 0) return '';
-        const rows = list.map(s => {
-          const authorCell = s.author
-            ? (s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${s.author} ↗</a>` : s.author)
-            : '';
-          const isBlank = !s.publisher || s.publisher === '확인 중';
-          const materialsCell = (s.materials && s.materials.length)
-            ? s.materials.map(m => `<a href="${encodeURI(m.url)}" target="_blank" rel="noopener">${m.label}</a>`).join('<br>')
-            : '';
-          return `<tr>
-            <td>${s.school || ''}</td>
-            <td>${s.subject || ''}</td>
-            <td${isBlank ? ' class="blank"' : ''}>${s.publisher || ''}</td>
-            <td${isBlank ? ' class="blank"' : ''}>${authorCell}</td>
-            <td>${materialsCell}</td>
-          </tr>`;
+        const order = [], bySchool = {};
+        list.forEach(s => {
+          const k = s.school || '';
+          if(!bySchool[k]){ bySchool[k] = []; order.push(k); }
+          bySchool[k].push(s);
+        });
+        const groups = order.map(k => {
+          const items = bySchool[k].map(s => {
+            const isBlank = !s.publisher || s.publisher === '확인 중';
+            const author = s.author
+              ? (s.url && /^https?:\/\//.test(s.url)
+                  ? `<a href="${currEsc(s.url)}" target="_blank" rel="noopener">${currEsc(s.author)} ↗</a>`
+                  : currEsc(s.author))
+              : '';
+            const who = isBlank ? '확인 중' : [currEsc(s.publisher), author].filter(Boolean).join(' · ');
+            const mats = (s.materials && s.materials.length)
+              ? `<div class="pub-mats">${s.materials.map(m => `<a class="pub-chip" href="${currEsc(encodeURI(m.url))}" target="_blank" rel="noopener">${currEsc(m.label)}</a>`).join('')}</div>`
+              : '';
+            const subj = (s.subject && s.subject !== '-') ? currEsc(s.subject) : '';
+            return `<div class="pub-item">
+              ${subj ? `<div class="pub-subj">${subj}</div>` : ''}
+              <div class="pub-who${isBlank ? ' blank' : ''}">${who || '확인 중'}</div>
+              ${mats}
+            </div>`;
+          }).join('');
+          return `<div class="pub-school"><div class="pub-sname">${currEsc(k)}</div>${items}</div>`;
         }).join('');
-        return `<table class="publisher-table">
-          <thead><tr><th>학교</th><th>과목</th><th>출판사</th><th>저자</th><th>첨부 자료</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>`;
+        return `<div class="pub-list">${groups}</div>`;
       };
 
-      PUBLISHER_TABLE_HTML_HIGH = buildTable(schools.filter(s => !isMiddleGrade(s.grade)));
-      PUBLISHER_TABLE_HTML_MIDDLE = buildTable(schools.filter(s => isMiddleGrade(s.grade)));
+      PUBLISHER_TABLE_HTML_HIGH = buildTable(schools);
       applyPublisherFilter();
     } catch(err){
       card.innerHTML = '<div class="ws-loading">교재출판사 정보를 불러오지 못했어요 (data/publishers.json 확인 필요)</div>';
@@ -1148,13 +1339,19 @@
 
   function applyPublisherFilter(){
     const card = document.getElementById('publisherCard');
-    const html = currentLevel === 'middleschool' ? PUBLISHER_TABLE_HTML_MIDDLE : PUBLISHER_TABLE_HTML_HIGH;
-    card.innerHTML = html || `<div class="ws-loading">${currentLevel === 'middleschool' ? '중학교 3-2' : '고등학교'} 교재출판사 정보가 아직 없어요</div>`;
+    card.innerHTML = PUBLISHER_TABLE_HTML_HIGH || '<div class="ws-loading">교재출판사 정보가 아직 없어요</div>';
   }
 
   // ===== 오답 반복 =====
   // 아직 마스터(연속 3회 정답)되지 않은 오답 문제들을 백엔드(wrongStats)에서 받아와 보여준다.
   let WRONG_STATS_RAW = [];
+  let WRONG_GROUPS = {}; // key(all/me/tb/peq/etc) → [{ setId, num, title }] — "모아 풀기" 버튼이 쓴다
+  const WRONG_GROUP_DEFS = [
+    { key:'me',  label:'📝 모의' },
+    { key:'tb',  label:'📘 교재' },
+    { key:'peq', label:'📚 중간·기말' },
+    { key:'etc', label:'기타' }
+  ];
 
   function renderWrongRepeat(){
     const panel = document.getElementById('mainPanel-wrongrepeat');
@@ -1162,7 +1359,14 @@
       panel.innerHTML = '<div class="ws-loading">⚠️ 기록 저장 서버가 아직 연결되지 않았어요</div>';
       return;
     }
-    fetch(SHEET_WEBHOOK_URL + '?action=wrongStats')
+    // 로그인한 학생 본인의 오답만 가져온다(이름을 안 넘기면 서버가 모든 학생 것을 돌려줌)
+    let studentName = '';
+    try { studentName = (JSON.parse(localStorage.getItem('mathapp_session') || 'null') || {}).name || ''; } catch(e){}
+    if(!studentName){
+      panel.innerHTML = '<div class="ws-loading">로그인 정보를 확인할 수 없어요. 다시 로그인해 주세요</div>';
+      return;
+    }
+    fetch(SHEET_WEBHOOK_URL + '?action=wrongStats&studentName=' + encodeURIComponent(studentName))
       .then(res => res.json())
       .then(list => {
         WRONG_STATS_RAW = list || [];
@@ -1173,7 +1377,6 @@
       });
   }
 
-  // 레벨(중학교/고등학교)에 맞는 오답 반복 항목만 걸러서 다시 그린다.
   // 오답노트 초기화: 서버 기록은 지우지 않고 "이 시각 이후 기록만" 보여준다.
   // WRONG_RESET_AT = 배포 시점 일괄 초기화, 버튼으로 누르면 그 기기에서 추가 초기화(localStorage).
   const WRONG_RESET_AT = '2026-10-03T00:30:00+09:00';
@@ -1194,45 +1397,125 @@
     const resetAt = wrongResetTime();
     const list = WRONG_STATS_RAW.filter(item => {
       const t = new Date(item.lastDate).getTime();
-      if(!isNaN(t) && t <= resetAt) return false;   // 초기화 시각 이전 기록은 숨김
-      const meta = WORKSHEET_META[item.worksheetId];
-      const grade = meta ? GROUP_GRADE[meta.group] : undefined;
-      const belongsToMiddle = isMiddleGrade(grade);
-      return (currentLevel === 'middleschool') === belongsToMiddle;
+      const beforeReset = !isNaN(t) && t <= resetAt;
+      return !beforeReset;   // 초기화 시각 이전 기록은 숨김
     });
 
-    document.getElementById('wrongRepeatCount').textContent = list.length;
+    // 문제ID는 "문제지id#번호". 지금 문제지 목록에 없는 것(삭제된 문제지, 예전 재구성 임시 세트)은
+    // 다시 불러올 수 없으므로 목록에서 뺀다.
+    const entries = [];
+    list.forEach(item => {
+      const pid = String(item.problemId);
+      const cut = pid.indexOf('#');
+      if(cut < 0) return;
+      const setId = pid.slice(0, cut);
+      const set = MANIFEST_SETS.find(s => s.id === setId);
+      if(!set) return;
+      entries.push({ item: item, set: set, setId: setId, num: pid.slice(cut + 1), title: set.title || setId });
+    });
+
+    document.getElementById('wrongRepeatCount').textContent = entries.length;
+    const bnc = document.getElementById('bnWrongCount');
+    if(bnc){ bnc.textContent = entries.length; bnc.style.display = entries.length > 0 ? 'flex' : 'none'; }
     renderHomeAlerts();
-    if(list.length === 0){
+    if(entries.length === 0){
+      WRONG_GROUPS = {};
       panel.innerHTML = '<div class="ws-loading">아직 반복할 오답이 없어요. 잘하고 있어요! 🎉</div>';
       return;
     }
-    const rows = list.map(item => {
-      const parts = String(item.problemId).split('#');
-      const num = parts[1] || parts[0];
-      const meta = WORKSHEET_META[item.worksheetId] || null;
-      const label = meta ? meta.label.replace(' · 학생풀이','').replace(' · 검토용','') : (item.worksheetId || '-');
-      const playCell = meta
-        ? `<a class="btn btn-secondary" href="worksheets/player.html?set=${meta.group}">다시 풀기</a>`
-        : '-';
-      return `<tr>
-        <td>${label} · ${num}번</td>
-        <td>오답 ${item.totalWrong}회 / 시도 ${item.totalAttempts}회</td>
-        <td>연속정답 ${item.currentStreak}/3</td>
-        <td>${fmtDate(item.lastDate)}</td>
-        <td>${playCell}</td>
-      </tr>`;
-    }).join('');
-    panel.innerHTML = `<div class="card"><table class="publisher-table">
-        <thead><tr><th>문제</th><th>오답/시도</th><th>연속정답</th><th>최근 풀이</th><th></th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table></div>
-      <p style="font-size:12.5px;color:var(--num);margin-top:10px;">연속 3회 정답이면 이 목록에서 자동으로 빠져요.</p>
+
+    // 시험 종류별 오답 그룹 (manifest의 category 기준)
+    WRONG_GROUPS = { all: entries.map(e => ({ setId: e.setId, num: e.num, title: e.title })) };
+    const buckets = {};
+    entries.forEach(e => {
+      const key = WRONG_GROUP_DEFS.some(g => g.key === e.set.category) ? e.set.category : 'etc';
+      (buckets[key] = buckets[key] || []).push(e);
+    });
+    WRONG_GROUP_DEFS.forEach(g => {
+      if(buckets[g.key]) WRONG_GROUPS[g.key] = buckets[g.key].map(e => ({ setId: e.setId, num: e.num, title: e.title }));
+    });
+
+    const rowHtml = e => `<div class="wn-item">
+        <div class="wn-main">
+          <div class="wn-title">${tipEscape(e.title)} · ${tipEscape(e.num)}번</div>
+          <div class="wn-meta"><span>오답 ${e.item.totalWrong}회 · 시도 ${e.item.totalAttempts}회</span><span>연속정답 ${e.item.currentStreak}/3</span><span>${fmtDate(e.item.lastDate)}</span></div>
+        </div>
+        <a class="btn btn-secondary" href="worksheets/player.html?set=${encodeURIComponent(e.setId)}&start=${encodeURIComponent(e.num)}">풀기</a>
+      </div>`;
+
+    let html = `<div class="card">
+        <div class="card-title">🔁 오답 모아 풀기</div>
+        <div class="card-meta"><span>틀렸던 문제만 한 세트로 모아서 풀어요</span><span>${entries.length}문제</span></div>
+        <div class="card-actions">
+          <button class="btn btn-primary wrong-start-btn" onclick="startWrongSet('all')">전체 ${entries.length}문제 모아 풀기</button>
+        </div>
+      </div>`;
+    WRONG_GROUP_DEFS.forEach(g => {
+      const group = buckets[g.key];
+      if(!group) return;
+      html += `<div class="ws-unit-label">${g.label} · ${group.length}문제</div>
+        <div class="card">
+          <button class="btn btn-secondary wrong-start-btn" style="margin-bottom:10px;" onclick="startWrongSet('${g.key}')">이 그룹 ${group.length}문제 모아 풀기</button>
+          <div class="wn-list">${group.map(rowHtml).join('')}</div>
+        </div>`;
+    });
+    html += `<p style="font-size:12.5px;color:var(--num);margin-top:10px;">모아 푼 문제도 원래 문제의 기록으로 쌓이고, 연속 3회 정답이면 이 목록에서 자동으로 빠져요.</p>
       <button class="btn btn-secondary" onclick="resetWrongNotes()">🗑 오답노트 초기화</button>`;
+    panel.innerHTML = html;
   }
 
-  // 상단 "고등학교 / 중학교 3-2" 스위치 — 문제지 모음 서브탭, 범위요약, 교재출판사, 오답 반복을
-  // 모두 다시 필터링해서 보여준다(데이터 재요청 없이 캐시에서만 다시 그림).
+  // 오답 그룹의 문제들을 원래 문제지에서 꺼내 한 세트로 만들어 player로 연다.
+  // 문제마다 원본 id(sourceId)·번호(sourceNum)를 달아 두므로, 푼 결과가 원래 문제의 풀이 기록으로 쌓인다.
+  async function startWrongSet(kind){
+    const entries = WRONG_GROUPS[kind] || [];
+    if(entries.length === 0) return;
+    const buttons = document.querySelectorAll('.wrong-start-btn');
+    buttons.forEach(b => { b.disabled = true; });
+    try{
+      const setIds = Array.from(new Set(entries.map(e => e.setId)));
+      const loaded = {};
+      await Promise.all(setIds.map(async id => {
+        const set = MANIFEST_SETS.find(s => s.id === id);
+        const res = await fetch('data/' + set.file, { cache: 'no-store' });
+        if(!res.ok) throw new Error('문제 파일 요청 실패 (status ' + res.status + '): data/' + set.file);
+        loaded[id] = await res.json();
+      }));
+
+      const problems = [];
+      entries.forEach(e => {
+        const data = loaded[e.setId];
+        const original = ((data && data.problems) || []).find(pp => String(pp.num !== undefined ? pp.num : pp.number) === e.num);
+        if(!original) return;
+        const originalNum = original.num !== undefined ? original.num : original.number;
+        problems.push(Object.assign({}, original, {
+          num: problems.length + 1,
+          question: '[' + e.title + ' ' + originalNum + '번] ' + (original.question == null ? '' : original.question),
+          sourceId: e.setId,
+          sourceNum: originalNum,
+          sourceWorksheetId: e.setId + '-student'
+        }));
+      });
+      if(problems.length === 0) throw new Error('불러올 수 있는 오답 문제가 없어요');
+
+      const def = WRONG_GROUP_DEFS.find(g => g.key === kind);
+      const customSet = {
+        id: 'wrong-' + kind + '-' + Date.now(),
+        title: '오답 모아 풀기 · ' + (def ? def.label : '전체') + ' (' + problems.length + '문제)',
+        unit: '오답노트에서 모은 문제',
+        problems: problems
+      };
+      try{
+        sessionStorage.setItem('customProblemSet', JSON.stringify(customSet));
+      } catch(storageErr){
+        throw new Error('문제가 너무 많아 한 번에 열 수 없어요. 아래 그룹별 버튼으로 나눠서 풀어 주세요');
+      }
+      window.location.href = 'worksheets/player.html';
+    } catch(err){
+      alert('오답 문제를 불러오지 못했어요: ' + (err && err.message ? err.message : err));
+      buttons.forEach(b => { b.disabled = false; });
+    }
+  }
+
   // ===== 시험범위 공지 =====
   // data/exam-ranges.json에서 학교별 시험범위를 읽어와서 카드로 보여준다.
   let EXAM_RANGE_SCHOOLS = [];
@@ -1263,28 +1546,142 @@
     </div>`;
   }
 
-  // 레벨(중학교/고등학교)에 맞는 학교만 걸러서 다시 그린다.
   function applyExamRangeFilter(){
     const panel = document.getElementById('mainPanel-examrange');
-    const schools = EXAM_RANGE_SCHOOLS.filter(s => isMiddleGrade(s.grade) === (currentLevel === 'middleschool'));
+    const schools = EXAM_RANGE_SCHOOLS;
     panel.innerHTML = schools.length
       ? schools.map(examRangeCardHtml).join('')
-      : `<div class="ws-loading">${currentLevel === 'middleschool' ? '중학교 3-2' : '고등학교'} 시험범위 공지가 아직 없어요</div>`;
+      : '<div class="ws-loading">시험범위 공지가 아직 없어요</div>';
+  }
+
+  // ===== 학습 팁 (Instagram 큐레이션) =====
+  // data/tips.json의 게시물 링크를 카드 + Instagram 공식 임베드로 보여준다.
+  // 게시물 본문·이미지는 저장하지 않고, 원본 계정이 표시되는 임베드만 쓴다(저작권·출처 보존).
+  let TIPS = [];
+  const TIP_URL_RE = /^https:\/\/www\.instagram\.com\/(p|reel)\/[A-Za-z0-9_-]+\/$/;
+
+  async function renderTips(){
+    try{
+      const res = await fetch('data/tips.json', { cache: 'no-store' });
+      const data = await res.json();
+      // 형식이 어긋난 링크는 화면에 넣지 않는다(임베드 주소로 쓰이므로)
+      TIPS = (data.tips || []).filter(t => t && TIP_URL_RE.test(t.url || '') && t.title);
+      applyTipsFilter();
+    } catch(err){
+      document.getElementById('tipsList').innerHTML = '<div class="card"><div class="ws-loading">학습 팁을 불러오지 못했어요 (data/tips.json 확인 필요)</div></div>';
+    }
+  }
+
+  // 학년이 비어 있으면 전체 공개, 아니면 고등학교 학년이 하나라도 있는 것만(중학교 m0 전용 팁은 숨김)
+  function tipIsForHighSchool(t){
+    if(!t.grades || t.grades.length === 0) return true;
+    return t.grades.some(g => g !== 'm0');
+  }
+
+  function tipEscape(s){
+    return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function tipCardHtml(t){
+    const tags = (t.units || []).map(u => `<span class="tip-tag">#${tipEscape(u)}</span>`).join('');
+    return `<div class="card tip-card">
+      <div class="card-title">${tipEscape(t.title)}</div>
+      <div class="tip-meta">${tipEscape(t.account || 'Instagram')}${t.addedAt ? ' · ' + tipEscape(t.addedAt) : ''}</div>
+      ${t.summary ? `<p class="tip-summary">📝 ${tipEscape(t.summary)}</p>` : ''}
+      ${tags ? `<div class="tip-tags">${tags}</div>` : ''}
+      <blockquote class="instagram-media" data-instgrm-permalink="${tipEscape(t.url)}" data-instgrm-version="14">
+        <a href="${tipEscape(t.url)}" target="_blank" rel="noopener">Instagram에서 원본 보기 ↗</a>
+      </blockquote>
+    </div>`;
+  }
+
+  function applyTipsFilter(){
+    const list = document.getElementById('tipsList');
+    if(!list) return;
+    const tips = TIPS.filter(tipIsForHighSchool);
+    document.getElementById('tipsCount').textContent = tips.length;
+    list.innerHTML = tips.length
+      ? tips.map(tipCardHtml).join('')
+      : '<div class="card"><div class="ws-loading">아직 등록된 학습 팁이 없어요</div></div>';
+    if(document.getElementById('mainPanel-tips').classList.contains('active')) processInstagramEmbeds();
+  }
+
+  // embed.js는 학습 팁 탭을 처음 열 때만 불러온다(다른 화면 로딩을 느리게 하지 않도록)
+  let instagramScriptLoading = false;
+  function processInstagramEmbeds(){
+    if(!document.querySelector('#tipsList blockquote.instagram-media')) return;
+    if(window.instgrm && window.instgrm.Embeds){ window.instgrm.Embeds.process(); return; }
+    if(instagramScriptLoading) return;
+    instagramScriptLoading = true;
+    const sc = document.createElement('script');
+    sc.async = true;
+    sc.src = 'https://www.instagram.com/embed.js';
+    sc.onload = () => { if(window.instgrm) window.instgrm.Embeds.process(); };
+    document.body.appendChild(sc);
   }
 
   // ===== 홈 대시보드 통계 =====
   // 오답노트 대기·시험범위 공지는 "할 일이 있을 때만" 배너로 보여주고, 누르면 바로 그 화면으로 이동.
   // 문제지 수/누적 풀이 기록처럼 그냥 참고용 숫자는 여기서 빼고 학습 기록판 탭으로 옮김(renderBoardStats).
+  // 오늘 할 일 카드: 오늘의 학습 계획 → 오답 복습 → 계획 세우기 순으로 "지금 가장 할 일" 하나만 크게 보여준다.
+  function todayPlanSummary(){
+    let id = 'anon';
+    try { id = (JSON.parse(localStorage.getItem('mathapp_session') || 'null') || {}).studentId || 'anon'; } catch(e){}
+    let plan = null, done = {};
+    try { plan = JSON.parse(localStorage.getItem('study_plan_' + id) || 'null'); } catch(e){}
+    try { done = JSON.parse(localStorage.getItem('today_done_' + id) || '{}') || {}; } catch(e){}
+    if(!plan || !plan.days || !plan.days.length) return { has:false };
+    const d = new Date();
+    const today = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const day = plan.days.filter(x => x.date === today)[0];
+    if(!day) return { has:true, inRange:false, endDate: plan.days[plan.days.length-1].date, today: today };
+    const pending = [];
+    (day.tasks || []).forEach((t, i) => { if(!t.optional && !done[day.date + '#' + i]) pending.push(t); });
+    return { has:true, inRange:true, total:(day.tasks || []).filter(t => !t.optional).length, pending: pending };
+  }
+  function renderHomeHero(wrongCount){
+    const el = document.getElementById('homeHero');
+    if(!el) return 'none';
+    const plan = todayPlanSummary();
+    const arrow = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#16302a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+    let kind, title, sub, btn;
+    if(plan.has && plan.inRange && plan.pending.length > 0){
+      kind = 'plan';
+      const first = plan.pending[0];
+      title = '오늘 과제 ' + plan.pending.length + '개';
+      sub = first.type === 'solve' ? (first.label + ' ' + first.from + '~' + first.to + '번' + (plan.pending.length > 1 ? ' 외 ' + (plan.pending.length - 1) + '개' : '')) : (first.label || '오늘의 과제');
+      btn = '<a class="hero-btn" href="today.html"><span>시작하기</span>' + arrow + '</a>';
+    } else if(wrongCount > 0){
+      kind = 'wrong';
+      title = '오답 ' + wrongCount + '문제 복습하기';
+      sub = '연속 3번 맞으면 오답노트에서 졸업해요';
+      btn = '<button type="button" class="hero-btn wrong-start-btn" onclick="startWrongSet(\'all\')"><span>시작하기</span>' + arrow + '</button>';
+    } else if(plan.has && plan.inRange){
+      kind = 'done';
+      title = '오늘 과제를 모두 끝냈어요';
+      sub = '문제집에서 더 풀어 볼 수 있어요';
+      btn = '<button type="button" class="hero-btn" onclick="switchMainTab(\'worksheets\')"><span>문제집 보기</span>' + arrow + '</button>';
+    } else {
+      kind = 'newplan';
+      title = plan.has ? '계획 기간이 끝났어요' : '학습 계획을 세워 보세요';
+      sub = '시험일과 하루 분량만 고르면 날짜별 계획을 만들어 줘요';
+      btn = '<a class="hero-btn" href="plan.html"><span>계획 만들기</span>' + arrow + '</a>';
+    }
+    el.innerHTML = '<div class="hero-card"><span class="hero-eyebrow">오늘 할 일</span><div class="hero-title">' + tipEscape(title) + '</div><div class="hero-sub">' + tipEscape(sub) + '</div>' + btn + '</div>';
+    return kind;
+  }
+
   function renderHomeAlerts(){
     const el = document.getElementById('homeAlerts');
     if(!el) return;
 
     const wrongCountEl = document.getElementById('wrongRepeatCount');
     const wrongCount = wrongCountEl ? parseInt(wrongCountEl.textContent, 10) || 0 : 0;
-    const examCount = (EXAM_RANGE_SCHOOLS || []).filter(s => isMiddleGrade(s.grade) === (currentLevel === 'middleschool')).length;
+    const examCount = (EXAM_RANGE_SCHOOLS || []).length;
 
+    const heroKind = renderHomeHero(wrongCount);
     let html = '';
-    if(wrongCount > 0){
+    if(wrongCount > 0 && heroKind !== 'wrong'){
       html += `<div class="home-alert" onclick="switchMainTab('wrongrepeat')">
         <div class="alert-icon">🔁</div>
         <div class="alert-text">아직 복습 안 한 오답 ${wrongCount}개가 있어요</div>
@@ -1306,23 +1703,10 @@
     const boardEl = document.getElementById('statBoard');
     if(!wsEl) return; // 학습 기록판 탭이 아직 렌더링 전이면 조용히 무시
 
-    // WORKSHEET_COUNTS는 이미 현재 레벨 기준으로 필터링된 값이라 그대로 합산하면 됨
+    // WORKSHEET_COUNTS를 그대로 합산하면 됨
     const wsTotal = WS_CATEGORIES.reduce((sum, c) => sum + (WORKSHEET_COUNTS[c] || 0), 0);
     wsEl.textContent = wsTotal;
     boardEl.textContent = BOARD_RECORD_COUNT;
-  }
-
-  function switchLevel(level){
-    currentLevel = level;
-    document.getElementById('levelBtn-highschool').classList.toggle('active', level === 'highschool');
-    document.getElementById('levelBtn-middleschool').classList.toggle('active', level === 'middleschool');
-    applyWorksheetTabsVisibility();
-    applyRangeFilter();
-    applyPublisherFilter();
-    applyWrongRepeatFilter();
-    applyExamRangeFilter();
-    renderHomeAlerts();
-    renderBoardStats();
   }
 
   async function loadAllData(){
@@ -1330,11 +1714,13 @@
     await renderRecentWorksheets();
     await renderRangeSummary();
     await renderPublisherTable();
+    await renderCurriculum();
     await renderExamRanges();
+    await renderTips();
     loadBoard();
     renderWrongRepeat();
     // (각 render* 함수가 끝에서 자기 자신의 apply*Filter를 이미 호출하므로
-    //  여기서 다시 호출할 필요는 없음 — 지금 보고 있던 레벨 상태 그대로 반영됨)
+    //  여기서 다시 호출할 필요는 없음)
     renderHomeAlerts();
     renderBoardStats();
   }
@@ -1353,32 +1739,40 @@
     });
   }
 
-  // 로그인 시 등록한 학년(중3/고1/고2/고3)을 기준으로 홈 화면 진입 탭을 자동으로 맞춘다.
-  // 학생마다 매번 "고등학교 ↔ 중학교 3-2"를 눌러 바꾸지 않아도 되도록, 별도 설정 없이
-  // 이미 갖고 있는 로그인 정보(session.grade)만으로 알아서 맞는 쪽이 켜지게 한다.
-  function applyInitialLevelFromSession(){
-    let session = null;
-    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
-    // v2.11: 시작 화면은 항상 중학교 3-2 (고등학교는 상단 스위치로 전환)
-    const initialLevel = 'middleschool';
-    currentLevel = initialLevel;
-    document.getElementById('levelBtn-highschool').classList.toggle('active', initialLevel === 'highschool');
-    document.getElementById('levelBtn-middleschool').classList.toggle('active', initialLevel === 'middleschool');
-  }
-
   (async function init(){
-    applyInitialLevelFromSession();
     await loadAllData();
   })();
 
   function switchMainTab(tab){
-    ['home','worksheets','publisher','range','wrongrepeat','examrange','roadmap','board'].forEach(t => {
+    ['home','worksheets','curriculum','publisher','range','wrongrepeat','examrange','tips','roadmap','board'].forEach(t => {
       document.getElementById('mainTab-' + t).classList.toggle('active', t === tab);
       document.getElementById('mainPanel-' + t).classList.toggle('active', t === tab);
     });
-    // 모바일에서 사이드바가 상단 가로 스크롤바로 바뀌므로, 탭 전환 시 콘텐츠 맨 위로 스크롤
+    syncBottomNav(tab);
+    // 탭 전환 시 콘텐츠 맨 위로 스크롤
     window.scrollTo({top:0, behavior:'smooth'});
+    if(tab === 'tips') processInstagramEmbeds();
   }
+
+  // 폰 아래 탭 메뉴: 현재 탭 강조, "더보기" 안의 화면이면 더보기를 강조
+  const BN_MAIN = ['home','worksheets','wrongrepeat'];
+  function syncBottomNav(tab){
+    BN_MAIN.forEach(t => { const b = document.getElementById('bn-' + t); if(b) b.classList.toggle('active', t === tab); });
+    const more = document.getElementById('bn-more');
+    if(more) more.classList.toggle('active', BN_MAIN.indexOf(tab) < 0);
+    ['curriculum','publisher','range','examrange','tips','roadmap','board'].forEach(t => {
+      const m = document.getElementById('more-' + t); if(m) m.classList.toggle('active', t === tab);
+    });
+    toggleMoreSheet(false);
+  }
+  function toggleMoreSheet(force){
+    const sheet = document.getElementById('moreSheet'), btn = document.getElementById('bn-more');
+    if(!sheet) return;
+    const open = (typeof force === 'boolean') ? force : !sheet.classList.contains('open');
+    sheet.classList.toggle('open', open);
+    if(btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') toggleMoreSheet(false); });
 
   function switchWsTab(cat){
     WS_CATEGORIES.forEach(c => {
@@ -1398,6 +1792,39 @@
     }
   }
 
+  // ===== 교과과정: 과목 서브탭 + 대단원 목록 + 요약정리 =====
+  function currEsc(v){ return String(v == null ? '' : v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  async function renderCurriculum(){
+    const tabs = document.getElementById('currTabs'), panels = document.getElementById('currPanels');
+    if(!tabs || !panels) return;
+    try{
+      const res = await fetch('data/curriculum.json', { cache: 'no-store' });
+      const data = await res.json();
+      const subs = data.subjects || [];
+      tabs.innerHTML = subs.map((s, i) => `<button class="ws-tab-btn${i===0?' active':''}" id="currTab-${currEsc(s.id)}" onclick="switchCurrTab('${currEsc(s.id)}')">${currEsc(s.title)}</button>`).join('');
+      panels.innerHTML = subs.map((s, i) => {
+        const meta = [s.grade, s.publisher].filter(Boolean).map(currEsc).join(' · ');
+        const units = (s.units || []).map(u => {
+          const lines = Array.isArray(u.summary) ? u.summary.filter(Boolean) : [];
+          const body = lines.length
+            ? lines.map(l => `<p>${currEsc(l)}</p>`).join('')
+            : ((Array.isArray(u.links) && u.links.length) ? '' : '<p class="curr-empty">요약정리 준비 중이에요.</p>');
+          const links = (Array.isArray(u.links) ? u.links : []).filter(k => k && /^(https:\/\/|[\w][\w\/.-]*\.html$)/.test(k.url || '')).map(k =>
+            `<a class="curr-link" href="${currEsc(/^https:/.test(k.url) ? k.url : k.url + '?v=' + Date.now())}"${/^https:/.test(k.url) ? ' target="_blank" rel="noopener"' : ''}><div><b>${currEsc(k.title || '자료')}</b>${k.desc ? `<br><span>${currEsc(k.desc)}</span>` : ''}</div></a>`).join('');
+          const linkBox = links ? `<div class="curr-links">${links}</div>` : '';
+          return `<details class="curr-unit"><summary><span class="curr-no">${currEsc(u.no)}</span><span class="curr-title">${currEsc(u.title)}</span></summary><div class="curr-body">${body}${linkBox}</div></details>`;
+        }).join('');
+        return `<div class="ws-tab-panel${i===0?' active':''}" id="currPanel-${currEsc(s.id)}"><div class="curr-meta">${meta} · 대단원 ${(s.units||[]).length}개</div>${units}</div>`;
+      }).join('');
+    }catch(e){
+      panels.innerHTML = '<div class="ws-loading">교과과정을 불러오지 못했어요.</div>';
+    }
+  }
+  function switchCurrTab(id){
+    document.querySelectorAll('#currTabs .ws-tab-btn').forEach(b => b.classList.toggle('active', b.id === 'currTab-' + id));
+    document.querySelectorAll('#currPanels .ws-tab-panel').forEach(p => p.classList.toggle('active', p.id === 'currPanel-' + id));
+  }
+
   function switchRangeTab(kind){
     ['mid','final','mock'].forEach(k => {
       document.getElementById('rangeTab-' + k).classList.toggle('active', k === kind);
@@ -1410,7 +1837,7 @@
   function diffSummary(problems){
     const counts = { top:0, high:0, midhigh:0, mid:0, low:0 };
     (problems || []).forEach(p => { if(counts.hasOwnProperty(p.diff)) counts[p.diff]++; });
-    return DIFF_LABELS.map(([key,label]) => `${label} ${counts[key]}`).join(', ');
+    return DIFF_LABELS.map(([key,label]) => `<span class="rg-chip">${label} <b>${counts[key]}</b></span>`).join('');
   }
 
   function checkboxHtml(id, attemptCounts){
@@ -1449,13 +1876,12 @@
           }
         } catch(e){ /* 개별 파일 실패 시 난이도만 '-'로 표시, 행 자체는 유지 */ }
 
-        const row = `<tr>
-          <td><a href="worksheets/player.html?set=${s.id}">${s.id}</a></td>
-          <td>${s.unit || ''}</td>
-          <td>${s.count || '?'}</td>
-          <td>${diffText}</td>
-          <td>${checkboxHtml(s.id, attemptCounts)}</td>
-        </tr>`;
+        const row = `<div class="rg-item">
+          <div class="rg-head"><a class="rg-title" href="worksheets/player.html?set=${s.id}">${s.id}</a><span class="rg-count">${s.count || '?'}문제</span></div>
+          ${s.unit ? `<div class="rg-unit">${s.unit}</div>` : ''}
+          <div class="rg-diff">${diffText}</div>
+          <div class="rg-done">${checkboxHtml(s.id, attemptCounts)}</div>
+        </div>`;
 
         let bucket = 'mock';
         if(/_final_/.test(s.id)) bucket = 'final';
@@ -1470,24 +1896,18 @@
     }
   }
 
-  // 레벨(중학교/고등학교)에 맞는 범위요약 행만 걸러서 다시 그린다.
+  // 범위요약 행을 구분(중간·기말·모의고사)별로 나눠 다시 그린다.
   function applyRangeFilter(){
     const buckets = { mid:[], final:[], mock:[] };
     RANGE_ROWS.forEach(r => {
-      const belongsToMiddle = isMiddleGrade(r.grade);
-      if((currentLevel === 'middleschool') === belongsToMiddle){
-        buckets[r.bucket].push(r.html);
-      }
+      buckets[r.bucket].push(r.html);
     });
 
     ['mid','final','mock'].forEach(kind => {
       const rows = buckets[kind];
       document.getElementById('rangeCount-' + kind).textContent = rows.length;
       document.getElementById('rangePanel-' + kind).innerHTML = rows.length
-        ? `<div class="card"><table class="publisher-table">
-            <thead><tr><th>파일명</th><th>범위</th><th>문제수</th><th>난이도(최상/상/중상/중/하)</th><th>풀이 완료</th></tr></thead>
-            <tbody>${rows.join('')}</tbody>
-          </table></div>`
+        ? `<div class="rg-list">${rows.join('')}</div>`
         : '<div class="ws-loading">등록된 문제지가 없어요</div>';
     });
   }

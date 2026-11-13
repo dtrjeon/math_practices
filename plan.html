@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<!-- v1.0 (2026-11-06): 학습 계획 만들기 — 목표(시험 대비·모의고사 대비·꾸준한 학습)·날짜·하루 분량·문제집을 고르면 날짜별 계획을 만들어
+     이 기기(localStorage study_plan_<학생ID>)에 저장하고 today.html(오늘의 과제)에서 보여 준다. 서버(GAS) 저장·자동 완료 체크는 아직 없음(2단계). -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>학습 계획 만들기</title>
+<script>
+  (function(){
+    var s=null;
+    try{ s=JSON.parse(localStorage.getItem('mathapp_session')||'null'); }catch(e){}
+    if(!s || !s.studentId){
+      window.location.replace('worksheets/login.html?redirect='+encodeURIComponent(window.location.href));
+    }
+  })();
+</script>
+<style>
+  :root{
+    --paper:#f6f4ee; --ink:#20242b; --rule:#d9d3c4; --accent:#1f6f5c; --accent-soft:#e3efe9;
+    --num:#6b6657; --sheet:#fffdf8; --warn:#b4531a; --warn-soft:#fbeadc;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Noto Sans KR',-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;-webkit-text-size-adjust:100%;}
+  .wrap{max-width:980px;margin:0 auto;padding:20px 24px 90px;}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;}
+  .top a.home{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:22px;background:var(--sheet);
+    border:1px solid var(--rule);color:var(--ink);text-decoration:none;font-weight:700;font-size:15px;}
+  .top .who{font-size:14px;color:var(--num);}
+  h1{margin:6px 0 4px;font-size:28px;}
+  .lead{margin:0 0 20px;color:var(--num);font-size:15px;line-height:1.6;}
+  .card{background:var(--sheet);border:1px solid var(--rule);border-radius:20px;padding:22px 24px;margin-bottom:16px;}
+  .card h2{margin:0 0 14px;font-size:18px;}
+  .goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+  .goal{min-height:88px;border-radius:16px;border:2px solid var(--rule);background:#fff;padding:14px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;}
+  .goal b{display:block;font-size:17px;margin-bottom:4px;}
+  .goal span{font-size:13px;color:var(--num);line-height:1.4;}
+  .goal[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);}
+  .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;}
+  .field label,.field .lbl{display:block;font-size:14px;font-weight:700;margin-bottom:6px;}
+  .field input[type=date],.field input[type=text]{width:100%;min-height:48px;border:1.5px solid var(--rule);border-radius:12px;padding:0 12px;font:inherit;font-size:16px;background:#fff;color:var(--ink);}
+  .field .hint{margin-top:4px;font-size:12px;color:var(--num);}
+  .stepper{display:flex;align-items:center;gap:10px;}
+  .stepper button{width:48px;height:48px;border-radius:12px;border:1.5px solid var(--ink);background:#fff;font-size:22px;font-weight:700;cursor:pointer;color:var(--ink);font-family:inherit;}
+  .stepper output{min-width:64px;text-align:center;font-size:20px;font-weight:800;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{min-height:44px;padding:0 16px;border-radius:22px;border:1.5px solid var(--rule);background:#fff;font:inherit;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer;}
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;}
+  details.cat{border:1px solid var(--rule);border-radius:14px;background:#fff;margin-bottom:10px;}
+  details.cat > summary{min-height:52px;padding:0 16px;display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:800;font-size:16px;list-style:none;}
+  details.cat > summary::-webkit-details-marker{display:none;}
+  details.cat > summary .n{margin-left:auto;font-size:13px;font-weight:600;color:var(--num);}
+  .setlist{padding:4px 16px 12px;border-top:1px solid var(--rule);}
+  .setrow{display:flex;align-items:center;gap:12px;min-height:44px;font-size:15px;}
+  .setrow input,details.cat summary input{width:22px;height:22px;flex:0 0 auto;accent-color:var(--accent);}
+  .setrow .c{margin-left:auto;font-size:13px;color:var(--num);white-space:nowrap;}
+  .btnrow{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;}
+  .btn{min-height:52px;padding:0 28px;border-radius:26px;border:none;background:var(--accent);color:#fff;font:inherit;font-size:17px;font-weight:800;cursor:pointer;}
+  .btn.alt{background:var(--sheet);color:var(--ink);border:1.5px solid var(--ink);}
+  .btn[disabled]{opacity:.45;cursor:default;}
+  .msg{margin:12px 0 0;padding:12px 16px;border-radius:12px;font-size:15px;font-weight:700;}
+  .msg.err{background:var(--warn-soft);color:var(--warn);}
+  .msg.info{background:var(--accent-soft);color:var(--accent);}
+  .pday{border-top:1px solid var(--rule);padding:12px 0;}
+  .pday:first-child{border-top:none;}
+  .pday h3{margin:0 0 6px;font-size:16px;}
+  .pday h3 small{font-weight:600;color:var(--num);margin-left:6px;}
+  .ptask{display:flex;align-items:center;gap:10px;min-height:44px;font-size:15px;}
+  .ptask .t{flex:1 1 auto;min-width:0;}
+  .ptask .t em{font-style:normal;margin-left:6px;padding:1px 8px;border-radius:10px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:700;}
+  .ptask button{min-height:44px;min-width:60px;border-radius:10px;border:1px solid var(--rule);background:#fff;font:inherit;font-size:13px;cursor:pointer;color:var(--ink);}
+  @media (max-width:700px){
+    .wrap{padding:14px 14px 80px;} .goals{grid-template-columns:1fr;} .fields{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="home" href="index_mathc1.html">← 홈</a>
+    <span class="who" id="who"></span>
+  </div>
+
+  <h1>학습 계획 만들기</h1>
+  <p class="lead">목표와 날짜, 하루에 풀 문제 수를 고르면 날짜별 계획을 만들어 줘요. 만든 계획은 "오늘의 과제"에서 볼 수 있어요.</p>
+
+  <div class="card">
+    <h2>1. 목표</h2>
+    <div class="goals" id="goals">
+      <button type="button" class="goal" data-goal="exam" aria-pressed="true"><b>시험 대비</b><span>중간·기말고사까지 교재와 기출을 풀고, 마지막 이틀은 오답 복구</span></button>
+      <button type="button" class="goal" data-goal="mock" aria-pressed="false"><b>모의고사 대비</b><span>학력평가 기출을 날짜에 맞춰 나눠 풀기</span></button>
+      <button type="button" class="goal" data-goal="steady" aria-pressed="false"><b>꾸준한 학습</b><span>시험일 없이 몇 주 동안 매일 조금씩</span></button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2. 일정</h2>
+    <div class="fields">
+      <div class="field" id="fName">
+        <label for="examName">시험 이름</label>
+        <input type="text" id="examName" maxlength="20" value="기말고사">
+      </div>
+      <div class="field" id="fExam">
+        <label for="examDate">시험일</label>
+        <input type="date" id="examDate">
+        <div class="hint">시험 전날까지 계획을 짜요</div>
+      </div>
+      <div class="field" id="fWeeks" style="display:none">
+        <span class="lbl">기간</span>
+        <div class="stepper"><button type="button" id="wMinus" aria-label="1주 줄이기">−</button><output id="weeks">4주</output><button type="button" id="wPlus" aria-label="1주 늘리기">+</button></div>
+      </div>
+      <div class="field">
+        <label for="startDate">시작일</label>
+        <input type="date" id="startDate">
+      </div>
+      <div class="field">
+        <span class="lbl">하루에 풀 문제 수</span>
+        <div class="stepper"><button type="button" id="pMinus" aria-label="5문제 줄이기">−</button><output id="perDay">20문제</output><button type="button" id="pPlus" aria-label="5문제 늘리기">+</button></div>
+      </div>
+      <div class="field" style="grid-column:1/-1">
+        <span class="lbl">쉬는 요일 (누르면 그 요일은 계획에서 빠져요)</span>
+        <div class="chips" id="rest"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3. 풀 문제집</h2>
+    <div id="sets"><p class="lead" style="margin:0">문제집 목록을 불러오는 중…</p></div>
+    <p class="lead" style="margin:10px 0 0" id="poolInfo"></p>
+  </div>
+
+  <div class="btnrow"><button type="button" class="btn" id="make">계획 만들기</button></div>
+  <div id="msg"></div>
+
+  <div class="card" id="previewCard" style="display:none;margin-top:20px">
+    <h2 id="previewTitle">미리보기</h2>
+    <p class="lead" id="previewNote" style="margin-bottom:10px"></p>
+    <div id="preview"></div>
+    <div class="btnrow">
+      <button type="button" class="btn" id="save">이 계획으로 시작</button>
+    </div>
+    <p class="lead" style="margin:12px 0 0">필요 없는 과제는 "삭제"로 뺄 수 있어요. 전체를 바꾸려면 위에서 조건을 고치고 다시 만들어요.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var WD=['일','월','화','수','목','금','토'];
+  var CAT=[{k:'tb',label:'교재'},{k:'peq',label:'기출·내신'},{k:'me',label:'모의고사'}];
+  var CAT_ORDER={exam:['tb','peq','me'],mock:['me','peq','tb'],steady:['tb','peq','me']};
+  var CAT_DEFAULT={exam:{tb:1,peq:1,me:0},mock:{tb:0,peq:0,me:1},steady:{tb:1,peq:1,me:1}};
+  var session={}; try{ session=JSON.parse(localStorage.getItem('mathapp_session')||'{}')||{}; }catch(e){}
+  var SID=session.studentId||'anon';
+  var PLAN_KEY='study_plan_'+SID, DONE_KEY='today_done_'+SID;
+  document.getElementById('who').textContent=session.name?session.name+'님':'';
+
+  var goal='exam', perDay=20, weeks=4, rest={}, sets=[], checked={}, plan=null;
+
+  function pad(n){ return (n<10?'0':'')+n; }
+  function ymd(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function parse(s){ var p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2]); }
+  function addDays(d,n){ var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()+n); return x; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function $(id){ return document.getElementById(id); }
+
+  // 기본 날짜
+  var now=new Date();
+  $('startDate').value=ymd(now);
+  $('examDate').value=ymd(addDays(now,28));
+
+  // 쉬는 요일 칩
+  var restBox=$('rest');
+  WD.forEach(function(w,i){
+    var b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=w; b.setAttribute('aria-pressed','false');
+    b.onclick=function(){ rest[i]=!rest[i]; b.setAttribute('aria-pressed',rest[i]?'true':'false'); };
+    restBox.appendChild(b);
+  });
+
+  // 목표 선택
+  function setGoal(g){
+    goal=g;
+    Array.prototype.forEach.call(document.querySelectorAll('.goal'),function(b){ b.setAttribute('aria-pressed',b.getAttribute('data-goal')===g?'true':'false'); });
+    $('fExam').style.display = g==='steady'?'none':'';
+    $('fName').style.display = g==='steady'?'none':'';
+    $('fWeeks').style.display = g==='steady'?'':'none';
+    if(g==='exam') $('examName').value='기말고사';
+    if(g==='mock') $('examName').value='모의고사';
+    sets.forEach(function(s){ checked[s.id]=!!CAT_DEFAULT[g][s.category]; });
+    renderSets();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.goal'),function(b){ b.onclick=function(){ setGoal(b.getAttribute('data-goal')); }; });
+
+  // 스테퍼
+  function bump(which,delta){
+    if(which==='p'){ perDay=Math.max(5,Math.min(60,perDay+delta)); $('perDay').textContent=perDay+'문제'; }
+    else { weeks=Math.max(1,Math.min(12,weeks+delta)); $('weeks').textContent=weeks+'주'; }
+  }
+  $('pMinus').onclick=function(){ bump('p',-5); }; $('pPlus').onclick=function(){ bump('p',5); };
+  $('wMinus').onclick=function(){ bump('w',-1); }; $('wPlus').onclick=function(){ bump('w',1); };
+
+  // 문제집 목록
+  fetch('data/worksheets-manifest.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(m){
+      sets=(m.sets||[]).filter(function(s){ return !s.hidden && s.count>0; });
+      // 제목이 겹치는 문제집(예: 해마다 있는 "9월 전국연합학력평가")은 묶음 이름을 붙여 구분한다
+      var seen={}; sets.forEach(function(s){ seen[s.title]=(seen[s.title]||0)+1; });
+      sets.forEach(function(s){
+        var g=String(s.group||'').replace('학년도 고1 전국연합학력평가','학년도');
+        s.label = (seen[s.title]>1 && g && g!==s.title) ? g+' '+s.title : s.title;
+      });
+      sets.forEach(function(s){ checked[s.id]=!!CAT_DEFAULT[goal][s.category]; });
+      renderSets();
+    })
+    .catch(function(){ $('sets').innerHTML='<p class="msg err">문제집 목록(data/worksheets-manifest.json)을 불러오지 못했어요.</p>'; });
+
+  var openCats={tb:true};
+  function renderSets(){
+    var box=$('sets'); box.innerHTML='';
+    CAT.forEach(function(c){
+      var list=sets.filter(function(s){ return s.category===c.k; });
+      if(!list.length) return;
+      var on=list.filter(function(s){ return checked[s.id]; }).length;
+      var d=document.createElement('details'); d.className='cat'; if(openCats[c.k]) d.open=true;
+      d.addEventListener('toggle',function(){ openCats[c.k]=d.open; });
+      var sum=document.createElement('summary');
+      var all=document.createElement('input'); all.type='checkbox'; all.checked=on===list.length; all.indeterminate=on>0&&on<list.length;
+      all.setAttribute('aria-label',c.label+' 전체 선택');
+      all.onclick=function(e){ e.stopPropagation(); list.forEach(function(s){ checked[s.id]=all.checked; }); renderSets(); };
+      sum.appendChild(all);
+      var t=document.createElement('span'); t.textContent=c.label; sum.appendChild(t);
+      var n=document.createElement('span'); n.className='n'; n.textContent=on+' / '+list.length+'개 선택'; sum.appendChild(n);
+      d.appendChild(sum);
+      var wrap=document.createElement('div'); wrap.className='setlist';
+      list.forEach(function(s){
+        var row=document.createElement('label'); row.className='setrow';
+        var cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!checked[s.id];
+        cb.onchange=function(){ checked[s.id]=cb.checked; renderSets(); };
+        var name=document.createElement('span'); name.textContent=s.label||s.title;
+        var cnt=document.createElement('span'); cnt.className='c'; cnt.textContent=s.count+'문제';
+        row.appendChild(cb); row.appendChild(name); row.appendChild(cnt);
+        wrap.appendChild(row);
+      });
+      d.appendChild(wrap);
+      box.appendChild(d);
+    });
+    updatePool();
+  }
+  function pool(){
+    var out=[];
+    CAT_ORDER[goal].forEach(function(k){
+      sets.forEach(function(s){ if(s.category===k && checked[s.id]) out.push(s); });
+    });
+    return out;
+  }
+  function updatePool(){
+    var p=pool(), n=0; p.forEach(function(s){ n+=s.count; });
+    $('poolInfo').textContent = n ? ('선택한 문제집 '+p.length+'개 · 문제 '+n+'개') : '문제집을 하나 이상 골라 주세요.';
+  }
+
+  function showMsg(text,kind){ $('msg').innerHTML = text ? '<div class="msg '+kind+'">'+esc(text)+'</div>' : ''; }
+
+  // 계획 만들기
+  $('make').onclick=function(){
+    showMsg('',''); $('previewCard').style.display='none';
+    var start=$('startDate').value;
+    if(!start){ showMsg('시작일을 골라 주세요.','err'); return; }
+    var startD=parse(start), endD, examDate='';
+    if(goal==='steady'){
+      endD=addDays(startD,weeks*7-1);
+    } else {
+      examDate=$('examDate').value;
+      if(!examDate){ showMsg('시험일을 골라 주세요.','err'); return; }
+      endD=addDays(parse(examDate),-1);
+    }
+    if(endD<startD){ showMsg('시작일이 시험일보다 앞이어야 해요.','err'); return; }
+    var segs=pool();
+    if(!segs.length){ showMsg('풀 문제집을 하나 이상 골라 주세요.','err'); return; }
+
+    // 날짜 나누기: 쉬는 요일 제외, 시험 대비는 마지막 이틀을 오답 복구 날로
+    var days=[], d=new Date(startD.getTime());
+    while(d<=endD){ days.push({date:ymd(d),dow:d.getDay()}); d=addDays(d,1); }
+    var reviewDates={};
+    if(goal!=='steady' && days.length>=5){ reviewDates[days[days.length-1].date]=1; reviewDates[days[days.length-2].date]=1; }
+    var study=days.filter(function(x){ return !rest[x.dow] && !reviewDates[x.date]; });
+    if(!study.length){ showMsg('풀 수 있는 날이 없어요. 쉬는 요일을 줄이거나 날짜를 늘려 주세요.','err'); return; }
+
+    var total=0; segs.forEach(function(s){ total+=s.count; });
+    var capacity=study.length*perDay, eff, truncated=false;
+    if(total<=capacity){ eff=Math.ceil(total/study.length); } else { eff=perDay; truncated=true; }
+
+    // 문제 배분 (문제집 순서대로 이어서 채운다)
+    var si=0, next=1, assigned={}; // assigned[date] = tasks
+    study.forEach(function(x){
+      var need=eff, tasks=[];
+      while(need>0 && si<segs.length){
+        var s=segs[si], left=s.count-next+1, take=Math.min(need,left);
+        tasks.push({type:'solve',label:s.label||s.title,set:s.id,from:next,to:next+take-1});
+        next+=take; need-=take;
+        if(next>s.count){ si++; next=1; }
+      }
+      assigned[x.date]=tasks;
+    });
+    var assignedCount=0; Object.keys(assigned).forEach(function(k){ assigned[k].forEach(function(t){ assignedCount+=t.to-t.from+1; }); });
+
+    var out=[], studyIdx=0;
+    days.forEach(function(x){
+      var day={date:x.date,title:'',tasks:[]};
+      if(reviewDates[x.date]){
+        day.title='오답 복구';
+        day.tasks.push({type:'review',label:'오답 복구',detail:'오답노트에 모인 문제를 다시 풀어요'});
+      } else if(rest[x.dow]){
+        day.title='쉬는 날';
+      } else {
+        var tasks=assigned[x.date]||[];
+        if(tasks.length){ day.title=tasks[0].label; day.tasks=tasks; }
+        else { day.title='오답 복구'; day.tasks.push({type:'review',label:'오답 복구',detail:'계획한 문제를 모두 풀었어요. 오답노트를 복습해요'}); }
+        if(studyIdx%3===2 && tasks.length){ day.tasks.push({type:'review',label:'오답 복구',detail:'틀린 문제를 다시 풀어요',optional:true}); }
+        studyIdx++;
+      }
+      out.push(day);
+    });
+
+    var nm=$('examName').value.trim()||(goal==='mock'?'모의고사':'시험');
+    plan={version:1,goal:goal,title:goal==='steady'?'꾸준한 학습 계획':nm+' 대비 계획',examDate:examDate,
+      note:'하루 '+eff+'문제 · '+study.length+'일 · 문제 '+assignedCount+'개',days:out,createdAt:new Date().toISOString()};
+
+    var notes=[];
+    if(truncated) notes.push('고른 문제 '+total+'개 중 '+assignedCount+'개까지만 담겼어요. 다 풀려면 하루 문제 수를 늘리거나 기간을 늘려 주세요.');
+    else if(eff<perDay) notes.push('문제가 적어서 하루 '+eff+'문제로 줄여 나눴어요.');
+    if(goal!=='steady' && days.length<5) notes.push('남은 기간이 짧아서 오답 복구 날은 넣지 않았어요.');
+    showMsg(notes.join(' '),'info');
+    renderPreview();
+  };
+
+  function renderPreview(){
+    $('previewCard').style.display='';
+    $('previewTitle').textContent=plan.title;
+    $('previewNote').textContent=plan.note+(plan.examDate?' · 시험일 '+plan.examDate:'');
+    var box=$('preview'); box.innerHTML='';
+    plan.days.forEach(function(day,di){
+      var dt=parse(day.date);
+      var div=document.createElement('div'); div.className='pday';
+      div.innerHTML='<h3>'+(dt.getMonth()+1)+'월 '+dt.getDate()+'일 ('+WD[dt.getDay()]+')<small>'+esc(day.title)+'</small></h3>';
+      day.tasks.forEach(function(t,ti){
+        var row=document.createElement('div'); row.className='ptask';
+        var text = t.type==='solve' ? esc(t.label)+' <b>'+t.from+'~'+t.to+'번</b>' : esc(t.label)+(t.detail?' · '+esc(t.detail):'');
+        row.innerHTML='<span class="t">'+text+(t.optional?'<em>선택</em>':'')+'</span>';
+        var del=document.createElement('button'); del.type='button'; del.textContent='삭제'; del.setAttribute('aria-label',day.date+' 과제 삭제');
+        del.onclick=function(){ plan.days[di].tasks.splice(ti,1); renderPreview(); };
+        row.appendChild(del); div.appendChild(row);
+      });
+      if(!day.tasks.length){ var e=document.createElement('div'); e.className='ptask'; e.innerHTML='<span class="t" style="color:#6b6657">과제 없음</span>'; div.appendChild(e); }
+      box.appendChild(div);
+    });
+    if($('previewCard').scrollIntoView){ try{ $('previewCard').scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){} }
+  }
+
+  $('save').onclick=function(){
+    if(!plan) return;
+    var had=null; try{ had=localStorage.getItem(PLAN_KEY); }catch(e){}
+    if(had && !confirm('이미 저장된 계획이 있어요. 새 계획으로 바꾸면 이전 완료 표시는 사라져요. 바꿀까요?')) return;
+    try{
+      localStorage.setItem(PLAN_KEY,JSON.stringify(plan));
+      localStorage.removeItem(DONE_KEY);
+    }catch(e){ showMsg('이 기기에 계획을 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.','err'); return; }
+    window.location.href='today.html';
+  };
+
+  setGoal('exam');
+})();
+</script>
+</body>
+</html>

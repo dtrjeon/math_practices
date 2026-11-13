@@ -4,12 +4,13 @@ normalize_and_register.py
 새 문제지 JSON을 표준 스키마로 정규화하고 manifest.json에 자동 등록하는 스크립트.
 
 사용법:
-    python3 normalize_and_register.py <문제지.json> [--category exam|pastexam|textbook] [--group "그룹명"] [--title "제목"] [--dry-run]
+    python3 normalize_and_register.py data/<문제지.json> [--category tb|peq|me] [--grade m0|m1] [--group "그룹명"] [--title "제목"] [--dry-run]
 
 동작:
 1. diff 필드: 한글(최상/상/중상/중/하) → 영문 코드(top/high/midhigh/mid/low) 자동 변환
 2. 내부 id 필드: 파일명(확장자 제외)과 강제로 동일하게 맞춤
-3. manifest.json에 신규 항목이면 추가, 이미 있으면 스킵(경고만)
+3. data/worksheets-manifest.json에 신규 항목이면 추가, 이미 있으면 스킵(경고만)
+   (file 경로는 data/ 기준 상대경로 — data/seanmath32/x.json → "seanmath32/x.json")
 4. --dry-run이면 실제 파일 수정 없이 변경사항만 리포트
 """
 import json, sys, argparse, os
@@ -54,16 +55,17 @@ def normalize_worksheet(path, dry_run=False):
 
     return data, fname_id
 
-def make_manifest_entry(data, fname_id, category, group, title):
+def make_manifest_entry(data, fname_id, file_rel, category, group, title, grade):
     problems = data.get("problems", [])
     return {
         "id": fname_id,
-        "file": fname_id + ".json",
+        "file": file_rel,
         "category": category,
         "title": title or data.get("title", fname_id),
         "unit": data.get("unit", ""),
         "count": len(problems),
         "group": group or category,
+        "grade": grade or fname_id.split("_")[0],
     }
 
 def register_to_manifest(manifest_path, entry, dry_run=False):
@@ -85,10 +87,12 @@ def register_to_manifest(manifest_path, entry, dry_run=False):
     return manifest
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8")  # Windows 콘솔(cp949)에서 ⚠ 출력 시 죽던 문제
     ap = argparse.ArgumentParser()
     ap.add_argument("worksheet_json")
-    ap.add_argument("--manifest", default="worksheets-manifest.json")
-    ap.add_argument("--category", default="exam", choices=["exam", "pastexam", "textbook"])
+    ap.add_argument("--manifest", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "worksheets-manifest.json"))
+    ap.add_argument("--category", default="tb", choices=["tb", "peq", "me"])
+    ap.add_argument("--grade", default=None, help="m0(중3)/m1(고1) — 생략하면 파일명 앞부분")
     ap.add_argument("--group", default=None)
     ap.add_argument("--title", default=None)
     ap.add_argument("--dry-run", action="store_true")
@@ -96,7 +100,8 @@ if __name__ == "__main__":
 
     data, fname_id = normalize_worksheet(args.worksheet_json, dry_run=args.dry_run)
     if os.path.exists(args.manifest):
-        entry = make_manifest_entry(data, fname_id, args.category, args.group, args.title)
+        file_rel = os.path.relpath(os.path.abspath(args.worksheet_json), os.path.dirname(os.path.abspath(args.manifest))).replace(os.sep, "/")
+        entry = make_manifest_entry(data, fname_id, file_rel, args.category, args.group, args.title, args.grade)
         register_to_manifest(args.manifest, entry, dry_run=args.dry_run)
     else:
         print(f"  ⚠ manifest.json 없음 — 등록 스킵: {args.manifest}")

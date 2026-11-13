@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<!-- v1.1 (2026-11-04): 서버 주소(SHEET_WEBHOOK_URL)를 통합 Code.gs가 올라간 새 Apps Script 배포로 교체 — 이전 배포는 AI 튜터 등 새 기능을 처리하지 못했음 -->
+<!-- v1.0 (2026-11-02): 신규 생성 — Instagram 학습 팁 큐레이션 관리자 화면. 게시물 링크 + 한 줄 요약 + 단원 태그 + 학년을
+     입력하면 GAS action:'saveTips'(gas-tips-addon.gs)가 data/tips.json에 바로 커밋(검토대기 없음, admin-examrange와 동일 방식).
+     게시물 본문·이미지는 저장하지 않고 링크만 저장 — 학생 화면에서는 Instagram 공식 임베드로 원본을 보여줌(저작권·출처 보존).
+     로그인+admin 게이트, 비공개 경로(noindex) 원칙 적용. -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<script>
+  (function(){
+    var session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    if(!session || !session.studentId){
+      window.location.replace('../worksheets/login.html?redirect=' + encodeURIComponent(window.location.href));
+    } else if(session.role !== 'admin'){
+      alert('이 페이지는 선생님/관리자만 볼 수 있어요.');
+      window.location.replace('../index.html');
+    }
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>학습 팁 관리</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --paper:#f6f4ee; --ink:#20242b; --rule:#d9d3c4; --accent:#1f6f5c;
+    --accent-soft:#e3efe9; --wrong:#b23a2e; --wrong-soft:#f7e6e3; --num:#8a8474; --sheet:#fffdf8;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Noto Sans KR', -apple-system, sans-serif; padding-bottom:80px;
+  }
+  header{ padding:20px 18px 14px; border-bottom:2px solid var(--ink); display:flex; align-items:center; justify-content:space-between; }
+  h1{ font-size:18px; margin:0; }
+  .refresh-btn{
+    width:32px; height:32px; border-radius:50%; border:1.5px solid var(--rule);
+    background:#fff; cursor:pointer; font-size:14px;
+  }
+  main{ padding:16px 18px; max-width:640px; margin:0 auto; }
+  .guide{ font-size:12.5px; color:var(--num); line-height:1.6; margin:0 0 12px; }
+
+  .tip-card{
+    background:var(--sheet); border:1.5px solid var(--rule); border-radius:14px;
+    padding:14px 16px; margin-bottom:10px;
+  }
+  .tc-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .tc-title{ font-size:14.5px; font-weight:800; }
+  .tc-sub{ font-size:12px; color:var(--num); margin-top:2px; word-break:break-all; }
+  .tc-sub a{ color:var(--accent); }
+  .tc-tags{ margin-top:6px; display:flex; flex-wrap:wrap; gap:4px; }
+  .tag{ font-size:11.5px; font-weight:700; padding:2px 8px; border-radius:999px; background:var(--accent-soft); color:var(--accent); }
+  .tc-actions{ display:flex; gap:6px; flex:0 0 auto; }
+  .icon-btn{
+    width:30px; height:30px; border-radius:50%; border:1.5px solid var(--rule);
+    background:#fff; cursor:pointer; font-size:13px;
+  }
+  .icon-btn.danger{ border-color:var(--wrong); color:var(--wrong); }
+
+  .add-btn{
+    width:100%; font-family:inherit; font-size:14px; font-weight:800;
+    padding:13px; border-radius:12px; border:1.5px dashed var(--rule);
+    background:#fff; color:var(--num); cursor:pointer; margin-top:6px;
+  }
+  .empty{ text-align:center; color:var(--num); font-size:13px; padding:40px 0; }
+
+  #editOverlay{
+    display:none; position:fixed; inset:0; background:rgba(20,24,30,0.5); z-index:200;
+    overflow-y:auto; padding:20px 14px;
+  }
+  #editOverlay.shown{ display:block; }
+  .edit-panel{ background:var(--sheet); border-radius:16px; padding:18px; max-width:600px; margin:0 auto; }
+  .edit-title{ font-size:16px; font-weight:800; margin-bottom:14px; }
+  .field{ margin-bottom:12px; }
+  .field label{ display:block; font-size:12px; font-weight:700; color:var(--num); margin-bottom:5px; }
+  .field input[type="text"], .field textarea{
+    width:100%; font-family:inherit; font-size:14.5px;
+    padding:10px 12px; border:1.5px solid var(--rule); border-radius:10px;
+    background:#fff; color:var(--ink);
+  }
+  .field textarea{ resize:vertical; min-height:72px; line-height:1.5; }
+  .field .hint{ font-size:11.5px; color:var(--num); margin-top:4px; }
+  .field .hint.bad{ color:var(--wrong); font-weight:700; }
+  .grade-checks{ display:flex; gap:14px; font-size:14px; }
+
+  .edit-actions{ display:flex; gap:10px; margin-top:16px; }
+  .btn{ flex:1; font-family:inherit; font-size:14px; font-weight:800; border:none; border-radius:999px; padding:13px; cursor:pointer; }
+  .btn.primary{ background:var(--accent); color:#fff; }
+  .btn.ghost{ background:#efece2; color:var(--ink); }
+  .btn:disabled{ opacity:0.5; cursor:not-allowed; }
+
+  .status-msg{ font-size:12.5px; margin-top:10px; text-align:center; }
+  .status-msg.ok{ color:var(--accent); font-weight:700; }
+  .status-msg.fail{ color:var(--wrong); font-weight:700; }
+  .spinner{
+    width:14px; height:14px; border:2.5px solid var(--rule); border-top-color:var(--accent);
+    border-radius:50%; display:inline-block; animation:spin 0.7s linear infinite; vertical-align:-2px; margin-right:6px;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💡 학습 팁 관리</h1>
+  <button class="refresh-btn" onclick="loadTips()">🔄</button>
+</header>
+
+<main>
+  <p class="guide">
+    Instagram에서 좋은 공부법·개념 설명 게시물을 찾으면 링크와 요약을 등록하세요.
+    학생 화면에는 <b>원본 게시물(작성자 계정 포함)</b>이 그대로 임베드되고, 단원 태그가 맞는 문제를 풀 때 "관련 학습 팁"으로 함께 보여요.
+    이미지를 저장해서 올리지 말고 링크만 등록하세요(저작권).
+  </p>
+  <div id="tipList" class="empty">불러오는 중...</div>
+  <button class="add-btn" onclick="openEdit(null)">＋ 새 학습 팁 추가</button>
+  <div class="status-msg" id="listStatus"></div>
+</main>
+
+<div id="editOverlay">
+  <div class="edit-panel">
+    <div class="edit-title" id="editTitle">새 학습 팁</div>
+
+    <div class="field">
+      <label>Instagram 게시물 링크</label>
+      <input type="text" id="fUrl" placeholder="https://www.instagram.com/p/XXXXXXXX/" oninput="checkUrl()">
+      <div class="hint" id="urlHint">게시물(/p/) 또는 릴스(/reel/) 링크. 공유 버튼 → 링크 복사</div>
+    </div>
+    <div class="field">
+      <label>작성자 계정 (선택, 예: @math_teacher)</label>
+      <input type="text" id="fAccount" placeholder="@계정이름">
+    </div>
+    <div class="field">
+      <label>한 줄 요약 (학생에게 보이는 제목)</label>
+      <input type="text" id="fTitle" maxlength="80" placeholder="예: 인수분해 공식 헷갈릴 때 부호 정리법">
+    </div>
+    <div class="field">
+      <label>선생님 메모 (선택, 왜 보면 좋은지)</label>
+      <textarea id="fSummary" maxlength="400" placeholder="예: 곱셈공식 a³±b³ 부호를 외우는 방법. 4.30 복습 2번 틀린 학생 추천"></textarea>
+    </div>
+    <div class="field">
+      <label>관련 단원 (쉼표로 여러 개)</label>
+      <input type="text" id="fUnits" placeholder="예: 인수분해, 곱셈공식">
+      <div class="hint">문제지 제목·단원에 이 낱말이 들어 있으면 풀이 화면에 함께 보여요. 비우면 홈 목록에만 나와요.</div>
+    </div>
+    <div class="field">
+      <label>학년 (선택 안 하면 전체)</label>
+      <div class="grade-checks">
+        <label><input type="checkbox" value="m0" class="fGrade"> 중학교</label>
+        <label><input type="checkbox" value="m1" class="fGrade"> 고1</label>
+        <label><input type="checkbox" value="m2" class="fGrade"> 고2</label>
+      </div>
+    </div>
+
+    <div class="edit-actions">
+      <button class="btn ghost" onclick="closeEdit()">취소</button>
+      <button class="btn primary" id="saveBtn" onclick="saveTip()">저장</button>
+    </div>
+    <div class="status-msg" id="editStatus"></div>
+  </div>
+</div>
+
+<script>
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyC6SkzAtNjW0Bh-2mlkybGLQTMGqXxkwr98KhrZX6HwmCqQoNvVKFarRvs5Vhqn2cM/exec';
+
+  let mySession = null;
+  try { mySession = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+
+  let tips = [];
+  let editingIndex = null; // null이면 신규 추가
+
+  function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  // 게시물/릴스 링크를 표준형으로 — gas-tips-addon.gs의 tipsNormalizeUrl_과 같은 규칙
+  function normalizeInstagramUrl(url){
+    const m = String(url || '').trim().match(/^https?:\/\/(?:www\.)?instagram\.com\/(p|reel|reels)\/([A-Za-z0-9_-]+)/);
+    if(!m) return null;
+    return 'https://www.instagram.com/' + (m[1] === 'reels' ? 'reel' : m[1]) + '/' + m[2] + '/';
+  }
+
+  function checkUrl(){
+    const hint = document.getElementById('urlHint');
+    const v = document.getElementById('fUrl').value.trim();
+    if(!v){ hint.className = 'hint'; hint.textContent = '게시물(/p/) 또는 릴스(/reel/) 링크. 공유 버튼 → 링크 복사'; return; }
+    const n = normalizeInstagramUrl(v);
+    hint.className = n ? 'hint' : 'hint bad';
+    hint.textContent = n ? '✓ ' + n : 'Instagram 게시물 링크가 아니에요 (instagram.com/p/… 또는 /reel/…)';
+  }
+
+  async function loadTips(){
+    const listEl = document.getElementById('tipList');
+    listEl.className = 'empty';
+    listEl.textContent = '불러오는 중...';
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({ action:'getTips', requesterId: mySession && mySession.studentId })
+      });
+      const json = await res.json();
+      if(json.status !== 'ok') throw new Error(json.message || '불러오지 못했어요');
+      tips = json.tips || [];
+      renderTipList();
+    } catch(err){
+      listEl.className = 'empty';
+      listEl.textContent = '불러오기 실패: ' + err.message;
+    }
+  }
+
+  const GRADE_LABEL = { m0:'중학교', m1:'고1', m2:'고2' };
+
+  function renderTipList(){
+    const listEl = document.getElementById('tipList');
+    if(tips.length === 0){
+      listEl.className = 'empty';
+      listEl.textContent = '등록된 학습 팁이 없어요';
+      return;
+    }
+    listEl.className = '';
+    listEl.innerHTML = tips.map((t, i) => `
+      <div class="tip-card">
+        <div class="tc-head">
+          <div>
+            <div class="tc-title">${escapeHtml(t.title)}</div>
+            <div class="tc-sub">${escapeHtml(t.account || '')} · <a href="${escapeHtml(t.url)}" target="_blank" rel="noopener">${escapeHtml(t.url)}</a></div>
+            <div class="tc-tags">
+              ${(t.grades && t.grades.length ? t.grades.map(g => GRADE_LABEL[g] || g) : ['전체 학년']).map(g => `<span class="tag">${escapeHtml(g)}</span>`).join('')}
+              ${(t.units || []).map(u => `<span class="tag">#${escapeHtml(u)}</span>`).join('')}
+            </div>
+          </div>
+          <div class="tc-actions">
+            <button class="icon-btn" onclick="openEdit(${i})" title="수정">✏️</button>
+            <button class="icon-btn danger" onclick="deleteTip(${i})" title="삭제">🗑</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  function openEdit(index){
+    editingIndex = index;
+    const t = index === null ? {} : tips[index];
+    document.getElementById('editTitle').textContent = index === null ? '새 학습 팁' : '학습 팁 수정';
+    document.getElementById('editStatus').textContent = '';
+    document.getElementById('fUrl').value = t.url || '';
+    document.getElementById('fAccount').value = t.account || '';
+    document.getElementById('fTitle').value = t.title || '';
+    document.getElementById('fSummary').value = t.summary || '';
+    document.getElementById('fUnits').value = (t.units || []).join(', ');
+    document.querySelectorAll('.fGrade').forEach(cb => { cb.checked = (t.grades || []).includes(cb.value); });
+    checkUrl();
+    document.getElementById('editOverlay').classList.add('shown');
+  }
+
+  function closeEdit(){
+    document.getElementById('editOverlay').classList.remove('shown');
+    editingIndex = null;
+  }
+
+  async function saveTip(){
+    const url = normalizeInstagramUrl(document.getElementById('fUrl').value);
+    const title = document.getElementById('fTitle').value.trim();
+    if(!url){ alert('Instagram 게시물 링크를 확인해주세요.'); return; }
+    if(!title){ alert('한 줄 요약을 입력해주세요.'); return; }
+    const dup = tips.findIndex(t => t.url === url);
+    if(dup >= 0 && dup !== editingIndex){ alert('이미 등록된 게시물이에요.'); return; }
+
+    let account = document.getElementById('fAccount').value.trim();
+    if(account && account[0] !== '@') account = '@' + account;
+    const prev = editingIndex === null ? {} : tips[editingIndex];
+    const entry = {
+      id: prev.id || ('t' + Date.now()),
+      url: url,
+      account: account,
+      title: title,
+      summary: document.getElementById('fSummary').value.trim(),
+      units: document.getElementById('fUnits').value.split(',').map(s => s.trim()).filter(Boolean),
+      grades: Array.from(document.querySelectorAll('.fGrade:checked')).map(cb => cb.value),
+      addedAt: prev.addedAt || new Date().toISOString().slice(0, 10)
+    };
+
+    const next = tips.slice();
+    if(editingIndex === null) next.unshift(entry);   // 새 팁은 맨 위
+    else next[editingIndex] = entry;
+    await persistTips(next, '저장');
+  }
+
+  async function deleteTip(index){
+    if(!confirm(`"${tips[index].title}" 팁을 삭제할까요?`)) return;
+    const next = tips.slice();
+    next.splice(index, 1);
+    await persistTips(next, '삭제', document.getElementById('listStatus'));
+  }
+
+  async function persistTips(next, label, statusElOverride){
+    const statusEl = statusElOverride || document.getElementById('editStatus');
+    const saveBtn = document.getElementById('saveBtn');
+    if(saveBtn) saveBtn.disabled = true;
+    statusEl.className = 'status-msg';
+    statusEl.innerHTML = `<span class="spinner"></span>${label} 중...`;
+    try{
+      const res = await fetch(SHEET_WEBHOOK_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({ action:'saveTips', requesterId: mySession && mySession.studentId, tips: next })
+      });
+      const json = await res.json();
+      if(json.status !== 'ok') throw new Error(json.message || (label + '에 실패했어요'));
+      tips = json.tips || next;
+      renderTipList();
+      statusEl.className = 'status-msg ok';
+      statusEl.textContent = `✓ ${label} 완료 (학생 화면 반영까지 1~2분)`;
+      if(!statusElOverride) setTimeout(closeEdit, 800);
+    } catch(err){
+      statusEl.className = 'status-msg fail';
+      statusEl.textContent = '✕ ' + err.message;
+    } finally {
+      if(saveBtn) saveBtn.disabled = false;
+    }
+  }
+
+  loadTips();
+</script>
+</body>
+</html>

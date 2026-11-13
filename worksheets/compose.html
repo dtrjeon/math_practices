@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!-- v1.8 (2026-11-05): "틀렸던 문제만" 필터를 홈 오답노트와 같은 기준으로 교체 — 한 번 푼 결과의 틀린 번호(action=list: 모든 학생이 섞이고, 연속 3회 정답으로 졸업한 문제도 남고, "0398" 같은 교재 번호는 parseInt로 어긋남) 대신 로그인한 학생의 wrongStats(문제ID 기준, 연속 3회 정답 전, 오답노트 초기화 반영)를 사용. 버튼 문구를 "오답노트 문제만"으로 변경 -->
+<!-- v1.7 (2026-11-05): 재구성 세트에서 푼 결과가 원래 문제의 풀이 기록에 쌓이도록 수정 — 원본 정보를 sourceSet(player가 안 읽는 이름)으로만 넘겨서 문제ID가 custom-시각#번호가 되던 문제를 sourceId·sourceWorksheetId로 넘겨 해결. 유사문제로 시작한 문제는 원본 id를 달지 않음 -->
+<!-- v1.6 (2026-11-05): 중학교 3-2 삭제 — 상단 "고등학교 / 중학교 3-2" 전환 버튼, switchLevel·currentLevel·isMiddleGrade 분기를 제거하고 고등학교 문제지만 보여줌 -->
+<!-- v1.5 (2026-11-04): 서버 주소(SHEET_WEBHOOK_URL)를 통합 Code.gs가 올라간 새 Apps Script 배포로 교체 — 이전 배포는 AI 튜터 등 새 기능을 처리하지 못했음 -->
 <!-- v1.2 (2026-08-12): 문제지용 manifest.json → data/worksheets-manifest.json으로 파일명 변경 (PWA용 root manifest.json과 혼동 방지) -->
 <!-- v1.3 (2026-08-18): 새 파일명 규칙(tb/peq/me + grade 필드) 반영 — CATEGORY_LABEL을 tb/peq/me로 교체, 학년 판별을 category 기반에서 grade 필드 기반(isMiddleGrade)으로 변경, 중간·기말 정규식을 mid1/mid2/final1/final2 → _mid_/_final_로 변경, 오래된(재배포 이전) SHEET_WEBHOOK_URL을 최신 URL로 교체 -->
 <!-- v1.4 (2026-08-21): 앱 전체 로그인 게이트 통일(index.html/player.html/upload.html과 동일) — mathapp_session이
@@ -97,24 +101,6 @@
   .chip.wrong-chip.active{ background:var(--wrong); border-color:var(--wrong); }
   .chip.diff-chip.active{ background:var(--accent); border-color:var(--accent); }
   .chip.exam-chip.active{ background:#33578c; border-color:#33578c; }
-
-  .level-switch{
-    display:flex;
-    gap:8px;
-    margin-bottom:14px;
-  }
-  .level-btn{
-    font-family:inherit;
-    font-size:14px;
-    font-weight:800;
-    padding:9px 18px;
-    border-radius:10px;
-    border:1.5px solid var(--rule);
-    background:#fff;
-    color:var(--ink);
-    cursor:pointer;
-  }
-  .level-btn.active{ background:var(--ink); border-color:var(--ink); color:#fff; }
 
   .status-line{
     font-size:13px;
@@ -268,15 +254,10 @@
 
 <main>
 
-  <div class="level-switch" id="levelSwitch">
-    <button class="level-btn active" id="levelBtn-highschool" onclick="switchLevel('highschool')">고등학교</button>
-    <button class="level-btn" id="levelBtn-middleschool" onclick="switchLevel('middleschool')">중학교 3-2</button>
-  </div>
-
   <div class="filter-card">
     <div class="filter-row">
       <span class="filter-label">빠른 필터</span>
-      <button class="chip wrong-chip" id="filterWrong" onclick="toggleQuickFilter('wrong')">❌ 틀렸던 문제만</button>
+      <button class="chip wrong-chip" id="filterWrong" onclick="toggleQuickFilter('wrong')">❌ 오답노트 문제만</button>
       <button class="chip" id="filterAll" onclick="toggleQuickFilter('all')">전체 보기</button>
     </div>
     <div class="filter-row" id="examFilterRow">
@@ -313,14 +294,9 @@
 </div>
 
 <script>
-  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzqgkELv7cxD3UZlVj1XfvNiFtR4o6nI5uyDOLiMme6hx5eCcaVkNc_cUZ3JawAafKc/exec';
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyC6SkzAtNjW0Bh-2mlkybGLQTMGqXxkwr98KhrZX6HwmCqQoNvVKFarRvs5Vhqn2cM/exec';
   const DIFF_LABEL = { low:'하', mid:'중', midhigh:'중상', high:'상', top:'최상' };
   const CATEGORY_LABEL = { tb:'교과문제', peq:'기출·내신', me:'모의고사' };
-
-  // index_mathc1.html과 동일한 규칙: grade가 'm0'면 중학교 3-2, 나머지(m1/m2)는 고등학교
-  // (분류(tb/peq/me)는 이제 학년과 무관하게 양쪽 다 쓰이므로, 학년 판별은 category가 아니라
-  //  manifest 각 세트의 grade 필드로 한다)
-  const isMiddleGrade = grade => grade === 'm0';
 
   // 세트 id에 _mid_/_final_이 들어있으면 중간·기말로 분류 (index_mathc1.html 범위요약과 동일 규칙)
   function getExamBucket(id){
@@ -331,11 +307,10 @@
 
   let manifest = null;
   let setsData = {};       // setId -> full set JSON (title, unit, problems[])
-  let wrongMap = {};       // "setId-num" -> true  (과거에 틀렸던 적 있는 문제)
+  let wrongMap = {};       // "setId::num" -> true  (오답노트에 남아 있는 문제 — loadWrongMap 참고)
   let selection = new Set(); // "setId-num"
   let quickFilter = 'all'; // 'all' | 'wrong'
   let activeDiffs = new Set(); // 비어있으면 전체 난이도
-  let currentLevel = 'highschool'; // 'highschool' | 'middleschool'
   let examFilter = 'all'; // 'all' | 'mid' | 'final'
 
   // 문제지 JSON은 두 가지 스키마가 섞여 있을 수 있다.
@@ -367,6 +342,34 @@
     return data;
   }
 
+  // ===== 오답 표시 — 홈 "오답노트"와 같은 기준 =====
+  // 로그인한 학생이 한 번이라도 틀렸고 아직 연속 3회 정답이 안 된 문제(서버 wrongStats).
+  // 오답노트 초기화(WRONG_RESET_AT·기기별 초기화)도 홈과 똑같이 반영한다.
+  const WRONG_RESET_AT = '2026-10-03T00:30:00+09:00'; // index_mathc1.html의 값과 같아야 함
+  function wrongResetTime(studentId){
+    let t = new Date(WRONG_RESET_AT).getTime();
+    try{ const v = parseInt(localStorage.getItem('wrong_reset_' + (studentId || 'anon')) || '0', 10); if(v > t) t = v; }catch(e){}
+    return t;
+  }
+
+  async function loadWrongMap(){
+    let sess = null;
+    try { sess = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    const name = sess && sess.name;
+    if(!name) return; // 이름 없이 부르면 서버가 모든 학생 것을 돌려주므로 호출하지 않는다
+    const res = await fetch(SHEET_WEBHOOK_URL + '?action=wrongStats&studentName=' + encodeURIComponent(name));
+    const list = await res.json();
+    const resetAt = wrongResetTime(sess.studentId);
+    (list || []).forEach(item => {
+      const t = new Date(item.lastDate).getTime();
+      if(!isNaN(t) && t <= resetAt) return;       // 초기화 시각 이전 기록은 숨김
+      const pid = String(item.problemId);         // "문제지id#번호"
+      const cut = pid.indexOf('#');
+      if(cut < 0) return;
+      wrongMap[pid.slice(0, cut) + '::' + pid.slice(cut + 1)] = true;
+    });
+  }
+
   async function loadEverything(){
     const statusEl = document.getElementById('loadStatus');
     try{
@@ -395,15 +398,7 @@
       }
 
       try{
-        const histRes = await fetch(SHEET_WEBHOOK_URL + '?action=list');
-        const records = await histRes.json();
-        (records || []).forEach(r => {
-          const wsId = String(r.worksheetId || '').replace(/-student$|-review$/, '');
-          (String(r.wrongNums || '').split(',')).forEach(numStr => {
-            const num = parseInt(numStr.trim(), 10);
-            if(!isNaN(num)) wrongMap[wsId + '::' + num] = true;
-          });
-        });
+        await loadWrongMap();
       } catch(e){
         // 시트 연결이 안 되어도 재구성 화면 자체는 동작하게 둠
       }
@@ -419,19 +414,6 @@
     } catch(err){
       statusEl.textContent = '불러오기에 실패했어요: ' + err.message;
     }
-  }
-
-  function switchLevel(level){
-    currentLevel = level;
-    document.getElementById('levelBtn-highschool').classList.toggle('active', level === 'highschool');
-    document.getElementById('levelBtn-middleschool').classList.toggle('active', level === 'middleschool');
-    // 쎈수학(중학교)은 중간/기말 구분이 없는 문제집이라 중학교 선택 시엔 시험구분 필터를 숨기고 '전체'로 초기화
-    examFilter = 'all';
-    document.querySelectorAll('.exam-chip').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.exam === 'all');
-    });
-    document.getElementById('examFilterRow').style.display = (level === 'middleschool') ? 'none' : 'flex';
-    renderGroups();
   }
 
   function toggleExamFilter(mode){
@@ -470,8 +452,6 @@
     let html = '';
     let shownSetCount = 0, shownProblemCount = 0;
     manifest.sets.forEach(s => {
-      const belongsToMiddle = isMiddleGrade(s.grade);
-      if((currentLevel === 'middleschool') !== belongsToMiddle) return;
       if(examFilter !== 'all' && getExamBucket(s.id) !== examFilter) return;
 
       const data = setsData[s.id];
@@ -505,9 +485,8 @@
 
     container.innerHTML = html || '<p style="color:var(--num);font-size:14px;">조건에 맞는 문제가 없어요. 필터를 조정해보세요.</p>';
 
-    const levelLabel = currentLevel === 'middleschool' ? '중학교 3-2' : '고등학교';
     document.getElementById('loadStatus').textContent =
-      `${levelLabel} · 문제은행 ${shownSetCount}개 세트 · 총 ${shownProblemCount}문제 표시 중`;
+      `고등학교 · 문제은행 ${shownSetCount}개 세트 · 총 ${shownProblemCount}문제 표시 중`;
   }
 
   function toggleProblem(evt, key){
@@ -557,7 +536,11 @@
       const p = data.problems.find(pp => String(pp.num) === numStr);
       if(p){
         const useVariant = wantVariant && !!p.family;
-        problems.push(Object.assign({}, p, { num: problems.length + 1, sourceSet: setId, sourceNum: p.num, useVariant }));
+        // player는 sourceId·sourceWorksheetId로 "원래 문제"를 알아본다 — 이게 있어야 재구성 세트에서 푼 결과가
+        // 원래 문제의 풀이 기록(연속 3회 정답 → 오답노트에서 졸업)으로 쌓인다.
+        // 유사문제(숫자를 바꾼 변형)는 원래 문제와 다른 문제라서 원본 id를 달지 않는다(원본 기록에 섞이지 않게).
+        const source = useVariant ? {} : { sourceId: setId, sourceWorksheetId: setId + '-student' };
+        problems.push(Object.assign({}, p, { num: problems.length + 1, sourceSet: setId, sourceNum: p.num, useVariant }, source));
       }
     });
     if(problems.length === 0) return;

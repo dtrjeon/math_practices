@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- v1.1 (2026-11-06): 계획 출처를 이 기기에 저장된 학습 계획(plan.html이 만든 study_plan_<학생ID>)으로 우선하고, 없으면 data/study-plan.json, 둘 다 없으면 "계획 만들기" 안내. 쎈수학 전용이던 과제 문구·4자리 번호(pad4)를 일반 문제지 제목·번호로 바꾸고, 시험일 없는 꾸준한 학습 계획도 표시. -->
 <!-- v1.0 (2026-10-02): 오늘의 과제 — data/study-plan.json의 날짜별 계획을 보여주고, 문제지(player.html?set=&start=)로 바로 연결.
      완료 체크는 이 기기(localStorage)에만 저장되는 수동 체크이며, 실제 풀이 기록(GAS)과는 연동하지 않음. -->
 <html lang="ko">
@@ -140,9 +141,26 @@
 
   document.getElementById('who').textContent=(session.name?session.name+'님':'');
 
-  fetch('data/study-plan.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); })
-    .then(function(p){ plan=p; init(); })
-    .catch(function(){ document.getElementById('tasks').innerHTML='<div class="empty">계획 파일(data/study-plan.json)을 불러오지 못했어요.</div>'; });
+  var SET_TITLES=null;
+  function loadTitles(){
+    return fetch('data/worksheets-manifest.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(m){
+      SET_TITLES={}; (m.sets||[]).forEach(function(s){ SET_TITLES[s.id]=s.title; });
+    }).catch(function(){ SET_TITLES=SET_TITLES||{}; });
+  }
+  function showEmpty(){
+    document.querySelector('.hero').style.display='none';
+    document.getElementById('strip').style.display='none';
+    document.querySelector('.howto').style.display='none';
+    document.getElementById('tasks').innerHTML='<div class="empty"><p>아직 학습 계획이 없어요.</p><a class="go" href="plan.html">학습 계획 만들기</a></div>';
+  }
+  var stored=null; try{ stored=JSON.parse(localStorage.getItem('study_plan_'+(session.studentId||'anon'))||'null'); }catch(e){}
+  if(stored && stored.days && stored.days.length){
+    plan=stored; loadTitles().then(init);
+  } else {
+    fetch('data/study-plan.json',{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(p){ if(!p.days||!p.days.length) throw 0; plan=p; return loadTitles(); }).then(init)
+      .catch(showEmpty);
+  }
 
   function taskId(day,i){ return day.date+'#'+i; }
   function dayStatus(day){
@@ -153,7 +171,7 @@
 
   function init(){
     document.getElementById('heroTitle').textContent=plan.title||'오늘의 과제';
-    document.getElementById('heroNote').textContent=plan.note||'';
+    document.getElementById('heroNote').innerHTML=esc(plan.note||'')+' <a href="plan.html" style="color:#cfd3d9;margin-left:8px;font-weight:700">계획 새로 만들기</a>';
     var first=plan.days[0].date, last=plan.days[plan.days.length-1].date;
     selected = plan.days.some(function(d){return d.date===todayStr;}) ? todayStr : (todayStr<first ? first : last);
     render();
@@ -161,9 +179,16 @@
 
   function render(){
     // D-day
-    var diff=Math.round((parse(plan.examDate)-parse(todayStr))/86400000);
     var dd=document.getElementById('dday');
-    dd.innerHTML = diff>0 ? 'D-'+diff+'<small>기말고사까지</small>' : diff===0 ? 'D-DAY<small>오늘 시험!</small>' : '시험 끝<small>수고했어요</small>';
+    if(plan.examDate){
+      var diff=Math.round((parse(plan.examDate)-parse(todayStr))/86400000);
+      var nm=(plan.title||'').replace(/ 대비 계획$/,'')||'시험';
+      dd.innerHTML = diff>0 ? 'D-'+diff+'<small>'+esc(nm)+'까지</small>' : diff===0 ? 'D-DAY<small>오늘 시험!</small>' : '시험 끝<small>수고했어요</small>';
+    } else {
+      var lastD=plan.days[plan.days.length-1].date;
+      var left=Math.round((parse(lastD)-parse(todayStr))/86400000)+1;
+      dd.innerHTML = left>0 ? left+'일<small>남았어요</small>' : '계획 끝<small>수고했어요</small>';
+    }
 
     // progress (required tasks only)
     var req=0,ok=0;
@@ -195,14 +220,16 @@
     document.getElementById('dateSub').textContent=day.title;
 
     var wrap=document.getElementById('tasks'); wrap.innerHTML='';
+    if(!day.tasks.length) wrap.innerHTML='<div class="empty">이 날은 과제가 없어요.</div>';
     day.tasks.forEach(function(t,i){
       var id=taskId(day,i), isDone=!!done[id];
       var el=document.createElement('div'); el.className='task'+(isDone?' done':'');
       var detail='', btn='';
       if(t.type==='solve'){
         var n=t.to-t.from+1;
-        detail='쎈수학 <b>'+pad4(t.from)+' ~ '+pad4(t.to)+'번</b> · '+n+'문항';
-        btn='<a class="go" href="worksheets/player.html?set='+encodeURIComponent(t.set)+'&start='+pad4(t.from)+'">시작하기</a>';
+        var st=(SET_TITLES&&SET_TITLES[t.set])||'';
+        detail=(st && st!==t.label ? esc(st)+' ' : '')+'<b>'+t.from+' ~ '+t.to+'번</b> · '+n+'문항';
+        btn='<a class="go" href="worksheets/player.html?set='+encodeURIComponent(t.set)+'&start='+encodeURIComponent(t.from)+'">시작하기</a>';
       } else if(t.type==='link'){
         detail=esc(t.detail||'');
         btn='<a class="go" href="worksheets/player.html?set='+encodeURIComponent(t.set)+'">열기</a>';
@@ -217,7 +244,6 @@
     });
     renderUnitNotes();
   }
-  var SET_TITLES=null;
   function renderUnitNotes(){
     var box=document.getElementById('unitbox'), all={};
     try{ all=JSON.parse(localStorage.getItem('unit_notes_'+(session.studentId||'anon'))||'{}')||{}; }catch(e){}
@@ -240,7 +266,6 @@
       SET_TITLES={}; (m.sets||[]).forEach(function(s){ SET_TITLES[s.id]=s.title; }); draw();
     }).catch(function(){});
   }
-  function pad4(n){ n=String(n); while(n.length<4) n='0'+n; return n; }
 })();
 </script>
 </body>

@@ -1,0 +1,417 @@
+{
+  "id": "m1_27_s1_tb_miraen_cm1-04_p064-073",
+  "title": "공통수학1 Ⅱ-2. 이차방정식과 이차함수",
+  "unit": "Ⅱ. 방정식과 부등식 - 2. 이차방정식과 이차함수 (64~73쪽)",
+  "category": "tb",
+  "source": "미래엔 공통수학1 (황선욱 외), 정답: 교과서 정답 및 풀이 146~147쪽",
+  "problems": [
+    {
+      "num": 1,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 1 (1)] 다음 이차함수의 그래프와 \\(x\\)축이 만나는 점의 \\(x\\)좌표를 구하시오.\n\\(y=x^2-2x-3\\)",
+      "answer": "-1, 3",
+      "solution": [
+        "\\(-1,\\ 3\\)"
+      ]
+    },
+    {
+      "num": 2,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 1 (2)] 다음 이차함수의 그래프와 \\(x\\)축이 만나는 점의 \\(x\\)좌표를 구하시오.\n\\(y=-x^2+6x-9\\)",
+      "answer": "3",
+      "solution": [
+        "\\(3\\)"
+      ]
+    },
+    {
+      "num": 3,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 2 (1)] 다음 이차함수의 그래프와 \\(x\\)축의 위치 관계를 말하시오.\n\\(y=x^2+4x+2\\)",
+      "answer": "서로 다른 두 점에서 만난다",
+      "solution": [
+        "서로 다른 두 점에서 만난다."
+      ]
+    },
+    {
+      "num": 4,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 2 (2)] 다음 이차함수의 그래프와 \\(x\\)축의 위치 관계를 말하시오.\n\\(y=-3x^2+x+1\\)",
+      "answer": "서로 다른 두 점에서 만난다",
+      "solution": [
+        "서로 다른 두 점에서 만난다."
+      ]
+    },
+    {
+      "num": 5,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 2 (3)] 다음 이차함수의 그래프와 \\(x\\)축의 위치 관계를 말하시오.\n\\(y=-x^2+2x-1\\)",
+      "answer": "한 점에서 만난다(접한다)",
+      "solution": [
+        "한 점에서 만난다 (접한다.)."
+      ]
+    },
+    {
+      "num": 6,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 2 (4)] 다음 이차함수의 그래프와 \\(x\\)축의 위치 관계를 말하시오.\n\\(y=2x^2-3x+2\\)",
+      "answer": "만나지 않는다",
+      "solution": [
+        "만나지 않는다."
+      ]
+    },
+    {
+      "num": 7,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 3 (1)] 이차함수 \\(y=-2x^2+x-k\\)의 그래프와 \\(x\\)축의 위치 관계가 다음과 같도록 하는 실수 \\(k\\)의 값 또는 범위를 구하시오.\n서로 다른 두 점에서 만난다.",
+      "answer": "k<1/8",
+      "solution": [
+        "\\(k<\\dfrac{1}{8}\\)"
+      ]
+    },
+    {
+      "num": 8,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 3 (2)] 이차함수 \\(y=-2x^2+x-k\\)의 그래프와 \\(x\\)축의 위치 관계가 다음과 같도록 하는 실수 \\(k\\)의 값 또는 범위를 구하시오.\n접한다.",
+      "answer": "1/8",
+      "solution": [
+        "\\(k=\\dfrac{1}{8}\\)"
+      ]
+    },
+    {
+      "num": 9,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 3 (3)] 이차함수 \\(y=-2x^2+x-k\\)의 그래프와 \\(x\\)축의 위치 관계가 다음과 같도록 하는 실수 \\(k\\)의 값 또는 범위를 구하시오.\n만나지 않는다.",
+      "answer": "k>1/8",
+      "solution": [
+        "\\(k>\\dfrac{1}{8}\\)"
+      ]
+    },
+    {
+      "num": 10,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 4 (1)] 이차함수 \\(y=-x^2+5x+1\\)의 그래프와 다음 직선의 위치 관계를 말하시오.\n\\(y=-x+3\\)",
+      "answer": "서로 다른 두 점에서 만난다",
+      "solution": [
+        "서로 다른 두 점에서 만난다."
+      ]
+    },
+    {
+      "num": 11,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 4 (2)] 이차함수 \\(y=-x^2+5x+1\\)의 그래프와 다음 직선의 위치 관계를 말하시오.\n\\(y=x+5\\)",
+      "answer": "한 점에서 만난다(접한다)",
+      "solution": [
+        "한 점에서 만난다 (접한다.)."
+      ]
+    },
+    {
+      "num": 12,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 4 (3)] 이차함수 \\(y=-x^2+5x+1\\)의 그래프와 다음 직선의 위치 관계를 말하시오.\n\\(y=3x+4\\)",
+      "answer": "만나지 않는다",
+      "solution": [
+        "만나지 않는다."
+      ]
+    },
+    {
+      "num": 13,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 5] 이차함수 \\(y=x^2+ax-1\\)의 그래프와 직선 \\(y=x-5\\)가 한 점에서 만나도록 하는 실수 \\(a\\)의 값을 모두 구하시오.",
+      "answer": "-3, 5",
+      "solution": [
+        "\\(-3,\\ 5\\)"
+      ]
+    },
+    {
+      "num": 14,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 1 (1)] 주어진 \\(x\\)의 값의 범위에서 다음 이차함수의 최댓값과 최솟값을 구하시오.\n\\(y=3x^2-6x-1\\ (-1\\le x\\le 2)\\)\n— 최댓값을 쓰시오.",
+      "answer": "8",
+      "solution": [
+        "최댓값: \\(8\\),  최솟값: \\(-4\\)"
+      ]
+    },
+    {
+      "num": 15,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 1 (1)] 주어진 \\(x\\)의 값의 범위에서 다음 이차함수의 최댓값과 최솟값을 구하시오.\n\\(y=3x^2-6x-1\\ (-1\\le x\\le 2)\\)\n— 최솟값을 쓰시오.",
+      "answer": "-4",
+      "solution": [
+        "최댓값: \\(8\\),  최솟값: \\(-4\\)"
+      ]
+    },
+    {
+      "num": 16,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 1 (2)] 주어진 \\(x\\)의 값의 범위에서 다음 이차함수의 최댓값과 최솟값을 구하시오.\n\\(y=-x^2+6x+7\\ (0\\le x\\le 3)\\)\n— 최댓값을 쓰시오.",
+      "answer": "16",
+      "solution": [
+        "최댓값: \\(16\\),  최솟값: \\(7\\)"
+      ]
+    },
+    {
+      "num": 17,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 1 (2)] 주어진 \\(x\\)의 값의 범위에서 다음 이차함수의 최댓값과 최솟값을 구하시오.\n\\(y=-x^2+6x+7\\ (0\\le x\\le 3)\\)\n— 최솟값을 쓰시오.",
+      "answer": "7",
+      "solution": [
+        "최댓값: \\(16\\),  최솟값: \\(7\\)"
+      ]
+    },
+    {
+      "num": 18,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 2] 어느 제약 회사에서 신약의 효과를 조사하려고 한다. 신약을 복용하고 \\(t\\)분 후의 혈중 약물 농도를 \\(y\\ \\mu\\mathrm{g/L}\\)라 할 때 \\(t\\)와 \\(y\\) 사이에 \\(y=60t-\\dfrac{1}{5}t^2\\)인 관계가 성립한다고 한다. \\(120\\le t\\le 200\\)일 때, 혈중 약물 농도의 최댓값과 최솟값을 구하시오.\n— 최댓값(\\(\\mu\\mathrm{g/L}\\))을 쓰시오.",
+      "answer": "4500",
+      "solution": [
+        "최댓값: \\(4500\\ \\mu\\mathrm{g/L}\\),  최솟값: \\(4000\\ \\mu\\mathrm{g/L}\\)"
+      ]
+    },
+    {
+      "num": 19,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 2] 어느 제약 회사에서 신약의 효과를 조사하려고 한다. 신약을 복용하고 \\(t\\)분 후의 혈중 약물 농도를 \\(y\\ \\mu\\mathrm{g/L}\\)라 할 때 \\(t\\)와 \\(y\\) 사이에 \\(y=60t-\\dfrac{1}{5}t^2\\)인 관계가 성립한다고 한다. \\(120\\le t\\le 200\\)일 때, 혈중 약물 농도의 최댓값과 최솟값을 구하시오.\n— 최솟값(\\(\\mu\\mathrm{g/L}\\))을 쓰시오.",
+      "answer": "4000",
+      "solution": [
+        "최댓값: \\(4500\\ \\mu\\mathrm{g/L}\\),  최솟값: \\(4000\\ \\mu\\mathrm{g/L}\\)"
+      ]
+    },
+    {
+      "num": 20,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 3] 직각을 낀 두 변의 길이가 \\(60\\ \\mathrm{cm}\\)와 \\(120\\ \\mathrm{cm}\\)인 직각삼각형 모양의 자투리 천이 있다. 이 천에서 오른쪽 그림과 같이 세로의 길이가 \\(a\\ \\mathrm{cm}\\)인 직사각형 모양을 잘라내어 가방을 만들려고 한다. 직사각형의 넓이가 최대가 되도록 자를 때, \\(a\\)의 값을 구하시오.",
+      "answer": "30",
+      "solution": [
+        "\\(30\\)"
+      ],
+      "images": [
+        "data:image/png;base64,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"
+      ]
+    },
+    {
+      "num": 21,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 01 (1)] 다음 이차함수의 그래프와 \\(x\\)축의 위치 관계를 말하시오.\n\\(y=x^2-7x+8\\)",
+      "answer": "서로 다른 두 점에서 만난다",
+      "solution": [
+        "서로 다른 두 점에서 만난다."
+      ]
+    },
+    {
+      "num": 22,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 01 (2)] 다음 이차함수의 그래프와 \\(x\\)축의 위치 관계를 말하시오.\n\\(y=x^2+8x+16\\)",
+      "answer": "한 점에서 만난다(접한다)",
+      "solution": [
+        "한 점에서 만난다 (접한다.)."
+      ]
+    },
+    {
+      "num": 23,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 01 (3)] 다음 이차함수의 그래프와 \\(x\\)축의 위치 관계를 말하시오.\n\\(y=-x^2+3x-6\\)",
+      "answer": "만나지 않는다",
+      "solution": [
+        "만나지 않는다."
+      ]
+    },
+    {
+      "num": 24,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 02] 이차함수 \\(y=3x^2-6x+a\\)의 그래프가 \\(x\\)축과 만나지 않도록 하는 실수 \\(a\\)의 값의 범위를 구하시오.",
+      "answer": "a>3",
+      "solution": [
+        "\\(a>3\\)"
+      ]
+    },
+    {
+      "num": 25,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 03 (1)] 다음 이차함수의 그래프와 직선의 위치 관계를 말하시오.\n\\(y=-2x^2-x+1,\\ \\ y=2x-5\\)",
+      "answer": "서로 다른 두 점에서 만난다",
+      "solution": [
+        "서로 다른 두 점에서 만난다."
+      ]
+    },
+    {
+      "num": 26,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 03 (2)] 다음 이차함수의 그래프와 직선의 위치 관계를 말하시오.\n\\(y=x^2-x+2,\\ \\ y=3x-2\\)",
+      "answer": "한 점에서 만난다(접한다)",
+      "solution": [
+        "한 점에서 만난다 (접한다.)."
+      ]
+    },
+    {
+      "num": 27,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 03 (3)] 다음 이차함수의 그래프와 직선의 위치 관계를 말하시오.\n\\(y=x^2+2x,\\ \\ y=x-1\\)",
+      "answer": "만나지 않는다",
+      "solution": [
+        "만나지 않는다."
+      ]
+    },
+    {
+      "num": 28,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 04 (1)] 주어진 \\(x\\)의 값의 범위에서 다음 이차함수의 최댓값과 최솟값을 구하시오.\n\\(y=x^2-8x+6\\ (0\\le x\\le 5)\\)\n— 최댓값을 쓰시오.",
+      "answer": "6",
+      "solution": [
+        "최댓값: \\(6\\),  최솟값: \\(-10\\)"
+      ]
+    },
+    {
+      "num": 29,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 04 (1)] 주어진 \\(x\\)의 값의 범위에서 다음 이차함수의 최댓값과 최솟값을 구하시오.\n\\(y=x^2-8x+6\\ (0\\le x\\le 5)\\)\n— 최솟값을 쓰시오.",
+      "answer": "-10",
+      "solution": [
+        "최댓값: \\(6\\),  최솟값: \\(-10\\)"
+      ]
+    },
+    {
+      "num": 30,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 04 (2)] 주어진 \\(x\\)의 값의 범위에서 다음 이차함수의 최댓값과 최솟값을 구하시오.\n\\(y=-x^2+10x-20\\ (1\\le x\\le 4)\\)\n— 최댓값을 쓰시오.",
+      "answer": "4",
+      "solution": [
+        "최댓값: \\(4\\),  최솟값: \\(-11\\)"
+      ]
+    },
+    {
+      "num": 31,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[중단원 마무리 04 (2)] 주어진 \\(x\\)의 값의 범위에서 다음 이차함수의 최댓값과 최솟값을 구하시오.\n\\(y=-x^2+10x-20\\ (1\\le x\\le 4)\\)\n— 최솟값을 쓰시오.",
+      "answer": "-11",
+      "solution": [
+        "최댓값: \\(4\\),  최솟값: \\(-11\\)"
+      ]
+    },
+    {
+      "num": 32,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 05] 이차함수 \\(y=x^2-ax-12\\)의 그래프가 \\(x\\)축과 두 점 \\((2,\\ 0)\\)과 \\((b,\\ 0)\\)에서 만날 때, \\(a+b\\)의 값을 구하시오. (단, \\(a\\)는 실수)",
+      "answer": "-10",
+      "solution": [
+        "\\(-10\\)"
+      ]
+    },
+    {
+      "num": 33,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 06] 이차함수 \\(y=2x^2+5x-1\\)의 그래프와 직선 \\(y=x+a\\)가 만나도록 하는 실수 \\(a\\)의 최솟값을 구하시오.",
+      "answer": "-3",
+      "solution": [
+        "\\(-3\\)"
+      ]
+    },
+    {
+      "num": 34,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 07 (서술형)] 직선 \\(y=x-k\\)가 이차함수 \\(y=x^2+kx-1\\)의 그래프와 한 점에서 만나고, 이차함수 \\(y=3x^2-3x-1\\)의 그래프와 만나지 않도록 하는 실수 \\(k\\)의 값을 구하는 풀이 과정과 답을 쓰시오.",
+      "answer": "5",
+      "solution": [
+        "[해결 과정] \\(x^2+kx-1=x-k\\)에서 \\(x^2+(k-1)x+k-1=0\\)",
+        "이 이차방정식의 판별식 \\(D\\)가 \\(D=0\\)이어야 하므로",
+        "\\(D=(k-1)^2-4\\times1\\times(k-1)=0\\)",
+        "\\(k^2-6k+5=0,\\ (k-1)(k-5)=0\\)",
+        "따라서 \\(k=1\\) 또는 \\(k=5\\) …… ①",
+        "또, \\(3x^2-3x-1=x-k\\)에서 \\(3x^2-4x+k-1=0\\)",
+        "이 이차방정식의 판별식 \\(D\\)가 \\(D<0\\)이어야 하므로",
+        "\\(D=(-4)^2-4\\times3\\times(k-1)<0,\\ -12k+28<0\\)",
+        "따라서 \\(k>\\dfrac{7}{3}\\) …… ②",
+        "[답 구하기] ①과 ②에서 \\(k=5\\)"
+      ]
+    },
+    {
+      "num": 35,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[중단원 마무리 08] \\(-3\\le x\\le 1\\)일 때, 이차함수 \\(y=3x^2+12x+a\\)의 최댓값이 \\(20\\)이다. 이 함수의 최솟값을 구하시오. (단, \\(a\\)는 실수)",
+      "answer": "-7",
+      "solution": [
+        "\\(-7\\)"
+      ]
+    },
+    {
+      "num": 36,
+      "diff": "high",
+      "type": "fillin",
+      "question": "[중단원 마무리 09] 이차함수 \\(f(x)\\)가 다음을 모두 만족시킬 때, \\(f(-5)\\)의 값을 구하시오.\n(가) 방정식 \\(f(x)=0\\)의 두 근은 \\(-4\\)와 \\(2\\)이다.\n(나) \\(4\\le x\\le 6\\)일 때, 함수 \\(f(x)\\)의 최솟값은 \\(80\\)이다.",
+      "answer": "35",
+      "solution": [
+        "이차함수 \\(f(x)\\)의 이차항의 계수를 \\(a\\)라 하면 (가)에 의하여 \\(f(x)=a(x+4)(x-2)\\)로 놓을 수 있으므로",
+        "\\(f(x)=ax^2+2ax-8a=a(x+1)^2-9a\\)",
+        "(나)에서 \\(4\\le x\\le 6\\)일 때 \\(f(x)\\)의 최솟값은 양수이므로 이차함수 \\(y=f(x)\\)의 그래프는 (교과서 풀이 그림의) 실선 부분이다.",
+        "\\(4\\le x\\le 6\\)일 때 \\(f(x)\\)는 \\(x=4\\)에서 최소이므로 \\(f(4)=80\\)",
+        "즉, \\(16a=80\\)에서 \\(a=5\\)",
+        "따라서 \\(f(x)=5x^2+10x-40\\)이므로 \\(f(-5)=35\\)"
+      ]
+    },
+    {
+      "num": 37,
+      "diff": "high",
+      "type": "fillin",
+      "question": "[중단원 마무리 10 (서술형)] 오른쪽 그림의 직사각형 \\(\\mathrm{ABCD}\\)에서 두 점 \\(\\mathrm{A}\\)와 \\(\\mathrm{B}\\)는 \\(x\\)축 위에 있고, 두 점 \\(\\mathrm{C}\\)와 \\(\\mathrm{D}\\)는 이차함수 \\(y=-2x^2+6x\\)의 그래프 위에 있다. 이때 직사각형 \\(\\mathrm{ABCD}\\)의 둘레의 길이의 최댓값을 구하는 풀이 과정과 답을 쓰시오.",
+      "answer": "10",
+      "solution": [
+        "[문제 이해] 점 \\(\\mathrm{A}\\)의 좌표를 \\((t,\\ 0)\\)이라 하면 \\(\\mathrm{B}(3-t,\\ 0),\\ \\mathrm{D}(t,\\ -2t^2+6t)\\)에서",
+        "\\(\\overline{\\mathrm{AB}}=3-2t,\\ \\overline{\\mathrm{AD}}=-2t^2+6t\\)",
+        "[해결 과정] 직사각형 \\(\\mathrm{ABCD}\\)의 둘레의 길이를 \\(f(t)\\)라 하면",
+        "\\(f(t)=2(\\overline{\\mathrm{AB}}+\\overline{\\mathrm{AD}})=2(3-2t-2t^2+6t)=-4(t-1)^2+10\\)",
+        "이때 \\(0\\le t\\le\\dfrac{3}{2}\\)이라 하면 이차함수 \\(f(t)\\)는 \\(t=1\\)일 때 최대이다.",
+        "[답 구하기] 따라서 직사각형 \\(\\mathrm{ABCD}\\)의 둘레의 길이의 최댓값은 \\(10\\)이다."
+      ],
+      "images": [
+        "data:image/png;base64,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"
+      ]
+    },
+    {
+      "num": 38,
+      "diff": "high",
+      "type": "fillin",
+      "question": "[중단원 마무리 11] 어느 미술관에서 1인당 하루 관람료가 \\(20000\\)원일 때 하루 관람객이 \\(200\\)명이라고 한다. 이 관람료를 \\(500\\)원씩 내릴 때마다 하루 관람객이 \\(10\\)명씩 증가한다고 한다. 이 미술관의 하루 관람료의 총합이 최대일 때의 1인당 하루 관람료를 구하시오. (단위: 원)",
+      "answer": "15000",
+      "solution": [
+        "1인당 하루 관람료를 \\(500\\)원씩 \\(x\\)번 내릴 때마다 관람객이 \\(10x\\)명씩 증가하므로 하루 관람료의 총합을 \\(f(x)\\)라 하면",
+        "\\(f(x)=(20000-500x)(200+10x)=-5000(x-40)(x+20)=-5000(x-10)^2+4500000\\)",
+        "이때 \\(0\\le x\\le 40\\)이라 하면 이차함수 \\(f(x)\\)는 \\(x=10\\)일 때 최대이다.",
+        "따라서 구하는 1인당 하루 관람료는 \\(20000-500\\times10=15000\\)(원)"
+      ]
+    }
+  ]
+}

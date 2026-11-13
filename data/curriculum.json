@@ -1,0 +1,259 @@
+{
+ "note": "대단원 목록은 서원고 교재(data/publishers.json) 기준. 미적분Ⅱ는 서원고 교재 목록에 없어 교육과정 기준 대단원. summary에 줄 단위 문자열 배열을 넣으면 화면에 표시된다(수식은 일반 텍스트).",
+ "subjects": [
+  {
+   "id": "cm1",
+   "title": "공통수학1",
+   "grade": "1학년",
+   "publisher": "미래엔",
+   "units": [
+    {
+     "no": 1,
+     "title": "다항식의 연산",
+     "summary": [],
+     "links": [
+      {
+       "title": "다항식의 연산 요점노트",
+       "desc": "요점정리 · 난이도별 문제 · 모의고사 출제 문항 · 추가 문제",
+       "url": "worksheets/note-cm1-polynomial.html"
+      }
+     ]
+    },
+    {
+     "no": 2,
+     "title": "나머지정리와 인수분해",
+     "summary": [],
+     "links": [
+      {
+       "title": "나머지정리와 인수분해 요점노트",
+       "desc": "요점정리 · 난이도별 문제 · 모의고사 출제 문항 · 추가 문제",
+       "url": "worksheets/note-cm1-factor.html"
+      }
+     ]
+    },
+    {
+     "no": 3,
+     "title": "복소수와 이차방정식",
+     "summary": [],
+     "links": [
+      {
+       "title": "복소수와 이차방정식 요점노트",
+       "desc": "요점정리 · 난이도별 문제 · 모의고사 출제 문항 · 추가 문제",
+       "url": "worksheets/note-cm1-complex.html"
+      }
+     ]
+    },
+    {
+     "no": 4,
+     "title": "이차방정식과 이차함수",
+     "summary": [],
+     "links": [
+      {
+       "title": "이차방정식과 이차함수 요점노트",
+       "desc": "요점정리 · 난이도별 문제 · 모의고사 출제 문항 · 추가 문제",
+       "url": "worksheets/note-cm1-quad.html"
+      }
+     ]
+    },
+    {
+     "no": 5,
+     "title": "여러 가지 방정식과 부등식",
+     "summary": [],
+     "links": [
+      {
+       "title": "여러 가지 방정식과 부등식 요점노트",
+       "desc": "요점정리 · 난이도별 문제 · 모의고사 출제 문항 · 추가 문제",
+       "url": "worksheets/note-cm1-ineq.html"
+      }
+     ]
+    },
+    {
+     "no": 6,
+     "title": "경우의 수",
+     "summary": [],
+     "links": [
+      {
+       "title": "경우의 수 요점노트",
+       "desc": "요점정리 · 난이도별 문제 · 모의고사 출제 문항 · 추가 문제",
+       "url": "worksheets/note-cm1-cases.html"
+      }
+     ]
+    },
+    {
+     "no": 7,
+     "title": "순열",
+     "summary": [],
+     "links": [
+      {
+       "title": "순열 요점노트",
+       "desc": "요점정리 · 난이도별 문제 · 모의고사 출제 문항 · 추가 문제",
+       "url": "worksheets/note-cm1-perm.html"
+      }
+     ]
+    },
+    {
+     "no": 8,
+     "title": "조합",
+     "summary": [],
+     "links": [
+      {
+       "title": "조합 요점노트",
+       "desc": "요점정리 · 난이도별 문제 · 모의고사 출제 문항 · 추가 문제",
+       "url": "worksheets/note-cm1-comb.html"
+      }
+     ]
+    },
+    {
+     "no": 9,
+     "title": "행렬",
+     "summary": [],
+     "links": [
+      {
+       "title": "행렬 요점노트",
+       "desc": "요점정리 · 난이도별 문제 · 모의고사 출제 문항 · 추가 문제",
+       "url": "worksheets/note-cm1-matrix.html"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cm2",
+   "title": "공통수학2",
+   "grade": "1학년",
+   "publisher": "미래엔",
+   "units": [
+    {
+     "no": 1,
+     "title": "도형의 방정식",
+     "summary": []
+    },
+    {
+     "no": 2,
+     "title": "집합과 명제",
+     "summary": []
+    },
+    {
+     "no": 3,
+     "title": "함수와 그래프",
+     "summary": []
+    }
+   ]
+  },
+  {
+   "id": "algebra",
+   "title": "대수",
+   "grade": "2학년",
+   "publisher": "비상교육",
+   "units": [
+    {
+     "no": 1,
+     "title": "지수함수와 로그함수",
+     "summary": []
+    },
+    {
+     "no": 2,
+     "title": "삼각함수",
+     "summary": []
+    },
+    {
+     "no": 3,
+     "title": "수열",
+     "summary": []
+    }
+   ]
+  },
+  {
+   "id": "calc1",
+   "title": "미적분Ⅰ",
+   "grade": "2학년",
+   "publisher": "비상교육",
+   "units": [
+    {
+     "no": 1,
+     "title": "함수의 극한과 연속",
+     "summary": []
+    },
+    {
+     "no": 2,
+     "title": "미분",
+     "summary": []
+    },
+    {
+     "no": 3,
+     "title": "적분",
+     "summary": []
+    }
+   ]
+  },
+  {
+   "id": "geometry",
+   "title": "기하",
+   "grade": "2학년",
+   "publisher": "지학사",
+   "units": [
+    {
+     "no": 1,
+     "title": "이차곡선",
+     "summary": []
+    },
+    {
+     "no": 2,
+     "title": "평면벡터",
+     "summary": []
+    },
+    {
+     "no": 3,
+     "title": "공간도형과 공간좌표",
+     "summary": []
+    }
+   ]
+  },
+  {
+   "id": "probstat",
+   "title": "확률과 통계",
+   "grade": "3학년",
+   "publisher": "비상교육",
+   "units": [
+    {
+     "no": 1,
+     "title": "경우의 수",
+     "summary": []
+    },
+    {
+     "no": 2,
+     "title": "확률",
+     "summary": []
+    },
+    {
+     "no": 3,
+     "title": "통계",
+     "summary": []
+    }
+   ]
+  },
+  {
+   "id": "calc2",
+   "title": "미적분Ⅱ",
+   "grade": "3학년",
+   "publisher": "",
+   "units": [
+    {
+     "no": 1,
+     "title": "수열의 극한",
+     "summary": []
+    },
+    {
+     "no": 2,
+     "title": "미분법",
+     "summary": []
+    },
+    {
+     "no": 3,
+     "title": "적분법",
+     "summary": []
+    }
+   ]
+  }
+ ]
+}

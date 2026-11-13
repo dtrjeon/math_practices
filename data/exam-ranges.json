@@ -1,22 +1,3 @@
 {
-  "schools": [
-    {
-      "grade": "m0",
-      "gradeLabel": "",
-      "school": "홍천중학교",
-      "subject": "수학",
-      "summary": "",
-      "rounds": [
-        {
-          "title": "2학기 중간고사(26년)",
-          "range": "",
-          "units": [
-            "IV.기하- 1.삼각비",
-            "V.통계 -1.대푯값과 산포도, 2상관관계"
-          ],
-          "note": ""
-        }
-      ]
-    }
-  ]
+  "schools": []
 }

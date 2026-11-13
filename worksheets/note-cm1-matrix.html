@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<!-- v2.67 (2026-11-10): 문제집 모음 — MADE Sayno와 같은 문제인 「자체 복습」 문제지 2개(복소수 05/06, 다항식 인수분해 04/30)를 목록과 데이터에서 삭제. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.66 (2026-11-10): PDF 출력 장수 지정 시 문제 사이 간격 상한(40mm)을 없애 열 높이를 문제 사이·아래 여백으로 끝까지 균등 분배. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.65 (2026-11-10): 문제집 모음 — 날짜별로 흩어진 「MADE Sayno (날짜)」 서브탭 6개를 「MADE Sayno」 하나로 합치고, 자체 복습·MADE Sayno를 단원 번호 순(1.1→2.1→…→3.1)으로 정렬. 카드 제목 옆에 업로드 날짜 표시. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.64 (2026-11-10): PDF 출력 — 「장수」 선택(자동·1~8장) 추가: 문제 순서를 지키며 열 분량을 고르게 나누고 남는 높이는 문제 사이 간격(풀이 여백, 최대 40mm)으로 분배. 장수가 부족하면 필요한 장수로 조정해 안내. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.63 (2026-11-10): PDF 미리보기 막대를 2줄(제목·버전 / 옵션·쪽수·버튼)로 정렬. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.62 (2026-11-10): PDF 미리보기 막대에 버전 표시(옛 캐시 화면과 구분). 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.61 (2026-11-10): PDF 출력 — 문제와 풀이를 같은 열에 묶어 배치(안 들어가면 다음 열 맨 위로, 한 열보다 긴 풀이만 「풀이 계속」으로 이어 씀). 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.60 (2026-11-10): PDF 출력 — 분수 보기 겹침 수정, 정답·풀이가 열 끝에서 잘리던 문제 수정(풀이를 줄 단위로 다음 열·쪽에 이어 배치). 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.59 (2026-11-10): PDF 출력 미리보기 — 문제 사이 간격을 3.5mm → 9mm로 넓힘. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.58 (2026-11-10): 문제 풀기에 「PDF 출력」 칩(A4 2열 미리보기) 추가. 나머지 파일은 동일 버전 표기만 갱신 -->
+<!-- v2.54 (2026-11-08): 홈 문제집 범위요약 — 좁은 화면에서 깨지던 5열 표를 문제지별 카드(파일명·문제수·단원·난이도 칩·회차 체크)로 변경 -->
+<!-- v2.53 (2026-11-08): 홈 오답노트 — 좁은 화면에서 글자가 세로로 깨지던 5열 표를 문제별 카드 목록(제목·오답/시도·연속정답·최근 풀이·풀기 버튼)으로 바꿔 정리. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.52 (2026-11-08): 문제 풀기 — 종료 시 풀지 않은(미응답) 문제도 틀린 것으로 계산(필기감 옆 표시·결과창·다시 풀 오답 목록). 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.51 (2026-11-08): 문제 풀기 — 「왜 틀렸을까요?」에서 이유를 고른 뒤 「오답체크」 버튼을 눌러야 오답노트에 저장(저장되면 ✓ 표시). 다시 시작하면 선택·저장 표시 초기화. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.50 (2026-11-08): 문제 풀기 — 「시작」을 누르면 「종료」 전까지 정답·정오 표시를 잠그고(테스트 모드 설정과 무관), 종료하면 「필기감」 버튼 옆에 맞은 개수·틀린 개수를 표시. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.49 (2026-11-08): 「나머지정리와 인수분해」 노트의 조립제법 소단원에 계산표와 단계별 설명 추가. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.48 (2026-11-08): 「여러 가지 방정식」 노트에 조립제법으로 인수분해하는 방법(계산표와 단계 설명) 추가. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.47 (2026-11-08): 요점노트 머리말의 설명 문구(안내 문장·정답 가리기 안내·출처 안내·학력평가 소개)를 삭제하고 범례·버튼·월별 풀기 링크만 남김. 나머지 파일은 동작 변경 없이 번호만 올림 -->
+<!-- v2.46 (2026-11-07): 공통수학1 「행렬」 요점노트 신설 — 다항식의 연산 노트와 같은 구성(요점·난이도별 문제·학력평가 출제 문항 14개·추가 문제 16개). 교과과정 탭에서 연결 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<script>
+  (function(){
+    var session = null;
+    try { session = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}
+    if(!session || !session.studentId){
+      window.location.replace('login.html?redirect=' + encodeURIComponent(window.location.href));
+    }
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>행렬 요점노트</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+/* Layout: one reading column. Each unit = headed block, a notes panel (요점), then four problems stacked from 하 to 상.
+   Crimson is reserved for must-memorize text; everything else stays in ink and gray. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --fg: #1b2129;
+  --muted: #5d6773;
+  --faint: #8a94a0;
+  --line: #e0e4e9;
+  --ink: #223a5e;
+  --chip: #eef1f5;
+  --mem: #c1272d;
+  --mem-bg: #fde9e8;
+  --mem-line: #f1bbb9;
+  --serif: "STIX Two Text", "Noto Serif KR", "Times New Roman", serif;
+  --sans: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151a; --surface: #181d24; --fg: #e7eaee; --muted: #a2acb8; --faint: #7a8592;
+    --line: #2a313a; --ink: #9cbbea; --chip: #222932;
+    --mem: #ff8a8f; --mem-bg: #3b2224; --mem-line: #6b3a3d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151a; --surface: #181d24; --fg: #e7eaee; --muted: #a2acb8; --faint: #7a8592;
+  --line: #2a313a; --ink: #9cbbea; --chip: #222932;
+  --mem: #ff8a8f; --mem-bg: #3b2224; --mem-line: #6b3a3d;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 15px/1.7 var(--sans);
+  padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  -webkit-text-size-adjust: 100%;
+}
+.top, main { max-width: 960px; margin-inline: auto; }
+h1, h2, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+
+/* header */
+.top { display: grid; gap: 12px; margin-bottom: 32px; }
+.kicker { font-size: 13px; color: var(--muted); letter-spacing: .02em; }
+h1 { font-size: clamp(26px, 5vw, 36px); line-height: 1.25; font-weight: 700; color: var(--ink); text-wrap: balance; }
+.lede { color: var(--muted); max-width: 40em; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13.5px; color: var(--muted); align-items: center; }
+.lg { display: inline-flex; gap: 8px; align-items: center; }
+.faint { color: var(--faint); }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.toolbar button {
+  font: 500 14px/1 var(--sans); color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px; cursor: pointer;
+}
+.toolbar button[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.toolbar button:focus-visible, .ans:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.tip { font-size: 13px; color: var(--faint); }
+.fine { font-size: 13px; color: var(--faint); }
+
+/* must-memorize */
+mark.mem {
+  background: var(--mem-bg); color: var(--mem); font-weight: 600;
+  padding: 1px 4px; border-radius: 3px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+
+/* math */
+.m { font-family: var(--serif); font-size: 1.06em; letter-spacing: .015em; white-space: normal; }
+.m i { font-style: italic; }
+.m sup { font-size: .72em; line-height: 0; vertical-align: .5em; }
+
+/* difficulty dots */
+.dots { display: inline-flex; gap: 3px; align-items: center; }
+.dot { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--ink); background: transparent; }
+.dot.on { background: var(--ink); }
+
+/* sections */
+.sec { margin-bottom: 44px; }
+.sh { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; padding-bottom: 10px; border-bottom: 2px solid var(--ink); margin-bottom: 14px; }
+.no { font: 700 14px/1 var(--sans); color: var(--surface); background: var(--ink); border-radius: 4px; min-width: 24px; height: 24px; display: inline-grid; place-items: center; transform: translateY(-2px); }
+h2 { font-size: 21px; line-height: 1.3; font-weight: 700; color: var(--ink); text-wrap: balance; }
+.ref { margin-left: auto; font-size: 13px; color: var(--faint); }
+
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; display: grid; gap: 14px; }
+.pts { display: grid; gap: 8px; }
+.pts li { position: relative; padding-left: 16px; }
+.pts li::before { content: ""; position: absolute; left: 2px; top: .8em; width: 5px; height: 5px; border-radius: 50%; background: var(--muted); }
+.must { border: 1px solid var(--mem-line); border-radius: 8px; padding: 12px 14px; display: grid; gap: 8px; }
+.mt { font-size: 12.5px; font-weight: 700; letter-spacing: .06em; color: var(--mem); }
+.f { line-height: 1.9; }
+.warn { font-size: 14px; color: var(--muted); }
+.warn b { color: var(--ink); margin-right: 8px; font-size: 12.5px; letter-spacing: .04em; border: 1px solid var(--line); background: var(--chip); border-radius: 4px; padding: 1px 6px; }
+
+/* problems */
+.probs { margin-top: 14px; display: grid; gap: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); overflow: hidden; }
+.prob { display: grid; grid-template-columns: 1fr; gap: 8px 16px; padding: 14px 18px; border-top: 1px solid var(--line); }
+.prob:first-child { border-top: 0; }
+.lv { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--ink); }
+.lv b { font-weight: 700; }
+.qb { min-width: 0; display: grid; gap: 4px; }
+.q { overflow-wrap: anywhere; }
+.src { font-size: 12.5px; color: var(--faint); }
+.ans { min-width: 0; background: var(--chip); border-radius: 8px; padding: 10px 12px; font-size: 14.5px; }
+.al b { color: var(--ink); margin-right: 6px; }
+.how { margin-top: 4px; font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+body.quiz .ans { cursor: pointer; }
+body.quiz .ans:not(.open) .ans-in { filter: blur(7px); user-select: none; -webkit-user-select: none; }
+
+@media (min-width: 820px) {
+  .prob { grid-template-columns: 6.2rem minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; }
+}
+
+.chk { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; display: grid; gap: 8px; }
+.chk li { position: relative; padding-left: 26px; }
+.chk li::before { content: ""; position: absolute; left: 0; top: .35em; width: 14px; height: 14px; border: 1.5px solid var(--ink); border-radius: 3px; }
+
+/* 모의고사 출제 문제 */
+.mlinks { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+a.ext { color: var(--ink); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a.ext:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 2px; }
+.xcard { margin-top: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px 16px; display: grid; gap: 10px; }
+.xh { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.xh h3 { margin: 0; font-size: 17px; line-height: 1.35; font-weight: 700; color: var(--ink); display: flex; align-items: baseline; gap: 10px; }
+.xn { font-size: 12.5px; font-weight: 700; letter-spacing: .04em; color: var(--muted); border: 1px solid var(--line); background: var(--chip); border-radius: 4px; padding: 1px 7px; }
+.xc { margin-left: auto; font-size: 13px; color: var(--faint); }
+.xtip { font-size: 14.5px; }
+.erows { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.erow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.eid b { font-weight: 700; margin-right: 4px; font-variant-numeric: tabular-nums; }
+.ept { color: var(--muted); font-size: 13px; }
+.etopic { color: var(--faint); font-size: 13px; min-width: 0; }
+.elinks { margin-left: auto; display: inline-flex; align-items: center; gap: 14px; }
+.xbtn { display: inline-flex; align-items: center; gap: 6px; font: 500 13.5px/1 var(--sans); color: var(--ink); background: var(--surface); border: 1px solid var(--ink); border-radius: 999px; padding: 8px 12px 8px 10px; cursor: pointer; }
+.xbtn[aria-expanded="true"] { background: var(--ink); color: var(--surface); }
+.xbtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.extra { display: grid; gap: 8px; }
+.xhd { font-size: 12.5px; font-weight: 700; letter-spacing: .04em; color: var(--muted); }
+
+@media print {
+  .extra[hidden] { display: grid !important; }
+  .xbtn { display: none; }
+  :root, :root:not([data-theme="light"]) { color-scheme: light; }
+  body { background: #fff; padding-block: 0; }
+  .toolbar, .tip { display: none; }
+  body.quiz .ans:not(.open) .ans-in { filter: none; }
+  .sec, .prob { break-inside: avoid; }
+  mark.mem { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ans-in { transition: filter .15s ease; }
+}
+
+/* 소단원 아래 모의고사 출제 문제 */
+.mock { margin-top: 18px; display: grid; gap: 12px; }
+.mock .xcard { margin-top: 0; }
+.mh { font-size: 12.5px; font-weight: 700; letter-spacing: .06em; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+.mh::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.nomock { margin-top: 14px; font-size: 13px; color: var(--faint); }
+.mockintro { display: grid; gap: 6px; margin-top: 4px; padding-top: 14px; border-top: 1px solid var(--line); }
+.mockintro p:first-child { color: var(--muted); font-size: 14px; }
+
+.mrows{display:grid;gap:0;border-top:1px solid var(--line)}
+.mrow{padding:12px 0;border-bottom:1px solid var(--line);list-style:none}
+.mhead{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;font-size:14px}
+.mbody{margin-top:8px;display:grid;gap:8px}
+.mload,.mfail{font-size:13px;color:var(--faint)}
+.mq{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.85}
+.mimg img{max-width:100%;height:auto;border-radius:6px}
+.mch{display:grid;gap:4px;margin:0;padding:0;list-style:none}
+.mch li{display:flex;gap:8px;overflow-wrap:anywhere}
+.mch li .no5{flex:none;color:var(--muted)}
+.katex-display{overflow-x:auto;overflow-y:hidden}
+.extra-d{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.extra-d>summary{list-style:none;cursor:pointer;min-height:44px;display:flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px;color:var(--ink)}
+.extra-d>summary::-webkit-details-marker{display:none}
+.extra-d>summary::before{content:"▸"}
+.extra-d[open]>summary::before{content:"▾"}
+.extra-d>.probs{margin-top:8px}
+@media print{.mload{display:none}}
+.mockd{margin-top:18px}
+.mockd>summary{list-style:none;cursor:pointer;min-height:44px}
+.mockd>summary::-webkit-details-marker{display:none}
+.mockd>summary::before{content:"▸";color:var(--ink);font-size:14px}
+.mockd[open]>summary::before{content:"▾"}
+.mockd>.mock{margin-top:12px}
+.ver{max-width:960px;margin:24px auto 0;font-size:11px;color:var(--faint);text-align:right}
+.homelink{max-width:960px;margin:0 auto 12px;font-size:14px}
+.ov{text-decoration:overline}.fr{display:inline-block;vertical-align:middle;text-align:center;line-height:1.15;margin:0 .1em}.fr .nu{display:block;border-bottom:1px solid currentColor;padding:0 .15em}.fr .de{display:block;padding:0 .15em}.sq .rad{border-top:1px solid currentColor;padding:0 .08em}.mx{display:inline-flex;align-items:stretch;vertical-align:middle;margin:0 .18em}.mx::before,.mx::after{content:"";width:.3em;border:1.5px solid currentColor}.mx::before{border-right:0;border-radius:.3em 0 0 .3em}.mx::after{border-left:0;border-radius:0 .3em .3em 0}.mx .mb{display:grid;grid-template-columns:repeat(var(--c),auto);gap:.12em 1em;padding:.15em .35em;text-align:center;align-items:center}</style>
+</head>
+<body>
+<p class="homelink"><a class="ext" href="../index_mathc1.html">← 학습 기록판 · 교과과정</a></p>
+<header class="top">
+<p class="kicker">미래엔 공통수학1 · Ⅳ-1 행렬</p>
+<h1>행렬 요점노트</h1>
+<div class="legend">
+<span class="lg"><mark class="mem">빨간 글씨</mark> 반드시 암기</span>
+<span class="lg"><span class="faint">흐린 글씨</span> 문제 출처</span>
+<span class="lg"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span> 난이도 (하 → 상)</span>
+</div>
+<div class="toolbar"><button type="button" id="quizBtn" aria-pressed="false">정답 가리기</button><button type="button" id="mockBtn" aria-pressed="false">모의고사 문제 모두 펼치기</button><span class="tip" id="quizTip"></span></div>
+<div class="mockintro"><p class="mlinks"><a class="ext" href="player.html?mock=9&amp;subject=%EA%B3%B5%ED%86%B5%EC%88%98%ED%95%991&amp;chapter=%ED%96%89%EB%A0%AC&amp;back=note-cm1-matrix.html" target="_blank" rel="noopener">9월 모의고사 10문항 풀기 ↗</a><a class="ext" href="player.html?mock=10&amp;subject=%EA%B3%B5%ED%86%B5%EC%88%98%ED%95%991&amp;chapter=%ED%96%89%EB%A0%AC&amp;back=note-cm1-matrix.html" target="_blank" rel="noopener">10월 모의고사 4문항 풀기 ↗</a></p></div>
+</header>
+<main>
+<section class="sec" id="s1">
+<header class="sh"><span class="no">1</span><h2>행렬의 뜻과 두 행렬이 같을 조건</h2><span class="ref">교과서 p.124~127</span></header>
+<div class="note">
+<ul class="pts"><li>여러 개의 수 또는 문자를 직사각형 모양으로 배열하여 괄호로 묶은 것을 <mark class="mem">행렬</mark>이라 하고, 그 안의 각각의 수 또는 문자를 <mark class="mem">성분</mark>이라 한다.</li><li>성분을 가로로 배열한 줄을 <mark class="mem">행</mark>(위에서부터 제1행, 제2행, …), 세로로 배열한 줄을 <mark class="mem">열</mark>(왼쪽에서부터 제1열, 제2열, …)이라 한다. <mark class="mem"><span class="m"><i>m</i></span>개의 행과 <span class="m"><i>n</i></span>개의 열</mark>로 이루어진 행렬을 <span class="m"><i>m</i>× <i>n</i></span> 행렬이라 한다.</li><li>행의 개수와 열의 개수가 같은 행렬을 정사각행렬이라 하고, <span class="m"><i>n</i>× <i>n</i></span> 행렬을 <span class="m"><i>n</i></span>차 정사각행렬이라 한다.</li><li>제<span class="m"><i>i</i></span>행과 제<span class="m"><i>j</i></span>열이 만나는 곳의 성분을 <mark class="mem"><span class="m">(<i>i</i>,<i>j</i>)</span> 성분</mark>이라 하고 <span class="m"><i>a</i><sub><i>i</i><i>j</i></sub></span>로 쓴다. 성분이 <span class="m"><i>a</i><sub><i>i</i><i>j</i></sub>=<i>i</i>+2<i>j</i></span>처럼 식으로 주어지면 <span class="m"><i>i</i></span>, <span class="m"><i>j</i></span>에 <span class="m">1,2,…</span>를 대입해 행렬을 만든다.</li><li>두 행렬의 행의 개수와 열의 개수가 각각 같으면 <mark class="mem">같은 꼴</mark>이라 한다. 같은 꼴인 두 행렬 <span class="m"><i>A</i></span>, <span class="m"><i>B</i></span>의 대응하는 성분이 각각 같으면 <mark class="mem"><span class="m"><i>A</i>=<i>B</i></span></mark>이다.</li></ul>
+<div class="must"><p class="mt">반드시 암기</p><div class="f"><mark class="mem"><span class="m"><i>m</i>× <i>n</i></span> 행렬 = <span class="m"><i>m</i></span>개의 행, <span class="m"><i>n</i></span>개의 열</mark></div><div class="f"><mark class="mem"><span class="m">(<i>i</i>,<i>j</i>)</span> 성분 <span class="m"><i>a</i><sub><i>i</i><i>j</i></sub></span> = 제<span class="m"><i>i</i></span>행, 제<span class="m"><i>j</i></span>열의 성분</mark></div><div class="f"><mark class="mem"><span class="m"><i>A</i>=<i>B</i></span> ⇔ 같은 꼴이고 대응하는 성분이 각각 같다</mark></div></div>
+<p class="warn"><b>주의</b><span class="m"><i>a</i><sub><i>i</i><i>j</i></sub></span>에서 <mark class="mem"><span class="m"><i>i</i></span>는 행, <span class="m"><i>j</i></span>는 열</mark>이다. 순서를 바꿔 읽는 실수가 많다.</p>
+<p class="warn"><b>주의</b>두 행렬이 같다는 조건에서는 <mark class="mem">같은 위치의 성분끼리 등식</mark>을 세워 연립방정식으로 푼다. 꼴이 다르면 같다고 할 수 없다.</p>
+</div>
+<div class="probs">
+<article class="prob">
+<div class="lv" title="난이도 하"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></div>
+<div class="qb"><p class="q">행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:3"><span class="mb"><span>3</span><span>−1</span><span>0</span><span>2</span><span>5</span><span>4</span></span></span></span>는 몇 <span class="m">×</span> 몇 행렬인지 쓰고, <span class="m">(2,3)</span> 성분을 구하시오.</p><p class="src">출처 · 교과서 p.125 문제 1 변형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">2×3</span> 행렬, <span class="m">(2,3)</span> 성분은 <span class="m">4</span></p><p class="how">행이 <span class="m">2</span>개, 열이 <span class="m">3</span>개이므로 <span class="m">2×3</span> 행렬이다. 제<span class="m">2</span>행과 제<span class="m">3</span>열이 만나는 성분은 <span class="m">4</span>이다.</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 중"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></div>
+<div class="qb"><p class="q">이차정사각행렬 <span class="m"><i>A</i></span>의 <span class="m">(<i>i</i>,<i>j</i>)</span> 성분 <span class="m"><i>a</i><sub><i>i</i><i>j</i></sub></span>가 <span class="m"><i>a</i><sub><i>i</i><i>j</i></sub>=<i>i</i>+2<i>j</i></span> (<span class="m"><i>i</i>=1,2</span>, <span class="m"><i>j</i>=1,2</span>)일 때, 행렬 <span class="m"><i>A</i></span>의 모든 성분의 합을 구하시오.</p><p class="src">출처 · 2510 7번 유형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">18</span></p><p class="how"><span class="m"><i>a</i><sub>11</sub>=3</span>, <span class="m"><i>a</i><sub>12</sub>=5</span>, <span class="m"><i>a</i><sub>21</sub>=4</span>, <span class="m"><i>a</i><sub>22</sub>=6</span>이므로 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>5</span><span>4</span><span>6</span></span></span></span>. 성분의 합은 <span class="m">3+5+4+6=18</span>.</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 중상"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span><b>중상</b></div>
+<div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span><i>a</i>+<i>b</i></span><span>3</span><span>2</span><span><i>a</i>−<i>b</i></span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>5</span><span>3</span><span>2</span><span>1</span></span></span></span>에 대하여 <span class="m"><i>A</i>=<i>B</i></span>일 때, <span class="m"><i>a</i><i>b</i></span>의 값을 구하시오. (단, <span class="m"><i>a</i></span>, <span class="m"><i>b</i></span>는 상수이다.)</p><p class="src">출처 · 2509 2번 유형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">6</span></p><p class="how">대응하는 성분이 같으므로 <span class="m"><i>a</i>+<i>b</i>=5</span>, <span class="m"><i>a</i>−<i>b</i>=1</span>. 두 식을 더하면 <span class="m"><i>a</i>=3</span>, 빼면 <span class="m"><i>b</i>=2</span>. 따라서 <span class="m"><i>a</i><i>b</i>=6</span>.</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 상"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span><b>상</b></div>
+<div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span><i>x</i><sup>2</sup>−<i>y</i></span><span>4</span><span>0</span><span><i>x</i><i>y</i></span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>7</span><span>4</span><span>0</span><span>6</span></span></span></span>에 대하여 <span class="m"><i>A</i>=<i>B</i></span>일 때, 실수 <span class="m"><i>x</i></span>, <span class="m"><i>y</i></span>에 대하여 <span class="m"><i>x</i>+<i>y</i></span>의 최댓값을 구하시오.</p><p class="src">출처 · 자체 제작</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">5</span></p><p class="how"><span class="m"><i>x</i><sup>2</sup>−<i>y</i>=7</span>, <span class="m"><i>x</i><i>y</i>=6</span>. <span class="m"><i>x</i>≠0</span>이므로 <span class="m"><i>y</i>=<span class="fr"><span class="nu">6</span><span class="de"><i>x</i></span></span></span>를 대입하면 <span class="m"><i>x</i><sup>3</sup>−7<i>x</i>−6=0</span>, <span class="m">(<i>x</i>+1)(<i>x</i>+2)(<i>x</i>−3)=0</span>. <span class="m"><i>x</i>=−1</span>이면 <span class="m"><i>y</i>=−6</span>, <span class="m"><i>x</i>=−2</span>이면 <span class="m"><i>y</i>=−3</span>, <span class="m"><i>x</i>=3</span>이면 <span class="m"><i>y</i>=2</span>. <span class="m"><i>x</i>+<i>y</i></span>의 값은 <span class="m">−7</span>, <span class="m">−5</span>, <span class="m">5</span>이므로 최댓값은 <span class="m">5</span>.</p></div></div>
+</article>
+</div>
+<details class="mockd"><summary class="mh">모의고사 출제 문제 · 고1 학력평가 · 2문항</summary><div class="mock"><div class="xcard">
+<div class="xh"><h3>행렬의 뜻·두 행렬이 같을 조건</h3><span class="xc">출제 2문항</span></div>
+<p class="xtip"><mark class="mem">대응하는 성분이 같다</mark>는 조건으로 연립방정식을 세워 미지수를 구한다. 거의 매 회 2점 하로 출제되는 쉬운 문항이다.</p>
+<ul class="mrows">
+<li class="mrow" data-set="m1_2509_s2_me_hakpyeong" data-num="2"><div class="mhead"><span class="eid"><b>2025.9</b> 2번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></span><span class="ept">2점</span><span class="etopic">두 행렬이 같을 조건</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+<li class="mrow" data-set="m1_2609_s2_me_hakpyeong" data-num="3"><div class="mhead"><span class="eid"><b>2026.9</b> 3번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></span><span class="ept">2점</span><span class="etopic">두 행렬이 같을 조건</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+</ul>
+<details class="extra-d"><summary>추가 문제 · 행렬의 뜻·두 행렬이 같을 조건 (하·중·중상·상)</summary><div class="probs">
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></div><div class="qb"><p class="q">행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:3"><span class="mb"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></span></span></span>의 제<span class="m">2</span>행과 제<span class="m">3</span>열을 각각 구하시오.</p><p class="src">출처 · 행렬의 뜻·두 행렬이 같을 조건 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> 제<span class="m">2</span>행은 <span class="m">(4 5 6)</span>, 제<span class="m">3</span>열은 <span class="m"><span class="mx" style="--c:1"><span class="mb"><span>3</span><span>6</span></span></span></span></p><p class="how">제<span class="m">2</span>행은 두 번째 가로줄 <span class="m">4</span>, <span class="m">5</span>, <span class="m">6</span>이고, 제<span class="m">3</span>열은 세 번째 세로줄 <span class="m">3</span>, <span class="m">6</span>이다.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></div><div class="qb"><p class="q"><span class="m">2×3</span> 행렬 <span class="m"><i>A</i></span>의 <span class="m">(<i>i</i>,<i>j</i>)</span> 성분이 <span class="m"><i>a</i><sub><i>i</i><i>j</i></sub>=<i>i</i><sup>2</sup>−<i>j</i></span>일 때, 행렬 <span class="m"><i>A</i></span>를 구하시오.</p><p class="src">출처 · 행렬의 뜻·두 행렬이 같을 조건 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m"><span class="mx" style="--c:3"><span class="mb"><span>0</span><span>−1</span><span>−2</span><span>3</span><span>2</span><span>1</span></span></span></span></p><p class="how"><span class="m"><i>i</i>=1</span>: <span class="m">1−1=0</span>, <span class="m">1−2=−1</span>, <span class="m">1−3=−2</span>. <span class="m"><i>i</i>=2</span>: <span class="m">4−1=3</span>, <span class="m">4−2=2</span>, <span class="m">4−3=1</span>.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span><b>중상</b></div><div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>2<i>a</i>−<i>b</i></span><span>4</span><span>3</span><span><i>a</i>+<i>b</i></span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>4</span><span>3</span><span>5</span></span></span></span>에 대하여 <span class="m"><i>A</i>=<i>B</i></span>일 때, <span class="m"><i>a</i><i>b</i></span>의 값을 구하시오. (단, <span class="m"><i>a</i></span>, <span class="m"><i>b</i></span>는 상수이다.)</p><p class="src">출처 · 행렬의 뜻·두 행렬이 같을 조건 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">6</span></p><p class="how"><span class="m">2<i>a</i>−<i>b</i>=1</span>, <span class="m"><i>a</i>+<i>b</i>=5</span>. 더하면 <span class="m">3<i>a</i>=6</span>, <span class="m"><i>a</i>=2</span>, <span class="m"><i>b</i>=3</span>. 따라서 <span class="m"><i>a</i><i>b</i>=6</span>.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span><b>상</b></div><div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span><i>x</i>+<i>y</i></span><span><i>x</i><i>y</i></span><span>1</span><span>0</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>5</span><span>6</span><span>1</span><span>0</span></span></span></span>에 대하여 <span class="m"><i>A</i>=<i>B</i></span>일 때, 실수 <span class="m"><i>x</i></span>, <span class="m"><i>y</i></span>에 대하여 <span class="m"><i>x</i>−<i>y</i></span>의 최댓값을 구하시오.</p><p class="src">출처 · 행렬의 뜻·두 행렬이 같을 조건 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">1</span></p><p class="how"><span class="m"><i>x</i>+<i>y</i>=5</span>, <span class="m"><i>x</i><i>y</i>=6</span>이므로 <span class="m"><i>x</i></span>, <span class="m"><i>y</i></span>는 <span class="m"><i>t</i><sup>2</sup>−5<i>t</i>+6=0</span>의 두 근 <span class="m">2</span>, <span class="m">3</span>. <span class="m">(<i>x</i>,<i>y</i>)=(2,3)</span> 또는 <span class="m">(3,2)</span>이므로 <span class="m"><i>x</i>−<i>y</i>=−1</span> 또는 <span class="m">1</span>. 최댓값은 <span class="m">1</span>.</p></div></div></article>
+</div></details>
+</div></div></details>
+</section>
+<section class="sec" id="s2">
+<header class="sh"><span class="no">2</span><h2>행렬의 덧셈·뺄셈·실수배</h2><span class="ref">교과서 p.126~129</span></header>
+<div class="note">
+<ul class="pts"><li>같은 꼴인 두 행렬 <span class="m"><i>A</i></span>, <span class="m"><i>B</i></span>의 <mark class="mem">대응하는 성분끼리 더한 것</mark>을 <span class="m"><i>A</i>+<i>B</i></span>, <mark class="mem">뺀 것</mark>을 <span class="m"><i>A</i>−<i>B</i></span>라 한다. 꼴이 다른 행렬끼리는 덧셈·뺄셈을 할 수 없다.</li><li>실수 <span class="m"><i>k</i></span>에 대하여 행렬 <span class="m"><i>A</i></span>의 <mark class="mem">모든 성분을 <span class="m"><i>k</i></span>배</mark> 한 행렬을 <span class="m"><i>k</i><i>A</i></span>라 한다.</li><li>모든 성분이 <span class="m">0</span>인 행렬을 <mark class="mem">영행렬</mark> <span class="m"><i>O</i></span>라 한다. 성분의 부호를 모두 바꾼 행렬이 <span class="m">−<i>A</i></span>이다. <span class="m"><i>A</i>+<i>O</i>=<i>O</i>+<i>A</i>=<i>A</i></span>, <span class="m"><i>A</i>+(−<i>A</i>)=<i>O</i></span>이다.</li><li>덧셈·실수배는 <mark class="mem">문자식과 똑같이</mark> 계산한다. <span class="m"><i>A</i>+<i>B</i>=<i>B</i>+<i>A</i></span>, <span class="m">(<i>A</i>+<i>B</i>)+<i>C</i>=<i>A</i>+(<i>B</i>+<i>C</i>)</span>, <span class="m"><i>k</i>(<i>A</i>+<i>B</i>)=<i>k</i><i>A</i>+<i>k</i><i>B</i></span>, <span class="m">(<i>k</i>+<i>l</i>)<i>A</i>=<i>k</i><i>A</i>+<i>l</i><i>A</i></span>, <span class="m"><i>k</i>(<i>l</i><i>A</i>)=(<i>k</i><i>l</i>)<i>A</i></span>가 성립한다.</li><li><span class="m"><i>A</i>+<i>B</i></span>, <span class="m"><i>A</i>−2<i>B</i></span>가 주어진 문제는 <mark class="mem">연립방정식처럼 <span class="m"><i>A</i></span>, <span class="m"><i>B</i></span>를 소거</mark>해 푼다. &quot;모든 성분의 합&quot;을 묻는 문제는 마지막에 합을 구하면 된다.</li></ul>
+<div class="must"><p class="mt">반드시 암기</p><div class="f"><mark class="mem"><span class="m"><i>A</i>± <i>B</i></span>: 대응하는 성분끼리 더하고 뺀다</mark></div><div class="f"><mark class="mem"><span class="m"><i>k</i><i>A</i></span>: 모든 성분에 <span class="m"><i>k</i></span>를 곱한다</mark></div><div class="f"><mark class="mem">행렬의 덧셈·실수배는 문자식처럼 계산(교환·결합·분배법칙 성립)</mark></div></div>
+<p class="warn"><b>주의</b>실수배는 <mark class="mem">모든 성분</mark>에 곱한다. 한 성분에만 곱하는 실수를 하지 않는다.</p>
+<p class="warn"><b>주의</b><span class="m"><i>A</i>−<i>B</i></span>는 <mark class="mem"><span class="m"><i>B</i></span>의 부호를 모두 바꿔 더한 것</mark>이다. 음수 성분을 빼면 부호가 바뀌는 점에 유의한다.</p>
+</div>
+<div class="probs">
+<article class="prob">
+<div class="lv" title="난이도 하"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></div>
+<div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>0</span><span>−3</span><span>2</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>−1</span><span>1</span><span>−2</span></span></span></span>에 대하여 <span class="m">4<i>A</i>−3<i>B</i></span>를 구하시오.</p><p class="src">출처 · 교과서 p.129 문제 1 변형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m"><span class="mx" style="--c:2"><span class="mb"><span>−2</span><span>3</span><span>−15</span><span>14</span></span></span></span></p><p class="how"><span class="m">4<i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>4</span><span>0</span><span>−12</span><span>8</span></span></span></span>, <span class="m">3<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>6</span><span>−3</span><span>3</span><span>−6</span></span></span></span>. 성분끼리 빼면 <span class="m"><span class="mx" style="--c:2"><span class="mb"><span>−2</span><span>3</span><span>−15</span><span>14</span></span></span></span>.</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 중"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></div>
+<div class="qb"><p class="q">두 이차정사각행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>−1</span><span>2</span><span>4</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>−1</span><span>0</span></span></span></span>과 이차정사각행렬 <span class="m"><i>X</i></span>가 <span class="m">3<i>X</i>−<i>A</i>=2(<i>X</i>+<i>B</i>)</span>를 만족시킬 때, 행렬 <span class="m"><i>X</i></span>의 모든 성분의 합을 구하시오.</p><p class="src">출처 · 2510 3번 유형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">12</span></p><p class="how">문자식처럼 정리하면 <span class="m">3<i>X</i>−2<i>X</i>=<i>A</i>+2<i>B</i></span>이므로 <span class="m"><i>X</i>=<i>A</i>+2<i>B</i></span>. <span class="m">2<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>4</span><span>−2</span><span>0</span></span></span></span>이므로 <span class="m"><i>X</i>=<span class="mx" style="--c:2"><span class="mb"><span>5</span><span>3</span><span>0</span><span>4</span></span></span></span>. 성분의 합은 <span class="m">12</span>.</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 중상"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span><b>중상</b></div>
+<div class="qb"><p class="q">두 이차정사각행렬 <span class="m"><i>A</i></span>, <span class="m"><i>B</i></span>가 <span class="m"><i>A</i>+<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>1</span><span>2</span><span>4</span></span></span></span>, <span class="m"><i>A</i>−<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>3</span><span>0</span><span>2</span></span></span></span>를 만족시킬 때, 행렬 <span class="m"><i>B</i></span>의 모든 성분의 합을 구하시오.</p><p class="src">출처 · 2509 24번 유형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">2</span></p><p class="how"><span class="m">(<i>A</i>+<i>B</i>)−(<i>A</i>−<i>B</i>)=2<i>B</i></span>이므로 <span class="m">2<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>−2</span><span>2</span><span>2</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>−1</span><span>1</span><span>1</span></span></span></span>. 성분의 합은 <span class="m">1−1+1+1=2</span>.</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 상"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span><b>상</b></div>
+<div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>2</span><span>2</span><span>3</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>6</span><span>1</span><span>1</span><span>6</span></span></span></span>에 대하여 <span class="m"><i>p</i><i>A</i>−<i>B</i>=<i>q</i><span class="mx" style="--c:2"><span class="mb"><span>0</span><span>1</span><span>1</span><span>0</span></span></span></span>일 때, 상수 <span class="m"><i>p</i></span>, <span class="m"><i>q</i></span>에 대하여 <span class="m"><i>p</i>+<i>q</i></span>의 값을 구하시오.</p><p class="src">출처 · 2510 24번 유형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">5</span></p><p class="how"><span class="m"><i>p</i><i>A</i>−<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>3<i>p</i>−6</span><span>2<i>p</i>−1</span><span>2<i>p</i>−1</span><span>3<i>p</i>−6</span></span></span></span>. 이것이 <span class="m"><span class="mx" style="--c:2"><span class="mb"><span>0</span><span><i>q</i></span><span><i>q</i></span><span>0</span></span></span></span>과 같으므로 <span class="m">3<i>p</i>−6=0</span>, <span class="m">2<i>p</i>−1=<i>q</i></span>. <span class="m"><i>p</i>=2</span>, <span class="m"><i>q</i>=3</span>이므로 <span class="m"><i>p</i>+<i>q</i>=5</span>.</p></div></div>
+</article>
+</div>
+<details class="mockd"><summary class="mh">모의고사 출제 문제 · 고1 학력평가 · 4문항</summary><div class="mock"><div class="xcard">
+<div class="xh"><h3>행렬의 덧셈·뺄셈·실수배</h3><span class="xc">출제 4문항</span></div>
+<p class="xtip"><mark class="mem">성분끼리 계산</mark>하고 <span class="m"><i>A</i>+2<i>B</i>=<i>C</i></span> 같은 식은 <mark class="mem">문자식처럼 정리</mark>한다. 모든 성분의 합을 묻는 3점 문항이 자주 나온다.</p>
+<ul class="mrows">
+<li class="mrow" data-set="m1_2509_s2_me_hakpyeong" data-num="24"><div class="mhead"><span class="eid"><b>2025.9</b> 24번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></span><span class="ept">3점</span><span class="etopic">행렬의 덧셈과 뺄셈</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+<li class="mrow" data-set="m1_2510_s2_me_hakpyeong" data-num="3"><div class="mhead"><span class="eid"><b>2025.10</b> 3번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></span><span class="ept">2점</span><span class="etopic">행렬의 덧셈과 실수배</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+<li class="mrow" data-set="m1_2510_s2_me_hakpyeong" data-num="24"><div class="mhead"><span class="eid"><b>2025.10</b> 24번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></span><span class="ept">3점</span><span class="etopic">행렬의 실수배</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+<li class="mrow" data-set="m1_2609_s2_me_hakpyeong" data-num="5"><div class="mhead"><span class="eid"><b>2026.9</b> 5번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></span><span class="ept">3점</span><span class="etopic">행렬의 덧셈과 실수배</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+</ul>
+<details class="extra-d"><summary>추가 문제 · 행렬의 덧셈·뺄셈·실수배 (하·중·중상·상)</summary><div class="probs">
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></div><div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>3</span><span>4</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>0</span><span>1</span><span>−1</span><span>2</span></span></span></span>에 대하여 <span class="m"><i>A</i>+<i>B</i></span>를 구하시오.</p><p class="src">출처 · 행렬의 덧셈·뺄셈·실수배 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m"><span class="mx" style="--c:2"><span class="mb"><span>1</span><span>3</span><span>2</span><span>6</span></span></span></span></p><p class="how">대응하는 성분끼리 더한다.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></div><div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>1</span><span>0</span><span>−2</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>−1</span><span>2</span><span>4</span></span></span></span>에 대하여 <span class="m">2<i>A</i>−<i>B</i></span>를 구하시오.</p><p class="src">출처 · 행렬의 덧셈·뺄셈·실수배 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m"><span class="mx" style="--c:2"><span class="mb"><span>5</span><span>3</span><span>−2</span><span>−8</span></span></span></span></p><p class="how"><span class="m">2<i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>6</span><span>2</span><span>0</span><span>−4</span></span></span></span>이므로 <span class="m">2<i>A</i>−<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>5</span><span>3</span><span>−2</span><span>−8</span></span></span></span>.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span><b>중상</b></div><div class="qb"><p class="q">두 이차정사각행렬 <span class="m"><i>A</i></span>, <span class="m"><i>B</i></span>가 <span class="m"><i>A</i>+<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>5</span><span>1</span><span>2</span><span>7</span></span></span></span>, <span class="m"><i>A</i>−<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>3</span><span>0</span><span>1</span></span></span></span>를 만족시킬 때, 행렬 <span class="m"><i>A</i></span>의 모든 성분의 합을 구하시오.</p><p class="src">출처 · 행렬의 덧셈·뺄셈·실수배 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">10</span></p><p class="how"><span class="m">2<i>A</i>=(<i>A</i>+<i>B</i>)+(<i>A</i>−<i>B</i>)=<span class="mx" style="--c:2"><span class="mb"><span>6</span><span>4</span><span>2</span><span>8</span></span></span></span>이므로 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>2</span><span>1</span><span>4</span></span></span></span>. 성분의 합은 <span class="m">10</span>.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span><b>상</b></div><div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>0</span><span>1</span><span>3</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>−1</span><span>0</span></span></span></span>와 이차정사각행렬 <span class="m"><i>X</i></span>가 <span class="m">3(<i>X</i>−<i>A</i>)=2(<i>X</i>+<i>B</i>)−<i>A</i></span>를 만족시킬 때, 행렬 <span class="m"><i>X</i></span>의 모든 성분의 합을 구하시오.</p><p class="src">출처 · 행렬의 덧셈·뺄셈·실수배 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">16</span></p><p class="how">전개하면 <span class="m">3<i>X</i>−3<i>A</i>=2<i>X</i>+2<i>B</i>−<i>A</i></span>이므로 <span class="m"><i>X</i>=2<i>A</i>+2<i>B</i></span>. <span class="m">2<i>A</i>+2<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>4</span><span>0</span><span>2</span><span>6</span></span></span>+<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>4</span><span>−2</span><span>0</span></span></span>=<span class="mx" style="--c:2"><span class="mb"><span>6</span><span>4</span><span>0</span><span>6</span></span></span></span>. 성분의 합은 <span class="m">16</span>.</p></div></div></article>
+</div></details>
+</div></div></details>
+</section>
+<section class="sec" id="s3">
+<header class="sh"><span class="no">3</span><h2>행렬의 곱셈과 거듭제곱</h2><span class="ref">교과서 p.130~133</span></header>
+<div class="note">
+<ul class="pts"><li><span class="m"><i>m</i>× <i>k</i></span> 행렬 <span class="m"><i>A</i></span>와 <span class="m"><i>k</i>× <i>n</i></span> 행렬 <span class="m"><i>B</i></span>의 곱 <span class="m"><i>A</i><i>B</i></span>는 <mark class="mem"><span class="m"><i>m</i>× <i>n</i></span> 행렬</mark>이다. <mark class="mem"><span class="m"><i>A</i></span>의 열의 개수와 <span class="m"><i>B</i></span>의 행의 개수가 같을 때</mark>만 곱할 수 있다.</li><li><span class="m"><i>A</i><i>B</i></span>의 <span class="m">(<i>i</i>,<i>j</i>)</span> 성분은 <mark class="mem"><span class="m"><i>A</i></span>의 제<span class="m"><i>i</i></span>행의 성분과 <span class="m"><i>B</i></span>의 제<span class="m"><i>j</i></span>열의 성분을 차례로 곱하여 더한 것</mark>이다. 예: <span class="m"><span class="mx" style="--c:2"><span class="mb"><span>4</span><span>2</span><span>5</span><span>3</span></span></span><span class="mx" style="--c:2"><span class="mb"><span>2</span><span>1</span><span>−1</span><span>0</span></span></span>=<span class="mx" style="--c:2"><span class="mb"><span>4×2+2×(−1)</span><span>4×1+2×0</span><span>5×2+3×(−1)</span><span>5×1+3×0</span></span></span>=<span class="mx" style="--c:2"><span class="mb"><span>6</span><span>4</span><span>7</span><span>5</span></span></span></span></li><li>정사각행렬 <span class="m"><i>A</i></span>에 대하여 <span class="m"><i>A</i><sup>2</sup>=<i>A</i><i>A</i></span>, <span class="m"><i>A</i><sup>3</sup>=<i>A</i><sup>2</sup><i>A</i></span>, …, <mark class="mem"><span class="m"><i>A</i><sup><i>n</i></sup>=<i>A</i><sup><i>n</i>−1</sup><i>A</i></span></mark>이다. 거듭제곱은 정사각행렬에서만 정의된다.</li><li><mark class="mem">단위행렬 <span class="m"><i>E</i></span></mark>는 왼쪽 위에서 오른쪽 아래로 가는 대각선 성분이 모두 <span class="m">1</span>이고 나머지가 모두 <span class="m">0</span>인 정사각행렬이다. <span class="m"><i>A</i><i>E</i>=<i>E</i><i>A</i>=<i>A</i></span>이고 <span class="m"><i>E</i><sup><i>n</i></sup>=<i>E</i></span>이다. 영행렬에 대해서는 <span class="m"><i>A</i><i>O</i>=<i>O</i><i>A</i>=<i>O</i></span>이다.</li><li>곱셈의 성질: 결합법칙 <span class="m">(<i>A</i><i>B</i>)<i>C</i>=<i>A</i>(<i>B</i><i>C</i>)</span>, 분배법칙 <span class="m"><i>A</i>(<i>B</i>+<i>C</i>)=<i>A</i><i>B</i>+<i>A</i><i>C</i></span>는 성립한다. 그러나 <mark class="mem">교환법칙은 성립하지 않아</mark> 일반적으로 <span class="m"><i>A</i><i>B</i>≠ <i>B</i><i>A</i></span>이다.</li><li>그 결과 <mark class="mem"><span class="m"><i>A</i><i>B</i>=<i>O</i></span>이어도 <span class="m"><i>A</i>=<i>O</i></span> 또는 <span class="m"><i>B</i>=<i>O</i></span>인 것은 아니다</mark>. <span class="m">(<i>A</i>+<i>B</i>)<sup>2</sup>=<i>A</i><sup>2</sup>+<i>A</i><i>B</i>+<i>B</i><i>A</i>+<i>B</i><sup>2</sup></span>이고, <span class="m"><i>A</i><i>B</i>=<i>B</i><i>A</i></span>일 때만 <span class="m"><i>A</i><sup>2</sup>+2<i>A</i><i>B</i>+<i>B</i><sup>2</sup></span>이다.</li></ul>
+<div class="must"><p class="mt">반드시 암기</p><div class="f"><mark class="mem"><span class="m">(<i>i</i>,<i>j</i>)</span> 성분 = (<span class="m"><i>A</i></span>의 제<span class="m"><i>i</i></span>행) · (<span class="m"><i>B</i></span>의 제<span class="m"><i>j</i></span>열)</mark></div><div class="f"><mark class="mem"><span class="m"><i>A</i><i>E</i>=<i>E</i><i>A</i>=<i>A</i></span>,  <span class="m"><i>E</i><sup><i>n</i></sup>=<i>E</i></span></mark></div><div class="f"><mark class="mem">일반적으로 <span class="m"><i>A</i><i>B</i>≠ <i>B</i><i>A</i></span>,  <span class="m"><i>A</i><i>B</i>=<i>O</i></span>이어도 <span class="m"><i>A</i>=<i>O</i></span> 또는 <span class="m"><i>B</i>=<i>O</i></span>는 아니다</mark></div></div>
+<p class="warn"><b>주의</b>곱셈은 <mark class="mem"><span class="m"><i>A</i><i>B</i></span>와 <span class="m"><i>B</i><i>A</i></span>의 순서</mark>를 바꾸면 결과가 달라진다. 순서를 지켜 계산한다.</p>
+<p class="warn"><b>주의</b><span class="m">(<i>A</i>+<i>B</i>)<sup>2</sup></span>을 <span class="m"><i>A</i><sup>2</sup>+2<i>A</i><i>B</i>+<i>B</i><sup>2</sup></span>으로 <mark class="mem">바로 전개하지 않는다</mark>. 교환법칙이 성립하지 않으므로 <span class="m"><i>A</i><sup>2</sup>+<i>A</i><i>B</i>+<i>B</i><i>A</i>+<i>B</i><sup>2</sup></span>이다.</p>
+<p class="warn"><b>주의</b><span class="m">(<i>A</i>+<i>E</i>)(<i>A</i>−<i>E</i>)=<i>A</i><sup>2</sup>−<i>E</i></span>는 <span class="m"><i>A</i><i>E</i>=<i>E</i><i>A</i></span>이므로 <mark class="mem">성립한다</mark>. 단위행렬이 섞이면 수처럼 전개해도 된다.</p>
+</div>
+<div class="probs">
+<article class="prob">
+<div class="lv" title="난이도 하"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></div>
+<div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>3</span><span>4</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>0</span><span>1</span><span>1</span><span>0</span></span></span></span>에 대하여 <span class="m"><i>A</i><i>B</i></span>를 구하시오.</p><p class="src">출처 · 교과서 p.131 문제 1 변형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m"><span class="mx" style="--c:2"><span class="mb"><span>2</span><span>1</span><span>4</span><span>3</span></span></span></span></p><p class="how"><span class="m">(1,1)</span>: <span class="m">1×0+2×1=2</span>, <span class="m">(1,2)</span>: <span class="m">1×1+2×0=1</span>, <span class="m">(2,1)</span>: <span class="m">3×0+4×1=4</span>, <span class="m">(2,2)</span>: <span class="m">3×1+4×0=3</span>.</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 중"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></div>
+<div class="qb"><p class="q">행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>1</span><span>0</span><span>1</span></span></span></span>에 대하여 <span class="m"><i>A</i><sup>2</sup>+<i>A</i><sup>3</sup></span>의 모든 성분의 합을 구하시오.</p><p class="src">출처 · 2509 8번 유형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">9</span></p><p class="how"><span class="m"><i>A</i><sup>2</sup>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>0</span><span>1</span></span></span></span>, <span class="m"><i>A</i><sup>3</sup>=<i>A</i><sup>2</sup><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>3</span><span>0</span><span>1</span></span></span></span>. <span class="m"><i>A</i><sup>2</sup>+<i>A</i><sup>3</sup>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>5</span><span>0</span><span>2</span></span></span></span>이므로 성분의 합은 <span class="m">9</span>.</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 중상"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span><b>중상</b></div>
+<div class="qb"><p class="q">행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>1</span><span>0</span><span>−1</span></span></span></span>과 이차 단위행렬 <span class="m"><i>E</i></span>에 대하여 <span class="m">(<i>A</i>+<i>E</i>)(<i>A</i>−<i>E</i>)</span>의 모든 성분의 합을 구하시오.</p><p class="src">출처 · 교과서 p.133 문제 4 변형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">4</span></p><p class="how"><span class="m"><i>A</i><i>E</i>=<i>E</i><i>A</i></span>이므로 <span class="m">(<i>A</i>+<i>E</i>)(<i>A</i>−<i>E</i>)=<i>A</i><sup>2</sup>−<i>E</i></span>. <span class="m"><i>A</i><sup>2</sup>=<span class="mx" style="--c:2"><span class="mb"><span>4</span><span>1</span><span>0</span><span>1</span></span></span></span>이므로 <span class="m"><i>A</i><sup>2</sup>−<i>E</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>1</span><span>0</span><span>0</span></span></span></span>. 성분의 합은 <span class="m">4</span>.</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 상"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span><b>상</b></div>
+<div class="qb"><p class="q">두 이차정사각행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span><i>a</i></span><span><i>b</i></span><span>−2</span></span></span></span>, <span class="m"><i>B</i></span>가 <span class="m"><i>A</i>+2<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>5</span><span>6</span><span>−3</span><span>−4</span></span></span></span>, <span class="m"><i>A</i><i>B</i>=<i>O</i></span>를 만족시킬 때, 행렬 <span class="m"><i>B</i></span>의 모든 성분의 합을 구하시오. (단, <span class="m"><i>a</i></span>, <span class="m"><i>b</i></span>는 상수이고 <span class="m"><i>O</i></span>는 영행렬이다.)</p><p class="src">출처 · 2509 13번 유형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">2</span></p><p class="how"><span class="m"><i>B</i>=<span class="fr"><span class="nu">1</span><span class="de">2</span></span>{(<i>A</i>+2<i>B</i>)−<i>A</i>}=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span><span class="fr"><span class="nu">6−<i>a</i></span><span class="de">2</span></span></span><span><span class="fr"><span class="nu">−3−<i>b</i></span><span class="de">2</span></span></span><span>−1</span></span></span></span>. <span class="m"><i>A</i><i>B</i></span>의 <span class="m">(1,2)</span> 성분: <span class="m"><span class="fr"><span class="nu">6−<i>a</i></span><span class="de">2</span></span>−<i>a</i>=0</span>에서 <span class="m"><i>a</i>=2</span>. <span class="m">(1,1)</span> 성분: <span class="m">2+<i>a</i>×<span class="fr"><span class="nu">−3−<i>b</i></span><span class="de">2</span></span>=0</span>에서 <span class="m"><i>b</i>=−1</span>. 따라서 <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>2</span><span>−1</span><span>−1</span></span></span></span>이고 <span class="m"><i>A</i><i>B</i>=<i>O</i></span>를 확인할 수 있다. 성분의 합은 <span class="m">2</span>.</p></div></div>
+</article>
+</div>
+<details class="mockd"><summary class="mh">모의고사 출제 문제 · 고1 학력평가 · 8문항</summary><div class="mock"><div class="xcard">
+<div class="xh"><h3>행렬의 곱셈·거듭제곱·성분</h3><span class="xc">출제 4문항</span></div>
+<p class="xtip"><mark class="mem"><span class="m">(<i>i</i>,<i>j</i>)</span> 성분 = 제 <span class="m"><i>i</i></span>행 × 제 <span class="m"><i>j</i></span>열</mark>을 쓴다. 거듭제곱 합, 성분이 식으로 주어진 행렬, 실생활(표) 해석 문항이 나온다.</p>
+<ul class="mrows">
+<li class="mrow" data-set="m1_2509_s2_me_hakpyeong" data-num="8"><div class="mhead"><span class="eid"><b>2025.9</b> 8번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></span><span class="ept">3점</span><span class="etopic">행렬의 거듭제곱</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+<li class="mrow" data-set="m1_2509_s2_me_hakpyeong" data-num="12"><div class="mhead"><span class="eid"><b>2025.9</b> 12번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></span><span class="ept">3점</span><span class="etopic">행렬의 곱셈 실생활 활용</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+<li class="mrow" data-set="m1_2510_s2_me_hakpyeong" data-num="7"><div class="mhead"><span class="eid"><b>2025.10</b> 7번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></span><span class="ept">3점</span><span class="etopic">행렬의 곱셈, 성분</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+<li class="mrow" data-set="m1_2609_s2_me_hakpyeong" data-num="12"><div class="mhead"><span class="eid"><b>2026.9</b> 12번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></span><span class="ept">3점</span><span class="etopic">행렬의 거듭제곱</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+</ul>
+<details class="extra-d"><summary>추가 문제 · 행렬의 곱셈·거듭제곱·성분 (하·중·중상·상)</summary><div class="probs">
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></div><div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>0</span><span>1</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:1"><span class="mb"><span>3</span><span>1</span></span></span></span>에 대하여 <span class="m"><i>A</i><i>B</i></span>를 구하시오.</p><p class="src">출처 · 행렬의 곱셈·거듭제곱·성분 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m"><span class="mx" style="--c:1"><span class="mb"><span>5</span><span>1</span></span></span></span></p><p class="how"><span class="m">2×2</span> 행렬과 <span class="m">2×1</span> 행렬의 곱은 <span class="m">2×1</span> 행렬이다. <span class="m">(1,1)</span>: <span class="m">1×3+2×1=5</span>, <span class="m">(2,1)</span>: <span class="m">0×3+1×1=1</span>.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></div><div class="qb"><p class="q">행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>0</span><span>1</span><span>−1</span><span>0</span></span></span></span>에 대하여 <span class="m"><i>A</i><sup>100</sup></span>의 모든 성분의 합을 구하시오.</p><p class="src">출처 · 행렬의 곱셈·거듭제곱·성분 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">2</span></p><p class="how"><span class="m"><i>A</i><sup>2</sup>=<span class="mx" style="--c:2"><span class="mb"><span>−1</span><span>0</span><span>0</span><span>−1</span></span></span>=−<i>E</i></span>이므로 <span class="m"><i>A</i><sup>4</sup>=(−<i>E</i>)<sup>2</sup>=<i>E</i></span>. <span class="m"><i>A</i><sup>100</sup>=(<i>A</i><sup>4</sup>)<sup>25</sup>=<i>E</i></span>. 성분의 합은 <span class="m">2</span>.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span><b>중상</b></div><div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>3</span><span>4</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>0</span><span>1</span><span>1</span></span></span></span>에 대하여 <span class="m"><i>A</i><i>B</i></span>의 <span class="m">(2,1)</span> 성분과 <span class="m"><i>B</i><i>A</i></span>의 <span class="m">(1,2)</span> 성분의 합을 구하시오.</p><p class="src">출처 · 행렬의 곱셈·거듭제곱·성분 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">9</span></p><p class="how"><span class="m"><i>A</i><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>2</span><span>7</span><span>4</span></span></span></span>의 <span class="m">(2,1)</span> 성분은 <span class="m">7</span>, <span class="m"><i>B</i><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>4</span><span>6</span></span></span></span>의 <span class="m">(1,2)</span> 성분은 <span class="m">2</span>. 합은 <span class="m">9</span>.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span><b>상</b></div><div class="qb"><p class="q">행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>1</span><span>0</span><span>1</span></span></span></span>에 대하여 <span class="m"><i>A</i><sup>50</sup></span>의 <span class="m">(1,2)</span> 성분을 구하시오.</p><p class="src">출처 · 행렬의 곱셈·거듭제곱·성분 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">50</span></p><p class="how"><span class="m"><i>A</i><sup>2</sup>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>0</span><span>1</span></span></span></span>, <span class="m"><i>A</i><sup>3</sup>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>3</span><span>0</span><span>1</span></span></span></span>이므로 <span class="m"><i>A</i><sup><i>n</i></sup>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span><i>n</i></span><span>0</span><span>1</span></span></span></span>로 추론할 수 있다. 따라서 <span class="m"><i>A</i><sup>50</sup></span>의 <span class="m">(1,2)</span> 성분은 <span class="m">50</span>.</p></div></div></article>
+</div></details>
+</div>
+<div class="xcard">
+<div class="xh"><h3>$AB=O$ 조건과 곱셈의 성질</h3><span class="xc">출제 4문항</span></div>
+<p class="xtip"><mark class="mem">교환법칙이 성립하지 않음</mark>에 유의하며 <span class="m"><i>A</i><i>B</i>=<i>O</i></span>, <span class="m"><i>A</i><i>B</i>+<i>B</i><i>A</i>=<i>O</i></span> 조건으로 미지수를 구한다. 4점 문항에서 자주 나온다.</p>
+<ul class="mrows">
+<li class="mrow" data-set="m1_2509_s2_me_hakpyeong" data-num="13"><div class="mhead"><span class="eid"><b>2025.9</b> 13번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span><b>중상</b></span><span class="ept">3점</span><span class="etopic">행렬 연산, AB=O</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+<li class="mrow" data-set="m1_2510_s2_me_hakpyeong" data-num="15"><div class="mhead"><span class="eid"><b>2025.10</b> 15번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span><b>상</b></span><span class="ept">4점</span><span class="etopic">행렬 연산, AB=O 추론</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+<li class="mrow" data-set="m1_2609_s2_me_hakpyeong" data-num="15"><div class="mhead"><span class="eid"><b>2026.9</b> 15번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span><b>중상</b></span><span class="ept">4점</span><span class="etopic">행렬 연산, AB=O</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+<li class="mrow" data-set="m1_2609_s2_me_hakpyeong" data-num="24"><div class="mhead"><span class="eid"><b>2026.9</b> 24번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></span><span class="ept">3점</span><span class="etopic">행렬의 곱셈, AB+BA=O</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+</ul>
+<details class="extra-d"><summary>추가 문제 · $AB=O$ 조건과 곱셈의 성질 (하·중·중상·상)</summary><div class="probs">
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></div><div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>0</span><span>0</span><span>0</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>0</span><span>0</span><span>0</span><span>1</span></span></span></span>에 대하여 <span class="m"><i>A</i><i>B</i></span>를 구하시오.</p><p class="src">출처 · $AB=O$ 조건과 곱셈의 성질 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m"><i>A</i><i>B</i>=<i>O</i></span> (영행렬)</p><p class="how"><span class="m"><i>A</i><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>0</span><span>0</span><span>0</span><span>0</span></span></span></span>이다. <span class="m"><i>A</i>≠ <i>O</i></span>, <span class="m"><i>B</i>≠ <i>O</i></span>이지만 <span class="m"><i>A</i><i>B</i>=<i>O</i></span>이다.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></div><div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>2</span><span>4</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span><i>a</i></span><span>−1</span><span>3</span></span></span></span>에 대하여 <span class="m"><i>A</i><i>B</i>=<i>O</i></span>일 때, 상수 <span class="m"><i>a</i></span>의 값을 구하시오.</p><p class="src">출처 · $AB=O$ 조건과 곱셈의 성질 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">−6</span></p><p class="how"><span class="m"><i>A</i><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>0</span><span><i>a</i>+6</span><span>0</span><span>2<i>a</i>+12</span></span></span></span>이므로 <span class="m"><i>a</i>+6=0</span>. <span class="m"><i>a</i>=−6</span>.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span><b>중상</b></div><div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>1</span><span>0</span><span>1</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>0</span><span>2</span><span>1</span></span></span></span>에 대하여 <span class="m"><i>A</i><i>B</i>−<i>B</i><i>A</i></span>의 <span class="m">(1,1)</span> 성분과 <span class="m">(2,2)</span> 성분의 곱을 구하시오.</p><p class="src">출처 · $AB=O$ 조건과 곱셈의 성질 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">−4</span></p><p class="how"><span class="m"><i>A</i><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>1</span><span>2</span><span>1</span></span></span></span>, <span class="m"><i>B</i><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>1</span><span>2</span><span>3</span></span></span></span>이므로 <span class="m"><i>A</i><i>B</i>−<i>B</i><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>0</span><span>0</span><span>−2</span></span></span></span>. 곱은 <span class="m">2×(−2)=−4</span>.</p></div></div></article>
+<article class="prob"><div class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span><b>상</b></div><div class="qb"><p class="q">행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span><i>a</i></span><span><i>b</i></span><span>−3</span></span></span></span>에 대하여 <span class="m"><i>A</i><sup>2</sup>=<i>O</i></span>일 때, <span class="m"><i>a</i><i>b</i></span>의 값을 구하시오. (단, <span class="m"><i>a</i></span>, <span class="m"><i>b</i></span>는 상수이고 <span class="m"><i>O</i></span>는 영행렬이다.)</p><p class="src">출처 · $AB=O$ 조건과 곱셈의 성질 추가 문제 (자체 제작)</p></div><div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">−9</span></p><p class="how"><span class="m"><i>A</i><sup>2</sup>=<span class="mx" style="--c:2"><span class="mb"><span>9+<i>a</i><i>b</i></span><span>0</span><span>0</span><span>9+<i>a</i><i>b</i></span></span></span></span>이므로 <span class="m">9+<i>a</i><i>b</i>=0</span>. <span class="m"><i>a</i><i>b</i>=−9</span>.</p></div></div></article>
+</div></details>
+</div></div></details>
+</section>
+<section class="sec" id="s4">
+<header class="sh"><span class="no">4</span><h2>종합 유형</h2><span class="ref">단원 종합</span></header>
+<div class="note">
+<ul class="pts"><li>먼저 연산의 종류를 정한다: 덧셈·뺄셈·실수배는 <mark class="mem">성분끼리</mark>, 곱셈은 <mark class="mem">행과 열을 곱해 더한다</mark>. 곱셈은 꼴(행·열의 개수)부터 확인한다.</li><li>식이 복잡하면 <mark class="mem">문자식처럼 정리</mark>하되, 곱셈에서는 <mark class="mem">교환법칙이 성립하지 않음</mark>을 기억한다. 단위행렬이 들어 있을 때만 수처럼 전개해도 된다.</li><li>표(실생활) 문제는 행렬로 나타낸 뒤 <mark class="mem">곱 <span class="m"><i>P</i><i>Q</i></span>의 <span class="m">(<i>i</i>,<i>j</i>)</span> 성분의 의미</mark>를 해석한다. 4점 문항은 <span class="m"><i>A</i><i>B</i>=<i>O</i></span>, <span class="m"><i>A</i><i>B</i>=<i>B</i><i>A</i></span> 같은 조건으로 <mark class="mem">미지수를 구하는</mark> 문제이다.</li></ul>
+<div class="must"><p class="mt">반드시 암기</p><div class="f"><mark class="mem"><span class="m"><i>A</i>± <i>B</i></span>, <span class="m"><i>k</i><i>A</i></span>는 성분끼리,  <span class="m"><i>A</i><i>B</i></span>는 (행)×(열)</mark></div><div class="f"><mark class="mem"><span class="m"><i>A</i><i>B</i>≠ <i>B</i><i>A</i></span>,  <span class="m">(<i>A</i>+<i>B</i>)<sup>2</sup>=<i>A</i><sup>2</sup>+<i>A</i><i>B</i>+<i>B</i><i>A</i>+<i>B</i><sup>2</sup></span></mark></div><div class="f"><mark class="mem"><span class="m"><i>A</i><i>E</i>=<i>E</i><i>A</i>=<i>A</i></span>,  <span class="m">(<i>A</i>+<i>E</i>)(<i>A</i>−<i>E</i>)=<i>A</i><sup>2</sup>−<i>E</i></span></mark></div></div>
+<p class="warn"><b>주의</b>곱셈에서는 <mark class="mem">순서</mark>와 <mark class="mem">꼴</mark>을 먼저 확인한다. <span class="m"><i>A</i><i>B</i></span>가 정의되어도 <span class="m"><i>B</i><i>A</i></span>는 정의되지 않을 수 있다.</p>
+</div>
+<div class="probs">
+<article class="prob">
+<div class="lv" title="난이도 하"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span><b>하</b></div>
+<div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>−1</span><span>3</span><span>0</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>−2</span><span>1</span></span></span></span>에 대하여 <span class="m">2<i>A</i>−<i>B</i></span>를 구하시오.</p><p class="src">출처 · 자체 제작</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m"><span class="mx" style="--c:2"><span class="mb"><span>3</span><span>−4</span><span>8</span><span>−1</span></span></span></span></p><p class="how"><span class="m">2<i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>4</span><span>−2</span><span>6</span><span>0</span></span></span></span>이므로 <span class="m">2<i>A</i>−<i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>−4</span><span>8</span><span>−1</span></span></span></span>.</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 중"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span><b>중</b></div>
+<div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>−1</span><span>−3</span><span>4</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>0</span><span>−1</span><span>2</span></span></span></span>에 대하여 <span class="m"><i>A</i><i>B</i></span>의 <span class="m">(1,2)</span> 성분과 <span class="m"><i>B</i><i>A</i></span>의 <span class="m">(2,1)</span> 성분의 합을 구하시오.</p><p class="src">출처 · 교과서 p.131 탐구 변형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">−10</span></p><p class="how"><span class="m"><i>A</i><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>−2</span><span>−7</span><span>8</span></span></span></span>, <span class="m"><i>B</i><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>2</span><span>−1</span><span>−8</span><span>9</span></span></span></span>. <span class="m"><i>A</i><i>B</i></span>의 <span class="m">(1,2)</span> 성분은 <span class="m">−2</span>, <span class="m"><i>B</i><i>A</i></span>의 <span class="m">(2,1)</span> 성분은 <span class="m">−8</span>. 합은 <span class="m">−10</span>. (<span class="m"><i>A</i><i>B</i>≠ <i>B</i><i>A</i></span>임도 확인할 수 있다.)</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 중상"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span><b>중상</b></div>
+<div class="qb"><p class="q">두 상점 A, B에서 사과와 배 한 개의 가격(원)이 [표 1]과 같고, 민수와 지수가 사려는 사과와 배의 개수가 [표 2]와 같다. [표 1]과 [표 2]를 행렬 <span class="m"><i>P</i>=<span class="mx" style="--c:2"><span class="mb"><span>300</span><span>400</span><span>350</span><span>380</span></span></span></span>, <span class="m"><i>Q</i>=<span class="mx" style="--c:2"><span class="mb"><span>3</span><span>1</span><span>2</span><span>4</span></span></span></span>로 나타낼 때, 지수가 B 상점에서 사과와 배를 살 때 내야 하는 금액은 행렬 <span class="m"><i>P</i><i>Q</i></span>의 몇 행 몇 열 성분이며 얼마인지 구하시오. (행: A, B 상점 / 열: 민수, 지수 / <span class="m"><i>Q</i></span>의 행: 사과, 배)</p><p class="src">출처 · 2509 12번 유형</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m"><i>P</i><i>Q</i></span>의 <span class="m">(2,2)</span> 성분, <span class="m">1870</span>원</p><p class="how"><span class="m"><i>P</i><i>Q</i></span>의 <span class="m">(<i>i</i>,<i>j</i>)</span> 성분은 <span class="m"><i>i</i></span> 상점에서 <span class="m"><i>j</i></span>가 살 때의 금액이다. B 상점은 제<span class="m">2</span>행, 지수는 제<span class="m">2</span>열이므로 <span class="m">(2,2)</span> 성분이다. <span class="m">350×1+380×4=350+1520=1870</span>(원).</p></div></div>
+</article>
+<article class="prob">
+<div class="lv" title="난이도 상"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span><b>상</b></div>
+<div class="qb"><p class="q">두 행렬 <span class="m"><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>0</span><span>1</span></span></span></span>, <span class="m"><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>0</span><span>3</span><span>1</span></span></span></span>에 대하여 행렬 <span class="m">(<i>A</i>+<i>B</i>)<sup>2</sup>−(<i>A</i><sup>2</sup>+2<i>A</i><i>B</i>+<i>B</i><sup>2</sup>)</span>의 <span class="m">(1,1)</span> 성분을 구하시오.</p><p class="src">출처 · 자체 제작</p></div>
+<div class="ans" tabindex="0"><div class="ans-in"><p class="al"><b>정답</b> <span class="m">−6</span></p><p class="how"><span class="m">(<i>A</i>+<i>B</i>)<sup>2</sup>=<i>A</i><sup>2</sup>+<i>A</i><i>B</i>+<i>B</i><i>A</i>+<i>B</i><sup>2</sup></span>이므로 주어진 행렬은 <span class="m"><i>B</i><i>A</i>−<i>A</i><i>B</i></span>이다. <span class="m"><i>A</i><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>7</span><span>2</span><span>3</span><span>1</span></span></span></span>, <span class="m"><i>B</i><i>A</i>=<span class="mx" style="--c:2"><span class="mb"><span>1</span><span>2</span><span>3</span><span>7</span></span></span></span>이므로 <span class="m"><i>B</i><i>A</i>−<i>A</i><i>B</i>=<span class="mx" style="--c:2"><span class="mb"><span>−6</span><span>0</span><span>0</span><span>6</span></span></span></span>. <span class="m">(1,1)</span> 성분은 <span class="m">−6</span>.</p></div></div>
+</article>
+</div>
+<details class="mockd"><summary class="mh">모의고사 출제 문제 · 상(고난도) 모아보기 · 1문항</summary><div class="mock">
+<div class="xcard"><div class="xh"><h3>고난도 출제 문항</h3><span class="xc">1문항</span></div>
+<p class="xtip">앞의 유형별 문항 중 상(4점 고난도)만 모았습니다. 여러 개념이 섞여 나오므로 종합 연습용으로 풀어 보세요.</p><ul class="mrows">
+<li class="mrow" data-set="m1_2510_s2_me_hakpyeong" data-num="15"><div class="mhead"><span class="eid"><b>2025.10</b> 15번</span><span class="lv"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span><b>상</b></span><span class="ept">4점</span><span class="etopic">$AB=O$ 조건과 곱셈의 성질 · 행렬 연산, AB=O 추론</span></div><div class="mbody" data-state="idle"><p class="mload">문제를 펼치면 불러옵니다.</p></div></li>
+</ul></div></div></details>
+</section>
+<section class="sec" id="check"><header class="sh"><span class="no">✓</span><h2>시험 직전 체크</h2></header><ul class="chk"><li>행렬의 <span class="m">(<i>i</i>,<i>j</i>)</span> 성분에서 <span class="m"><i>i</i></span>는 행, <span class="m"><i>j</i></span>는 열로 읽었고, 식으로 주어진 성분은 <span class="m"><i>i</i></span>, <span class="m"><i>j</i></span>를 모두 대입해 행렬을 만들었는가?</li><li>두 행렬이 같을 때 같은 위치의 성분끼리 등식을 세워 연립방정식으로 풀었는가?</li><li>덧셈·뺄셈·실수배를 성분끼리 계산했고, 실수배는 모든 성분에 곱했는가?</li><li><span class="m"><i>A</i>+<i>B</i></span>, <span class="m"><i>A</i>−2<i>B</i></span> 꼴이 주어졌을 때 문자식처럼 소거해 <span class="m"><i>A</i></span>, <span class="m"><i>B</i></span>를 구했는가?</li><li>곱셈에서 행과 열의 개수를 먼저 확인했고, <span class="m">(<i>i</i>,<i>j</i>)</span> 성분을 제<span class="m"><i>i</i></span>행과 제<span class="m"><i>j</i></span>열로 계산했는가?</li><li><span class="m"><i>A</i><i>B</i>≠ <i>B</i><i>A</i></span>, <span class="m">(<i>A</i>+<i>B</i>)<sup>2</sup></span> 전개, <span class="m"><i>A</i><i>B</i>=<i>O</i></span>에 대한 성질을 정확히 적용했는가?</li></ul></section>
+</main>
+<p class="ver">v2.54 · 2026-11-08</p>
+<script>
+(function () {
+  var btn = document.getElementById('quizBtn');
+  var tip = document.getElementById('quizTip');
+  function setQuiz(on) {
+    document.body.classList.toggle('quiz', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.textContent = on ? '정답 보이기' : '정답 가리기';
+    tip.hidden = !on;
+    if (!on) {
+      document.querySelectorAll('.ans.open').forEach(function (a) { a.classList.remove('open'); });
+    }
+  }
+  btn.addEventListener('click', function () { setQuiz(!document.body.classList.contains('quiz')); });
+  /* 정답 칸: 나중에 불러오는 문제에도 적용되도록 위임 처리 */
+  function toggleAns(a) { if (document.body.classList.contains('quiz')) a.classList.toggle('open'); }
+  document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('.ans'); if (a) toggleAns(a); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var a = e.target.closest && e.target.closest('.ans');
+    if (a) { e.preventDefault(); toggleAns(a); }
+  });
+  setQuiz(true); /* 처음부터 정답은 음영 처리, 눌러서 확인 */
+
+  /* 모의고사 출제 문제: 펼칠 때 data/hakpyeong/*.json에서 문제 본문·보기·정답을 불러와 보여 준다 */
+  var setCache = {};
+  function getSet(id) {
+    if (!setCache[id]) {
+      setCache[id] = fetch('../data/hakpyeong/' + encodeURIComponent(id) + '.json').then(function (r) {
+        if (!r.ok) throw new Error('http ' + r.status);
+        return r.json();
+      });
+      setCache[id].catch(function () { delete setCache[id]; });
+    }
+    return setCache[id];
+  }
+  var CIRC = ['①', '②', '③', '④', '⑤'];
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function fillProblem(body, p) {
+    body.textContent = '';
+    body.appendChild(el('div', 'mq', p.question || ''));
+    (p.images || []).forEach(function (src) {
+      if (typeof src !== 'string' || src.indexOf('data:image/') !== 0) return;
+      var box = el('div', 'mimg'), img = document.createElement('img');
+      img.src = src; img.alt = '문제 그림'; img.loading = 'lazy';
+      box.appendChild(img); body.appendChild(box);
+    });
+    var correct = [];
+    if (p.choices && p.choices.length) {
+      var ol = el('ul', 'mch');
+      p.choices.forEach(function (c, i) {
+        var li = el('li');
+        li.appendChild(el('span', 'no5', CIRC[i] || String(i + 1)));
+        li.appendChild(el('span', null, c));
+        ol.appendChild(li);
+      });
+      body.appendChild(ol);
+      var cs = Array.isArray(p.correct) ? p.correct : [p.correct];
+      cs.forEach(function (ci) { if (ci != null && p.choices[ci] != null) correct.push((CIRC[ci] || String(ci + 1)) + ' ' + p.choices[ci]); });
+    }
+    var ansText = correct.length ? correct.join(', ') : (p.answer != null ? String(p.answer) : '');
+    var ans = el('div', 'ans'); ans.tabIndex = 0;
+    var inn = el('div', 'ans-in'), al = el('p', 'al');
+    al.appendChild(el('b', null, '정답'));
+    al.appendChild(el('span', null, ansText || '(정답 정보 없음)'));
+    inn.appendChild(al); ans.appendChild(inn); body.appendChild(ans);
+    if (window.renderMathInElement) {
+      try {
+        window.renderMathInElement(body, {
+          delimiters: [{ left: '\\[', right: '\\]', display: true }, { left: '\\(', right: '\\)', display: false }],
+          throwOnError: false
+        });
+      } catch (e) {}
+    }
+  }
+  function loadMock(d) {
+    d.querySelectorAll('.mrow').forEach(function (row) {
+      var body = row.querySelector('.mbody');
+      if (!body || body.getAttribute('data-state') === 'done' || body.getAttribute('data-state') === 'busy') return;
+      body.setAttribute('data-state', 'busy');
+      body.textContent = '';
+      body.appendChild(el('p', 'mload', '불러오는 중…'));
+      getSet(row.getAttribute('data-set')).then(function (set) {
+        var num = row.getAttribute('data-num');
+        var p = (set.problems || []).filter(function (x) { return String(x.num) === num; })[0];
+        if (!p) throw new Error('no problem');
+        fillProblem(body, p);
+        body.setAttribute('data-state', 'done');
+      }).catch(function () {
+        body.setAttribute('data-state', 'idle');
+        body.textContent = '';
+        body.appendChild(el('p', 'mfail', '문제를 불러오지 못했어요. 접었다가 다시 펼치면 다시 시도합니다.'));
+      });
+    });
+  }
+
+  /* 모의고사 출제 문제 접기/펼치기 */
+  var mockBtn = document.getElementById('mockBtn');
+  var mocks = document.querySelectorAll('details.mockd');
+  function syncMock() {
+    var allOpen = mocks.length > 0 && Array.prototype.every.call(mocks, function (d) { return d.open; });
+    mockBtn.setAttribute('aria-pressed', allOpen ? 'true' : 'false');
+    mockBtn.textContent = allOpen ? '모의고사 문제 모두 접기' : '모의고사 문제 모두 펼치기';
+  }
+  mocks.forEach(function (d) { d.addEventListener('toggle', function () { if (d.open) loadMock(d); syncMock(); }); });
+  mockBtn.addEventListener('click', function () {
+    var open = mockBtn.getAttribute('aria-pressed') !== 'true';
+    mocks.forEach(function (d) { d.open = open; if (open) loadMock(d); });
+    syncMock();
+  });
+  /* 인쇄할 때는 모두 펼친다 */
+  window.addEventListener('beforeprint', function () { mocks.forEach(function (d) { d.open = true; loadMock(d); }); document.querySelectorAll('details.extra-d').forEach(function (d) { d.open = true; }); });
+})();
+
+</script>
+</body>
+</html>

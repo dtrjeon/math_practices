@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- v1.1 (2026-11-04): 서버 주소(SHEET_WEBHOOK_URL)를 통합 Code.gs가 올라간 새 Apps Script 배포로 교체 — 이전 배포는 AI 튜터 등 새 기능을 처리하지 못했음 -->
 <!-- v1.0 (2026-08-22): 신규 생성 — Users 시트를 직접 열어 H열(role)을 손으로 고치던 것을 대체하는
      관리자 전용 화면. 이름/학교로 검색해서 학생 ⇄ 관리자 role을 버튼 하나로 토글할 수 있다.
      review.html과 동일하게 로그인+admin 게이트, 비공개 경로(noindex) 원칙 적용. -->
@@ -93,7 +94,7 @@
 </main>
 
 <script>
-  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzqgkELv7cxD3UZlVj1XfvNiFtR4o6nI5uyDOLiMme6hx5eCcaVkNc_cUZ3JawAafKc/exec';
+  const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbyC6SkzAtNjW0Bh-2mlkybGLQTMGqXxkwr98KhrZX6HwmCqQoNvVKFarRvs5Vhqn2cM/exec';
 
   let mySession = null;
   try { mySession = JSON.parse(localStorage.getItem('mathapp_session') || 'null'); } catch(e){}

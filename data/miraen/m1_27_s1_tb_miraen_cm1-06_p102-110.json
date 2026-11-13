@@ -1,0 +1,202 @@
+{
+  "id": "m1_27_s1_tb_miraen_cm1-06_p102-110",
+  "title": "공통수학1 Ⅲ-1. 경우의 수 (01~02)",
+  "unit": "Ⅲ. 경우의 수 - 1. 경우의 수 (102~110쪽)",
+  "category": "tb",
+  "source": "미래엔 공통수학1 (황선욱 외), 정답: 교과서 정답 및 풀이 152쪽",
+  "problems": [
+    {
+      "num": 1,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 1] 서로 다른 주사위 두 개를 동시에 던질 때 나오는 눈의 수의 합이 \\(10\\)의 약수인 경우의 수를 구하시오.",
+      "answer": "8",
+      "solution": [
+        "\\(8\\)"
+      ]
+    },
+    {
+      "num": 2,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 2] 자연수 \\(x\\)와 \\(y\\)에 대하여 \\(x+y\\le 4\\)를 만족시키는 순서쌍 \\((x,\\ y)\\)의 개수를 구하시오.",
+      "answer": "6",
+      "solution": [
+        "\\(6\\)"
+      ]
+    },
+    {
+      "num": 3,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 3] 두 자리 자연수 중에서 십의 자리 숫자는 짝수이고 일의 자리 숫자는 \\(3\\)의 배수인 것의 개수를 구하시오.",
+      "answer": "12",
+      "solution": [
+        "\\(12\\)"
+      ]
+    },
+    {
+      "num": 4,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 4] 모자 \\(3\\)가지, 안경 \\(2\\)가지, 가방 \\(4\\)가지를 사용하여 캐릭터 꾸미기를 하려고 한다. 모자, 안경, 가방을 각각 한 가지씩 택하여 캐릭터를 꾸미는 경우의 수를 구하시오.",
+      "answer": "24",
+      "solution": [
+        "\\(24\\)"
+      ]
+    },
+    {
+      "num": 5,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 5 (1)] 다음 수의 약수의 개수를 구하시오.\n\\(200\\)",
+      "answer": "12",
+      "solution": [
+        "\\(12\\)"
+      ]
+    },
+    {
+      "num": 6,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[01 문제 5 (2)] 다음 수의 약수의 개수를 구하시오.\n\\(324\\)",
+      "answer": "15",
+      "solution": [
+        "\\(15\\)"
+      ]
+    },
+    {
+      "num": 7,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[01 문제 6] 그림과 같이 네 지점 \\(\\mathrm{A},\\ \\mathrm{B},\\ \\mathrm{C},\\ \\mathrm{D}\\)를 연결하는 도로망이 있다. 주어진 도로를 이용하여 \\(\\mathrm{A}\\) 지점에서 \\(\\mathrm{D}\\) 지점으로 가는 경우의 수를 구하시오. (단, 같은 지점을 다시 가지 않는다.)",
+      "answer": "7",
+      "solution": [
+        "\\(7\\)"
+      ],
+      "images": [
+        "data:image/png;base64,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"
+      ]
+    },
+    {
+      "num": 8,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 1 (1)] 다음 값을 구하시오.\n\\({}_{6}\\mathrm{P}_{2}\\)",
+      "answer": "30",
+      "solution": [
+        "\\(30\\)"
+      ]
+    },
+    {
+      "num": 9,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 1 (2)] 다음 값을 구하시오.\n\\({}_{7}\\mathrm{P}_{1}\\)",
+      "answer": "7",
+      "solution": [
+        "\\(7\\)"
+      ]
+    },
+    {
+      "num": 10,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 1 (3)] 다음 값을 구하시오.\n\\({}_{8}\\mathrm{P}_{3}\\)",
+      "answer": "336",
+      "solution": [
+        "\\(336\\)"
+      ]
+    },
+    {
+      "num": 11,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 2] 서로 다른 그림 \\(6\\)점 중에서 \\(4\\)점을 택하여 미술관의 벽에 나란히 전시하는 경우의 수를 구하시오.",
+      "answer": "360",
+      "solution": [
+        "\\(360\\)"
+      ]
+    },
+    {
+      "num": 12,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 3 (1)] 다음 값을 구하시오.\n\\({}_{4}\\mathrm{P}_{4}\\)",
+      "answer": "24",
+      "solution": [
+        "\\(24\\)"
+      ]
+    },
+    {
+      "num": 13,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 3 (2)] 다음 값을 구하시오.\n\\(0!\\times 6!\\)",
+      "answer": "720",
+      "solution": [
+        "\\(720\\)"
+      ]
+    },
+    {
+      "num": 14,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 3 (3)] 다음 값을 구하시오.\n\\({}_{7}\\mathrm{P}_{0}\\)",
+      "answer": "1",
+      "solution": [
+        "\\(1\\)"
+      ]
+    },
+    {
+      "num": 15,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 3 (4)] 다음 값을 구하시오.\n\\({}_{5}\\mathrm{P}_{2}\\times 3!\\)",
+      "answer": "120",
+      "solution": [
+        "\\(120\\)"
+      ]
+    },
+    {
+      "num": 16,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 4 (1)] 다음 \\(\\square\\) 안에 알맞은 수를 구하시오.\n\\({}_{10}\\mathrm{P}_{7}=\\dfrac{10!}{\\square\\,!}\\)",
+      "answer": "3",
+      "solution": [
+        "\\(3\\)"
+      ]
+    },
+    {
+      "num": 17,
+      "diff": "low",
+      "type": "fillin",
+      "question": "[02 문제 4 (2)] 다음 \\(\\square\\) 안에 알맞은 수를 구하시오.\n\\({}_{8}\\mathrm{P}_{\\square}=\\dfrac{8!}{2!}\\)",
+      "answer": "6",
+      "solution": [
+        "\\(6\\)"
+      ]
+    },
+    {
+      "num": 18,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 5 (1)] 알파벳에서 두 개의 모음 \\(a,\\ e\\)와 세 개의 자음 \\(b,\\ c,\\ d\\)를 일렬로 나열할 때, 다음을 구하시오.\n모음 두 개를 서로 이웃하게 나열하는 경우의 수",
+      "answer": "48",
+      "solution": [
+        "\\(48\\)"
+      ]
+    },
+    {
+      "num": 19,
+      "diff": "mid",
+      "type": "fillin",
+      "question": "[02 문제 5 (2)] 알파벳에서 두 개의 모음 \\(a,\\ e\\)와 세 개의 자음 \\(b,\\ c,\\ d\\)를 일렬로 나열할 때, 다음을 구하시오.\n모음과 자음을 교대로 나열하는 경우의 수",
+      "answer": "12",
+      "solution": [
+        "\\(12\\)"
+      ]
+    }
+  ]
+}

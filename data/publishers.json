@@ -21,25 +21,174 @@
       "author": "확인 중"
     },
     {
-      "school": "홍천중학교",
-      "subject": "수학 3-2",
-      "publisher": "천재교육",
-      "author": "이준열",
+      "school": "서원고",
+      "subject": "공통수학1 (1학년)",
+      "publisher": "미래엔",
+      "author": "황선욱",
       "materials": [
         {
-          "label": "04 기하",
-          "url": "data/materials/04 기하.pdf"
+          "label": "1 다항식의 연산",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm1_01.pdf"
         },
         {
-          "label": "05 통계 part.1",
-          "url": "data/materials/05 통계 part.1.pdf"
+          "label": "2 나머지정리와 인수분해",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm1_02.pdf"
         },
         {
-          "label": "05 통계 part.2",
-          "url": "data/materials/05 통계 part.2.pdf"
+          "label": "3 복소수와 이차방정식",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm1_03.pdf"
+        },
+        {
+          "label": "4 이차방정식과 이차함수",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm1_04.pdf"
+        },
+        {
+          "label": "5 여러 가지 방정식과 부등식",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm1_05.pdf"
+        },
+        {
+          "label": "6 경우의 수",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm1_06.pdf"
+        },
+        {
+          "label": "7 조합",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm1_07.pdf"
+        },
+        {
+          "label": "8 행렬",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm1_08.pdf"
+        },
+        {
+          "label": "해설",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm1_09.pdf"
         }
       ],
-      "grade": "m0"
+      "grade": "m1"
+    },
+    {
+      "school": "서원고",
+      "subject": "공통수학2 (1학년)",
+      "publisher": "미래엔",
+      "author": "황선욱",
+      "materials": [
+        {
+          "label": "1 도형의 방정식",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm2_01.pdf"
+        },
+        {
+          "label": "2 집합과 명제",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm2_02.pdf"
+        },
+        {
+          "label": "3 함수와 그래프",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm2_03.pdf"
+        },
+        {
+          "label": "해설",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/cm2_04.pdf"
+        }
+      ],
+      "grade": "m1"
+    },
+    {
+      "school": "서원고",
+      "subject": "대수 (2학년)",
+      "publisher": "비상교육",
+      "author": "김원경",
+      "materials": [
+        {
+          "label": "1 지수함수와 로그함수",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/algebra_01.pdf"
+        },
+        {
+          "label": "2 삼각함수",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/algebra_02.pdf"
+        },
+        {
+          "label": "3 수열",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/algebra_03.pdf"
+        },
+        {
+          "label": "해설",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/algebra_04.pdf"
+        }
+      ],
+      "grade": "m1"
+    },
+    {
+      "school": "서원고",
+      "subject": "미적분Ⅰ (2학년)",
+      "publisher": "비상교육",
+      "author": "김원경",
+      "materials": [
+        {
+          "label": "1 함수의 극한과 연속",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/calc1_01.pdf"
+        },
+        {
+          "label": "2 미분",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/calc1_02.pdf"
+        },
+        {
+          "label": "3 적분",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/calc1_03.pdf"
+        },
+        {
+          "label": "정답과 해설",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/calc1_04.pdf"
+        }
+      ],
+      "grade": "m1"
+    },
+    {
+      "school": "서원고",
+      "subject": "기하 (2학년)",
+      "publisher": "지학사",
+      "author": "장경윤",
+      "materials": [
+        {
+          "label": "1-1 이차곡선",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/geometry_01.pdf"
+        },
+        {
+          "label": "1-2 이차곡선의 접선",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/geometry_02.pdf"
+        },
+        {
+          "label": "2-1 벡터의 연산",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/geometry_03.pdf"
+        },
+        {
+          "label": "2-2 평면벡터의 성분과 내적",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/geometry_04.pdf"
+        },
+        {
+          "label": "3-1 공간도형과 공간좌표",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/geometry_05.pdf"
+        }
+      ],
+      "grade": "m1"
+    },
+    {
+      "school": "서원고",
+      "subject": "확률과 통계 (3학년)",
+      "publisher": "비상교육",
+      "author": "김원경",
+      "materials": [
+        {
+          "label": "1 경우의 수",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/probstat_01.pdf"
+        },
+        {
+          "label": "2 확률",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/probstat_02.pdf"
+        },
+        {
+          "label": "3 통계",
+          "url": "https://dtrjeon.github.io/math/data/materials/seowon/probstat_03.pdf"
+        }
+      ],
+      "grade": "m1"
     }
   ]
 }

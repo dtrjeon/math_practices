@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- v0819-g (2026-11-03): 오프라인 수식 렌더러 확장 — \mathrm·\mathbf·\operatorname 등 글꼴 명령이 "\mathrm{A}" 글자 그대로 찍히던 문제 수정(내용만 표시). aligned·array 환경, \boxed, \dot(순환소수), \overset, \ge·\cap·\cup·\subset·\notin·\varnothing·\mid·\parallel·\quad·\, 등 기호 추가(이름 정확히 일치할 때만 변환해 \le가 \left를 먹는 식의 접두어 오인 방지). 그 밖의 모르는 명령은 백슬래시 없이 인자만 표시 -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -410,6 +411,15 @@
   .matrix-paren{ display:inline-block; line-height:1; font-weight:300; }
   .matrix-table{ display:inline-table; border-collapse:collapse; margin:0 2px; vertical-align:middle; }
   .matrix-table td{ padding:1px 7px; text-align:center; font-variant-numeric:tabular-nums; }
+  .aligned-table{ display:inline-table; border-collapse:collapse; vertical-align:middle; margin:2px 0; }
+  .aligned-table td{ padding:1px 0; white-space:nowrap; }
+  .aligned-table td:nth-child(odd){ text-align:right; }
+  .aligned-table td:nth-child(even){ text-align:left; }
+  .mboxed{ border:1px solid currentColor; padding:0 3px; }
+  .moverset{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:bottom; line-height:1; }
+  .moverset .over{ font-size:0.7em; }
+  .mdot{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:bottom; line-height:0.9; }
+  .mdot .over{ font-size:0.8em; }
   .cases-wrap{ display:inline-flex; align-items:center; margin:0 2px; vertical-align:middle; }
   .cases-brace{ display:inline-block; line-height:1; font-weight:300; margin-right:3px; }
   .cases-table{ display:inline-table; border-collapse:collapse; margin:0 2px; vertical-align:middle; }
@@ -1947,6 +1957,35 @@ data URL 문자열의 배열이며, 이 도구들은 전부 그 배열을 직접
       Omicron:'Ο', Pi:'Π', Rho:'Ρ', Sigma:'Σ', Tau:'Τ', Upsilon:'Υ', Phi:'Φ',
       Chi:'Χ', Psi:'Ψ', Omega:'Ω'
     };
+    const SYMBOLS = {
+      ge:'≥', geq:'≥', le:'≤', leq:'≤', ne:'≠', neq:'≠', lt:'&lt;', gt:'&gt;',
+      cap:'∩', cup:'∪', subset:'⊂', subseteq:'⊆', supset:'⊃', supseteq:'⊇', notin:'∉', ni:'∋',
+      emptyset:'∅', varnothing:'∅', vee:'∨', wedge:'∧', neg:'¬', lnot:'¬', forall:'∀', exists:'∃',
+      mid:'|', parallel:'∥', frown:'⌒', approx:'≈', propto:'∝', cong:'≅', simeq:'≃',
+      quad:' ', qquad:'  ', middle:'', hline:'', vdots:'⋮', ddots:'⋱',
+      prime:'′', ast:'∗', star:'⋆', bullet:'•', backslash:'\\', lvert:'|', rvert:'|', vert:'|',
+      leftrightarrow:'↔', Leftarrow:'⇐', iff:'⇔', implies:'⇒', nearrow:'↗', searrow:'↘'
+    };
+    // 중첩된 { } 나 \begin…\end 안쪽은 건드리지 않고 바깥 단계의 구분자에서만 나눈다
+    function splitTop(str, sep){
+      const parts = [];
+      let depth = 0, start = 0;
+      for (let k = 0; k < str.length; k++) {
+        if (str.startsWith('\\begin{', k)) { depth++; k += 6; continue; }
+        if (str.startsWith('\\end{', k)) { depth--; k += 4; continue; }
+        if (str[k] === '\\' && (str[k + 1] === '{' || str[k + 1] === '}')) { k++; continue; }
+        if (str[k] === '{') depth++;
+        else if (str[k] === '}') depth--;
+        else if (depth === 0 && str.startsWith(sep, k)) {
+          parts.push(str.slice(start, k));
+          k += sep.length - 1;
+          start = k + 1;
+        }
+      }
+      parts.push(str.slice(start));
+      return parts;
+    }
+    const PUNCT = { ',':' ', ';':' ', ':':' ', '!':'', ' ':' ', '%':'%', '#':'#', '&':'&amp;', '_':'_', '|':'‖' };
     let i = 0;
     function parseGroup(){
       // LaTeX 관례: 명령어 뒤 공백은 인자와 무관하게 무시 (\bar z == \bar{z})
@@ -1992,6 +2031,63 @@ data URL 문자열의 배열이며, 이 도구들은 전부 그 배열을 직접
         const rowsHtml = rows.map(r => `<tr><td>${texToHtml(r)}</td></tr>`).join('');
         const fsize = (1 + rows.length * 0.45).toFixed(2);
         return `<span class="cases-wrap"><span class="cases-brace" style="font-size:${fsize}em">{</span><table class="cases-table"><tbody>${rowsHtml}</tbody></table></span>`;
+      }
+      // aligned / gathered / split / array: 줄은 \\, 칸은 & — 표로 그려 등호 위치를 맞춘다
+      const envM = /^\\begin\{(aligned|gathered|split|array|matrix)\}/.exec(tex.slice(i));
+      if (envM) {
+        i += envM[0].length;
+        if (envM[1] === 'array' && tex[i] === '{') parseGroup();   // 열 지정 {cc} 는 버린다
+        const endMarker = '\\end{' + envM[1] + '}';
+        const endIdx = tex.indexOf(endMarker, i);
+        const inner = endIdx >= 0 ? tex.slice(i, endIdx) : tex.slice(i);
+        i = endIdx >= 0 ? endIdx + endMarker.length : tex.length;
+        const rows = splitTop(inner.replace(/\\hline/g, ''), '\\\\').map(r => r.trim()).filter(r => r.length > 0);
+        const rowsHtml = rows.map(r => '<tr>' + splitTop(r, '&').map(c => `<td>${texToHtml(c.trim())}</td>`).join('') + '</tr>').join('');
+        return `<table class="aligned-table"><tbody>${rowsHtml}</tbody></table>`;
+      }
+      // 글꼴·스타일 명령은 모양만 바꾸는 것이므로 내용만 그대로 보여준다 (\mathrm{A} → A)
+      const fontM = /^\\(mathrm|mathbf|mathit|mathsf|mathtt|mathcal|textrm|textbf|textit|operatorname|mbox|hbox)(?![A-Za-z])/.exec(tex.slice(i));
+      if (fontM) {
+        i += fontM[0].length;
+        return parseGroup();
+      }
+      if (/^\\(displaystyle|textstyle|scriptstyle|limits|nolimits)(?![A-Za-z])/.test(tex.slice(i))) {
+        i += /^\\[A-Za-z]+/.exec(tex.slice(i))[0].length;
+        return '';
+      }
+      if (/^\\boxed(?![A-Za-z])/.test(tex.slice(i))) {
+        i += 6;
+        return `<span class="mboxed">${parseGroup()}</span>`;
+      }
+      if (/^\\dot(?![A-Za-z])/.test(tex.slice(i))) {
+        // 순환소수 0.\dot{0}\dot{2}: 숫자 위에 점
+        i += 4;
+        return `<span class="mdot"><span class="over">·</span><span>${parseGroup()}</span></span>`;
+      }
+      if (/^\\overset(?![A-Za-z])/.test(tex.slice(i))) {
+        i += 8;
+        const over = parseGroup();
+        const base = parseGroup();
+        return `<span class="moverset"><span class="over">${over}</span><span>${base}</span></span>`;
+      }
+      if (tex.startsWith('\\tfrac', i)) {
+        i += 6;
+        const num = parseGroup();
+        const den = parseGroup();
+        return `<span class="mfrac"><span class="num">${num}</span><span class="den">${den}</span></span>`;
+      }
+      // 기호 명령: 이름이 정확히 일치할 때만 바꾼다(\le 가 \left 앞부분을 먹지 않도록)
+      if (tex[i] === '\\') {
+        const sm = /^\\([A-Za-z]+)/.exec(tex.slice(i));
+        if (sm && Object.prototype.hasOwnProperty.call(SYMBOLS, sm[1])) {
+          i += sm[0].length;
+          return SYMBOLS[sm[1]];
+        }
+        const pm = /^\\([,;:! %#&_|])/.exec(tex.slice(i));
+        if (pm) {
+          i += 2;
+          return PUNCT[pm[1]];
+        }
       }
       if (tex.startsWith('\\dfrac', i) || tex.startsWith('\\frac', i)) {
         i += tex.startsWith('\\dfrac', i) ? 6 : 5;
@@ -2103,6 +2199,14 @@ data URL 문자열의 배열이며, 이 도구들은 전부 그 배열을 직접
         // 짝 안 맞는 닫는 괄호는 그냥 건너뜀
         i++;
         return '';
+      }
+      // 모르는 명령: 백슬래시를 찍지 않고, 뒤에 {인자}가 있으면 그 내용만 보여준다
+      if (tex[i] === '\\') {
+        const um = /^\\([A-Za-z]+)/.exec(tex.slice(i));
+        if (um) {
+          i += um[0].length;
+          return tex[i] === '{' ? parseGroup() : esc(um[1]);
+        }
       }
       const ch = tex[i];
       i++;
