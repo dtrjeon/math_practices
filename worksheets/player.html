@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- v2.68 (2026-11-13): 요점노트 화면 하단 버전 표기를 현재 버전으로 맞춤(v2.54에 머물러 있었음). 나머지 파일은 동일 버전 표기만 갱신 -->
 <!-- v2.67 (2026-11-10): 문제집 모음 — MADE Sayno와 같은 문제인 「자체 복습」 문제지 2개(복소수 05/06, 다항식 인수분해 04/30)를 목록과 데이터에서 삭제. 나머지 파일은 동일 버전 표기만 갱신 -->
 <!-- v2.66 (2026-11-10): PDF 출력 장수 지정 시 문제 사이 간격 상한(40mm)을 없애 열 높이를 문제 사이·아래 여백으로 끝까지 균등 분배. 나머지 파일은 동일 버전 표기만 갱신 -->
 <!-- v2.65 (2026-11-10): 문제집 모음 — 날짜별로 흩어진 「MADE Sayno (날짜)」 서브탭 6개를 「MADE Sayno」 하나로 합치고, 자체 복습·MADE Sayno를 단원 번호 순(1.1→2.1→…→3.1)으로 정렬. 카드 제목 옆에 업로드 날짜 표시. 나머지 파일은 동일 버전 표기만 갱신 -->
@@ -3440,7 +3441,7 @@
     if(o) return o;
     o = document.createElement('div');
     o.id = 'ppOverlay';
-    o.innerHTML = '<div class="pp-toolbar"><div class="pp-row"><strong>🖨️ PDF 미리보기 · A4 2열</strong><span class="pp-ver">v2.67</span></div>' +
+    o.innerHTML = '<div class="pp-toolbar"><div class="pp-row"><strong>🖨️ PDF 미리보기 · A4 2열</strong><span class="pp-ver">v2.68</span></div>' +
       '<div class="pp-row"><label>장수 <select id="ppN"><option value="0">자동</option>' +
       [1,2,3,4,5,6,7,8].map(n => '<option value="' + n + '">' + n + '장</option>').join('') + '</select></label>' +
       '<label><input type="checkbox" id="ppSol"> 정답·풀이 포함</label>' +
