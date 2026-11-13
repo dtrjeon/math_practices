@@ -825,6 +825,127 @@
       "group": "04. 원의 성질",
       "grade": "m0",
       "source": "senmath"
+    },
+    {
+      "id": "m1_2609_s2_me_hakpyeong",
+      "file": "hakpyeong/m1_2609_s2_me_hakpyeong.json",
+      "category": "me",
+      "title": "9월 전국연합학력평가",
+      "unit": "고1 수학 전범위",
+      "count": 30,
+      "group": "2026학년도 고1 전국연합학력평가",
+      "grade": "m1",
+      "source": "hakpyeong"
+    },
+    {
+      "id": "m1_2606_s1_me_hakpyeong",
+      "file": "hakpyeong/m1_2606_s1_me_hakpyeong.json",
+      "category": "me",
+      "title": "6월 전국연합학력평가",
+      "unit": "고1 수학 전범위",
+      "count": 30,
+      "group": "2026학년도 고1 전국연합학력평가",
+      "grade": "m1",
+      "source": "hakpyeong"
+    },
+    {
+      "id": "m1_2603_s1_me_hakpyeong",
+      "file": "hakpyeong/m1_2603_s1_me_hakpyeong.json",
+      "category": "me",
+      "title": "3월 전국연합학력평가",
+      "unit": "고1 수학 전범위",
+      "count": 30,
+      "group": "2026학년도 고1 전국연합학력평가",
+      "grade": "m1",
+      "source": "hakpyeong"
+    },
+    {
+      "id": "m1_2510_s2_me_hakpyeong",
+      "file": "hakpyeong/m1_2510_s2_me_hakpyeong.json",
+      "category": "me",
+      "title": "10월 전국연합학력평가",
+      "unit": "고1 수학 전범위",
+      "count": 30,
+      "group": "2025학년도 고1 전국연합학력평가",
+      "grade": "m1",
+      "source": "hakpyeong"
+    },
+    {
+      "id": "m1_2509_s2_me_hakpyeong",
+      "file": "hakpyeong/m1_2509_s2_me_hakpyeong.json",
+      "category": "me",
+      "title": "9월 전국연합학력평가",
+      "unit": "고1 수학 전범위",
+      "count": 30,
+      "group": "2025학년도 고1 전국연합학력평가",
+      "grade": "m1",
+      "source": "hakpyeong"
+    },
+    {
+      "id": "m1_2506_s1_me_hakpyeong",
+      "file": "hakpyeong/m1_2506_s1_me_hakpyeong.json",
+      "category": "me",
+      "title": "6월 전국연합학력평가",
+      "unit": "고1 수학 전범위",
+      "count": 30,
+      "group": "2025학년도 고1 전국연합학력평가",
+      "grade": "m1",
+      "source": "hakpyeong"
+    },
+    {
+      "id": "m1_2503_s1_me_hakpyeong",
+      "file": "hakpyeong/m1_2503_s1_me_hakpyeong.json",
+      "category": "me",
+      "title": "3월 전국연합학력평가",
+      "unit": "고1 수학 전범위",
+      "count": 30,
+      "group": "2025학년도 고1 전국연합학력평가",
+      "grade": "m1",
+      "source": "hakpyeong"
+    },
+    {
+      "id": "m1_2410_s2_me_hakpyeong",
+      "file": "hakpyeong/m1_2410_s2_me_hakpyeong.json",
+      "category": "me",
+      "title": "10월 전국연합학력평가",
+      "unit": "고1 수학 전범위",
+      "count": 30,
+      "group": "2024학년도 고1 전국연합학력평가",
+      "grade": "m1",
+      "source": "hakpyeong"
+    },
+    {
+      "id": "m1_2409_s2_me_hakpyeong",
+      "file": "hakpyeong/m1_2409_s2_me_hakpyeong.json",
+      "category": "me",
+      "title": "9월 전국연합학력평가",
+      "unit": "고1 수학 전범위",
+      "count": 30,
+      "group": "2024학년도 고1 전국연합학력평가",
+      "grade": "m1",
+      "source": "hakpyeong"
+    },
+    {
+      "id": "m1_2406_s1_me_hakpyeong",
+      "file": "hakpyeong/m1_2406_s1_me_hakpyeong.json",
+      "category": "me",
+      "title": "6월 전국연합학력평가",
+      "unit": "고1 수학 전범위",
+      "count": 30,
+      "group": "2024학년도 고1 전국연합학력평가",
+      "grade": "m1",
+      "source": "hakpyeong"
+    },
+    {
+      "id": "m1_2403_s1_me_hakpyeong",
+      "file": "hakpyeong/m1_2403_s1_me_hakpyeong.json",
+      "category": "me",
+      "title": "3월 전국연합학력평가",
+      "unit": "고1 수학 전범위",
+      "count": 30,
+      "group": "2024학년도 고1 전국연합학력평가",
+      "grade": "m1",
+      "source": "hakpyeong"
     }
   ],
   "categories": {
