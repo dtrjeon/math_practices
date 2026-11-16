@@ -721,32 +721,6 @@
       "source": "senmath"
     },
     {
-      "id": "m0_26_s2_tb_senmath_p085-107",
-      "file": "seanmath32/m0_26_s2_tb_senmath_p085-107.json",
-      "category": "tb",
-      "title": "유형09 ~ 유형14 (0085~0107)",
-      "unit": "유형09 ~ 유형14 (0085~0107, 완료)",
-      "count": 23,
-      "group": "02. 삼각비",
-      "pages": 4,
-      "grade": "m0",
-      "source": "senmath",
-      "hidden": true
-    },
-    {
-      "id": "m0_26_s2_tb_senmath_q108-125",
-      "file": "seanmath32/m0_26_s2_tb_senmath_q108-125.json",
-      "category": "tb",
-      "title": "중·상위권 보충문제 (0108~0125)",
-      "unit": "삼각비",
-      "count": 18,
-      "group": "02. 삼각비",
-      "pages": 3,
-      "grade": "m0",
-      "source": "senmath",
-      "hidden": true
-    },
-    {
       "id": "m0_26_s2_tb_senmath_ctype_q126-149",
       "file": "seanmath32/m0_26_s2_tb_senmath_ctype_q126-149.json",
       "category": "tb",
@@ -825,16 +799,6 @@
       "group": "ⅳ.기하 - 1. 삼각비",
       "grade": "m0",
       "source": "hongcheon"
-    },
-    {
-      "id": "m0_26_s2_tb_hongcheon_trig150_p001-150",
-      "file": "m0_26_s2_tb_hongcheon_trig150_p001-150.json",
-      "category": "me",
-      "title": "삼각비 [150문항]",
-      "unit": "ⅳ.기하 - 1. 삼각비 (150문항)",
-      "count": 150,
-      "group": "ⅳ.기하 - 1. 삼각비",
-      "grade": "m0"
     },
     {
       "id": "m0_26_s2_tb_hongcheon_42won_p177-193",
